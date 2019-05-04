@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html ng-app="homeApp">
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css"> -->
+<!-- datetimepicker plugin -->
+ <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/angular-datatables.min.js"></script>
+<script src="js/moment.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script> -->
+
+
+<!-- <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script> -->
+
+
+<!-- <script type="text/javascript" src="js/CustomerController.js"></script> -->
+<style>
+body {
+    /* background: url('https://images.unsplash.com/photo-1534408679207-69b9615e55a7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=cfbabd80cd2d5cae495a2a732d473562') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; */
+}
+
+.card {
+  width: 300px;
+}
+
+html,body{
+width:100% !important;
+height:100% !important;
+font-family: Arial !important;
+/*position: absolute;*/
+}
+*{
+-webkit-overflow-scrolling: touch;
+}
+
+
+a {
+  text-decoration: none;
+  color: #FFF;
+  opacity:1;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: 400;
+  transition: 100ms;
+  -webkit-transition: 100ms;
+  -webkit-transform: translateZ(0);
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+
+
+#menuToggle {
+width: 35%;
+  display: flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  position: absolute;
+  top: 26px;
+  left: 15px;
+  z-index: 0;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.menuClass{
+    padding-left: 12% !important;
+}  
+#menuToggle input
+{
+  display: flex;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+}
+
+#menuToggle span
+{
+  display: flex;
+  width: 34px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #ffffff;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 5px 0px;
+  -webkit-transform-origin: 5px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+  -webkit-transform: translateZ(0);
+  
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+  -webkit-transform-origin: 0% 0%;
+  -webkit-transform: translateZ(0);
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+  -webkit-transform-origin: 0% 100%;
+  -webkit-transform: translateZ(0);
+}
+
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  background: #FFF;
+  
+   transform: rotate(45deg) translate(-12px, -1px);
+  -weblkit-transform: rotate(45deg) translate(-12px, -1px);
+}
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+  -webkit-transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+ transform: rotate(-45deg) translate(0, -10px);
+ -webkit-transform: rotate(-45deg) translate(0, -10px);
+}
+
+
+#menu
+{
+  /*position: absolute;*/
+   height: 100%;
+  width: 75%;
+  box-shadow: 0 0 10px #85888C;
+  margin: -153px 0px 0px -19px;
+  /*padding: 20px; */
+  padding-top: 148px;
+  color: #F5F6FA;
+  background-color: #343a40;
+  -webkit-font-smoothing: antialiased;
+   transform-origin: 0% 0%;
+  -webkit-transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  -webkit-transform: translate(-100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  }
+
+#menu li
+{
+  padding: 16px 0;
+  transition-delay: 0.5s;
+   -webkit-transition-delay: 0.5s;
+  overflow: auto;
+}
+
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+  -webkit-transform: none;
+}
+.carousel-indicators li {
+    background: black;
+}
+
+.carousel-indicators .active {
+    background: green;
+}
+/* loader css */
+
+
+
+@keyframes rotate {
+  0% { 
+    -webkit-transform: rotate(0deg) scale(0.8); 
+    -moz-transform: rotate(0deg) scale(0.8);
+  }
+  50% { 
+    -webkit-transform: rotate(360deg) scale(1.2); 
+    -moz-transform: rotate(360deg) scale(1.2);
+  }
+  100% { 
+    -webkit-transform: rotate(720deg) scale(0.8); 
+    -moz-transform: rotate(720deg) scale(0.8);
+  }
+}
+
+@keyframes ball1 {
+  0% {
+    box-shadow: 30px 0 0 #f8b334;
+  }
+  50% {
+    box-shadow: 0 0 0 #f8b334;
+    margin-bottom: 0;
+    -webkit-transform: translate(15px,15px);
+    -moz-transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #f8b334;
+    margin-bottom: 10px;
+  }
+}
+
+@keyframes ball2 {
+  0% {
+    box-shadow: 30px 0 0 #97bf0d;
+  }
+  50% {
+    box-shadow: 0 0 0 #97bf0d;
+    margin-top: -20px;
+    -webkit-transform: translate(15px,15px);
+    -moz-transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #97bf0d;
+    margin-top: 0;
+  }
+}
+
+nav {
+  height: 65px;
+}
+
+/* customer css */
+/* table thead {
+   background: #272b30;
+  background-image: radial-gradient(top, circle cover, #3c3b52 0%, #272b30 80%);
+  color: #D6D7E3;
+  text-align: center;
+  font-weight: bold;
+  text-transform:uppercase;
+  border-color:#3c3b52;
+} */
+.hideclass{
+display:none;
+}
+</style>
+<body ng-controller="indexController">
+
+<!-- <p><a href="#Home">Home</a></p> -->
+
+ <!-- <a href="#EmployeeService">EmployeeService</a>
+<a href="#ProductDetail">ProductDetail</a>  -->
+<div style="width: 100%;height: 100%;">
+  <div style="width: 100%;height: 10%;">
+   <nav role="navigation" class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark" >
+  <div id="menuToggle">
+ 
+    <input type="checkbox" id="navMenu" ng-click="isShow(this);"/>
+   <div id="toggleHide">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+    <ul id="menu">
+	 
+      <li class='menuClass' id="home" ng-click="redirectUrl($event)">Home</li>
+     <!--  <li><a href="#!home">Home</a></li> -->
+	 <li class='menuClass' id="customer_master"  ng-click="redirectUrl($event)">Customer</li> 
+      <li class='menuClass' id="vendor_master"   ng-click="redirectUrl($event)">Vendor</li> 
+      <li class='menuClass' id="employee_master" ng-click="redirectUrl($event)">Employee</li> 
+      <li class='menuClass' id="product_master"  ng-click="redirectUrl($event)">Product</li> 
+      <li class='menuClass' id="vehicle_master"  ng-click="redirectUrl($event)">Vehicle</li>
+      <li class='menuClass' id="user_master"  ng-click="redirectUrl($event)">User</li>
+      <li class='menuClass' id="userAccess_master"  ng-click="redirectUrl($event)">User Access</li>
+      <li class='menuClass' id="billing_master"  ng-click="redirectUrl($event)">Billing</li>
+      <li class='menuClass' id="receipt_master"  ng-click="redirectUrl($event)">Receipt</li>
+
+	  <li class='menuClass' id="logout"  ng-click="redirectUrl($event)">Logout</li>
+    </ul>
+  </div>
+
+<div id="headerTitle" style="width: 40%;height: 50%;margin-left: 15%;overflow: hidden;text-align: right;">
+<label id="title" style="font-family: arial;font-size: 16px;color: #fff!important;text-align: center;font-weight: bold;text-transform: uppercase;"></label></div>
+  
+</nav>
+</div>
+<div ng-view style="width: 100%;height: 90%;"></div>
+</div>
+<script>
+var app = angular.module("homeApp", ["ngRoute" ,"datatables"]);
+app.config(['$routeProvider',function($routeProvider) {
+    $routeProvider
+      .when("/", {
+        templateUrl: 'Login.html',
+        controller: 'myCtrl'
+    }) 
+    .when('/Dashboard/:username', {
+        templateUrl: 'Dashboard.html',
+        controller: 'EmpController'
+    })
+     .when('/home', {
+        templateUrl: 'home.html',
+        controller: 'HomeController'
+    })
+     .when('/customer_master', {
+        templateUrl: 'customer.html',
+        controller: 'CustomerController'
+    })
+     .when('/vendor_master', {
+        templateUrl: 'vendor.html',
+        controller: 'VendorController'
+    })
+     .when('/employee_master', {
+        templateUrl: 'employee.html',
+        controller: 'EmployeeController'
+    })
+     .when('/product_master', {
+        templateUrl: 'product.html',
+        controller: 'ProductController'
+    })
+     .when('/vehicle_master', {
+        templateUrl: 'vehicle.html',
+        controller: 'VehicleController'
+    })
+    .when('/userAccess_master', {
+        templateUrl: 'userAccess.html',
+        controller: 'UserAccessController'
+    })
+    .when('/billing_master', {
+        templateUrl: 'billing.html',
+        controller: 'BillingController'
+    })
+    .when('/receipt_master', {
+        templateUrl: 'receipt.html',
+        controller: 'ReceiptController'
+    })
+     .when('/user_master', {
+        templateUrl: 'user.html',
+        controller: 'UserController'
+    });
+    /* .
+    otherwise({
+        redirectTo: '/Home'
+    }); */
+	
+	
+}]);
+app.controller('indexController',['$scope','$location', "$timeout", function ($scope, $location, $timeout) {
+	$scope.user = {
+	        username: '',
+	        password: ''
+	    }
+	
+	 $scope.redirectUrl= function (data){
+		console.log(data);
+		var menuId = data.target.id
+		if(menuId == "home"){
+			 $timeout( function(){
+				 angular.element('#navMenu').trigger('click');
+				 $location.path("/"+menuId);
+				$("#title").text("Home");
+				angular.element('#menuToggle').css('z-index',"0");
+		        }, 500 );
+		}else if(menuId == "customer_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Customer");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "vendor_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Vendor");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "employee_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Employee");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "product_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Product");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "vehicle_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Vehicle");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "user_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("User");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "userAccess_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("UserAccess");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "billing_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Billing");
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "receipt_master"){
+			$timeout( function(){
+				angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Receipt"); 
+				angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+			
+		}
+		
+	} 
+	//alert("dsfds")
+}]);
+app.controller("myCtrl", ['$scope', '$window','$location','$rootScope', function($scope, $window, $location,$rootScope){
+	//$scope.loggedIn = false;    
+	
+	$scope.loginSubmit = function (username){
+	    	/* $http.get('/checklogin').success(function(data) {
+	          console.log(data);
+	          if (data === true)
+	            $scope.loggedIn = true;
+	          else
+	            $scope.loggedIn = false;
+	        })
+	        .error(function(data) {
+	          console.log('error: ' + data);
+	        }); */
+	        
+		 			if ($scope.user.username) {    
+	                    $location.path('/Dashboard/'+ username);
+	                    $rootScope.loggedIn = true;
+	                }
+	                else{
+	                    alert('Login incorrect');
+	                    $rootScope.loggedIn = false;
+	            }
+		}
+
+	  
+	}]);
+app.controller("EmpController", ['$scope', '$routeParams' ,'$window' ,'$rootScope', function($scope, $routeParams , $window ,$rootScope ){
+ 
+
+  if( $routeParams.username){
+	  //$scope.loggedIn =$rootScope.loggedIn;
+	  $scope.loggedIn =true;
+	  $scope.username = $routeParams.username;
+  }
+
+	  
+}]);
+app.controller('HomeController', function ($scope) {
+	
+});
+app.controller('CustomerController', function ($scope) {
+	scope=$scope;
+	$scope.listCustomerJson =[{customerId: "1111",customerName: "Demo",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF",IEC: "12354UUFFA",customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"},{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
+							  {customerId: "2222",customerName: "XYZ",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
+							  {customerId: "3333",customerName: "ABC",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", customerDetails:[{ customerAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
+							  {customerId: "4444",customerName: "QWERT",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", customerDetails:[{ customerAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]}];				
+	//$scope.customerDetails ={customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""};
+$scope.createCust = function() {
+$("#custModal").modal("show");
+$(".custId").css("display","");
+$(".addCust").css("display","block");
+$(".updateCust").css("display","none");
+$scope.item = {};
+$scope.item.customerDetails = [{customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+}
+
+$scope.addCustomerDetails = function(data){
+	$scope.item.customerDetails.push({customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""});
+
+}
+
+$scope.deleteCustomerDetails = function(index){
+	$scope.item.customerDetails.splice(index,1);
+
+}
+$scope.addItem = function(item) {
+$scope.listCustomerJson.push(angular.copy(item));
+$scope.item = {};
+$scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+
+}
+$scope.updateItem = function(item) {
+ for(i in $scope.listCustomerJson) {
+                if($scope.listCustomerJson[i].customerId == $scope.item.customerId) {
+                    $scope.listCustomerJson[i] = $scope.item;
+                }
+         }
+}
+$scope.removeItem = function(index){
+$scope.listCustomerJson.splice(index,1);
+}
+ $scope.editCustomer = function(index){
+   $("#custModal").modal("show");
+   $(".custId").css("display","none");
+   $(".addCust").css("display","none");
+   $(".updateCust").css("display","block");
+for(i in $scope.listCustomerJson) {
+        if($scope.listCustomerJson[i].customerId == index.customerId) {
+            $scope.item = angular.copy($scope.listCustomerJson[i]);
+        }
+    }
+ }	
+});
+app.controller('VendorController', function ($scope) {
+	
+	$scope.listVendorJson =[{vendorId: "1111",vendorName: "Demo",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF",IEC: "12354UUFFA",vendorDetails:[{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"},{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
+	                        {vendorId: "2222",vendorName: "XYZ",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", vendorDetails:[{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
+	                        {vendorId: "3333",vendorName: "ABC",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", vendorDetails:[{ vendorAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
+	                        {vendorId: "4444",vendorName: "QWERT",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", vendorDetails:[{ vendorAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]}];				
+
+$scope.createVendor = function() {
+$("#venModal").modal('show');
+$(".venId").css("display","");
+$(".addVen").css("display","block");
+$(".updateVen").css("display","none");
+$scope.item = {};
+$scope.item.vendorDetails = [{vendorAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+}
+
+$scope.addVendorDetails = function(data){
+	$scope.item.vendorDetails.push({vendorAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""});
+
+}
+
+$scope.deleteVendorDetails = function(index){
+	$scope.item.vendorDetails.splice(index,1);
+
+}
+$scope.addItem = function(item) {
+$scope.listVendorJson.push(angular.copy(item));
+$scope.item = {};
+$scope.item.vendorDetails=[{vendorAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+
+}
+$scope.updateItem = function(item) {
+for(i in $scope.listVendorJson) {
+              if($scope.listVendorJson[i].vendorId == $scope.item.vendorId) {
+                  $scope.listVendorJson[i] = $scope.item;
+              }
+       }
+}
+$scope.removeItem = function(index){
+$scope.listVendorJson.splice(index,1);
+}
+$scope.editVendor = function(index){
+ $("#venModal").modal('show');
+ $(".venId").css("display","none");
+ $(".addVen").css("display","none");
+ $(".updateVen").css("display","block");
+for(i in $scope.listVendorJson) {
+      if($scope.listVendorJson[i].vendorId == index.vendorId) {
+          $scope.item = angular.copy($scope.listVendorJson[i]);
+      }
+  }
+}
+	
+});
+app.controller('EmployeeController', function ($scope) {
+	$scope.listEmployeeJson =[{empId: "1111",empName: "Demo", empRole: "Supervisor", designation: "GradeA",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"},
+							  {empId: "2222",empName: "XYZ", empRole: "Employee", designation: "GradeB",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"},
+							  {empId: "3333",empName: "ABC", empRole: "Manager", designation: "GradeC",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"},
+							  {empId: "4444",empName: "QWERT", empRole: "Sales Executive", designation: "GradeD",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"}];				
+
+$scope.createEmp = function() {
+$("#empModal").modal('show');
+$(".empId").css("display","");
+$(".addEmp").css("display","block");
+$(".updateEmp").css("display","none");
+$scope.item = {};
+}
+$scope.addItem = function(item) {
+$scope.listEmployeeJson.push(item);
+$scope.item = {};
+
+}
+$scope.updateItem = function(item) {
+ for(i in $scope.listEmployeeJson) {
+                if($scope.listEmployeeJson[i].empId == $scope.item.empId) {
+                    $scope.listEmployeeJson[i] = $scope.item;
+                }
+         }
+}
+$scope.removeItem = function(index){
+$scope.listEmployeeJson.splice(index,1);
+}
+ $scope.editCustomer = function(index){
+ 
+   $("#empModal").modal('show');
+   $(".empId").css("display","none");
+   $(".addEmp").css("display","none");
+   $(".updateEmp").css("display","block");
+for(i in $scope.listEmployeeJson) {
+        if($scope.listEmployeeJson[i].empId == index.empId) {
+            $scope.item = angular.copy($scope.listEmployeeJson[i]);
+        }
+    }
+ }	
+ $scope.init =function(){
+	 $('#datetimepicker4').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
+ }
+ $scope.init();
+});
+app.controller('ProductController', function ($scope) {
+	
+	$scope.listProductJson =[{productCode:"1111",productId: "1111",productName: "WashingMachine", HSNSAC: "4566", TaxType: "0%"},
+							  {productCode:"2222",productId: "1223",productName: "Cooler", HSNSAC: "3456", TaxType: "12%"},
+							  {productCode:"3333",productId: "3456",productName: "Fan", HSNSAC: "2345", TaxType: "5%"},
+							  {productCode:"4444",productId: "5643",productName: "Furniture", HSNSAC: "1234", TaxType: "18%"}];				
+
+$scope.createProduct = function() {
+$("#prodModal").modal('show');
+$(".prodId").css("display","");
+$(".addProd").css("display","block");
+$(".updateProd").css("display","none");
+$scope.item = {};
+}
+$scope.addItem = function(item) {
+$scope.listProductJson.push(item);
+$scope.item = {};
+
+}
+$scope.updateItem = function(item) {
+for(i in $scope.listProductJson) {
+               if($scope.listProductJson[i].productCode == $scope.item.productCode) {
+                   $scope.listProductJson[i] = $scope.item;
+               }
+        }
+}
+$scope.removeItem = function(index){
+$scope.listProductJson.splice(index,1);
+}
+$scope.editProduct = function(index){
+
+  $("#prodModal").modal('show');
+  $(".prodId").css("display","none");
+  $(".addProd").css("display","none");
+  $(".updateProd").css("display","block");
+for(i in $scope.listProductJson) {
+       if($scope.listProductJson[i].productCode == index.productCode) {
+           $scope.item = angular.copy($scope.listProductJson[i]);
+       }
+   }
+}	
+});
+app.controller('VehicleController', function ($scope) {
+	
+	$scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
+							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
+							  {codeId: "3456",truckNo: "5675", rcno: "2345", fcDate: "23/4/2019", truckType: "Garbage truck"},
+							  {codeId: "5643",truckNo: "56756", rcno: "1234", fcDate: "23/4/2019", truckType: "Box truck"}];				
+
+$scope.createVehicle = function() {
+$("#vehModal").modal('show');
+$(".vehId").css("display","");
+$(".addVeh").css("display","block");
+$(".updateVeh").css("display","none");
+$scope.item = {};
+}
+$scope.addItem = function(item) {
+$scope.listVehicleJson.push(item);
+$scope.item = {};
+
+}
+$scope.updateItem = function(item) {
+for(i in $scope.listVehicleJson) {
+               if($scope.listVehicleJson[i].codeId == $scope.item.codeId) {
+                   $scope.listVehicleJson[i] = $scope.item;
+               }
+        }
+}
+$scope.removeItem = function(index){
+$scope.listVehicleJson.splice(index,1);
+}
+$scope.editVehicle = function(index){
+
+  $("#vehModal").modal('show');
+  $(".vehId").css("display","none");
+  $(".addVeh").css("display","none");
+  $(".updateVeh").css("display","block");
+for(i in $scope.listVehicleJson) {
+       if($scope.listVehicleJson[i].codeId == index.codeId) {
+           $scope.item = angular.copy($scope.listVehicleJson[i]);
+       }
+   }
+}
+
+$scope.init =function(){
+	 $('#datetimepicker5').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
+}
+$scope.init();
+	
+	
+});
+app.controller('UserController', function ($scope) {
+	
+	$scope.listUserJson =[{codeId: "1111",userId: "1111",userName: "Demo", email: "Supervisor@gamil.com", password: "GradeA", retypepassword: "GradeA", userRole: "Supervisor"},
+						  {codeId: "2222",userId: "2222",userName: "XYZ", email: "Employee@gmail.com", password: "GradeB", retypepassword: "GradeA", userRole: "Employee"},
+						  {codeId: "3333",userId: "3333",userName: "ABC", email: "Manager@gmail.com", password: "GradeC", retypepassword: "GradeA", userRole: "Manager"},
+						  {codeId: "4444",userId: "4444",userName: "QWERT", email: "SalesExecutive@gmail.com", password: "GradeD", retypepassword: "GradeA", userRole: "SalesExecutive"}];				
+
+$scope.createUser = function() {
+$("#usrModal").modal('show');
+$(".usrId").css("display","");
+$(".addUsr").css("display","block");
+$(".updateUsr").css("display","none");
+$scope.item = {};
+}
+$scope.addItem = function(item) {
+$scope.listUserJson.push(item);
+$scope.item = {};
+
+}
+$scope.updateItem = function(item) {
+for(i in $scope.listUserJson) {
+            if($scope.listUserJson[i].codeId == $scope.item.codeId) {
+                $scope.listUserJson[i] = $scope.item;
+            }
+     }
+}
+$scope.removeItem = function(index){
+$scope.listUserJson.splice(index,1);
+}
+$scope.editCustomer = function(index){
+
+$("#usrModal").modal('show');
+$(".usrId").css("display","none");
+$(".addUsr").css("display","none");
+$(".updateUsr").css("display","block");
+for(i in $scope.listUserJson) {
+    if($scope.listUserJson[i].codeId == index.codeId) {
+        $scope.item = angular.copy($scope.listUserJson[i]);
+    }
+}
+}
+	
+});
+
+app.controller('UserAccessController', function ($scope) {
+	
+	$scope.listUserAccessJson =[{permissionScreen: "Customer",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true},
+								  {permissionScreen: "vendor",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true},
+								  {permissionScreen: "Billing",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true},
+								  {permissionScreen: "Product",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true}];				
+});
+app.controller('BillingController', function ($scope) {
+	
+	$scope.listBillingJson =[{customerName: "SAI Sakthi",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
+							  {customerName: "Samsang",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}},
+							  {customerName: "titan",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
+							  {customerName: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];				
+
+//scope=$scope;
+	$scope.init_Billing =function(){
+		 $('#datetimepicker_billDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		    $('#datetimepicker_billvenDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+	}
+	$scope.init_Billing();
+	
+});
+app.controller('ReceiptController', function ($scope) {
+	
+	$scope.listReceiptJson =[{instrumentType: "Sew",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
+							  {instrumentType: "Software",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}},
+							  {instrumentType: "Equipment",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
+							  {instrumentType: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];				
+
+//scope=$scope;
+	$scope.init_Inst =function(){
+		 $('#datetimepicker_instDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+	}
+	$scope.init_Inst();
+});
+$(document).ready(function(){
+	/* $('#datetimepicker4').datetimepicker({
+        format: 'DD/MM/YYYY'
+    }); */
+});
+</script>
+</body>
+</html>

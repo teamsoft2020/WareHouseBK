@@ -1,0 +1,126 @@
+<div ng-controller="ReceiptController">
+<div>
+<div class="row">
+<div class="col-4"></div>
+<div class="col-4">
+ <select ng-model="chooseStat" class="form-control" ng-change="chooseRep()" style="display: block;margin: 2% auto;">
+  <option value=""  selected>Select</option>
+    <option value="Payment" >Payment</option>
+	<option value="Receipt" >Receipt</option>
+  </select>  
+</div>
+<div class="col-4"></div>
+</div>
+</div>
+<div style="display:block">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		      			<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th>
+									<th width="15%">InstrumentType</th>
+									<th width="28%">Date</th>
+									<th width="15%">Amount</th>
+									<th width="15%">Currency</th>
+									<th width="15%">Exchange Rate</th>
+									<th width="15%">Total</th>
+									<th width="15%">InstrumentNo</th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+										<td><input class="case" type="checkbox"></td>
+										<td><!-- <input type="text"  id="productList" value="" class=" custom-select custom-select-sm" > -->
+									            <select data-placeholder="Your Product"  class="form-control" tabindex="8">
+									              <option value="">Select Inst_Type</option>
+									              <option>Credit</option>
+									              <option>Cheque</option>
+									              <option>Cash</option>
+									              <option>Net Banking</option>
+									            </select>
+										</td>
+										<td><!-- <input type="text"  id="dateId" class="form-control " > -->
+										<div class="input-group date" id="datetimepicker_instDate" data-target-input="nearest">
+						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_instDate" placeholder="Instrument Date"/>
+						                  <div class="input-group-append" data-target="#datetimepicker_instDate" data-toggle="datetimepicker">
+						                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						                  </div>
+						              </div>
+										</td>
+										<td><input type="number"  id="amt" class="form-control " ></td>
+										<td> <select data-placeholder="Your Currency"  class="form-control" tabindex="8">
+									              <option value="">Select Currency</option>
+									              <option>INR</option>
+									              <option>Dollar</option>
+									            </select></td>
+										<td><input type="number" id="exRate" class="form-control " ></td>
+										<td><input type="number" id="total" class="form-control "></td>
+										<td><input type="number" id="inst_no" class="form-control "></td>
+										<td> 
+									<i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+									<i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+									
+								</td>
+								</tr>
+							</tbody>
+						</table>
+		      		</div>
+					<div class="pull-right">
+					<input name="" type="button" class="btn btn-primary" id="" value="Save" style="margin-left: -20%;">
+					</div>
+</div>
+<div style="display:none">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		      			<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th>
+									<th width="15%">InstrumentType</th>
+									<th width="28%">Date</th>
+									<th width="15%">Amount</th>
+									<th width="15%">Currency</th>
+									<th width="15%">Exchange Rate</th>
+									<th width="15%">Total</th>
+									<th width="15%">InstrumentNo</th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+										<td><input class="case" type="checkbox"></td>
+										<td><!-- <input type="text"  id="productList" value="" class=" custom-select custom-select-sm" > -->
+									            <select data-placeholder="Your Product"  class="chosen-select chosen-rtl" tabindex="8">
+									              <option value="">Select Product</option>
+									              <option>American Black Bear</option>
+									              <option>Asiatic Black Bear</option>
+									              <option>Brown Bear</option>
+									              <option>Giant Panda</option>
+									              <option>Sloth Bear</option>
+									              <option >Sun Bear</option>
+									              <option >Polar Bear</option>
+									              <option >Spectacled Bear</option>
+									            </select>
+										</td>
+										<td><input type="text"  id="dateId" class="form-control " ></td>
+										<td><input type="number"  id="amt" class="form-control " ></td>
+										<td> <select data-placeholder="Your Currency"  class="chosen-select chosen-rtl" tabindex="8">
+									              <option value="">Select Currency</option>
+									              <option>INR</option>
+									              <option>Dollar</option>
+									            </select></td>
+										<td><input type="number" id="exRate" class="form-control " ></td>
+										<td><input type="number" id="total" class="form-control "></td>
+										<td><input type="number" id="inst_no" class="form-control "></td>
+										<td> 
+									<i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+									<i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+									
+								</td>
+								</tr>
+							</tbody>
+						</table>
+		      		</div>
+					
+</div>
+</div>

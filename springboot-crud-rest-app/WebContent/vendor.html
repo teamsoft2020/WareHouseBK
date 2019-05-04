@@ -1,0 +1,222 @@
+<div ng-controller="VendorController">
+<div>
+<input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="Create" ng-click="createVendor()" >
+<table id="manage-vendor-table" class="vendorTable" datatable="ng" dt-options="dtVendor" dt-columns="dtVendorColumns"  style="width: 90%;">
+					<thead>
+						<tr>
+							 <th scope="col">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" value="">
+									</label>
+								</div>
+							</th> 
+							<th scope="col"><h5>VendorId</h5></th>
+							<th scope="col"><h5>Vendor Name</h5></th>
+							<th scope="col" ><h5>Address</h5></th>
+							<th scope="col" ><h5>MobileNo</h5></th>
+							<th scope="col" ><h5>PhoneNo</h5></th>
+							<th scope="col" class="hideclass"><h5>Pan</h5></th>
+							<th scope="col" class="hideclass"><h5>TAN</h5></th>
+							<th scope="col" class="hideclass"><h5>KYC</h5></th>
+							<th scope="col" class="hideclass"><h5>GSTIN</h5></th>
+							<th scope="col" class="hideclass"><h5>IEC</h5></th>
+							<th scope="col" ><h5>Access</h5></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="list in  listVendorJson track by $index">
+							 <td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="">
+									</label>
+								</div>
+							</td> 
+							<td>{{list.vendorId}}</td>
+							<td>{{list.vendorName}}</td>
+							<td>{{list.vendorDetails[0].vendorAddr}}</td>
+							<td>{{list.vendorDetails[0].mobileNo}}</td>
+							<td>{{list.vendorDetails[0].phoneNo}}</td>
+							<td class="hideclass">{{list.PAN}}</td>
+							<td class="hideclass">{{list.TAN}}</td>
+							<td class="hideclass">{{list.KYC}}</td>
+							<td class="hideclass">{{list.GSTIN}}</td>
+							<td class="hideclass">{{list.IEC}}</td>
+								<td style="width: 13%;"> 
+									<input name="" type="button" data-toggle="modal"
+									style=" height: 26px; padding-top: 2px; position: relative; "
+									class="btn btn-primary" id="" value="Edit"
+									ng-click="editVendor(list,$event)">
+									<input name="" type="button" data-toggle="modal"
+									style=" height: 26px; padding-top: 2px; position: relative; "
+									class="btn btn-danger" id="" value="Delete"
+									ng-click="removeItem($index)" >
+								</td>
+							</tr>
+					</tbody>
+				</table>
+</div>
+<!-- The Modal -->
+  <div class="modal fade" id="venModal">
+    <div class="modal-dialog modal-dialog-centered modal-xl" >
+      <div class="modal-content">
+      
+        <!-- Modal Header  -->
+        <div class="modal-header">
+          <h4 class="modal-title"> Add New Vendor</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div> 
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class='addItems'>
+       <!--  <table id='addData'>
+         
+          <tr>
+            <td colspan="1" class="venId">
+              <label>ID:</label>
+            </td>
+            <td colspan="1" class="venId">
+              <input type="text" ng-model="item.vendorId" />
+            </td>
+            <td colspan="1">
+              <label>Name:
+                <label>
+            </td>
+            <td colspan="1">
+              <input type="text" ng-model="item.vendorName" />
+            </td>
+            <tr>
+              <td colspan="1">
+                <label>Address:</label>
+              </td>
+              <td colspan="1">
+                <input type="text" ng-model="item.city" />
+				<textarea rows = "2" cols = "21" name = "description" ng-model="item.vendorAddr">
+            Enter your name
+         </textarea>
+              </td>
+              <td colspan="1">
+                <label>Mobile:</label>
+              </td>
+              <td colspan="1">
+                <input type='text' ng-model="item.mobileNo" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1">
+                <label>Phone:</label>
+              </td>
+              <td colspan="1">
+                <input type="tel" ng-model="item.phoneNo" />
+              </td>
+              <td colspan="1">
+                <label>PAN:</label>
+              </td>
+              <td colspan="1">
+                <input type="tel" ng-model="item.PAN" />
+              </td>
+            </tr>
+			<tr>
+              <td colspan="1">
+                <label>TAN:</label>
+              </td>
+              <td colspan="1">
+                <input type="tel" ng-model="item.TAN" />
+              </td>
+              <td colspan="1">
+                <label>KYC:</label>
+              </td>
+              <td colspan="1">
+                <input type="tel" ng-model="item.KYC" />
+              </td>
+            </tr>
+			<tr>
+              <td colspan="1">
+                <label>GSTIN:</label>
+              </td>
+              <td colspan="1">
+                <input type="tel" ng-model="item.GSTIN" />
+              </td>
+              <td colspan="1">
+                <label>IEC:</label>
+              </td>
+              <td colspan="1">
+                <input type="tel" ng-model="item.IEC" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1"></td>
+              <td colspan="1">
+                <input type="Button" class='addVen' value="Add" ng-click="addItem(item)" />
+				<input type="Button" class='updateVen' value="Update" ng-click="updateItem(item)" />
+              </td>
+              <td colspan="1"></td>
+              <td colspan="1">
+                <input type="button" class="close" data-dismiss="modal" value="Done" />
+              </td>
+            </tr>
+        </table> -->
+        
+        <table id='addData'>
+          <tr>
+            <td colspan="1" class="venId">
+              <input type="text" ng-model="item.vendorId" placeholder="ID"/>
+            </td>
+            <td colspan="1">
+              <input type="text" ng-model="item.vendorName" placeholder="Vendor Name"/>
+            </td></tr>
+             <tr>
+               <td colspan="1">
+                <input type="tel" ng-model="item.TAN" placeholder="TAN"/>
+              </td>
+               <td colspan="1">
+                <input type="tel" ng-model="item.KYC" placeholder="KYC"/>
+              </td>
+                <td colspan="1">
+                <input type="tel" ng-model="item.PAN" placeholder="PAN"/>
+              </td>
+              <td colspan="1">
+                <input type="tel" ng-model="item.IEC" placeholder="IEC"/>
+              </td>
+             
+            </tr>
+            <tr ng-repeat="vendorDetail in  item.vendorDetails track by $index">
+              <td colspan="1">
+				<textarea rows = "1" cols = "22" name = "description" ng-model="vendorDetail.vendorAddr" placeholder="Enter your Addr"> </textarea>
+              </td>
+              <td colspan="1">
+                <input type='text' ng-model="vendorDetail.mobileNo" placeholder="MobileNo"/>
+              </td>
+              <td colspan="1">
+                <input type="text" ng-model="vendorDetail.phoneNo" placeholder="PhoneNo"/>
+              </td>
+              <td colspan="1">
+              <input type="text" ng-model="vendorDetail.GSTIN" placeholder="GSTIN"/>
+              </td>
+               <td> 
+				<i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addVendorDetails(vendorDetail);"></i>
+				<i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deleteVendorDetails($index);"></i>
+			</td>
+              </tr>
+            <tr>
+              <td colspan="1"></td>
+              <td colspan="1">
+                <input type="Button" class='addVen' value="Add" ng-click="addItem(item)" />
+				<input type="Button" class='updateVen' value="Update" ng-click="updateItem(item)" />
+              </td>
+              <td colspan="1"></td>
+              <td colspan="1">
+                <input type="button" class="close" data-dismiss="modal" value="Done" />
+              </td>
+            </tr>
+        </table>  
+      </div>
+        </div>
+        
+       
+      </div>
+    </div>
+  </div>
+</div>
