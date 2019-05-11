@@ -1,9 +1,9 @@
-package com.companyname.springbootcrudrest.repository;
+package com.tem.springbootcrudrest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.companyname.springbootcrudrest.model.User;
+import com.tem.springbootcrudrest.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{

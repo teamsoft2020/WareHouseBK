@@ -1,4 +1,4 @@
-package com.companyname.projectname.springbootcrudrest;
+package com.tem.projectname.springbootcrudrest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -17,8 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.companyname.springbootcrudrest.SpringBootCrudRestApplication;
-import com.companyname.springbootcrudrest.model.User;
+import com.tem.springbootcrudrest.SpringBootCrudRestApplication;
+import com.tem.springbootcrudrest.model.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringBootCrudRestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

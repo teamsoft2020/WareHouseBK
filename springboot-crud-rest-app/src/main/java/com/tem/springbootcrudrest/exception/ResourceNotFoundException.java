@@ -1,4 +1,4 @@
-package com.companyname.springbootcrudrest.exception;
+package com.tem.springbootcrudrest.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

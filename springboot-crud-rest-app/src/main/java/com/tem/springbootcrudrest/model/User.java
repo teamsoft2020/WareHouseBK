@@ -1,4 +1,4 @@
-package com.companyname.springbootcrudrest.model;
+package com.tem.springbootcrudrest.model;
 
 import java.util.Date;
 
