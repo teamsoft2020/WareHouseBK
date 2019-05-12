@@ -959,6 +959,7 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 		    });
 	}
 	$scope.navRedirect =function(event){
+		
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
 		   var currEvent=$(event.target).attr('bind-attr');
