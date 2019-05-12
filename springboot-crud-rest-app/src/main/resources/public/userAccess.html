@@ -1,0 +1,71 @@
+<div ng-controller="UserAccessController">
+<div>
+
+<table id="manage-useraccess-table" class="uaTable" datatable="ng" dt-options="dtuseraccess" dt-columns="dtuseraccessColumns" style="width: 90%;">
+					<thead>
+						<tr>
+							<!-- <th scope="col">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" value="">
+									</label>
+								</div>
+							</th> -->
+							<th scope="col"><h5>ScreenList</h5></th>
+							<th scope="col" ><h5>Add</h5></th>
+							<th scope="col"><h5>Edit</h5></th>
+							<th scope="col"><h5>Delete</h5></th>
+							<th scope="col"><h5>View</h5></th>
+							<th scope="col"><h5>Report</h5></th>
+							<th scope="col" ><h5>Access</h5></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="list in  listUserAccessJson track by $index">
+							<td>{{list.permissionScreen}}</td>
+							 <td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="">
+									</label>
+								</div>
+							</td> 
+							<td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="">
+									</label>
+								</div>
+							</td> 
+							<td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="">
+									</label>
+								</div>
+							</td> 
+							<td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="">
+									</label>
+								</div>
+							</td> 
+							<td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="">
+									</label>
+								</div>
+							</td> 
+							<td style="width: 11%;"> 
+									<input name="" type="button" style=" height: 26px; padding-top: 2px; position: relative; "
+									class="btn btn-primary" id="" value="Save"
+									ng-click="savePermission(list,$event)">
+								</td>
+							</tr>
+					</tbody>
+				</table>
+</div>
+
+</div>
