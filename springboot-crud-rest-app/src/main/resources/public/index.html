@@ -962,7 +962,6 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
 		   var currEvent=$(event.target).attr('bind-attr');
-		   
 		  if(currEvent =="Receipt"){
 			  $('#CustomerInvoice').hide();
 			  $('#VendorInvoice').hide();
