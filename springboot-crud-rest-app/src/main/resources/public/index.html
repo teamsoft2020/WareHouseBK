@@ -31,282 +31,221 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/buttons/angular-datatables.buttons.min.js"></script>
 
 <style>
-body {
-    /* background: url('https://images.unsplash.com/photo-1534408679207-69b9615e55a7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=cfbabd80cd2d5cae495a2a732d473562') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover; */
-}
-
-.card {
-  width: 300px;
-}
-
 html,body{
 width:100% !important;
 height:100% !important;
 font-family: Arial !important;
-/*position: absolute;*/
+font-size:12px;
 }
-*{
--webkit-overflow-scrolling: touch;
+.card {
+  width: 300px;
 }
 
 
-a {
+#wrapper {
+    padding-left: 70px;
+    transition: all .4s ease 0s;
+    height: 100%
+}
+
+#sidebar-wrapperMain {
+    margin-left: -150px;
+    left: 50px;
+    width: 150px;
+    background: #222;
+    position: fixed;
+    height: 100%;
+    z-index: 10000;
+    transition: all .4s ease 0s;
+}
+.sidebar-nav {
+    display: block;
+    float: left;
+    width: 150px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#page-content-wrapper {
+    padding-left: 0;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+}
+#wrapper.active {
+    padding-left: 150px;
+}
+#wrapper.active #sidebar-wrapperMain {
+    left: 150px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+#sidebar_menu li a, .sidebar-nav li a {
+    color: #999;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 150px;
+    background: #252525;
+    border-top: 1px solid #373737;
+    border-bottom: 1px solid #1A1A1A;
+    -webkit-transition: background .5s;
+    -moz-transition: background .5s;
+    -o-transition: background .5s;
+    -ms-transition: background .5s;
+    transition: background .5s;
+}
+.sidebar_name {
+    padding-top: 25px;
+    color: #fff;
+    opacity: .7;
+}
+
+.sidebar-nav li {
+  line-height: 40px;
+  text-indent: 20px;
+}
+
+.sidebar-nav li a {
+  color: #999999;
+  display: block;
   text-decoration: none;
-  color: #FFF;
-  opacity:1;
-  font-family: Arial;
-  font-size: 15px;
-  font-weight: 400;
-  transition: 100ms;
-  -webkit-transition: 100ms;
-  -webkit-transform: translateZ(0);
 }
 
-ul {
-  padding: 0;
-  list-style-type: none;
+.sidebar-nav li a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  text-decoration: none;
 }
 
-
-
-#menuToggle {
-width: 20%;
-  display: flex;
-  flex-direction: column;
-  -webkit-flex-direction: column;
-  position: absolute;
-  top: 26px;
-  left: 15px;
-  z-index: 0;
-  -webkit-user-select: none;
-  user-select: none;
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
 }
-.menuClass{
-    padding-left: 12% !important;
-}  
-#menuToggle input
+
+.sidebar-nav > .sidebar-brand {
+	height: 43px;
+    line-height: 43px;
+    font-size: 15px;;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+#main_icon
 {
-  display: flex;
-  width: 40px;
-  height: 32px;
-  position: absolute;
-  cursor: pointer;
-  opacity: 0;
-  z-index: 2;
+    float:right;
+   padding-right: 35px;
+   padding-top:20px;
 }
-
-#menuToggle span
+.sub_icon
 {
-  display: flex;
-  width: 34px;
-  height: 4px;
-  margin-bottom: 5px;
-  position: relative;
-  background: #ffffff;
-  border-radius: 3px;
-  z-index: 1;
-  transform-origin: 5px 0px;
-  -webkit-transform-origin: 5px 0px;
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
-  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
-  -webkit-transform: translateZ(0);
-  
+    float: right;
+    padding-right: 21px;
+    padding-top: 15px;
 }
-
-#menuToggle span:first-child
-{
-  transform-origin: 0% 0%;
-  -webkit-transform-origin: 0% 0%;
-  -webkit-transform: translateZ(0);
-}
-
-#menuToggle span:nth-last-child(2)
-{
-  transform-origin: 0% 100%;
-  -webkit-transform-origin: 0% 100%;
-  -webkit-transform: translateZ(0);
-}
-
-#menuToggle input:checked ~ span
-{
-  opacity: 1;
-  background: #FFF;
-  
-   transform: rotate(45deg) translate(-12px, -1px);
-  -weblkit-transform: rotate(45deg) translate(-12px, -1px);
-}
-#menuToggle input:checked ~ span:nth-last-child(3)
-{
-  opacity: 0;
-  transform: rotate(0deg) scale(0.2, 0.2);
-  -webkit-transform: rotate(0deg) scale(0.2, 0.2);
-}
-
-#menuToggle input:checked ~ span:nth-last-child(2)
-{
- transform: rotate(-45deg) translate(0, -10px);
- -webkit-transform: rotate(-45deg) translate(0, -10px);
-}
-
-
-#menu
-{
-  /*position: absolute;*/
-   height: 100%;
-  width: 75%;
-  box-shadow: 0 0 10px #85888C;
-  margin: -153px 0px 0px -19px;
-  /*padding: 20px; */
-  padding-top: 148px;
-  color: #F5F6FA;
-  background-color: #343a40;
-  -webkit-font-smoothing: antialiased;
-   transform-origin: 0% 0%;
-  -webkit-transform-origin: 0% 0%;
-  transform: translate(-100%, 0);
-  -webkit-transform: translate(-100%, 0);
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-  }
-
-#menu li
-{
-  padding: 16px 0;
-  transition-delay: 0.5s;
-   -webkit-transition-delay: 0.5s;
-  overflow: auto;
-}
-
-#menuToggle input:checked ~ ul
-{
-  transform: none;
-  -webkit-transform: none;
-}
-.carousel-indicators li {
-    background: black;
-}
-
-.carousel-indicators .active {
-    background: green;
-}
-/* loader css */
-
-
-
-@keyframes rotate {
-  0% { 
-    -webkit-transform: rotate(0deg) scale(0.8); 
-    -moz-transform: rotate(0deg) scale(0.8);
-  }
-  50% { 
-    -webkit-transform: rotate(360deg) scale(1.2); 
-    -moz-transform: rotate(360deg) scale(1.2);
-  }
-  100% { 
-    -webkit-transform: rotate(720deg) scale(0.8); 
-    -moz-transform: rotate(720deg) scale(0.8);
-  }
-}
-
-@keyframes ball1 {
-  0% {
-    box-shadow: 30px 0 0 #f8b334;
-  }
-  50% {
-    box-shadow: 0 0 0 #f8b334;
-    margin-bottom: 0;
-    -webkit-transform: translate(15px,15px);
-    -moz-transform: translate(15px, 15px);
-  }
-  100% {
-    box-shadow: 30px 0 0 #f8b334;
-    margin-bottom: 10px;
-  }
-}
-
-@keyframes ball2 {
-  0% {
-    box-shadow: 30px 0 0 #97bf0d;
-  }
-  50% {
-    box-shadow: 0 0 0 #97bf0d;
-    margin-top: -20px;
-    -webkit-transform: translate(15px,15px);
-    -moz-transform: translate(15px, 15px);
-  }
-  100% {
-    box-shadow: 30px 0 0 #97bf0d;
-    margin-top: 0;
-  }
-}
-
-nav {
+.content-header {
   height: 65px;
+  line-height: 65px;
 }
 
-/* customer css */
-/* table thead {
-   background: #272b30;
-  background-image: radial-gradient(top, circle cover, #3c3b52 0%, #272b30 80%);
-  color: #D6D7E3;
-  text-align: center;
-  font-weight: bold;
-  text-transform:uppercase;
-  border-color:#3c3b52;
-} */
-.hideclass{
-display:none;
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
 }
+
+@media (max-width:767px) {
+    #wrapper {
+    padding-left: 70px;
+    transition: all .4s ease 0s;
+}
+#sidebar-wrapperMain {
+    left: 70px;
+}
+#wrapper.active {
+    padding-left: 150px;
+}
+#wrapper.active #sidebar-wrapperMain {
+    left: 150px;
+    width: 150px;
+    transition: all .4s ease 0s;
+}
+}
+
 </style>
 <body ng-controller="indexController">
 
-<!-- <p><a href="#Home">Home</a></p> -->
-
- <!-- <a href="#EmployeeService">EmployeeService</a>
-<a href="#ProductDetail">ProductDetail</a>  -->
 <div style="width: 100%;height: 100%;">
-  <div style="width: 100%;height: 10%;">
-   <nav role="navigation" class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark" >
-  <div id="menuToggle">
+
+<!--Navbar -->
+ <nav class = "navbar navbar-expand-sm bg-primary navbar-dark">
+            <a class = "navbar-brand" href = "#">
+               <img src = "img/sse.png" 
+                  style="width: 73px;height: 28px;" alt = "">
+            </a>
+            <ul class = "navbar-nav ml-auto">
+              
+                <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+		          aria-haspopup="true" aria-expanded="false">
+		          <i class="fa fa-user-circle"></i> Profile </a>
+		        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+		          <a class="dropdown-item" href="#">My account</a>
+		          <a class="dropdown-item" href="#">Log out</a>
+		        </div>
+		      </li>
  
-    <input type="checkbox" id="navMenu" ng-click="isShow(this);"/>
-   <div id="toggleHide">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-    <ul id="menu">
-	 
-      <li class='menuClass' id="home" ng-click="redirectUrl($event)">Home</li>
-     <!--  <li><a href="#!home">Home</a></li> -->
-	 <li class='menuClass' id="customer_master"  ng-click="redirectUrl($event)">Customer</li> 
-      <li class='menuClass' id="vendor_master"   ng-click="redirectUrl($event)">Vendor</li> 
-      <li class='menuClass' id="employee_master" ng-click="redirectUrl($event)">Employee</li> 
-      <li class='menuClass' id="product_master"  ng-click="redirectUrl($event)">Product</li> 
-      <li class='menuClass' id="vehicle_master"  ng-click="redirectUrl($event)">Vehicle</li>
-      <li class='menuClass' id="user_master"  ng-click="redirectUrl($event)">User</li>
-      <li class='menuClass' id="userAccess_master"  ng-click="redirectUrl($event)">User Access</li>
-      <li class='menuClass' id="billing_master"  ng-click="redirectUrl($event)">Billing</li>
-      <li class='menuClass' id="receipt_master"  ng-click="redirectUrl($event)">Receipt</li>
+            </ul>
+            
+         </nav>
 
-	  <li class='menuClass' id="logout"  ng-click="redirectUrl($event)">Logout</li>
-    </ul>
-  </div>
-
-<div id="headerTitle" style="width: 40%;height: 50%;margin-left: 15%;overflow: hidden;text-align: right;">
-<label id="title" style="font-family: arial;font-size: 16px;color: #fff!important;text-align: center;font-weight: bold;text-transform: uppercase;"></label></div>
-  
-</nav>
-</div>
-<div ng-view style="width: 100%;height: 90%;"></div>
+<div id="wrapper" class="active">
+      
+      <!-- Sidebar -->
+      <div id="sidebar-wrapperMain">
+      <ul id="sidebar_menu" class="sidebar-nav">
+           <li class="sidebar-brand"><a class="menu-toggle" id="home" ng-click="redirectUrl($event)" href="#">Home<i class="fa fa-bars sub_icon" aria-hidden="true"></i></a></li>
+      </ul>
+      <ul  class="sidebar-nav">  
+	  <li class="sidebar-brand"><a id="customer_master"  ng-click="redirectUrl($event)">Customer<i class="fa fa-user sub_icon" aria-hidden="true"></i></a></li>
+      <li class='sidebar-brand'><a id="vendor_master"   ng-click="redirectUrl($event)">Vendor<i class="fa fa-user-circle sub_icon"></i></a></li> 
+      <li class='sidebar-brand' ><a id="employee_master" ng-click="redirectUrl($event)">Employee<i class="fa fa-users sub_icon" aria-hidden="true"></i></a></li> 
+      <li class='sidebar-brand' ><a id="product_master"  ng-click="redirectUrl($event)">Product<i class="fa fa-product-hunt sub_icon" aria-hidden="true"></i></a></li> 
+      <li class='sidebar-brand'><a id="vehicle_master"  ng-click="redirectUrl($event)">Vehicle<i class="fa fa-truck sub_icon" aria-hidden="true"></i></a></li>
+      <li class='sidebar-brand' ><a id="user_master"  ng-click="redirectUrl($event)">User<i class="fa fa-user sub_icon" aria-hidden="true"></i></a></li>
+      <li class='sidebar-brand'><a id="userAccess_master"  ng-click="redirectUrl($event)">Access<i class="fa fa-check-square-o sub_icon" aria-hidden="true"></i></a></li>
+      <li class='sidebar-brand'><a id="billing_master"  ng-click="redirectUrl($event)">Billing<i class="fa fa-money sub_icon" aria-hidden="true"></i></a></li>
+      <li class='sidebar-brand' ><a id="receipt_master"  ng-click="redirectUrl($event)">Receipt<i class="fa fa-address-book sub_icon" aria-hidden="true"></i></a></li>
+	  <li class='sidebar-brand' ><a id="logout"  ng-click="redirectUrl($event)">Logout<i class="fa fa-sign-out sub_icon" aria-hidden="true"></i></a></li>
+      </ul>
+        
+      </div>
+          
+      <!-- Page content -->
+      <div id="page-content-wrapper">
+        <div class="page-content inset">
+           <div class="row">
+              <div class="col-md-12">
+              <div ng-view ></div>
+            </div>
+          </div> 
+         
+        </div>
+      </div>
+      
+    </div>
+<!-- <div ng-view style="width: 100%;height: 90%;"></div> -->
 </div>
 <script>
 var app = angular.module("homeApp", ["ngRoute" ,"datatables","datatables.buttons"]);
@@ -993,13 +932,35 @@ app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnB
 		        format: 'DD/MM/YYYY'
 		    });
 	}
+	$scope.navRedirect =function(event){
+		
+		 $(".nav").find(".active").removeClass("active");
+		   $(event).addClass("active");
+		   var currEvent=$(event.target).attr('bind-attr');
+		  if(currEvent =="view"){
+			  $('#Payment').hide();
+			  $('#Receipt').hide();
+			  $('#view').show();
+		  }else if(currEvent =="Receipt"){
+			  $('#Payment').hide();
+			  $('#Receipt').show();
+			  $('#view').hide();
+		  }else{
+			  $('#Payment').show();
+			  $('#Receipt').hide();
+			  $('#view').hide();
+		  }
+	}
 	$scope.init_Inst();
 });
 $(document).ready(function(){
+	$(".menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+	});
 	/* $('#datetimepicker4').datetimepicker({
         format: 'DD/MM/YYYY'
     }); */
-	
 
 });
 </script>
