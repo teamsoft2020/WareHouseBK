@@ -34,6 +34,7 @@
 html,body{
 width:100% !important;
 height:100% !important;
+overflow: hidden;
 font-family: Arial !important;
 font-size:12px;
 }
@@ -896,6 +897,12 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 		    $('#datetimepicker_billvenDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 		    });
+		    $('#datetimepicker_startBillDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		    $('#datetimepicker_endBillDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
 	}
 	$scope.navRedirect =function(event){
 		
@@ -932,6 +939,12 @@ app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnB
 		        format: 'DD/MM/YYYY'
 		    });
 	}
+	 $('#datetimepicker_startBillDate1').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
+	    $('#datetimepicker_endBillDate2').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
 	$scope.navRedirect =function(event){
 		
 		 $(".nav").find(".active").removeClass("active");
