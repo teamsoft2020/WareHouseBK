@@ -321,70 +321,70 @@ app.controller('indexController',['$scope','$location', "$timeout", function ($s
 				 angular.element('#navMenu').trigger('click');
 				 $location.path("/"+menuId);
 				$("#title").text("Home");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 		        }, 500 );
 		}else if(menuId == "customer_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Customer");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "vendor_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Vendor");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "employee_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Employee");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "product_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Product");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "vehicle_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Vehicle");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "user_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("User");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "userAccess_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("UserAccess");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "billing_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Billing");
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}else if(menuId == "receipt_master"){
 			$timeout( function(){
 				angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Receipt"); 
-				angular.element('#menuToggle').css('z-index',"0");
+				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 			
 		}
@@ -433,12 +433,12 @@ app.controller("EmpController", ['$scope', '$routeParams' ,'$window' ,'$rootScop
 app.controller('HomeController', function ($scope) {
 	
 });
-app.controller('CustomerController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('CustomerController', function ($scope,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	scope=$scope;
-	$scope.listCustomerJson =[{customerId: "1111",customerName: "Demo",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF",IEC: "12354UUFFA",customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"},{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
-							  {customerId: "2222",customerName: "XYZ",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
-							  {customerId: "3333",customerName: "ABC",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", customerDetails:[{ customerAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
-							  {customerId: "4444",customerName: "QWERT",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", customerDetails:[{ customerAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]}];				
+	$scope.listCustomerJson =[{customerId: "1111",customerName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"},{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
+							  {customerId: "2222",customerName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
+							  {customerId: "3333",customerName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
+							  {customerId: "4444",customerName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]}];				
 	//$scope.customerDetails ={customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""};
 	
 	$scope.cm = {};
@@ -472,12 +472,13 @@ $("#custModal").modal("show");
 $(".custId").css("display","");
 $(".addCust").css("display","block");
 $(".updateCust").css("display","none");
+
 $scope.item = {};
-$scope.item.customerDetails = [{customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+$scope.item.customerDetails = [{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
 }
 
 $scope.addCustomerDetails = function(data){
-	$scope.item.customerDetails.push({customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""});
+	$scope.item.customerDetails.push({customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""});
 
 }
 
@@ -486,10 +487,33 @@ $scope.deleteCustomerDetails = function(index){
 
 }
 $scope.addItem = function(item) {
-$scope.listCustomerJson.push(angular.copy(item));
-$scope.item = {};
-$scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+	var url = location.origin +"/api/v2/customers";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	/* var config = {
+	            headers : {
+	                'Content-Type': 'application/json'
+	            }
+	    }
+	var data = {
+	        firstname: $scope.firstname,
+	        lastname: $scope.lastname
+	    };  */
 
+	    $http({
+	        method : 'POST',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            $scope.listCustomerJson = response.data;
+	           
+	        }, function error(response) {
+	          console.log(response.status);
+	        });
+	    $scope.item = {};
+        $scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
 }
 $scope.updateItem = function(item) {
  for(i in $scope.listCustomerJson) {
@@ -512,6 +536,19 @@ for(i in $scope.listCustomerJson) {
         }
     }
  }	
+ 
+ $scope.initcust =function(){
+	 var url=location.origin +"/api/v1/users";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listCustomerJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
+ }
+ //$scope.initcust();
 });
 app.controller('VendorController', function ($scope ,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	
@@ -731,7 +768,7 @@ for(i in $scope.listProductJson) {
    }
 }	
 });
-app.controller('VehicleController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('VehicleController', function ($scope, $window ,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	
 	$scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
 							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
@@ -770,6 +807,9 @@ $(".addVeh").css("display","block");
 $(".updateVeh").css("display","none");
 $scope.item = {};
 }
+$scope.createTrip = function() {
+$('#tripModal').modal('show');
+}
 $scope.addItem = function(item) {
 $scope.listVehicleJson.push(item);
 $scope.item = {};
@@ -797,7 +837,12 @@ for(i in $scope.listVehicleJson) {
        }
    }
 }
-
+$scope.newtabTrip =function(){
+	  var w = $window.open();
+	  var html = $(".tripItems").html();
+	  $(w.document.head).append(document.head);
+	    $(w.document.body).html(html);
+}
 $scope.init =function(){
 	 $('#datetimepicker5').datetimepicker({
 	        format: 'DD/MM/YYYY'
@@ -888,8 +933,9 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 	$scope.listBillingJson =[{customerName: "SAI Sakthi",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
 							  {customerName: "Samsang",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}},
 							  {customerName: "titan",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
-							  {customerName: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];				
-//scope=$scope;
+							  {customerName: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];	
+	$scope.customerInvoiceJson ={productName: "",amount: "", quantity: "", currency: "",tax:"",totalAmount:""};	
+	
 	$scope.init_Billing =function(){
 		 $('#datetimepicker_billDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
@@ -903,6 +949,11 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 		    $('#datetimepicker_endBillDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 		    });
+	}
+	$scope.calculateAmountTax =function(data){
+		console.log(data);
+		var amt =$scope.customerInvoiceJson.amount * $scope.customerInvoiceJson.quantity;
+		$scope.customerInvoiceJson.totalAmount =amt + amt * data;
 	}
 	$scope.navRedirect =function(event){
 		
@@ -924,7 +975,7 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 		  }
 	}
 	$scope.init_Billing();
-	
+	scope=$scope;
 });
 app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	
@@ -932,8 +983,12 @@ app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnB
 							  {instrumentType: "Software",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}},
 							  {instrumentType: "Equipment",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
 							  {instrumentType: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];				
-
-//scope=$scope;
+	$scope.paymentJson ={paymentType: "",instrumentDate: "", exRate: "", currency: "",instrumentNo:"",totalAmount:""};	
+	$scope.calculatePaymentAmountTax =function(data){
+		console.log(data);
+		var amt =$scope.paymentJson.amount * $scope.paymentJson.quantity;
+		$scope.paymentJson.totalAmount =amt + amt * data;
+	}
 	$scope.init_Inst =function(){
 		 $('#datetimepicker_instDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
@@ -965,6 +1020,7 @@ app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnB
 		  }
 	}
 	$scope.init_Inst();
+	scope=$scope;
 });
 $(document).ready(function(){
 	$(".menu-toggle").click(function(e) {

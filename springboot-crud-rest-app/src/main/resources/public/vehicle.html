@@ -1,5 +1,6 @@
 <div ng-controller="VehicleController">
 <div>
+<input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="TripSheet" ng-click="createTrip()" >
 <input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="Create" ng-click="createVehicle()" >
 <table id="manage-vehicle-table" class="custTable" datatable="ng" dt-options="vehm.dtVehicle" dt-columns="vehm.dtVehicleColumns" style="width: 90%;">
 					<thead>
@@ -102,6 +103,108 @@
               </td>
             </tr>
         </table>
+      </div>
+        </div>
+        
+        <!-- Modal footer 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div> -->
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- The tripsheet Modal -->
+  <div class="modal fade" id="tripModal">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 570px;">
+      <div class="modal-content">
+      
+        <!-- Modal Header  -->
+        <div class="modal-header">
+          <h4 class="modal-title"> Trip Sheet</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div> 
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class='col-md-12 tripItems'>
+          <div class="row">
+          <div class='col-md-4'>
+          <label class="col-md-4"><b>From </b></label>
+           <input type="text"  class="form-control col-md-8" placeholder="From" />
+          </div>
+          <div class='col-md-4'>
+          <label class="col-md-4"><b>To</b> </label>
+           <input type="text"  class="form-control col-md-8" placeholder="To" />
+          </div>
+          <div class='col-md-4'>
+          <label class="col-md-4"><b>Date&Time </b></label>
+           <input type="text"  class="form-control col-md-8" placeholder="From" />
+          </div>
+          </div>
+          <div class="row" style="margin-top: 4%;">
+          <div class='col-md-4'>
+          <label class="col-md-4"><b>VehicleType </b></label>
+           <input type="text"  class="form-control col-md-8" placeholder="VehicleType" />
+          </div>
+          <div class='col-md-4'>
+          <label class="col-md-4"><b>VehicleNo </b></label>
+           <input type="text"  class="form-control col-md-8" placeholder="VehicleTo" />
+          </div>
+          <div class='col-md-4'>
+          <label class="col-md-4"><b>DriverName </b></label>
+           <input type="text"  class="form-control col-md-8" placeholder="DriverName" />
+          </div>
+          </div>
+           <div class="float-right" style="margin-top: 3%;">
+           <a href="javascript:;" id="print" ng-click="newtabTrip();">Open</a>
+           <!-- <input type="Button" class='btn btn-info' value="Print" /> -->
+           </div>
+        <!-- <table id='tripData'>
+         
+			<tr> 
+              <td colspan="1">
+              <input type="text" ng-model="item.truckNo" class="form-control" placeholder="From" /> 
+              </td>
+              <td colspan="1">
+                <input type='text' ng-model="item.rcno" class="form-control" placeholder="RC No"/>
+              </td>
+            </tr>
+			<tr>
+              <td colspan="1">
+               <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="item.fcDate" placeholder="FC Date"/>
+                    <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+              </td>
+              
+              <td colspan="1">
+                <select ng-model="item.truckType" class="form-control" tabindex="8">
+		              <option value="">Select TruckType</option>
+		              <option>Transport truck</option>
+		              <option>Dump truck</option>
+		              <option>Garbage truck</option>
+		              <option>Box truck</option>
+		              <option>Tank truck</option>
+		      </select>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="1"></td>
+              <td colspan="1">
+                <input type="Button" class='addVeh' value="Add" ng-click="addItem(item)" />
+				<input type="Button" class='updateVeh' value="Update" ng-click="updateItem(item)" />
+              </td>
+              <td colspan="1"></td>
+              <td colspan="1">
+                <input type="button" class="close" data-dismiss="modal" value="Done" />
+              </td>
+            </tr>
+        </table> -->
       </div>
         </div>
         

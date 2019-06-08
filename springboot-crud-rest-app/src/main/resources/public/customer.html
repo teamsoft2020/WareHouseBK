@@ -44,11 +44,11 @@
 							<td>{{list.customerDetails[0].customerAddr}}</td>
 							<td>{{list.customerDetails[0].mobileNo}}</td>
 							<td>{{list.customerDetails[0].phoneNo}}</td>
-							<td class="hideclass">{{list.PAN}}</td>
-							<td class="hideclass">{{list.TAN}}</td>
-							<td class="hideclass">{{list.KYC}}</td>
+							<td class="hideclass">{{list.pan}}</td>
+							<td class="hideclass">{{list.tan}}</td>
+							<td class="hideclass">{{list.kyc}}</td>
 							<!-- <td class="hideclass">{{list.GSTIN}}</td> -->
-							<td class="hideclass">{{list.IEC}}</td>
+							<td class="hideclass">{{list.iec}}</td>
 								<td style="width: 13%;"> 
 									<input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
@@ -126,16 +126,16 @@
             </td></tr>
             <tr>
                <td colspan="1">
-                <input type="tel" ng-model="item.TAN" placeholder="TAN"/>
+                <input type="tel" ng-model="item.tan" placeholder="TAN"/>
               </td>
                <td colspan="1">
-                <input type="tel" ng-model="item.KYC" placeholder="KYC"/>
+                <input type="tel" ng-model="item.kyc" placeholder="KYC"/>
               </td>
                 <td colspan="1">
-                <input type="tel" ng-model="item.PAN" placeholder="PAN"/>
+                <input type="tel" ng-model="item.pan" placeholder="PAN"/>
               </td>
               <td colspan="1">
-                <input type="tel" ng-model="item.IEC" placeholder="IEC"/>
+                <input type="tel" ng-model="item.iec" placeholder="IEC"/>
               </td>
              
             </tr>
@@ -150,7 +150,7 @@
                 <input type="text" ng-model="customerDetail.phoneNo" placeholder="PhoneNo"/>
               </td>
               <td colspan="1">
-              <input type="text" ng-model="customerDetail.GSTIN" placeholder="GSTIN"/>
+              <input type="text" ng-model="customerDetail.gstin" placeholder="GSTIN"/>
               </td>
                <td> 
 				<i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addCustomerDetails(customerDetail);"></i>
@@ -158,7 +158,7 @@
 			</td>
               </tr>
               
-            <tr>
+            <!-- <tr>
               <td colspan="1"></td>
               <td colspan="1">
                 <input type="Button" class='addCust' value="Add" ng-click="addItem(item)" />
@@ -166,13 +166,18 @@
               </td>
               <td colspan="1"></td>
               <td colspan="1">
-                <input type="button" class="close" data-dismiss="modal" value="Done" />
+                
               </td>
-            </tr>
+            </tr> -->
         </table>  
       </div>
         </div>
-      
+       <div class="modal-footer">
+        <button type="button" class='btn btn-primary addCust' ng-click="addItem(item)" >Add</button>
+	 	<button type="button" class='btn btn-primary updateCust' ng-click="updateItem(item)" >Update</button>
+       	<button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button>
+        </div>
+        
       </div>
     </div>
   </div> 
