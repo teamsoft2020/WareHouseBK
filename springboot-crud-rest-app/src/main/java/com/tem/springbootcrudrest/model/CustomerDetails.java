@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
@@ -31,7 +32,7 @@ public class CustomerDetails {
 		private Customer customer;
 		
 		@JoinColumn(name = "id")
-		@ManyToOne(cascade = CascadeType.ALL)
+		@ManyToOne(fetch=FetchType.EAGER)
 		public Customer getCustomer() {
 			return customer;
 		}
@@ -39,7 +40,7 @@ public class CustomerDetails {
 			this.customer = customer;
 		}
 		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 		public long getCustomerDetailId() {
 			return customerDetailId;
 		}

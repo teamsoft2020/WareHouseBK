@@ -42,7 +42,7 @@ public class Customer {
 	private String createdby;
     
     private List<CustomerDetails> CustomerDetails;
-    @OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER)
+    @OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	public List<CustomerDetails> getCustomerDetails() {
 		return CustomerDetails;
 	}
@@ -52,7 +52,7 @@ public class Customer {
 	
 	@Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public Long getId() {
 		return id;
 	}
