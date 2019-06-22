@@ -10,13 +10,13 @@
 <table id="manage-customer-table" class="custTable" datatable="ng" dt-options="cm.dtCustomer" dt-column-defs="cm.dtColumnDefs" style="width: 90%;">
 					<thead>
 						<tr>
-							 <th scope="col">
+							 <!-- <th scope="col">
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" value="">
 									</label>
 								</div>
-							</th> 
+							</th> --> 
 							<th scope="col"><h5>CustomerId</h5></th>
 							<th scope="col"><h5>Customer Name</h5></th>
 							<th scope="col" ><h5>Address</h5></th>
@@ -32,13 +32,13 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="list in  listCustomerJson track by $index">
-							 <td>
+							 <!-- <td>
 								<div class="checkbox">
 									<label>
 										<input  type="checkbox" value="">
 									</label>
 								</div>
-							</td> 
+							</td> --> 
 							<td>{{list.customerId}}</td>
 							<td>{{list.customerName}}</td>
 							<td>{{list.customerDetails[0].customerAddr}}</td>

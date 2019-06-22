@@ -63,7 +63,8 @@
 		      			<table class="table table-bordered table-hover"  >
 							<thead>
 								<tr>
-									<th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th>
+									<!-- <th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th> -->
+									<th width="15%">InvoiceNo</th>
 									<th width="15%">Product</th>
 									<th width="15%">Amount</th>
 									<!-- <th width="15%">Date</th> -->
@@ -76,7 +77,8 @@
 							</thead>
 							<tbody>
 								<tr>
-										<td><input class="case" type="checkbox"></td>
+										<!-- <td><input class="case" type="checkbox"></td> -->
+										<td><label></label></td>
 										<td><!-- <input type="text"  id="productList" value="" class=" custom-select custom-select-sm" > -->
 									            <select data-placeholder="Your Product" ng-model="customerInvoiceJson.productName" class="form-control " tabindex="8">
 									              <option value="">Select Product</option>
@@ -124,8 +126,9 @@
 										
 										<td><input type="number" id="total" ng-model="customerInvoiceJson.totalAmount" class="form-control "></td>
 										<td> 
+										<!-- <input name="" type="button" class="btn btn-primary" id="" value="View"> -->
 									<i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
-									<i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+									 <i class="fa fa-trash fa-lg" aria-hidden="true"></i> 
 									
 								</td>
 								</tr>
@@ -143,7 +146,7 @@
 <div >
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-<div class="row" style="margin: 2%;" >
+<div class="row" >
   <div class="col-4">
   <select ng-model="shipperName" class="form-control" ng-change="selectShipperName()" style="display: block;margin: 2% auto;">
   <option value=""  selected>Select Shipper</option>
@@ -189,7 +192,8 @@
 		      			<table class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th>
+									<!-- <th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th> -->
+									<th width="15%">InvoiceNo</th>
 									<th width="15%">Product</th>
 									<th width="15%">Amount</th>
 									<!-- <th width="15%">Date</th> -->
@@ -202,7 +206,8 @@
 							</thead>
 							<tbody>
 								<tr>
-										<td><input class="case" type="checkbox"></td>
+										<!-- <td><input class="case" type="checkbox"></td> -->
+										<td><label></label></td>
 										<td><!-- <input type="text"  id="productList" value="" class=" custom-select custom-select-sm" > -->
 									            <select data-placeholder="Your Product"  class="form-control " tabindex="8">
 									              <option value="">Select Product</option>
@@ -327,20 +332,24 @@
 		      			<table class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th>
+									<!-- <th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th> -->
+									<th width="15%">InvoiceNo</th>
+									<th width="15%">CustomerName</th>
 									<th width="15%">Product</th>
 									<th width="15%">Amount</th>
-									<!-- <th width="15%">Date</th> -->
-									<th width="15%">Quantity</th>
+									 <th width="15%">Date</th> 
+									<!--<th width="15%">Quantity</th>
 									<th width="15%">Tax</th>
 									<th width="15%">Currency</th>
-									<th width="15%">Total</th>
+									<th width="15%">Total</th> -->
 									<th width="15%">Action</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-										<td><input class="case" type="checkbox"></td>
+										<!-- <td><input class="case" type="checkbox"></td> -->
+										<td><label></label></td>
+										<td><label></label></td>
 										<td><!-- <input type="text"  id="productList" value="" class=" custom-select custom-select-sm" > -->
 									            <select data-placeholder="Your Product"  class="form-control " tabindex="8">
 									              <option value="">Select Product</option>
@@ -355,6 +364,7 @@
 									            </select>
 										</td>
 										<td><input type="text"  id="amt" class="form-control " ></td>
+										<td><input type="text"  id="bill_date" class="form-control " ></td>
 										<!-- <td>
 										<div class="input-group date" id="datetimepicker_billvenDate" data-target-input="nearest">
 						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_billvenDate" placeholder="Bill Date"/>
@@ -362,11 +372,10 @@
 						                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
 						                  </div>
 						              </div>
-										</td> -->
+										</td> 
 										<td><input type="number"  id="qty" class="form-control " ></td>
 										<td><input type="number" id="tax" class="form-control "></td>
 										<td>
-										<!-- <input type="number" id="cur" class="form-control " > -->
 										<select class="form-control ">
 											 <option value=""  selected>Select Currency</option>
 											 <option  >INR</option>
@@ -374,12 +383,10 @@
 											 <option  >EURO</option>
 										</select>
 										</td>
-										<td><input type="number" id="total" class="form-control "></td>
+										<td><input type="number" id="total" class="form-control "></td> -->
 										<td> 
-									<i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
-									<i class="fa fa-trash fa-lg" aria-hidden="true"></i>
-									
-								</td>
+										<input name="" type="button" class="btn btn-primary" id="" value="View">
+										</td>
 								</tr>
 							</tbody>
 						</table>

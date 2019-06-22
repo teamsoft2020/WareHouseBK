@@ -1,13 +1,19 @@
 package com.tem.springbootcrudrest.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,10 +24,14 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+
+
 @Entity
 @Table(name = "customers")
 @EntityListeners(AuditingEntityListener.class)
 public class Customer {
+	 
+	private Long id;
 	private long customerId;
 	private String customerName;
 	private String PAN;
@@ -30,9 +40,25 @@ public class Customer {
 	private String IEC;
 	private Date createdAt;
 	private String createdby;
+    
+    private List<CustomerDetails> CustomerDetails;
+    @OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER)
+	public List<CustomerDetails> getCustomerDetails() {
+		return CustomerDetails;
+	}
+	public void setCustomerDetails(List<CustomerDetails> customerDetails) {
+		CustomerDetails = customerDetails;
+	} 
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	@Column(name = "Customer_Id", unique = true, nullable = false)
 	public long getCustomerId() {
 		return customerId;
@@ -47,7 +73,8 @@ public class Customer {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	
+	@Temporal(TemporalType.DATE)
+	@LastModifiedDate
 	@Column(name = "Created_At", nullable = true)
 	public Date getCreatedAt() {
 		return createdAt;

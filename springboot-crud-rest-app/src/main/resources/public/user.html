@@ -4,13 +4,13 @@
 <table id="manage-user-table" class="custTable" datatable="ng" dt-options="um.dtUser" dt-columns="um.dtUserColumns" style="width: 90%;">
 					<thead>
 						<tr>
-							 <th scope="col">
+							 <!-- <th scope="col">
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" value="">
 									</label>
 								</div>
-							</th> 
+							</th> --> 
 							<th scope="col"><h5>UserId</h5></th>
 							<th scope="col"><h5>User Name</h5></th>
 							<th scope="col" ><h5>Email</h5></th>
@@ -20,13 +20,13 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="list in  listUserJson track by $index">
-							 <td>
+							 <!-- <td>
 								<div class="checkbox">
 									<label>
 										<input  type="checkbox" value="">
 									</label>
 								</div>
-							</td> 
+							</td>  -->
 							<td>{{list.userId}}</td>
 							<td>{{list.userName}}</td>
 							<td>{{list.email}}</td>

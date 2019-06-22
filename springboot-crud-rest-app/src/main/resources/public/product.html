@@ -4,13 +4,13 @@
 <table id="manage-Product-table" class="prodTable" datatable="ng" dt-options="pm.dtProduct" dt-columns="pm.dtProductColumns" style="width: 90%;">
 					<thead>
 						<tr>
-							 <th scope="col">
+							 <!-- <th scope="col">
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" value="">
 									</label>
 								</div>
-							</th> 
+							</th> --> 
 							<th scope="col"><h5>Product Code</h5></th>
 							<th scope="col" ><h5>Product Name</h5></th>
 							<th scope="col"><h5>HSN/SAC</h5></th>
@@ -20,13 +20,13 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="list in  listProductJson track by $index">
-							 <td>
+							 <!-- <td>
 								<div class="checkbox">
 									<label>
 										<input  type="checkbox" value="">
 									</label>
 								</div>
-							</td> 
+							</td> --> 
 							<td>{{list.productCode}}</td>
 							<td>{{list.productName}}</td>
 							<td>{{list.HSNSAC}}</td>

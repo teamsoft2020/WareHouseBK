@@ -838,10 +838,21 @@ for(i in $scope.listVehicleJson) {
    }
 }
 $scope.newtabTrip =function(){
-	  var w = $window.open();
+	 var w = $window.open();
 	  var html = $(".tripItems").html();
-	  $(w.document.head).append(document.head);
-	    $(w.document.body).html(html);
+	  $(w.document.head).append("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>");
+	  var scriptjquery = document.createElement( 'script' );
+	  scriptjquery.type = 'text/javascript';
+	  scriptjquery.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+	  $(w.document.head).append( scriptjquery );
+	  var scriptbootstrap = document.createElement( 'script' );
+	  scriptbootstrap.type = 'text/javascript';
+	  scriptbootstrap.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js';
+	  $(w.document.head).append( scriptbootstrap );
+	  $(w.document.body).html(html);
+	setTimeout(function(){ 
+	    w.print();
+	}, 2000);
 }
 $scope.init =function(){
 	 $('#datetimepicker5').datetimepicker({
