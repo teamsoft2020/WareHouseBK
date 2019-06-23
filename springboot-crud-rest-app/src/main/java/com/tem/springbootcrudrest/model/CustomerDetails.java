@@ -31,8 +31,9 @@ public class CustomerDetails {
 		
 		private Customer customer;
 		
-		@JoinColumn(name = "id")
+		
 		@ManyToOne(fetch=FetchType.EAGER)
+		@JoinColumn(name = "id")
 		public Customer getCustomer() {
 			return customer;
 		}
@@ -40,7 +41,7 @@ public class CustomerDetails {
 			this.customer = customer;
 		}
 		@Id
-	    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	    @GeneratedValue(strategy = GenerationType.AUTO)
 		public long getCustomerDetailId() {
 			return customerDetailId;
 		}

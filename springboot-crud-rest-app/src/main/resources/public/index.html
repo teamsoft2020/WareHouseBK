@@ -858,10 +858,122 @@ $scope.init =function(){
 	 $('#datetimepicker5').datetimepicker({
 	        format: 'DD/MM/YYYY'
 	    });
+	 $scope.trip = {from: "",to: "",date: "",vehicleType: "",vehicleNo: "",driverName: ""};
+	 scope=$scope;
 }
 $scope.init();
 	
-	
+$scope.bay=function() {
+	var i = 2;
+	var j = 2;
+	var xmlhttp;
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp = new XMLHttpRequest();
+		var myWindow = window.open('', '', 'width=2000,height=1000');
+		myWindow.document
+				.write("<body style='font: bold; font-size: xxx-small; line-height: 0.5cm;'><img src=\"img/sse.png height='42px' width='42px'\"><h1 align='center'>SSE LOGISTICS PRIVATE LIMITED</h1> "
+						+ "<h4  align='center'>484, Pantheon Plaza, Pantheon Road, Egmore, Chennai - 600 008. INDIA</h4>"
+						+ "<h4  align='center'>Ph:+91-44-1111 4444, 2222 3333  FAX:+91-44-5559-5555</h4>"
+						+ "<h4> Sl No : "
+						+ "1"
+						+ "</h4><br><h3 >"
+						+ "a1"
+						+ "</h3><P >"
+						+ "b2"
+						+ "</P><P >"
+						+ "c3"
+						+ "</P><P >"
+						+ "d4"
+						+ "</P><P >"
+						+ "e5"
+						+ "</P><P>"
+						+ "f6"
+						+ "</P>"
+						+ "<P>Dear Sir / Madam</P><P>Sub :<b>"
+						+ "oname"
+						+ "</b></P><P>Ref: Your quotation ref.no. <b>"
+						+ "ref"
+						+ "</b></P><P>With reference to your quote and further discussion on pricing, we hereby place an order  as per the details given below:</P>");
+		myWindow.document
+				.write("<table border='1'; cellpadding=0.1; cellspacing=5; align='center' >"
+						+ "<tr><td><b>FROM	   </b></td><td><b>TO</b></td>"
+						+ "<td>DATE	"
+						+ "</td><td>VEHICLETYPE</td><td>VEHICLENO </td><td>DRIVERNAME</td>" + "</tr>");
+		myWindow.document.write("<tr><td><b> " +  $scope.trip.from
+				+ "   </b></td><td><b>" + $scope.trip.to + "</b></td>" + "<td>" + $scope.trip.date
+				+ "</td><td>" + $scope.trip.vehicleType + "</td><td>" + $scope.trip.vehicleNo + " </td><td>"+$scope.trip.driverName+"</td>"
+				+ "</tr></table>");
+		/* for (x = 1; x < i; x++) {
+			alert(i);
+			var p = 3;
+			var q = 4;
+			var r = 4;
+			var s = 5;
+			var t = 6;
+			myWindow.document.write("<tr><td><b> " + p
+					+ "   </b></td><td><b>" + q + "</b></td>" + "<td>" + r
+					+ "</td><td>" + s + "</td><td>" + t + " </td>"
+					+ "</tr>");
+		}
+		myWindow.document.write("<tr><td><b>    </b></td><td><b></b></td>"
+				+ "<td>	" + "</td><td></td><td>TOTAL </td>"
+				+ "</tr></table>");
+		myWindow.document.write("<p><b>Remarks :</b></p>");
+		for (x = 1; x < j; x++) {
+			alert(j);
+			var rem = document.getElementById("pnq" + x).value;
+			myWindow.document.write("<p><b> " + rem + "</b> </p>");
+		} */
+		/* myWindow.document
+				.write("<table align='center'; cellpadding=0.1; cellspacing=5; ><tr><td><b>DELIVERY ADDRESS</b> </td><td></td><td></td><td></td><td></td></td><td>"
+						+ "<td><b> BILLING ADDRESS   </b></td><td></td></tr>"
+						+ "<tr><td>"
+						+ "f16"
+						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
+						+ "<td align='right'> "
+						+ "f16"
+						+ "</td><td></td></tr><tr><td>"
+						+ "f16"
+						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
+						+ "<td align='right'> "
+						+ "f16"
+						+ "</td><td></td></tr><tr><td>"
+						+ "f16"
+						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
+						+ "<td align='right'> "
+						+ "f16"
+						+ "</td><td></td></tr><tr><td>"
+						+ "f16"
+						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
+						+ "<td align='right'> "
+						+ "f16"
+						+ "</td><td></td></tr><tr><td>"
+						+ "f16"
+						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
+						+ "<td align='right'> "
+						+ "f16"
+						+ "</td><td></td></tr><tr><td>"
+						+ "f16"
+						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
+						+ "<td align='right'> "
+						//+ f
+						+ "</td><td></td></tr></table>" + "</p></b></body>"); */
+		myWindow.document.close();
+		myWindow.focus();
+		myWindow.print();
+		myWindow.close();
+	} else {// code for IE6, IE5
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+		}
+	}
+	//document.getElementById('traffic').submit();
+	/* xmlhttp.open("GET", "bay.html", true); */
+	xmlhttp.send();
+}
 });
 app.controller('UserController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	

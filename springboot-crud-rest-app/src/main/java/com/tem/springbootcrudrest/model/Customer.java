@@ -51,8 +51,8 @@ public class Customer {
 	} 
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public Long getId() {
 		return id;
 	}
