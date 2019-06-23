@@ -30,19 +30,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "customers")
 @EntityListeners(AuditingEntityListener.class)
 public class Customer {
-	 
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="id") 
 	private Long id;
+	@Column(name = "Customer_Id", unique = true, nullable = false)
 	private long customerId;
+	@Column(name = "Customer_name", nullable = false)
 	private String customerName;
+	@Column(name = "pan", nullable = true)
 	private String PAN;
+	@Column(name = "tan", nullable = true)
 	private String TAN;
+	@Column(name = "kyc", nullable = true)
 	private String KYC;
+	@Column(name = "iec", nullable = true)
 	private String IEC;
+	@Temporal(TemporalType.DATE)
+	@LastModifiedDate
+	@Column(name = "Created_At", nullable = true)
 	private Date createdAt;
+	@Column(name = "Created_by", nullable = true)
 	private String createdby;
-    
+	 @OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     private List<CustomerDetails> CustomerDetails;
-    @OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+   
 	public List<CustomerDetails> getCustomerDetails() {
 		return CustomerDetails;
 	}
@@ -50,67 +62,63 @@ public class Customer {
 		CustomerDetails = customerDetails;
 	} 
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Column(name = "Customer_Id", unique = true, nullable = false)
+	
 	public long getCustomerId() {
 		return customerId;
 	}
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
-	@Column(name = "Customer_name", nullable = false)
+	
 	public String getCustomerName() {
 		return customerName;
 	}
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	@Temporal(TemporalType.DATE)
-	@LastModifiedDate
-	@Column(name = "Created_At", nullable = true)
+	
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	@Column(name = "Created_by", nullable = true)
+	
 	public String getCreatedby() {
 		return createdby;
 	}
 	public void setCreatedby(String createdby) {
 		this.createdby = createdby;
 	}
-	@Column(name = "pan", nullable = true)
+	
 	public String getPAN() {
 		return PAN;
 	}
 	public void setPAN(String pAN) {
 		PAN = pAN;
 	}
-	@Column(name = "tan", nullable = true)
+	
 	public String getTAN() {
 		return TAN;
 	}
 	public void setTAN(String tAN) {
 		TAN = tAN;
 	}
-	@Column(name = "kyc", nullable = true)
+	
 	public String getKYC() {
 		return KYC;
 	}
 	public void setKYC(String kYC) {
 		KYC = kYC;
 	}
-	@Column(name = "iec", nullable = true)
+	
 	public String getIEC() {
 		return IEC;
 	}

@@ -23,53 +23,58 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "customerDetails")
 @EntityListeners(AuditingEntityListener.class)
 public class CustomerDetails {
+		@Id
+	    @GeneratedValue(strategy = GenerationType.AUTO)
 		private long customerDetailId;
+		@Column(name = "Customer_Addr", nullable = false)
 		private String customerAddr;
+		@Column(name = "MobileNo", nullable = false)
 		private String mobileNo;
+		@Column(name = "phoneNo", nullable = false)
 		private String phoneNo;
+		@Column(name = "Gstin", nullable = false)
 		private String gstin;
-		
+		@ManyToOne(fetch=FetchType.EAGER)
+		@JoinColumn(name = "id")
 		private Customer customer;
 		
 		
-		@ManyToOne(fetch=FetchType.EAGER)
-		@JoinColumn(name = "id")
+		
 		public Customer getCustomer() {
 			return customer;
 		}
 		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}
-		@Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
+		
 		public long getCustomerDetailId() {
 			return customerDetailId;
 		}
 		public void setCustomerDetailId(long customerDetailId) {
 			this.customerDetailId = customerDetailId;
 		}
-		@Column(name = "Customer_Addr", nullable = false)
+		
 		public String getCustomerAddr() {
 			return customerAddr;
 		}
 		public void setCustomerAddr(String customerAddr) {
 			this.customerAddr = customerAddr;
 		}
-		@Column(name = "MobileNo", nullable = false)
+		
 		public String getMobileNo() {
 			return mobileNo;
 		}
 		public void setMobileNo(String mobileNo) {
 			this.mobileNo = mobileNo;
 		}
-		@Column(name = "phoneNo", nullable = false)
+		
 		public String getPhoneNo() {
 			return phoneNo;
 		}
 		public void setPhoneNo(String phoneNo) {
 			this.phoneNo = phoneNo;
 		}
-		@Column(name = "Gstin", nullable = false)
+		
 		public String getGstin() {
 			return gstin;
 		}
