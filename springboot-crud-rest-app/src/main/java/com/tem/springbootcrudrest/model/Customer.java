@@ -24,6 +24,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 @Entity
@@ -34,7 +36,7 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id") 
 	private Long id;
-	@Column(name = "Customer_Id", unique = true, nullable = false)
+	@Column(name = "Customer_Id", nullable = false)
 	private long customerId;
 	@Column(name = "Customer_name", nullable = false)
 	private String customerName;
@@ -52,17 +54,28 @@ public class Customer {
 	private Date createdAt;
 	@Column(name = "Created_by", nullable = true)
 	private String createdby;
-	 @OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<CustomerDetails> CustomerDetails;
+	
+	//@OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "customeranddcustomeretails", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<CustomerDetails> customerDetails;
+	
+	
    
+//	public List<CustomerDetails> getCustomerDetails() {
+//		return CustomerDetails;
+//	}
+//	public void setCustomerDetails(List<CustomerDetails> customerDetails) {
+//		CustomerDetails = customerDetails;
+//	} 
+//	
+	
 	public List<CustomerDetails> getCustomerDetails() {
-		return CustomerDetails;
+		return customerDetails;
 	}
 	public void setCustomerDetails(List<CustomerDetails> customerDetails) {
-		CustomerDetails = customerDetails;
-	} 
-	
-	
+		this.customerDetails = customerDetails;
+	}
 	public Long getId() {
 		return id;
 	}

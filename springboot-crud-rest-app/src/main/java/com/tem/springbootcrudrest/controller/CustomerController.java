@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.exception.ResourceNotFoundException;
 import com.tem.springbootcrudrest.model.Customer;
+import com.tem.springbootcrudrest.model.CustomerDetails;
+import com.tem.springbootcrudrest.repository.CustomerDetailsRepository;
 import com.tem.springbootcrudrest.repository.CustomerRepository;
 
 
@@ -31,6 +33,9 @@ public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	CustomerDetailsRepository customerDetailsRepository;
+	
 	@GetMapping("/customers")
 	public List<Customer> getAllCustomers() {
 		return customerRepository.findAll();
@@ -46,25 +51,42 @@ public class CustomerController {
 
 	@PostMapping("/customers")
 	public Customer createUser(@Valid @RequestBody Customer customer) {
-		return customerRepository.save(customer);
+		
+		Customer customerresponse=	customerRepository.save(customer);
+
+		
+		return customerresponse;
+	}
+	
+	@PutMapping("/customerupdate")
+	public Customer updateCustomer(@Valid @RequestBody Customer customer){
+Customer customerresponse=	customerRepository.save(customer);
+		
+		
+		return customerresponse;
 	}
 
-	@PutMapping("/customers/{id}")
+	/*@PutMapping("/customers/{id}")
 	public ResponseEntity<Customer> updateUser(
 			@PathVariable(value = "id") Long userId,
 			@Valid @RequestBody Customer userDetails) throws ResourceNotFoundException {
 		Customer user = customerRepository.findById(userId)
 		        .orElseThrow(() -> new ResourceNotFoundException("User not found :: " + userId));
 		
-		//user.setEmailId(userDetails.getEmailId());
-		//user.setLastName(userDetails.getLastlName());
-		//user.setFirstName(userDetails.getFirstName());
-		//user.setUpdatedAt(new Date());
+		
 		final Customer updatedUser = customerRepository.save(user);
 		return ResponseEntity.ok(updatedUser);
+	}*/
+	
+	@DeleteMapping("/customer/{id}")
+	public String deleteCustomer(@PathVariable(value = "id") Long userId) {
+		customerRepository.deleteById(userId);
+		
+		return "deleteSuccessfuly";
+		
 	}
 
-	@DeleteMapping("/customers/{id}")
+	/*@DeleteMapping("/customers/{id}")
 	public Map<String, Boolean> deleteUser(
 			@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		Customer user = customerRepository.findById(userId)
@@ -74,5 +96,12 @@ public class CustomerController {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
+	}*/
+	
+	@GetMapping("/customerlist")
+	public List<Customer>getCustomers(){
+		List<Customer>customerList = customerRepository.findAll();
+		return customerList;
 	}
+	
 }

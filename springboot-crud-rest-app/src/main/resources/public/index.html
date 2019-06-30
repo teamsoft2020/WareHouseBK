@@ -3,34 +3,39 @@
   <title>Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css"> 
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+ <link rel="stylesheet" href="/css/jquery.dataTables.min.css">
+ <link rel="stylesheet" href="/css/buttons.dataTables.min.css"> 
 <!-- datetimepicker plugin -->
  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css"> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/angular-datatables.min.js"></script>
+<link rel="stylesheet" href="/css/tempusdominus-bootstrap-4.min.css" />
+ <link rel="stylesheet" href="/css/font-awesome.min.css"> 
+ <link rel="stylesheet" href="/css/angular-toastr.css" />
+
+ 
+  <script src="/js/jquery.min.js"></script>
+  <script src = "/js/jquery.dataTables.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+<script src="/js/angular.min.js"></script>
+<script src="/js/angular-route.js"></script>
+<script src="/js/angular-animate.js"></script>
+<script type="text/javascript" src="/js/angular-datatables.min.js"></script>
 <script src="/js/moment.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<script type="text/javascript" src="/js/tempusdominus-bootstrap-4.min.js"></script>
 
 
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
-<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/plugins/buttons/angular-datatables.buttons.min.js"></script>
-
+<script src="/js/dataTables.buttons.min.js"></script>
+<script src="/js/buttons.colVis.min.js"></script>
+<script src="/js/buttons.flash.min.js"></script>
+<script src="/jszip/3.1.3/jszip.min.js"></script>
+<script src="/js/pdfmake.min.js"></script>
+<script src="/js/vfs_fonts.js"></script>
+<script src="/js/buttons.html5.min.js"></script>
+<script src="/js/buttons.print.min.js"></script>
+<script src="/js/angular-datatables.buttons.min.js"></script>
+<script src="/js/angular-toastr.tpls.js"></script>
 <style>
+
 html,body{
 width:100% !important;
 height:100% !important;
@@ -249,7 +254,7 @@ font-size:12px;
 <!-- <div ng-view style="width: 100%;height: 90%;"></div> -->
 </div>
 <script>
-var app = angular.module("homeApp", ["ngRoute" ,"datatables","datatables.buttons"]);
+var app = angular.module("homeApp", ["ngRoute" ,"datatables","datatables.buttons","ngAnimate", "toastr"]);
 app.config(['$routeProvider',function($routeProvider) {
     $routeProvider
       .when("/", {
@@ -433,7 +438,7 @@ app.controller("EmpController", ['$scope', '$routeParams' ,'$window' ,'$rootScop
 app.controller('HomeController', function ($scope) {
 	
 });
-app.controller('CustomerController', function ($scope,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('CustomerController',function ($scope,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	scope=$scope;
 	$scope.listCustomerJson =[{customerId: "1111",customerName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"},{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
 							  {customerId: "2222",customerName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
@@ -489,16 +494,6 @@ $scope.deleteCustomerDetails = function(index){
 $scope.addItem = function(item) {
 	var url = location.origin +"/api/v2/customers";
 	//$scope.listCustomerJson.push(angular.copy(item));
-	/* var config = {
-	            headers : {
-	                'Content-Type': 'application/json'
-	            }
-	    }
-	var data = {
-	        firstname: $scope.firstname,
-	        lastname: $scope.lastname
-	    };  */
-
 	    $http({
 	        method : 'POST',
 	        url : url,
@@ -507,23 +502,59 @@ $scope.addItem = function(item) {
 	        'Content-Type' : 'application/json'
 	        }
 	        }).then(function (response) {
-	            $scope.listCustomerJson = response.data;
-	           
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data added successfully');
+	        	$scope.initcust();
 	        }, function error(response) {
+	        	toastr.success('Data not added');
 	          console.log(response.status);
 	        });
 	    $scope.item = {};
         $scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
 }
 $scope.updateItem = function(item) {
- for(i in $scope.listCustomerJson) {
+ /* for(i in $scope.listCustomerJson) {
                 if($scope.listCustomerJson[i].customerId == $scope.item.customerId) {
                     $scope.listCustomerJson[i] = $scope.item;
                 }
-         }
+         } */
+         
+         
+	var url = location.origin +"/api/v2/customerupdate";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	console.log($scope.item);
+	    $http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data updated successfully');
+	        	$scope.initcust();
+	        }, function error(response) {
+	        	toastr.success('Data not updated');
+	          console.log(response.status);
+	        });
+         
+         
 }
-$scope.removeItem = function(index){
-$scope.listCustomerJson.splice(index,1);
+$scope.removeItem = function(item){
+//$scope.listCustomerJson.splice(index,1);
+	console.log(item.id);
+	var url=location.origin +"/api/v2/customer/"+item.id;
+	 $http({
+		    method : 'DELETE',
+		    url : url,
+		   }).then(function successCallback(response) {
+			   toastr.success('Data deleted successfully');
+			   $scope.initcust();
+		   }, function errorCallback(response) {
+			   toastr.success('Data not deleted');
+		    console.log(response.statusText);
+		   });
 }
  $scope.editCustomer = function(index){
    $("#custModal").modal("show");
@@ -538,7 +569,8 @@ for(i in $scope.listCustomerJson) {
  }	
  
  $scope.initcust =function(){
-	 var url=location.origin +"/api/v1/users";
+	 
+	 var url=location.origin +"/api/v2/customers";
 	 $http({
 		    method : 'GET',
 		    url : url,
@@ -548,7 +580,7 @@ for(i in $scope.listCustomerJson) {
 		    console.log(response.statusText);
 		   });
  }
- //$scope.initcust();
+ $scope.initcust();
 });
 app.controller('VendorController', function ($scope ,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	
@@ -852,7 +884,7 @@ $scope.newtabTrip =function(){
 	  $(w.document.body).html(html);
 	setTimeout(function(){ 
 	    w.print();
-	}, 2000);
+	}, 500);
 }
 $scope.init =function(){
 	 $('#datetimepicker5').datetimepicker({
@@ -864,104 +896,37 @@ $scope.init =function(){
 $scope.init();
 	
 $scope.bay=function() {
-	var i = 2;
-	var j = 2;
 	var xmlhttp;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 		xmlhttp = new XMLHttpRequest();
-		var myWindow = window.open('', '', 'width=2000,height=1000');
-		myWindow.document
-				.write("<body style='font: bold; font-size: xxx-small; line-height: 0.5cm;'><img src=\"img/sse.png height='42px' width='42px'\"><h1 align='center'>SSE LOGISTICS PRIVATE LIMITED</h1> "
-						+ "<h4  align='center'>484, Pantheon Plaza, Pantheon Road, Egmore, Chennai - 600 008. INDIA</h4>"
-						+ "<h4  align='center'>Ph:+91-44-1111 4444, 2222 3333  FAX:+91-44-5559-5555</h4>"
-						+ "<h4> Sl No : "
-						+ "1"
-						+ "</h4><br><h3 >"
-						+ "a1"
-						+ "</h3><P >"
-						+ "b2"
-						+ "</P><P >"
-						+ "c3"
-						+ "</P><P >"
-						+ "d4"
-						+ "</P><P >"
-						+ "e5"
-						+ "</P><P>"
-						+ "f6"
-						+ "</P>"
-						+ "<P>Dear Sir / Madam</P><P>Sub :<b>"
-						+ "oname"
-						+ "</b></P><P>Ref: Your quotation ref.no. <b>"
-						+ "ref"
-						+ "</b></P><P>With reference to your quote and further discussion on pricing, we hereby place an order  as per the details given below:</P>");
-		myWindow.document
-				.write("<table border='1'; cellpadding=0.1; cellspacing=5; align='center' >"
-						+ "<tr><td><b>FROM	   </b></td><td><b>TO</b></td>"
-						+ "<td>DATE	"
-						+ "</td><td>VEHICLETYPE</td><td>VEHICLENO </td><td>DRIVERNAME</td>" + "</tr>");
-		myWindow.document.write("<tr><td><b> " +  $scope.trip.from
-				+ "   </b></td><td><b>" + $scope.trip.to + "</b></td>" + "<td>" + $scope.trip.date
-				+ "</td><td>" + $scope.trip.vehicleType + "</td><td>" + $scope.trip.vehicleNo + " </td><td>"+$scope.trip.driverName+"</td>"
-				+ "</tr></table>");
-		/* for (x = 1; x < i; x++) {
-			alert(i);
-			var p = 3;
-			var q = 4;
-			var r = 4;
-			var s = 5;
-			var t = 6;
-			myWindow.document.write("<tr><td><b> " + p
-					+ "   </b></td><td><b>" + q + "</b></td>" + "<td>" + r
-					+ "</td><td>" + s + "</td><td>" + t + " </td>"
-					+ "</tr>");
-		}
-		myWindow.document.write("<tr><td><b>    </b></td><td><b></b></td>"
-				+ "<td>	" + "</td><td></td><td>TOTAL </td>"
-				+ "</tr></table>");
-		myWindow.document.write("<p><b>Remarks :</b></p>");
-		for (x = 1; x < j; x++) {
-			alert(j);
-			var rem = document.getElementById("pnq" + x).value;
-			myWindow.document.write("<p><b> " + rem + "</b> </p>");
-		} */
-		/* myWindow.document
-				.write("<table align='center'; cellpadding=0.1; cellspacing=5; ><tr><td><b>DELIVERY ADDRESS</b> </td><td></td><td></td><td></td><td></td></td><td>"
-						+ "<td><b> BILLING ADDRESS   </b></td><td></td></tr>"
-						+ "<tr><td>"
-						+ "f16"
-						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
-						+ "<td align='right'> "
-						+ "f16"
-						+ "</td><td></td></tr><tr><td>"
-						+ "f16"
-						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
-						+ "<td align='right'> "
-						+ "f16"
-						+ "</td><td></td></tr><tr><td>"
-						+ "f16"
-						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
-						+ "<td align='right'> "
-						+ "f16"
-						+ "</td><td></td></tr><tr><td>"
-						+ "f16"
-						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
-						+ "<td align='right'> "
-						+ "f16"
-						+ "</td><td></td></tr><tr><td>"
-						+ "f16"
-						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
-						+ "<td align='right'> "
-						+ "f16"
-						+ "</td><td></td></tr><tr><td>"
-						+ "f16"
-						+ "</td><td></td><td> </td><td> </td><td></td><td></td>"
-						+ "<td align='right'> "
-						//+ f
-						+ "</td><td></td></tr></table>" + "</p></b></body>"); */
-		myWindow.document.close();
-		myWindow.focus();
-		myWindow.print();
-		myWindow.close();
+		var myWindow = $window.open('', '', 'width=2000,height=1000');
+		  $(myWindow.document.head).append("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>");
+		  var scriptjquery = document.createElement( 'script' );
+		  scriptjquery.type = 'text/javascript';
+		  scriptjquery.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+		  $(myWindow.document.head).append( scriptjquery );
+		  var scriptbootstrap = document.createElement( 'script' );
+		  scriptbootstrap.type = 'text/javascript';
+		  scriptbootstrap.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js';
+		  $(myWindow.document.head).append( scriptbootstrap );
+		  
+		myWindow.document.write("<body style='font: bold; font-size: xxx-small; line-height: 0.5cm;'><img src=\"img/sse.png height='42px' width='42px'\"><h1 align='center'>SSE LOGISTICS PRIVATE LIMITED</h1> ");
+						//+ "<h4  align='center'>484, Pantheon Plaza, Pantheon Road, Egmore, Chennai - 600 008. INDIA</h4>"
+						//+ "<h4  align='center'>Ph:+91-44-1111 4444, 2222 3333  FAX:+91-44-5559-5555</h4>");
+		
+		//$(myWindow.document.body).append("<div class='container'><div class='row'><div class='col-xs-5'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Company Details</h3></div><div class='panel-body'><dl class='dl-horizontal'><dt>Name</dt><dd><strong>Acme Corporation</strong></dd><dt>Industry</dt><dd>Software Development</dd><dt>Address</dt><dd>Field 3, Moon</dd><dt>Phone</dt><dd>123.4456.4567</dd><dt>Email</dt><dd>mainl@acme.com</dd><dt>Tax NO</dt><dd class='mono'>123456789</dd><dt>Tax Office</dt><dd>A' Moon</dd></div></div></div><div class='col-xs-7'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Customer Details</h3></div><div class='panel-body'><dl class='dl-horizontal'><dt>Name</dt><dd>Microsoft Corporation</dd><dt>Industry</dt><dd>Software Development</dd><dt>Address</dt><dd>One Microsoft Way Redmond, WA 98052-7329, USA</dd><dt>Phone</dt><dd>(425) 882-8080</dd><dt>Email</dt><dd>contact@microsoft.com</dd><dt>Tax NO</dt><dd class='mono'>123456789</dd><dt>&nbsp;</dt><dd>&nbsp;</dd></div></div></div></div></div>");
+		$(myWindow.document.body).append("<table border='1'; cellpadding=0.1; cellspacing=5; align='center' >"
+						+ "<tr><td><b>FROM</b></td><td><b>TO</b></td>"
+						+ "<td>DATE</td><td>VEHICLETYPE</td><td>VEHICLENO </td><td>DRIVERNAME</td>" + "</tr><tr><td><b> " +  $scope.trip.from
+						+ "   </b></td><td><b>" + $scope.trip.to + "</b></td>" + "<td>" + $scope.trip.date
+						+ "</td><td>" + $scope.trip.vehicleType + "</td><td>" + $scope.trip.vehicleNo + " </td><td>"+$scope.trip.driverName+"</td>"
+						+ "</tr></table>");
+		$(myWindow.document.body).append("");
+		
+		$(myWindow.document).close();
+		$(myWindow).focus();
+		$(myWindow).print();
+		$(myWindow).close();
 	} else {// code for IE6, IE5
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
@@ -970,8 +935,7 @@ $scope.bay=function() {
 			document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
 		}
 	}
-	//document.getElementById('traffic').submit();
-	/* xmlhttp.open("GET", "bay.html", true); */
+	
 	xmlhttp.send();
 }
 });

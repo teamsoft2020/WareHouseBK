@@ -18,6 +18,8 @@ import javax.persistence.Id;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name = "customerDetails")
@@ -34,21 +36,29 @@ public class CustomerDetails {
 		private String phoneNo;
 		@Column(name = "Gstin", nullable = false)
 		private String gstin;
+		
+		@JsonBackReference
 		@ManyToOne(fetch=FetchType.EAGER)
 		@JoinColumn(name = "id")
-		private Customer customer;
+		private Customer customeranddcustomeretails;
 		
 		
-		
+		/*
 		public Customer getCustomer() {
 			return customer;
 		}
 		public void setCustomer(Customer customer) {
 			this.customer = customer;
-		}
+		}*/
 		
 		public long getCustomerDetailId() {
 			return customerDetailId;
+		}
+		public Customer getCustomeranddcustomeretails() {
+			return customeranddcustomeretails;
+		}
+		public void setCustomeranddcustomeretails(Customer customeranddcustomeretails) {
+			this.customeranddcustomeretails = customeranddcustomeretails;
 		}
 		public void setCustomerDetailId(long customerDetailId) {
 			this.customerDetailId = customerDetailId;

@@ -50,14 +50,16 @@
 							<!-- <td class="hideclass">{{list.GSTIN}}</td> -->
 							<td class="hideclass">{{list.iec}}</td>
 								<td style="width: 13%;"> 
-									<input name="" type="button" data-toggle="modal"
+								<i class="fa fa-edit" aria-hidden="true" ng-click="editCustomer(list,$event)"></i>
+								<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeItem(list)" ></i>
+									<!-- <input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-primary" id="" value="Edit"
 									ng-click="editCustomer(list,$event)">
 									<input name="" type="button" data-toggle="modal"
 									style=" height: 26px; width: 54%; padding-top: 2px; position: relative; "
 									class="btn btn-danger" id="" value="Delete"
-									ng-click="removeItem($index)" >
+									ng-click="removeItem($index)" > -->
 								</td>
 							</tr>
 					</tbody>
