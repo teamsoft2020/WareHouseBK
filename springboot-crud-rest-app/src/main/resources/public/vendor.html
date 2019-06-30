@@ -33,25 +33,27 @@
 									</label>
 								</div>
 							</td> --> 
-							<td>{{list.vendorId}}</td>
+							<td>{{list.vendorid}}</td>
 							<td>{{list.vendorName}}</td>
-							<td>{{list.vendorDetails[0].vendorAddr}}</td>
-							<td>{{list.vendorDetails[0].mobileNo}}</td>
-							<td>{{list.vendorDetails[0].phoneNo}}</td>
-							<td class="hideclass">{{list.PAN}}</td>
-							<td class="hideclass">{{list.TAN}}</td>
-							<td class="hideclass">{{list.KYC}}</td>
+							<td>{{list.vendorAddress[0].vendoraddr}}</td>
+							<td>{{list.vendorAddress[0].mobileno}}</td>
+							<td>{{list.vendorAddress[0].phoneno}}</td>
+							<td class="hideclass">{{list.pan}}</td>
+							<td class="hideclass">{{list.tan}}</td>
+							<td class="hideclass">{{list.kyc}}</td>
 							<!-- <td class="hideclass">{{list.GSTIN}}</td> -->
-							<td class="hideclass">{{list.IEC}}</td>
+							<td class="hideclass">{{list.iec}}</td>
 								<td style="width: 13%;"> 
-									<input name="" type="button" data-toggle="modal"
+								<i class="fa fa-edit" aria-hidden="true" ng-click="editVendor(list,$event)"></i>
+								<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeItem(list)" ></i>
+									<!-- <input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-primary" id="" value="Edit"
 									ng-click="editVendor(list,$event)">
 									<input name="" type="button" data-toggle="modal"
 									style=" height: 26px;width: 54%; padding-top: 2px; position: relative; "
 									class="btn btn-danger" id="" value="Delete"
-									ng-click="removeItem($index)" >
+									ng-click="removeItem(list)" > -->
 								</td>
 							</tr>
 					</tbody>
@@ -160,61 +162,70 @@
         </table> -->
         
         <table id='addData'>
+         <tr>
+          <td colspan="1" class="venId"><span class="labelfont">Id</span></td>
+          <td colspan="1" ><span class="labelfont">VendorName</span></td>
+          </tr>
           <tr>
             <td colspan="1" class="venId">
-              <input type="text" ng-model="item.vendorId" placeholder="ID"/>
+              <input type="text" ng-model="item.vendorid" placeholder="ID"/>
             </td>
             <td colspan="1">
               <input type="text" ng-model="item.vendorName" placeholder="Vendor Name"/>
             </td></tr>
              <tr>
+	          <td colspan="1"><span class="labelfont">TAN</span></td>
+	          <td colspan="1"><span class="labelfont">KYC</span></td>
+	          <td colspan="1"><span class="labelfont">PAN</span></td>
+	          <td colspan="1"><span class="labelfont">IEC</span></td>
+	         </tr>
+             <tr>
                <td colspan="1">
-                <input type="tel" ng-model="item.TAN" placeholder="TAN"/>
+                <input type="tel" ng-model="item.tan" placeholder="TAN"/>
               </td>
                <td colspan="1">
-                <input type="tel" ng-model="item.KYC" placeholder="KYC"/>
+                <input type="tel" ng-model="item.kyc" placeholder="KYC"/>
               </td>
                 <td colspan="1">
-                <input type="tel" ng-model="item.PAN" placeholder="PAN"/>
+                <input type="tel" ng-model="item.pan" placeholder="PAN"/>
               </td>
               <td colspan="1">
-                <input type="tel" ng-model="item.IEC" placeholder="IEC"/>
+                <input type="tel" ng-model="item.iec" placeholder="IEC"/>
               </td>
              
             </tr>
-            <tr ng-repeat="vendorDetail in  item.vendorDetails track by $index">
+            <tr>
+	          <td colspan="1"><span class="labelfont">Address</span></td>
+	          <td colspan="1"><span class="labelfont">MobileNo</span></td>
+	          <td colspan="1"><span class="labelfont">PhoneNo</span></td>
+	          <td colspan="1"><span class="labelfont">GSTIN</span></td>
+          </tr>
+            <tr ng-repeat="vendorDetail in  item.vendorAddress track by $index">
               <td colspan="1">
-				<textarea rows = "1" cols = "22" name = "description" ng-model="vendorDetail.vendorAddr" placeholder="Enter your Addr"> </textarea>
+				<textarea rows = "1" cols = "22" name = "description" ng-model="vendorDetail.vendoraddr" placeholder="Enter your Addr"> </textarea>
               </td>
               <td colspan="1">
-                <input type='text' ng-model="vendorDetail.mobileNo" placeholder="MobileNo"/>
+                <input type='text' ng-model="vendorDetail.mobileno" placeholder="MobileNo"/>
               </td>
               <td colspan="1">
-                <input type="text" ng-model="vendorDetail.phoneNo" placeholder="PhoneNo"/>
+                <input type="text" ng-model="vendorDetail.phoneno" placeholder="PhoneNo"/>
               </td>
               <td colspan="1">
-              <input type="text" ng-model="vendorDetail.GSTIN" placeholder="GSTIN"/>
+              <input type="text" ng-model="vendorDetail.gstin" placeholder="GSTIN"/>
               </td>
                <td> 
 				<i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addVendorDetails(vendorDetail);"></i>
 				<i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deleteVendorDetails($index);"></i>
 			</td>
               </tr>
-            <tr>
-              <td colspan="1"></td>
-              <td colspan="1">
-                <input type="Button" class='addVen' value="Add" ng-click="addItem(item)" />
-				<input type="Button" class='updateVen' value="Update" ng-click="updateItem(item)" />
-              </td>
-              <td colspan="1"></td>
-              <td colspan="1">
-                <input type="button" class="close" data-dismiss="modal" value="Done" />
-              </td>
-            </tr>
         </table>  
       </div>
         </div>
-        
+        <div class="modal-footer">
+        <button type="button" class='btn btn-primary addVen' ng-click="addItem(item)" >Add</button>
+	 	<button type="button" class='btn btn-primary updateVen' ng-click="updateItem(item)" >Update</button>
+       	<button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button>
+        </div>
        
       </div>
     </div>

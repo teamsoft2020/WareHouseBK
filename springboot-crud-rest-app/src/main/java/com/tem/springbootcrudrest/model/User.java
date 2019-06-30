@@ -11,11 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -23,82 +18,105 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
-	private long id;
-	private String firstName;
-	private String lastName;
-	private String emailId;
-	private Date createdAt;
-	private String createdBy;
-	private Date updatedAt;
-	private String updatedby;
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id")
+	private long id;
+
+	@Column(name = "userid")
+	private String userid;
+
+	@Column(name = "firstname")
+	private String firstname;
+
+	@Column(name = "lastname")
+	private String lastname;
+
+	@Column(name = "email")
+	private String email;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "createddate")
+	private Date createddate;
+
+	@Column(name = "createdby")
+	private String createdby;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "updateddate")
+	private Date updateddate;
+
+	@Column(name = "updatedby")
+	private String updatedby;
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	@Column(name = "first_name", nullable = false)
-	public String getFirstName() {
-		return firstName;
+
+	public String getUserid() {
+		return userid;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	
-	@Column(name = "last_name", nullable = false)
-	public String getLastName() {
-		return lastName;
+
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	
-	@Column(name = "email_address", nullable = false)
-	public String getEmailId() {
-		return emailId;
+
+	public String getLastname() {
+		return lastname;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
-	
-	@Column(name = "created_at", nullable = false)
-	@CreatedDate
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getCreatedAt() {
-		return createdAt;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
-	@Column(name = "created_by", nullable = false)
-	@CreatedBy
-	public String getCreatedBy() {
-		return createdBy;
+
+	public Date getCreateddate() {
+		return createddate;
 	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
+
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
 	}
-	
-	@Column(name = "updated_at", nullable = false)
-	@LastModifiedDate
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date getUpdatedAt() {
-		return updatedAt;
+
+	public String getCreatedby() {
+		return createdby;
 	}
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
-	
-	@Column(name = "updated_by", nullable = false)
-	@LastModifiedBy
+
+	public Date getUpdateddate() {
+		return updateddate;
+	}
+
+	public void setUpdateddate(Date updateddate) {
+		this.updateddate = updateddate;
+	}
+
 	public String getUpdatedby() {
 		return updatedby;
 	}
+
 	public void setUpdatedby(String updatedby) {
 		this.updatedby = updatedby;
 	}

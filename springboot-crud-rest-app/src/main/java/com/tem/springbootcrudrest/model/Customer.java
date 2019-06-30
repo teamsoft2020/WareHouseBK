@@ -36,23 +36,30 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id") 
 	private Long id;
-	@Column(name = "Customer_Id", nullable = false)
+	
+	@Column(name = "Customer_Id")
 	private long customerId;
-	@Column(name = "Customer_name", nullable = false)
+	
+	@Column(name = "Customer_name")
 	private String customerName;
-	@Column(name = "pan", nullable = true)
+	
+	@Column(name = "pan")
 	private String PAN;
-	@Column(name = "tan", nullable = true)
+	
+	@Column(name = "tan")
 	private String TAN;
-	@Column(name = "kyc", nullable = true)
+	
+	@Column(name = "kyc")
 	private String KYC;
-	@Column(name = "iec", nullable = true)
+	
+	@Column(name = "iec")
 	private String IEC;
+	
 	@Temporal(TemporalType.DATE)
-	@LastModifiedDate
-	@Column(name = "Created_At", nullable = true)
-	private Date createdAt;
-	@Column(name = "Created_by", nullable = true)
+	@Column(name = "createddate")
+	private Date createddate;
+	
+	@Column(name = "Created_by")
 	private String createdby;
 	
 	//@OneToMany(targetEntity=CustomerDetails.class,mappedBy = "customer",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
@@ -97,13 +104,12 @@ public class Customer {
 		this.customerName = customerName;
 	}
 	
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreateddate() {
+		return createddate;
 	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
 	}
-	
 	public String getCreatedby() {
 		return createdby;
 	}

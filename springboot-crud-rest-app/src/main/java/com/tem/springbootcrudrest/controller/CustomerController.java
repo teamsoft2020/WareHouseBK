@@ -1,4 +1,4 @@
-package com.tem.springbootcrudrest.controller;
+/*package com.tem.springbootcrudrest.controller;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import com.tem.springbootcrudrest.repository.CustomerRepository;
 
 
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1/customer")
 public class CustomerController {
 	
 	@Autowired
@@ -36,7 +36,7 @@ public class CustomerController {
 	@Autowired
 	CustomerDetailsRepository customerDetailsRepository;
 	
-	@GetMapping("/customers")
+	@GetMapping("/createcustomer")
 	public List<Customer> getAllCustomers() {
 		return customerRepository.findAll();
 	}
@@ -66,7 +66,7 @@ Customer customerresponse=	customerRepository.save(customer);
 		return customerresponse;
 	}
 
-	/*@PutMapping("/customers/{id}")
+	@PutMapping("/customers/{id}")
 	public ResponseEntity<Customer> updateUser(
 			@PathVariable(value = "id") Long userId,
 			@Valid @RequestBody Customer userDetails) throws ResourceNotFoundException {
@@ -76,7 +76,7 @@ Customer customerresponse=	customerRepository.save(customer);
 		
 		final Customer updatedUser = customerRepository.save(user);
 		return ResponseEntity.ok(updatedUser);
-	}*/
+	}
 	
 	@DeleteMapping("/customer/{id}")
 	public String deleteCustomer(@PathVariable(value = "id") Long userId) {
@@ -86,7 +86,7 @@ Customer customerresponse=	customerRepository.save(customer);
 		
 	}
 
-	/*@DeleteMapping("/customers/{id}")
+	@DeleteMapping("/customers/{id}")
 	public Map<String, Boolean> deleteUser(
 			@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		Customer user = customerRepository.findById(userId)
@@ -96,7 +96,7 @@ Customer customerresponse=	customerRepository.save(customer);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
-	}*/
+	}
 	
 	@GetMapping("/customerlist")
 	public List<Customer>getCustomers(){
@@ -105,3 +105,4 @@ Customer customerresponse=	customerRepository.save(customer);
 	}
 	
 }
+*/

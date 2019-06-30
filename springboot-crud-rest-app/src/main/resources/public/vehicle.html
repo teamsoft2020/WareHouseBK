@@ -28,19 +28,21 @@
 									</label>
 								</div>
 							</td> --> 
-							<td>{{list.truckNo}}</td>
+							<td>{{list.truckno}}</td>
 							<td>{{list.rcno}}</td>
-							<td>{{list.fcDate}}</td>
-							<td>{{list.truckType}}</td>
+							<td>{{list.fcdate}}</td>
+							<td>{{list.tructype}}</td>
 								<td style="width: 13%;"> 
-									<input name="" type="button" data-toggle="modal"
+									<!-- <input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-primary" id="" value="Edit"
 									ng-click="editVehicle(list,$event)">
 									<input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-danger" id="" value="Delete"
-									ng-click="removeItem($index)" >
+									ng-click="removeItem($index)" > -->
+									<i class="fa fa-edit" aria-hidden="true" ng-click="editVehicle(list,$event)"></i>
+								<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeItem(list)" ></i>
 								</td>
 							</tr>
 					</tbody>
@@ -64,16 +66,16 @@
          
 			<tr> 
               <td colspan="1">
-              <input type="text" ng-model="item.truckNo" class="form-control" placeholder="Truck No" /> 
+              <input type="text" ng-model="item.truckno" class="form-control" placeholder="Truck No" /> 
               </td>
               <td colspan="1">
-                <input type='text' bay class="form-control" placeholder="RC No"/>
+                <input type='text' ng-model="item.rcno" class="form-control" placeholder="RC No"/>
               </td>
             </tr>
 			<tr>
               <td colspan="1">
                <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="item.fcDate" placeholder="FC Date"/>
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="item.fcdate" placeholder="FC Date"/>
                     <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -81,7 +83,7 @@
               </td>
               
               <td colspan="1">
-                <select ng-model="item.truckType" class="form-control" tabindex="8">
+                <select ng-model="item.trucktype" class="form-control" tabindex="8">
 		              <option value="">Select TruckType</option>
 		              <option>Transport truck</option>
 		              <option>Dump truck</option>
@@ -91,7 +93,7 @@
 		      </select>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td colspan="1"></td>
               <td colspan="1">
                 <input type="Button" class='addVeh' value="Add" ng-click="addItem(item)" />
@@ -101,11 +103,15 @@
               <td colspan="1">
                 <input type="button" class="close" data-dismiss="modal" value="Done" />
               </td>
-            </tr>
+            </tr> -->
         </table>
       </div>
         </div>
-        
+        <div class="modal-footer">
+        <button type="button" class='btn btn-primary addVeh' ng-click="addItem(item)" >Add</button>
+	 	<button type="button" class='btn btn-primary updateVeh' ng-click="updateItem(item)" >Update</button>
+       	<button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button>
+        </div>
         <!-- Modal footer 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -27,19 +27,21 @@
 									</label>
 								</div>
 							</td> --> 
-							<td>{{list.productCode}}</td>
-							<td>{{list.productName}}</td>
-							<td>{{list.HSNSAC}}</td>
-							<td>{{list.TaxType}}</td>
+							<td>{{list.productcode}}</td>
+							<td>{{list.productname}}</td>
+							<td>{{list.hsnsac}}</td>
+							<td>{{list.taxtype}}</td>
 								<td style="width: 13%;"> 
-									<input name="" type="button" data-toggle="modal"
+								<i class="fa fa-edit" aria-hidden="true" ng-click="editProduct(list,$event)"></i>
+								<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeItem(list)" ></i>
+									<!-- <input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-primary" id="" value="Edit"
 									ng-click="editProduct(list,$event)">
 									<input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-danger" id="" value="Delete"
-									ng-click="removeItem($index)" >
+									ng-click="removeItem($index)" > -->
 								</td>
 							</tr>
 					</tbody>
@@ -66,13 +68,13 @@
                 <label>Product Code:</label>
               </td>
               <td colspan="1" class="prodId">
-              <input type="text" ng-model="item.productCode" /> 
+              <input type="text" ng-model="item.productcode" /> 
               </td>
               <td colspan="1">
                 <label>Product Name:</label>
               </td>
               <td colspan="1">
-                <input type='text' ng-model="item.productName" />
+                <input type='text' ng-model="item.productname" />
               </td>
             </tr>
 			<tr>
@@ -80,13 +82,13 @@
                 <label>HSN/SAC:</label>
               </td>
               <td colspan="1">
-              <input type="text" ng-model="item.HSNSAC" /> 
+              <input type="text" ng-model="item.hsnsac" /> 
               </td>
               <td colspan="1">
                 <label>TaxType:</label>
               </td>
               <td colspan="1">
-              <select ng-model="item.TaxType" class="form-control" tabindex="8">
+              <select ng-model="item.taxtype" class="form-control" tabindex="8">
 		              <option value="">Select TaxType</option>
 		              <option>0%</option>
 		              <option>5%</option>
@@ -97,7 +99,7 @@
               </td>
             </tr>
            
-            <tr>
+           <!--  <tr>
               <td colspan="1"></td>
               <td colspan="1">
                 <input type="Button" class='addProd' value="Add" ng-click="addItem(item)" />
@@ -107,12 +109,16 @@
               <td colspan="1">
                 <input type="button" class="close" data-dismiss="modal" value="Done" />
               </td>
-            </tr>
+            </tr> -->
         </table>
       </div>
         </div>
         
-
+<div class="modal-footer">
+        <button type="button" class='btn btn-primary addProd' ng-click="addItem(item)" >Add</button>
+	 	<button type="button" class='btn btn-primary updateProd' ng-click="updateItem(item)" >Update</button>
+       	<button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button>
+        </div>
         
       </div>
     </div>

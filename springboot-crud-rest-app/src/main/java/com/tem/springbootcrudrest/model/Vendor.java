@@ -50,9 +50,12 @@ public class Vendor {
 	private String IEC;
 	
 	@Temporal(TemporalType.DATE)
-	@LastModifiedDate
-	@Column(name = "CreatedAt", nullable = true)
-	private Date createdAt;
+	@Column(name = "createddate", nullable = true)
+	private Date createddate;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "modifieddate", nullable = true)
+	private Date modifieddate;
 	
 	@Column(name = "Createdby", nullable = true)
 	private String createdby;
@@ -117,12 +120,20 @@ public class Vendor {
 		IEC = iEC;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreateddate() {
+		return createddate;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setCreateddate(Date createddate) {
+		this.createddate = createddate;
+	}
+
+	public Date getModifieddate() {
+		return modifieddate;
+	}
+
+	public void setModifieddate(Date modifieddate) {
+		this.modifieddate = modifieddate;
 	}
 
 	public String getCreatedby() {

@@ -27,19 +27,21 @@
 									</label>
 								</div>
 							</td> --> 
-							<td>{{list.empId}}</td>
-							<td>{{list.empName}}</td>
-							<td>{{list.empRole}}</td>
+							<td>{{list.empid}}</td>
+							<td>{{list.empname}}</td>
+							<td>{{list.role}}</td>
 							<td>{{list.designation}}</td>
 								<td style="width: 13%;"> 
-									<input name="" type="button" data-toggle="modal"
+								<i class="fa fa-edit" aria-hidden="true" ng-click="editEmp(list,$event)"></i>
+								<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeItem(list)" ></i>
+									<!-- <input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-primary" id="" value="Edit"
 									ng-click="editCustomer(list,$event)">
 									<input name="" type="button" data-toggle="modal"
 									style=" height: 26px; padding-top: 2px; position: relative; "
 									class="btn btn-danger" id="" value="Delete"
-									ng-click="removeItem($index)" >
+									ng-click="removeItem($index)" > -->
 								</td>
 							</tr>
 					</tbody>
@@ -60,19 +62,27 @@
         <div class="modal-body">
           <div class='addItems'>
         <table id='addData'>
-         
+         <tr>
+          <td colspan="1" class="empId"><span class="labelfont">Id</span></td>
+          <td colspan="1"><span class="labelfont">Employee Name</span></td>
+          <td colspan="1"><span class="labelfont">Employee Role</span></td>
+          <td colspan="1"><span class="labelfont">Designation</span></td>
+          <td colspan="1"><span class="labelfont">PAN</span></td>
+          <td colspan="1"><span class="labelfont">Aadhar No</span></td>
+          <td colspan="1"><span class="labelfont">Experience</span></td>
+          </tr>
           <tr>
            
             <td colspan="1" class="empId">
-              <input type="text" ng-model="item.empId" class="form-control " placeholder="ID"/>
+              <input type="text" ng-model="item.empid" class="form-control " placeholder="ID"/>
             </td>
             
             <td colspan="1">
-              <input type="text" ng-model="item.empName" class="form-control " placeholder="Employee Name" />
+              <input type="text" ng-model="item.empname" class="form-control " placeholder="Employee Name" />
             </td>
             
             <td colspan="1">
-              <input type="text" ng-model="item.empRole" class="form-control " placeholder="Employee Role"/> 
+              <input type="text" ng-model="item.role" class="form-control " placeholder="Employee Role"/> 
               </td>
             
              <td colspan="1">
@@ -80,34 +90,51 @@
               </td>
             
             <td colspan="1" >
-              <input type="text" ng-model="item.mobileNo" class="form-control " placeholder="Mobile No"/>
+             <input type="text" ng-model="item.pan" class="form-control " placeholder="PAN"/> 
+            </td>
+            <td colspan="1" >
+             <input type="text" ng-model="item.adtharnumber" class="form-control " placeholder="Aadhar No"/> 
+            </td>
+            <td colspan="1" >
+             <input type="text" ng-model="item.yearofexperience" class="form-control " placeholder="Experience"/> 
             </td>
             </tr>
-            
+             <tr>
+          <td colspan="1" ><span class="labelfont">Emp Address</span></td>
+          <td colspan="1"><span class="labelfont">Mobile No</span></td>
+         <!--  <td colspan="1"><span class="labelfont">Phone No</span></td> -->
+         <!--  <td colspan="1"><span class="labelfont">DOB</span></td> -->
+          <td colspan="1"><span class="labelfont">Father Name</span></td>
+          <td colspan="1"><span class="labelfont">Salary</span></td>
+          </tr>
             <tr>
             <td colspan="1">
-              <input type="text" ng-model="item.address" class="form-control " placeholder="Employee Address" />
+              <input type="text" ng-model="item.employeeAddress" class="form-control " placeholder="Employee Address" />
             </td>
             
             <td colspan="1">
-              <input type="text" ng-model="item.PAN" class="form-control " placeholder="PAN"/> 
+              <input type="text" ng-model="item.mobileno" class="form-control " placeholder="Mobile No"/>
               </td>
+              
+              <!-- <td colspan="1">
+              <input type="text" ng-model="item.phoneno" class="form-control " placeholder="Phone No"/>
+              </td> -->
             
-             <td colspan="1">
-                <!-- <input type='text' ng-model="item.DOB" placeholder="Date of Birth"/> -->
-                <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"  ng-model="item.DOB" placeholder="Date of Birth"/>
+            <!--  <td colspan="1">
+                <input type='text' ng-model="item.DOB" placeholder="Date of Birth"/>
+                 <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"  ng-model="item.dob" placeholder="Date of Birth"/>
                     <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
-                </div>
-              </td>
+                </div> 
+              </td> -->
               
                <td colspan="1">
-                <input type='text' ng-model="item.fatherName" class="form-control " placeholder="Father Name"/>
+                <input type='text' ng-model="item.fathername" class="form-control " placeholder="Father Name"/>
               </td>
                 <td colspan="1">
-                <input type='text' ng-model="item.salaryPackage" class="form-control " placeholder="Salary Package"/>
+                <input type='text' ng-model="item.salary" class="form-control " placeholder="Salary Package"/>
               </td>
             </tr>
            <!--  <tr>

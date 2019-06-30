@@ -24,16 +24,16 @@ public class VendorAddress {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long vendoraddrid;
 	
-	@Column(name = "vendoraddr", nullable = false)
+	@Column(name = "vendoraddr")
 	private String vendoraddr;
 	
-	@Column(name = "mobileno", nullable = false)
+	@Column(name = "mobileno")
 	private String mobileno;
 	
-	@Column(name = "phoneno", nullable = false)
+	@Column(name = "phoneno")
 	private String phoneno;
 	
-	@Column(name = "gstin", nullable = false)
+	@Column(name = "gstin")
 	private String gstin;
 	
 	@JsonBackReference

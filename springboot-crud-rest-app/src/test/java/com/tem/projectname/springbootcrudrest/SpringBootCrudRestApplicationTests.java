@@ -1,4 +1,4 @@
-package com.tem.projectname.springbootcrudrest;
+/*package com.tem.projectname.springbootcrudrest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -100,3 +100,4 @@ public class SpringBootCrudRestApplicationTests {
 	}
 
 }
+*/

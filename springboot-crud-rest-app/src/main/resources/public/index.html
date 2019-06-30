@@ -188,7 +188,9 @@ font-size:12px;
     transition: all .4s ease 0s;
 }
 }
-
+.labelfont{
+    font-weight: bold;
+}
 </style>
 <body ng-controller="indexController">
 
@@ -440,12 +442,13 @@ app.controller('HomeController', function ($scope) {
 });
 app.controller('CustomerController',function ($scope,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	scope=$scope;
-	$scope.listCustomerJson =[{customerId: "1111",customerName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"},{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
+	/* $scope.listCustomerJson =[{customerId: "1111",customerName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"},{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
 							  {customerId: "2222",customerName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
 							  {customerId: "3333",customerName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
-							  {customerId: "4444",customerName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]}];				
+							  {customerId: "4444",customerName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", customerDetails:[{ customerAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]}]; */				
 	//$scope.customerDetails ={customerAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""};
 	
+							  
 	$scope.cm = {};
 	$scope.cm.dtCustomer = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -492,7 +495,7 @@ $scope.deleteCustomerDetails = function(index){
 
 }
 $scope.addItem = function(item) {
-	var url = location.origin +"/api/v2/customers";
+	var url = location.origin +"/api/v1/createcustomer";
 	//$scope.listCustomerJson.push(angular.copy(item));
 	    $http({
 	        method : 'POST',
@@ -520,7 +523,7 @@ $scope.updateItem = function(item) {
          } */
          
          
-	var url = location.origin +"/api/v2/customerupdate";
+	var url = location.origin +"/api/v1/customerupdate";
 	//$scope.listCustomerJson.push(angular.copy(item));
 	console.log($scope.item);
 	    $http({
@@ -544,7 +547,7 @@ $scope.updateItem = function(item) {
 $scope.removeItem = function(item){
 //$scope.listCustomerJson.splice(index,1);
 	console.log(item.id);
-	var url=location.origin +"/api/v2/customer/"+item.id;
+	var url=location.origin +"/api/v1/customer/"+item.id;
 	 $http({
 		    method : 'DELETE',
 		    url : url,
@@ -570,7 +573,7 @@ for(i in $scope.listCustomerJson) {
  
  $scope.initcust =function(){
 	 
-	 var url=location.origin +"/api/v2/customers";
+	 var url=location.origin +"/api/v1/customerlist";
 	 $http({
 		    method : 'GET',
 		    url : url,
@@ -582,12 +585,12 @@ for(i in $scope.listCustomerJson) {
  }
  $scope.initcust();
 });
-app.controller('VendorController', function ($scope ,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('VendorController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	
-	$scope.listVendorJson =[{vendorId: "1111",vendorName: "Demo",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF",IEC: "12354UUFFA",vendorDetails:[{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"},{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
-	                        {vendorId: "2222",vendorName: "XYZ",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", vendorDetails:[{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
-	                        {vendorId: "3333",vendorName: "ABC",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", vendorDetails:[{ vendorAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]},
-	                        {vendorId: "4444",vendorName: "QWERT",PAN: "12354EWRWE",TAN: "12354DFGDD",KYC: "123544UGDSCF" ,IEC: "12354UUFFA", vendorDetails:[{ vendorAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",GSTIN: "12354RTUGF"}]}];				
+	/* $scope.listVendorJson =[{vendorid: "1111",vendorName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"},{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
+	                        {vendorId: "2222",vendorName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", vendorAddress:[{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
+	                        {vendorId: "3333",vendorName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", vendorAddress:[{ vendorAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
+	                        {vendorId: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", vendorAddress:[{ vendorAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]}];	 */			
 	$scope.vm = {};
 	$scope.vm.dtVendor = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -620,33 +623,81 @@ $(".venId").css("display","");
 $(".addVen").css("display","block");
 $(".updateVen").css("display","none");
 $scope.item = {};
-$scope.item.vendorDetails = [{vendorAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+$scope.item.vendorAddress = [{vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
 }
 
 $scope.addVendorDetails = function(data){
-	$scope.item.vendorDetails.push({vendorAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""});
+	$scope.item.vendorAddress.push({vendoraddr: "",mobileno: "",phoneno: "",gstin: ""});
 
 }
 
 $scope.deleteVendorDetails = function(index){
-	$scope.item.vendorDetails.splice(index,1);
+	$scope.item.vendorAddress.splice(index,1);
 
 }
 $scope.addItem = function(item) {
-$scope.listVendorJson.push(angular.copy(item));
+//$scope.listVendorJson.push(angular.copy(item));
+var url = location.origin +"/api/v2/createvendor";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	    $http({
+	        method : 'POST',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data added successfully');
+	        	$scope.initven();
+	        }, function error(response) {
+	        	toastr.success('Data not added');
+	          console.log(response.status);
+	        });
 $scope.item = {};
-$scope.item.vendorDetails=[{vendorAddr: "",mobileNo: "",phoneNo: "",GSTIN: ""}];
+$scope.item.vendorAddress=[{vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
 
 }
 $scope.updateItem = function(item) {
-for(i in $scope.listVendorJson) {
+/* for(i in $scope.listVendorJson) {
               if($scope.listVendorJson[i].vendorId == $scope.item.vendorId) {
                   $scope.listVendorJson[i] = $scope.item;
               }
-       }
+       } */
+	var url = location.origin +"/api/v2/vendorrupdate";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	console.log($scope.item);
+	    $http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data updated successfully');
+	        	$scope.initven();
+	        }, function error(response) {
+	        	toastr.success('Data not updated');
+	          console.log(response.status);
+	        });
 }
-$scope.removeItem = function(index){
-$scope.listVendorJson.splice(index,1);
+$scope.removeItem = function(item){
+//$scope.listVendorJson.splice(index,1);
+
+	console.log(item.id);
+	var url=location.origin +"/api/v2/vendor/"+item.id;
+	 $http({
+		    method : 'DELETE',
+		    url : url,
+		   }).then(function successCallback(response) {
+			   toastr.success('Data deleted successfully');
+			   $scope.initven();
+		   }, function errorCallback(response) {
+			   toastr.success('Data not deleted');
+		    console.log(response.statusText);
+		   });
 }
 $scope.editVendor = function(index){
  $("#venModal").modal('show');
@@ -660,12 +711,25 @@ for(i in $scope.listVendorJson) {
   }
 }
 	
+$scope.initven =function(){
+	 
+	 var url=location.origin +"/api/v2/vendorlist";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listVendorJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
+}
+$scope.initven();
 });
-app.controller('EmployeeController', function ($scope ,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
-	$scope.listEmployeeJson =[{empId: "1111",empName: "Demo", empRole: "Supervisor", designation: "GradeA",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"},
+app.controller('EmployeeController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
+	/* $scope.listEmployeeJson =[{empid: "1111",empname: "Demo", role: "Supervisor", designation: "GradeA",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"},
 							  {empId: "2222",empName: "XYZ", empRole: "Employee", designation: "GradeB",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"},
 							  {empId: "3333",empName: "ABC", empRole: "Manager", designation: "GradeC",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"},
-							  {empId: "4444",empName: "QWERT", empRole: "Sales Executive", designation: "GradeD",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"}];				
+							  {empId: "4444",empName: "QWERT", empRole: "Sales Executive", designation: "GradeD",mobileNo:"34534545",address:"ABC nagar",PAN:"3fsdf4sd",DOB:"22/7/1991",fatherName:"xzsd",salaryPackage:"8000"}];	 */			
 	$scope.em = {};
 	$scope.em.dtOptions = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -700,28 +764,77 @@ $(".updateEmp").css("display","none");
 $scope.item = {};
 }
 $scope.addItem = function(item) {
+	
+	var url = location.origin +"/api/v1/employees";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	    $http({
+	        method : 'POST',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data added successfully');
+	        	$scope.init();
+	        }, function error(response) {
+	        	toastr.success('Data not added');
+	          console.log(response.status);
+	        });
 $scope.listEmployeeJson.push(item);
 $scope.item = {};
 
 }
 $scope.updateItem = function(item) {
- for(i in $scope.listEmployeeJson) {
-                if($scope.listEmployeeJson[i].empId == $scope.item.empId) {
+ /* for(i in $scope.listEmployeeJson) {
+                if($scope.listEmployeeJson[i].empid == $scope.item.empid) {
                     $scope.listEmployeeJson[i] = $scope.item;
                 }
-         }
+         } */
+         
+	var url = location.origin +"/api/v1/employeeupdate";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	console.log($scope.item);
+	    $http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data updated successfully');
+	        	$scope.init();
+	        }, function error(response) {
+	        	toastr.success('Data not updated');
+	          console.log(response.status);
+	        });
 }
-$scope.removeItem = function(index){
-$scope.listEmployeeJson.splice(index,1);
+$scope.removeItem = function(item){
+//$scope.listEmployeeJson.splice(index,1);
+	console.log(item.id);
+	var url=location.origin +"/api/v1/employee/"+item.id;
+	 $http({
+		    method : 'DELETE',
+		    url : url,
+		   }).then(function successCallback(response) {
+			   toastr.success('Data deleted successfully');
+			   $scope.init();
+		   }, function errorCallback(response) {
+			   toastr.success('Data not deleted');
+		    console.log(response.statusText);
+		   });
 }
- $scope.editCustomer = function(index){
+ $scope.editEmp = function(index){
  
    $("#empModal").modal('show');
    $(".empId").css("display","none");
    $(".addEmp").css("display","none");
    $(".updateEmp").css("display","block");
 for(i in $scope.listEmployeeJson) {
-        if($scope.listEmployeeJson[i].empId == index.empId) {
+        if($scope.listEmployeeJson[i].empid == index.empid) {
             $scope.item = angular.copy($scope.listEmployeeJson[i]);
         }
     }
@@ -730,15 +843,26 @@ for(i in $scope.listEmployeeJson) {
 	 $('#datetimepicker4').datetimepicker({
 	        format: 'DD/MM/YYYY'
 	    });
+	 
+	 
+	 var url=location.origin +"/api/v1/employeelist";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listEmployeeJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
  }
  $scope.init();
 });
-app.controller('ProductController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('ProductController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	
-	$scope.listProductJson =[{productCode:"1111",productId: "1111",productName: "WashingMachine", HSNSAC: "4566", TaxType: "0%"},
+	/* $scope.listProductJson =[{productCode:"1111",productId: "1111",productName: "WashingMachine", HSNSAC: "4566", TaxType: "0%"},
 							  {productCode:"2222",productId: "1223",productName: "Cooler", HSNSAC: "3456", TaxType: "12%"},
 							  {productCode:"3333",productId: "3456",productName: "Fan", HSNSAC: "2345", TaxType: "5%"},
-							  {productCode:"4444",productId: "5643",productName: "Furniture", HSNSAC: "1234", TaxType: "18%"}];				
+							  {productCode:"4444",productId: "5643",productName: "Furniture", HSNSAC: "1234", TaxType: "18%"}];	 */			
 	$scope.pm = {};
 	$scope.pm.dtProduct = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -773,19 +897,67 @@ $(".updateProd").css("display","none");
 $scope.item = {};
 }
 $scope.addItem = function(item) {
-$scope.listProductJson.push(item);
+	var url = location.origin +"/api/v1/createproduct";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	    $http({
+	        method : 'POST',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data added successfully');
+	        	$scope.initProduct();
+	        }, function error(response) {
+	        	toastr.success('Data not added');
+	          console.log(response.status);
+	        });
+//$scope.listProductJson.push(item);
 $scope.item = {};
 
 }
 $scope.updateItem = function(item) {
-for(i in $scope.listProductJson) {
+/* for(i in $scope.listProductJson) {
                if($scope.listProductJson[i].productCode == $scope.item.productCode) {
                    $scope.listProductJson[i] = $scope.item;
                }
-        }
+        } */
+        
+	var url = location.origin +"/api/v1/productupdate";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	console.log($scope.item);
+	    $http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data updated successfully');
+	        	$scope.initProduct();
+	        }, function error(response) {
+	        	toastr.success('Data not updated');
+	          console.log(response.status);
+	        });
 }
-$scope.removeItem = function(index){
-$scope.listProductJson.splice(index,1);
+$scope.removeItem = function(item){
+//$scope.listProductJson.splice(index,1);
+	console.log(item.id);
+	var url=location.origin +"/api/v1/product/"+item.id;
+	 $http({
+		    method : 'DELETE',
+		    url : url,
+		   }).then(function successCallback(response) {
+			   toastr.success('Data deleted successfully');
+			   $scope.initProduct();
+		   }, function errorCallback(response) {
+			   toastr.success('Data not deleted');
+		    console.log(response.statusText);
+		   });
 }
 $scope.editProduct = function(index){
 
@@ -794,18 +966,32 @@ $scope.editProduct = function(index){
   $(".addProd").css("display","none");
   $(".updateProd").css("display","block");
 for(i in $scope.listProductJson) {
-       if($scope.listProductJson[i].productCode == index.productCode) {
+       if($scope.listProductJson[i].productcode == index.productcode) {
            $scope.item = angular.copy($scope.listProductJson[i]);
        }
    }
 }	
+$scope.initProduct = function(){
+	 var url=location.origin +"/api/v1/productlist";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listProductJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
+}
+$scope.initProduct();
 });
-app.controller('VehicleController', function ($scope, $window ,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('VehicleController', function ($scope, $window ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	
-	$scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
+	/* $scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
 							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
 							  {codeId: "3456",truckNo: "5675", rcno: "2345", fcDate: "23/4/2019", truckType: "Garbage truck"},
-							  {codeId: "5643",truckNo: "56756", rcno: "1234", fcDate: "23/4/2019", truckType: "Box truck"}];				
+							  {codeId: "5643",truckNo: "56756", rcno: "1234", fcDate: "23/4/2019", truckType: "Box truck"}]; */				
+	$scope.trip = {from: "",to: "",date: "",vehicleType: "",vehicleNo: "",driverName: ""};
+	scope=$scope;
 	$scope.vehm = {};
 	$scope.vehm.dtVehicle = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -843,19 +1029,65 @@ $scope.createTrip = function() {
 $('#tripModal').modal('show');
 }
 $scope.addItem = function(item) {
-$scope.listVehicleJson.push(item);
+//$scope.listVehicleJson.push(item);
+var url = location.origin +"/api/v1/createvehicle";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	    $http({
+	        method : 'POST',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data added successfully');
+	        	$scope.initVeh();
+	        }, function error(response) {
+	        	toastr.success('Data not added');
+	          console.log(response.status);
+	        });
 $scope.item = {};
 
 }
 $scope.updateItem = function(item) {
-for(i in $scope.listVehicleJson) {
+/* for(i in $scope.listVehicleJson) {
                if($scope.listVehicleJson[i].codeId == $scope.item.codeId) {
                    $scope.listVehicleJson[i] = $scope.item;
                }
-        }
+        } */
+	var url = location.origin +"/api/v1/vehicleupdate";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	console.log($scope.item);
+	    $http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data updated successfully');
+	        	$scope.initVeh();
+	        }, function error(response) {
+	        	toastr.success('Data not updated');
+	          console.log(response.status);
+	        });
 }
-$scope.removeItem = function(index){
-$scope.listVehicleJson.splice(index,1);
+$scope.removeItem = function(item){
+//$scope.listVehicleJson.splice(index,1);
+	var url=location.origin +"/api/v1/vehicle/"+item.id;
+	 $http({
+		    method : 'DELETE',
+		    url : url,
+		   }).then(function successCallback(response) {
+			   toastr.success('Data deleted successfully');
+			   $scope.initVeh();
+		   }, function errorCallback(response) {
+			   toastr.success('Data not deleted');
+		    console.log(response.statusText);
+		   });
 }
 $scope.editVehicle = function(index){
 
@@ -864,7 +1096,7 @@ $scope.editVehicle = function(index){
   $(".addVeh").css("display","none");
   $(".updateVeh").css("display","block");
 for(i in $scope.listVehicleJson) {
-       if($scope.listVehicleJson[i].codeId == index.codeId) {
+       if($scope.listVehicleJson[i].truckno == index.truckno) {
            $scope.item = angular.copy($scope.listVehicleJson[i]);
        }
    }
@@ -886,14 +1118,21 @@ $scope.newtabTrip =function(){
 	    w.print();
 	}, 500);
 }
-$scope.init =function(){
+$scope.initVeh =function(){
 	 $('#datetimepicker5').datetimepicker({
 	        format: 'DD/MM/YYYY'
 	    });
-	 $scope.trip = {from: "",to: "",date: "",vehicleType: "",vehicleNo: "",driverName: ""};
-	 scope=$scope;
+	 var url=location.origin +"/api/v1/vehiclelist";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listVehicleJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
 }
-$scope.init();
+$scope.initVeh();
 	
 $scope.bay=function() {
 	var xmlhttp;
@@ -939,12 +1178,12 @@ $scope.bay=function() {
 	xmlhttp.send();
 }
 });
-app.controller('UserController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('UserController', function ($scope,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	
-	$scope.listUserJson =[{codeId: "1111",userId: "1111",userName: "Demo", email: "Supervisor@gamil.com", password: "GradeA", retypepassword: "GradeA", userRole: "Supervisor"},
+	/* $scope.listUserJson =[{codeId: "1111",userId: "1111",userName: "Demo", email: "Supervisor@gamil.com", password: "GradeA", retypepassword: "GradeA", userRole: "Supervisor"},
 						  {codeId: "2222",userId: "2222",userName: "XYZ", email: "Employee@gmail.com", password: "GradeB", retypepassword: "GradeA", userRole: "Employee"},
 						  {codeId: "3333",userId: "3333",userName: "ABC", email: "Manager@gmail.com", password: "GradeC", retypepassword: "GradeA", userRole: "Manager"},
-						  {codeId: "4444",userId: "4444",userName: "QWERT", email: "SalesExecutive@gmail.com", password: "GradeD", retypepassword: "GradeA", userRole: "SalesExecutive"}];				
+						  {codeId: "4444",userId: "4444",userName: "QWERT", email: "SalesExecutive@gmail.com", password: "GradeD", retypepassword: "GradeA", userRole: "SalesExecutive"}]; */				
 	$scope.um = {};
 	$scope.um.dtUser = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -979,19 +1218,65 @@ $(".updateUsr").css("display","none");
 $scope.item = {};
 }
 $scope.addItem = function(item) {
-$scope.listUserJson.push(item);
+//$scope.listUserJson.push(item);
+var url = location.origin +"/api/v1/createuser";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	    $http({
+	        method : 'POST',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data added successfully');
+	        	$scope.initUser();
+	        }, function error(response) {
+	        	toastr.success('Data not added');
+	          console.log(response.status);
+	        });
 $scope.item = {};
 
 }
 $scope.updateItem = function(item) {
-for(i in $scope.listUserJson) {
+/* for(i in $scope.listUserJson) {
             if($scope.listUserJson[i].codeId == $scope.item.codeId) {
                 $scope.listUserJson[i] = $scope.item;
             }
-     }
+     } */
+	var url = location.origin +"/api/v1/userupdate";
+	//$scope.listCustomerJson.push(angular.copy(item));
+	console.log($scope.item);
+	    $http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.item),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Data updated successfully');
+	        	$scope.initUser();
+	        }, function error(response) {
+	        	toastr.success('Data not updated');
+	          console.log(response.status);
+	        });
 }
-$scope.removeItem = function(index){
-$scope.listUserJson.splice(index,1);
+$scope.removeItem = function(item){
+//$scope.listUserJson.splice(index,1);
+	var url=location.origin +"/api/v1/user/"+item.id;
+	 $http({
+		    method : 'DELETE',
+		    url : url,
+		   }).then(function successCallback(response) {
+			   toastr.success('Data deleted successfully');
+			   $scope.initUser();
+		   }, function errorCallback(response) {
+			   toastr.success('Data not deleted');
+		    console.log(response.statusText);
+		   });
 }
 $scope.editCustomer = function(index){
 
@@ -1005,7 +1290,19 @@ for(i in $scope.listUserJson) {
     }
 }
 }
+$scope.initUser =function(){
 	
+	 var url=location.origin +"/api/v1/userlist";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listUserJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
+}
+$scope.initUser();
 });
 
 app.controller('UserAccessController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {

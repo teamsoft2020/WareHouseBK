@@ -120,12 +120,22 @@
 						</table>  -->
           <table id='addData'>
           <tr>
+          <td colspan="1" class="custId"><span class="labelfont">Id</span></td>
+          <td colspan="1"><span class="labelfont">CustomerName</span></td>
+          </tr>
+          <tr>
             <td colspan="1" class="custId">
               <input type="text" ng-model="item.customerId" placeholder="ID"/>
             </td>
             <td colspan="1">
               <input type="text" ng-model="item.customerName" placeholder="CustomerName"/>
             </td></tr>
+            <tr>
+          <td colspan="1"><span class="labelfont">TAN</span></td>
+          <td colspan="1"><span class="labelfont">KYC</span></td>
+          <td colspan="1"><span class="labelfont">PAN</span></td>
+          <td colspan="1"><span class="labelfont">IEC</span></td>
+          </tr>
             <tr>
                <td colspan="1">
                 <input type="tel" ng-model="item.tan" placeholder="TAN"/>
@@ -141,6 +151,12 @@
               </td>
              
             </tr>
+             <tr>
+	          <td colspan="1"><span class="labelfont">Address</span></td>
+	          <td colspan="1"><span class="labelfont">MobileNo</span></td>
+	          <td colspan="1"><span class="labelfont">PhoneNo</span></td>
+	          <td colspan="1"><span class="labelfont">GSTIN</span></td>
+	          </tr>
             <tr ng-repeat="customerDetail in  item.customerDetails track by $index">
               <td colspan="1">
 				<textarea rows = "1" cols = "22" name = "description" ng-model="customerDetail.customerAddr" placeholder="Enter your Addr"> </textarea>
