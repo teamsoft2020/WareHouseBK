@@ -1,4 +1,4 @@
-<div ng-controller="VehicleController">
+<div >
 <div>
 <input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="TripSheet" ng-click="createTrip()" >
 <input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="Create" ng-click="createVehicle()" >
@@ -65,14 +65,23 @@
         <table id='addData'>
          
 			<tr> 
+			 <td colspan="1" class="truckId">
+                <label>Truck No:</label>
+              </td>
               <td colspan="1">
               <input type="text" ng-model="item.truckno" class="form-control" placeholder="Truck No" /> 
+              </td>
+              <td colspan="1" class="">
+                <label>RC No:</label>
               </td>
               <td colspan="1">
                 <input type='text' ng-model="item.rcno" class="form-control" placeholder="RC No"/>
               </td>
             </tr>
 			<tr>
+			 <td colspan="1" class="">
+                <label>FC Date:</label>
+              </td>
               <td colspan="1">
                <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
                     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="item.fcdate" placeholder="FC Date"/>
@@ -81,7 +90,9 @@
                     </div>
                 </div>
               </td>
-              
+              <td colspan="1" class="">
+                <label>Truck Type:</label>
+              </td>
               <td colspan="1">
                 <select ng-model="item.trucktype" class="form-control" tabindex="8">
 		              <option value="">Select TruckType</option>

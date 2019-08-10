@@ -1,4 +1,4 @@
-<div ng-controller="UserController">
+<div >
 <div>
 <input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="Create" ng-click="createUser()" >
 <table id="manage-user-table" class="custTable" datatable="ng" dt-options="um.dtUser" dt-columns="um.dtUserColumns" style="width: 90%;">
@@ -62,22 +62,31 @@
         <table id='addData'>
          
           <tr>
-            <!-- <td colspan="1" class="usrId">
+             <td colspan="1" class="usrId">
               <label>ID:</label>
-            </td> -->
+            </td>
             <td colspan="1" class="usrId">
               <input type="text" ng-model="item.userId"  placeholder="ID" />
             </td>
+             <td colspan="1" >
+              <label>UserName:</label>
+            </td>
             <td colspan="1">
               <input type="text" ng-model="item.userName"  placeholder="UserName"/>
+            </td>
+            <td colspan="1" >
+              <label>Email:</label>
             </td>
              <td colspan="1">
               <input type="text" ng-model="item.email"   placeholder="Email"/> 
               </td>
             </tr>
 			<tr>
+			<td colspan="1" >
+              <label>UserRole:</label>
+            </td>
               <td colspan="1">
-                <select ng-model="item.userRole"  tabindex="8">
+                <select ng-model="item.userRole"  tabindex="8" class="form-control">
 		              <option value="">Select UserRole</option>
 		              <option>Supervisor</option>
 		              <option>Employee</option>
@@ -85,9 +94,15 @@
 		              <option>SalesExecutive</option>
 		      </select>
               </td>
+              <td colspan="1" >
+              <label>Password:</label>
+            </td>
               <td colspan="1">
                 <input type='text' ng-model="item.password"  placeholder="Password"/>
               </td>
+              <td colspan="1" >
+              <label>Repeat Password:</label>
+            </td>
                <td colspan="1">
               <input type="text" ng-model="item.retypepassword"  ng-keyup="checkPasswordMatch()" placeholder="Retype Password"/> 
               </td>

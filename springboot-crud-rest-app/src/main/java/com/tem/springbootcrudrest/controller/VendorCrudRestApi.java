@@ -1,6 +1,8 @@
 package com.tem.springbootcrudrest.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -46,10 +48,13 @@ public class VendorCrudRestApi {
 	}
 
 	@DeleteMapping("/vendor/{id}")
-	public ResponseEntity<String> deleteVendor(@PathVariable(value = "id") Long vendorId) {
+	public ResponseEntity<Map<String,String>> deleteVendor(@PathVariable(value = "id") Long vendorId) {
 		String response=vendorService.deleteById(vendorId);
 
-		return ResponseEntity.ok(response);
+		Map<String,String>responsemap=new HashMap<String,String>();
+		responsemap.put("status", response);
+		
+		return ResponseEntity.ok(responsemap);
 
 	}
 
