@@ -148,31 +148,66 @@
         <div class="modal-body">
           <div class='col-md-12 tripItems'>
           <div class="row">
-          <div class='col-md-4'>
-          <label class="col-md-4"><b>From </b></label>
-           <input type="text"  ng-model="trip.from" class="form-control col-md-8" placeholder="From" />
+		<div class='col-md-3'>
+          <label class="col-md-4"><b>LR NO </b></label>
+           <input type="text"  ng-model="trip.LRNO" class="form-control col-md-8" placeholder="LR NO" />
           </div>
-          <div class='col-md-4'>
-          <label class="col-md-4"><b>To</b> </label>
-           <input type="text" ng-model="trip.to" class="form-control col-md-8" placeholder="To" />
+          <div class='col-md-3'>
+          <label class="col-md-4"><b>Origin </b></label>
+           <input type="text"  ng-model="trip.Origin" class="form-control col-md-8" placeholder="Origin" />
           </div>
-          <div class='col-md-4'>
+          <div class='col-md-3'>
+          <label class="col-md-4"><b>Destination</b> </label>
+           <input type="text" ng-model="trip.Destination" class="form-control col-md-8" placeholder="Destination" />
+		  </div>
+		  <div class='col-md-3'>
+          <label class="col-md-4"><b>Invoice NO </b></label>
+           <input type="text"  ng-model="trip.InvoiceNO" class="form-control col-md-8" placeholder="InvoiceNO" />
+          </div>
+          </div>
+		  <div class="row" style="margin-top: 4%;">
+			<div class='col-md-3'>
           <label class="col-md-4"><b>Date&Time </b></label>
            <input type="text" ng-model="trip.date" class="form-control col-md-8" placeholder="From" />
           </div>
+          <div class='col-md-3'>
+          <label class="col-md-4"><b>TruckType </b></label>
+		  <!-- <input type="text" ng-model="trip.TruckType" class="form-control col-md-8" placeholder="TruckType" />-->
+		  <select ng-model="trip.TruckType" class="form-control" tabindex="8">
+		              <option value="">Select TruckType</option>
+		              <option>LCV2</option>
+		              <option>LCV4</option>
+		              <option>CAN6</option>
+		              <option>HCV9</option>
+					  <option>TARUS</option>
+					  <option>TRALIER</option>
+		      </select>
           </div>
-          <div class="row" style="margin-top: 4%;">
-          <div class='col-md-4'>
-          <label class="col-md-4"><b>VehicleType </b></label>
-           <input type="text" ng-model="trip.vehicleType" class="form-control col-md-8" placeholder="VehicleType" />
+          <div class='col-md-3'>
+          <label class="col-md-4"><b>TruckNo </b></label>
+           <input type="text" ng-model="trip.TruckNo" class="form-control col-md-8" placeholder="TruckTo" />
           </div>
-          <div class='col-md-4'>
-          <label class="col-md-4"><b>VehicleNo </b></label>
-           <input type="text" ng-model="trip.vehicleNo" class="form-control col-md-8" placeholder="VehicleTo" />
-          </div>
-          <div class='col-md-4'>
+          <div class='col-md-3'>
           <label class="col-md-4"><b>DriverName </b></label>
            <input type="text" ng-model="trip.driverName" class="form-control col-md-8" placeholder="DriverName" />
+          </div>
+		  </div>
+		   <div class="row" style="margin-top: 4%;">
+          <div class='col-md-3'>
+          <label class="col-md-4"><b>CustomerName </b></label>
+           <input type="text" ng-model="trip.CustomerName" class="form-control col-md-8" placeholder="CustomerName" />
+          </div>
+          <div class='col-md-3'>
+          <label class="col-md-4"><b>No Of Case </b></label>
+           <input type="text" ng-model="trip.NOC" class="form-control col-md-8" placeholder="No Of Case" />
+          </div>
+          <div class='col-md-3'>
+          <label class="col-md-4"><b>Open KMs </b></label>
+           <input type="text" ng-model="trip.OPKM" class="form-control col-md-8" placeholder="Open KMs" />
+		  </div>
+		   <div class='col-md-3'>
+          <label class="col-md-4"><b>Close KMs </b></label>
+           <input type="text" ng-model="trip.CLSKM" class="form-control col-md-8" placeholder="Close KMs" />
           </div>
           </div>
            <div class="float-right" style="margin-top: 3%;">
