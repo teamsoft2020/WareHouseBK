@@ -267,6 +267,30 @@ height: -moz-calc(100vh - 42px);
 }
 
 /* file upload css end */
+.labeltext{
+    text-align: center;
+    font-weight: bold
+}
+
+.textCenter{
+text-align: center;
+}
+
+fieldset {
+	background-color: rgba(111, 66, 193, 0.3);
+	border-radius: 4px;
+}
+
+legend {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	color: var(--purple);
+	font-size: 17px;
+	font-weight: bold;
+	padding: 3px 5px 3px 7px;
+	width: auto;
+}
 
 </style>
 <body >
@@ -1407,6 +1431,16 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 								{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"600",grandTotal:""},
 								{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
 								{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"1000",grandTotal:""}];	
+	$scope.vendorInvoiceJson =[{LRNO: "22222",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"500",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"100",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"400",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"600",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
+		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"1000",grandTotal:""}];	
 	//$scope.customerInvoiceJson =[];
 	$scope.perKms="";
 	$scope.fixedCost="";
@@ -1429,6 +1463,12 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 			$('#datetimepicker_todate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 			});
+			$('#datetimepicker_fromvendordate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+			});
+			$('#datetimepicker_tovendordate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+			});
 			 // $('#CustomerInvoice').show();
 			 // $('#VendorInvoice').hide();
 			 // $('#Receipt').hide();	
@@ -1439,19 +1479,66 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
   //this.push(key + ': ' + value);
   value.forKms=kms;
   value.tRTypeFixed=fix;
-  value.grandTotal=(value.totalkms * value.forKms)+value.tRTypeFixed -value.advance
+  value.grandTotal=(value.totalkms * value.forKms)+value.tRTypeFixed -value.advance;
 });
 	};
 	
+	$scope.addKmsandFixedVendor =function(kms,fix){
+		angular.forEach($scope.vendorInvoiceJson, function(value, key) {
+		  value.forKms=kms;
+		  value.tRTypeFixed=fix;
+		  value.grandTotal=(value.totalkms * value.forKms)+value.tRTypeFixed -value.advance;
+		});
+	};
 	$scope.closeUpload =function(){
 		$("#uploadDiv").css("display","none");
 	};
 	$scope.submitUpload =function(){
-		
-		
 	};
 	$scope.openUpload =function(){
 		$("#uploadDiv").css("display","block");
+	};
+	$scope.removeInvoice  =function(index){
+		$scope.customerInvoiceJson.splice(index,1);
+	};
+	
+	$scope.calculateTotal =function(){
+		 var tmpSum=0;
+		 var fixTotal=0;
+		angular.forEach($scope.customerInvoiceJson, function(value, key) {
+			tmpSum = tmpSum +parseInt(value.totalkms);
+			if(value.tRTypeFixed){
+				fixTotal=fixTotal+parseInt(value.tRTypeFixed);
+			}
+			});
+			$scope.totalFixed =fixTotal;
+		 	$scope.totalKM = tmpSum;
+		 	if($scope.customerInvoiceJson[1].forKms){
+		 		$scope.addChargeKm= $scope.totalKM * $scope.customerInvoiceJson[1].forKms;
+		 	}
+		 	$scope.totalCust =$scope.addChargeKm + $scope.totalFixed;
+		 	
+	};
+	/* $scope.keyuptotalCust =function(){
+		if($scope.tollBill){
+			$scope.totalCust = $scope.totalCust + $scope.tollBill;
+		}else{
+			$scope.totalCust = $scope.totalCust + 0;
+		}
+		
+	} */
+	
+	$scope.removevendorInvoice  =function(index){
+		$scope.vendorInvoiceJson.splice(index,1);
+	};
+	$scope.closeVendorUpload =function(){
+		$("#uploadVendorDiv").css("display","none");
+	};
+	$scope.openVendorUpload =function(){
+		$("#uploadVendorDiv").css("display","block");
+	};
+	
+	$scope.submitvendorUpload =function(){
 	};
 	$scope.calculateAmountTax =function(data){
 		console.log(data);
@@ -1461,28 +1548,35 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	$scope.navRedirect =function(event){
 		
 		 $(".nav").find(".active").removeClass("active");
+		// $(".tab-content").find(".active").removeClass("active");
 		   $(event).addClass("active");
 		   var currEvent=$(event.target).attr('bind-attr');
 		  if(currEvent =="Receipt"){
 			  $('#CustomerInvoice').hide();
 			  $('#VendorInvoice').hide();
 			  $('#Receipt').show();
+			  $('#Receipt').addClass("active");
+			  //$('#VendorInvoice').removeClass("active");
+			 // $('#CustomerInvoice').removeClass("active");
 		  }else if(currEvent =="VendorInvoice"){
 			  $('#CustomerInvoice').hide();
 			  $('#VendorInvoice').show();
 			  $('#Receipt').hide();
+			  $('#VendorInvoice').addClass("active");
+			  //$('#CustomerInvoice').removeClass("active");
+			  //$('#Receipt').removeClass("active");
 		  }else{
 			  $('#CustomerInvoice').show();
 			  $('#VendorInvoice').hide();
 			  $('#Receipt').hide();
+			  $('#CustomerInvoice').addClass("active");
+			 // $('#Receipt').removeClass("active");
+			 // $('#VendorInvoice').removeClass("active");
 		  }
 
 		  
 	}
 	$scope.init_Billing();
-	$scope.removeInvoice  =function(index){
-	$scope.customerInvoiceJson.splice(index,1);
-	};
 	scope=$scope;
 });
 app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {

@@ -60,7 +60,9 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-          <div class='addItems'>
+        <fieldset class="col-12 px-3" style="padding: 1%;">
+    	<legend>Basic Details:</legend>
+          <div class='col-12 addItems'>
         <table id='addData'>
          <tr>
           <td colspan="1" class="empId"><span class="labelfont">Id</span></td>
@@ -72,23 +74,18 @@
           <td colspan="1"><span class="labelfont">Experience</span></td>
           </tr>
           <tr>
-           
             <td colspan="1" class="empId">
               <input type="text" ng-model="item.empid" class="form-control " placeholder="ID"/>
             </td>
-            
             <td colspan="1">
               <input type="text" ng-model="item.empname" class="form-control " placeholder="Employee Name" />
             </td>
-            
             <td colspan="1">
               <input type="text" ng-model="item.role" class="form-control " placeholder="Employee Role"/> 
               </td>
-            
              <td colspan="1">
                 <input type='text' ng-model="item.designation" class="form-control " placeholder="Designation"/>
               </td>
-            
             <td colspan="1" >
              <input type="text" ng-model="item.pan" class="form-control " placeholder="PAN"/> 
             </td>
@@ -99,11 +96,9 @@
              <input type="text" ng-model="item.yearofexperience" class="form-control " placeholder="Experience"/> 
             </td>
             </tr>
-             <tr>
+          <tr>
           <td colspan="1" ><span class="labelfont">Emp Address</span></td>
           <td colspan="1"><span class="labelfont">Mobile No</span></td>
-         <!--  <td colspan="1"><span class="labelfont">Phone No</span></td> -->
-         <!--  <td colspan="1"><span class="labelfont">DOB</span></td> -->
           <td colspan="1"><span class="labelfont">Father Name</span></td>
           <td colspan="1"><span class="labelfont">Salary</span></td>
           </tr>
@@ -111,43 +106,64 @@
             <td colspan="1">
               <input type="text" ng-model="item.employeeAddress" class="form-control " placeholder="Employee Address" />
             </td>
-            
             <td colspan="1">
               <input type="text" ng-model="item.mobileno" class="form-control " placeholder="Mobile No"/>
               </td>
-              
-              <!-- <td colspan="1">
-              <input type="text" ng-model="item.phoneno" class="form-control " placeholder="Phone No"/>
-              </td> -->
-            
-            <!--  <td colspan="1">
-                <input type='text' ng-model="item.DOB" placeholder="Date of Birth"/>
-                 <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4"  ng-model="item.dob" placeholder="Date of Birth"/>
-                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                </div> 
-              </td> -->
-              
-               <td colspan="1">
+            <td colspan="1">
                 <input type='text' ng-model="item.fathername" class="form-control " placeholder="Father Name"/>
-              </td>
-                <td colspan="1">
+            </td>
+            <td colspan="1">
                 <input type='text' ng-model="item.salary" class="form-control " placeholder="Salary Package"/>
-              </td>
+             </td>
             </tr>
-           <!--  <tr>
-              <td colspan="1">
-                <input type="Button" class='addEmp' value="Add" ng-click="addItem(item)" />
-				<input type="Button" class='updateEmp' value="Update" ng-click="updateItem(item)" />
-              </td>
-              <td colspan="1">
-                <input type="button" class="close" data-dismiss="modal" value="Done" />
-              </td>
-            </tr> -->
+         
         </table>
       </div>
+      </fieldset>
+      
+     <!--  <div class="row col-12"> -->
+      <fieldset class="col-12 px-3" style="padding: 1%;">
+    <legend>Bank Details:</legend>
+    <div class="row">
+    <div class="col-3">
+    <label class="col-12"><b>Bank Name </b></label>
+	<input type="text"  ng-model="bankName" class="form-control col-12" placeholder="Bank Name" />
+    </div>
+    <div class="col-3">
+    <label class="col-12"><b>Bank Account No </b></label>
+	<input type="text"  ng-model="account" class="form-control col-12" placeholder="Bank Account Number" />
+    </div>
+    <div class="col-3">
+    <label class="col-12"><b>Branch </b></label>
+	<input type="text"  ng-model="branch" class="form-control col-12" placeholder="Branch" />
+    </div>
+    <div class="col-3">
+    <label class="col-12"><b>Bank Ifsc Code </b></label>
+	<input type="text"  ng-model="bankifsc" class="form-control col-12" placeholder="Ifsc Code" />
+    </div>
+    
+    </div>
+     <div class="row">
+    <div class="col-3">
+    <label class="col-12"><b>PF No </b></label>
+	<input type="text"  ng-model="pfNo" class="form-control col-12" placeholder="PF No" />
+    </div>
+    <div class="col-3">
+    <label class="col-12"><b>UAN No </b></label>
+	<input type="text"  ng-model="uanNo" class="form-control col-12" placeholder="UAN No" />
+    </div>
+    <!-- <div class="col-3">
+    <label class="col-12"><b>Branch </b></label>
+	<input type="text"  ng-model="branch" class="form-control col-12" placeholder="Branch" />
+    </div>
+    <div class="col-3">
+    <label class="col-12"><b>Bank Ifsc Code </b></label>
+	<input type="text"  ng-model="bankifsc" class="form-control col-12" placeholder="Ifsc Code" />
+    </div> -->
+    
+    </div>
+    </fieldset>
+     <!--  </div> -->
         </div>
         
         <!-- Modal footer -->

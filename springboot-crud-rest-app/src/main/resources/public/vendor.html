@@ -61,7 +61,7 @@
 </div>
 <!-- The Modal -->
   <div class="modal fade" id="venModal">
-    <div class="modal-dialog modal-dialog-centered modal-lg" >
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 75%;">
       <div class="modal-content">
       
         <!-- Modal Header  -->
@@ -73,113 +73,28 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class='addItems'>
-       <!--  <table id='addData'>
-         
-          <tr>
-            <td colspan="1" class="venId">
-              <label>ID:</label>
-            </td>
-            <td colspan="1" class="venId">
-              <input type="text" ng-model="item.vendorId" />
-            </td>
-            <td colspan="1">
-              <label>Name:
-                <label>
-            </td>
-            <td colspan="1">
-              <input type="text" ng-model="item.vendorName" />
-            </td>
-            <tr>
-              <td colspan="1">
-                <label>Address:</label>
-              </td>
-              <td colspan="1">
-                <input type="text" ng-model="item.city" />
-				<textarea rows = "2" cols = "21" name = "description" ng-model="item.vendorAddr">
-            Enter your name
-         </textarea>
-              </td>
-              <td colspan="1">
-                <label>Mobile:</label>
-              </td>
-              <td colspan="1">
-                <input type='text' ng-model="item.mobileNo" />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="1">
-                <label>Phone:</label>
-              </td>
-              <td colspan="1">
-                <input type="tel" ng-model="item.phoneNo" />
-              </td>
-              <td colspan="1">
-                <label>PAN:</label>
-              </td>
-              <td colspan="1">
-                <input type="tel" ng-model="item.PAN" />
-              </td>
-            </tr>
-			<tr>
-              <td colspan="1">
-                <label>TAN:</label>
-              </td>
-              <td colspan="1">
-                <input type="tel" ng-model="item.TAN" />
-              </td>
-              <td colspan="1">
-                <label>KYC:</label>
-              </td>
-              <td colspan="1">
-                <input type="tel" ng-model="item.KYC" />
-              </td>
-            </tr>
-			<tr>
-              <td colspan="1">
-                <label>GSTIN:</label>
-              </td>
-              <td colspan="1">
-                <input type="tel" ng-model="item.GSTIN" />
-              </td>
-              <td colspan="1">
-                <label>IEC:</label>
-              </td>
-              <td colspan="1">
-                <input type="tel" ng-model="item.IEC" />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="1"></td>
-              <td colspan="1">
-                <input type="Button" class='addVen' value="Add" ng-click="addItem(item)" />
-				<input type="Button" class='updateVen' value="Update" ng-click="updateItem(item)" />
-              </td>
-              <td colspan="1"></td>
-              <td colspan="1">
-                <input type="button" class="close" data-dismiss="modal" value="Done" />
-              </td>
-            </tr>
-        </table> -->
-        
         <table id='addData'>
-         <tr>
-          <td colspan="1" class="venId"><span class="labelfont">Id</span></td>
-          <td colspan="1" ><span class="labelfont">VendorName</span></td>
+         <!-- <tr>
+         
           </tr>
           <tr>
-            <td colspan="1" class="venId">
-              <input type="text" ng-model="item.vendorid" placeholder="ID"/>
-            </td>
-            <td colspan="1">
-              <input type="text" ng-model="item.vendorName" placeholder="Vendor Name"/>
-            </td></tr>
+           
+            </tr> -->
              <tr>
+              <td colspan="1" class="venId"><span class="labelfont">Id</span></td>
+          	  <td colspan="1" ><span class="labelfont">VendorName</span></td>
 	          <td colspan="1"><span class="labelfont">TAN</span></td>
 	          <td colspan="1"><span class="labelfont">KYC</span></td>
 	          <td colspan="1"><span class="labelfont">PAN</span></td>
 	          <td colspan="1"><span class="labelfont">IEC</span></td>
 	         </tr>
              <tr>
+              <td colspan="1" class="venId">
+              <input type="text" ng-model="item.vendorid" placeholder="ID"/>
+            </td>
+            <td colspan="1">
+              <input type="text" ng-model="item.vendorName" placeholder="Vendor Name"/>
+            </td>
                <td colspan="1">
                 <input type="tel" ng-model="item.tan" placeholder="TAN"/>
               </td>
@@ -194,6 +109,36 @@
               </td>
              
             </tr>
+            
+            <tr>
+          <td colspan="1"><span class="labelfont">Bank Name</span></td>
+          <td colspan="1"><span class="labelfont">Branch</span></td>
+          <td colspan="1"><span class="labelfont">Bank Account No</span></td>
+          <td colspan="1"><span class="labelfont">IFSC Code</span></td>
+          <td colspan="1"><span class="labelfont">Contact Person</span></td>
+          <td colspan="1"><span class="labelfont">Contact No</span></td>
+          </tr>
+            <tr>
+               <td colspan="1">
+                <input type="text" ng-model="item.bankName" placeholder="Bank Name"/>
+              </td>
+               <td colspan="1">
+                <input type="text" ng-model="item.branch" placeholder="Branch"/>
+              </td>
+                <td colspan="1">
+                <input type="text" ng-model="item.accountNo" placeholder="Bank Account No"/>
+              </td>
+              <td colspan="1">
+                <input type="text" ng-model="item.ifsc" placeholder="IFSC Code"/>
+              </td>
+             <td colspan="1">
+                <input type="text" ng-model="item.contactPerson" placeholder="Contact Person"/>
+              </td>
+              <td colspan="1">
+                <input type="text" ng-model="item.contactNo" placeholder="Contact No"/>
+              </td>
+            </tr>
+            
             <tr>
 	          <td colspan="1"><span class="labelfont">Address</span></td>
 	          <td colspan="1"><span class="labelfont">MobileNo</span></td>

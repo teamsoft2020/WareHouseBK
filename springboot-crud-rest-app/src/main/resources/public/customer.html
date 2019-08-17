@@ -67,7 +67,7 @@
 </div>
 <!-- The Modal -->
    <div class="modal fade" id="custModal">
-    <div class="modal-dialog modal-dialog-centered modal-lg" >
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 75%;">
       <div class="modal-content">
       
        
@@ -119,38 +119,66 @@
 							</tbody>
 						</table>  -->
           <table id='addData'>
-          <tr>
+         <!--  <tr></tr>
+          <tr></tr> -->
+            <tr>
           <td colspan="1" class="custId"><span class="labelfont">Id</span></td>
           <td colspan="1"><span class="labelfont">CustomerName</span></td>
-          </tr>
-          <tr>
-            <td colspan="1" class="custId">
-              <input type="text" ng-model="item.customerId" placeholder="ID"/>
-            </td>
-            <td colspan="1">
-              <input type="text" ng-model="item.customerName" placeholder="CustomerName"/>
-            </td></tr>
-            <tr>
           <td colspan="1"><span class="labelfont">TAN</span></td>
           <td colspan="1"><span class="labelfont">KYC</span></td>
           <td colspan="1"><span class="labelfont">PAN</span></td>
           <td colspan="1"><span class="labelfont">IEC</span></td>
           </tr>
             <tr>
+            <td colspan="1" class="custId">
+              <input type="text" ng-model="item.customerId" placeholder="ID"/>
+            </td>
+            <td colspan="1">
+              <input type="text" ng-model="item.customerName" placeholder="CustomerName"/>
+            </td>
                <td colspan="1">
-                <input type="tel" ng-model="item.tan" placeholder="TAN"/>
+                <input type="text" ng-model="item.tan" placeholder="TAN"/>
               </td>
                <td colspan="1">
-                <input type="tel" ng-model="item.kyc" placeholder="KYC"/>
+                <input type="text" ng-model="item.kyc" placeholder="KYC"/>
               </td>
                 <td colspan="1">
-                <input type="tel" ng-model="item.pan" placeholder="PAN"/>
+                <input type="text" ng-model="item.pan" placeholder="PAN"/>
               </td>
               <td colspan="1">
-                <input type="tel" ng-model="item.iec" placeholder="IEC"/>
+                <input type="text" ng-model="item.iec" placeholder="IEC"/>
               </td>
              
             </tr>
+            <tr>
+          <td colspan="1"><span class="labelfont">Bank Name</span></td>
+          <td colspan="1"><span class="labelfont">Branch</span></td>
+          <td colspan="1"><span class="labelfont">Bank Account No</span></td>
+          <td colspan="1"><span class="labelfont">IFSC Code</span></td>
+          <td colspan="1"><span class="labelfont">Contact Person</span></td>
+          <td colspan="1"><span class="labelfont">Contact No</span></td>
+          </tr>
+            <tr>
+               <td colspan="1">
+                <input type="text" ng-model="item.bankName" placeholder="Bank Name"/>
+              </td>
+               <td colspan="1">
+                <input type="text" ng-model="item.branch" placeholder="Branch"/>
+              </td>
+                <td colspan="1">
+                <input type="text" ng-model="item.accountNo" placeholder="Bank Account No"/>
+              </td>
+              <td colspan="1">
+                <input type="text" ng-model="item.ifsc" placeholder="IFSC Code"/>
+              </td>
+             <td colspan="1">
+                <input type="text" ng-model="item.contactPerson" placeholder="Contact Person"/>
+              </td>
+              <td colspan="1">
+                <input type="text" ng-model="item.contactNo" placeholder="Contact No"/>
+              </td>
+            </tr>
+            
              <tr>
 	          <td colspan="1"><span class="labelfont">Address</span></td>
 	          <td colspan="1"><span class="labelfont">MobileNo</span></td>
