@@ -1153,6 +1153,15 @@ var url = location.origin +"/api/v1/createvehicle";
 $scope.item = {};
 
 }
+
+$scope.closeUpload =function(){
+	$("#uploadDiv").css("display","none");
+};
+$scope.openUpload =function(){
+	$("#uploadDiv").css("display","block");
+};
+$scope.submitUpload =function(){
+};
 $scope.updateItem = function(item) {
 /* for(i in $scope.listVehicleJson) {
                if($scope.listVehicleJson[i].codeId == $scope.item.codeId) {

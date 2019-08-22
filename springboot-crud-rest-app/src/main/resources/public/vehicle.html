@@ -1,7 +1,35 @@
 <div >
 <div>
-<input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="TripSheet" ng-click="createTrip()" >
-<input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="Create" ng-click="createVehicle()" >
+<div class="row">
+<div class="col-12" style="">
+
+
+<input name="" type="button" class="btn btn-primary" id="" value="Upload" ng-click="openUpload()" style="float: right;margin: 1%;">
+<input name="" type="button" style="float: right;margin: 1%;" class="btn btn-primary" id="" value="TripSheet" ng-click="createTrip()">
+<input name="" type="button" style="float: right;margin: 1%;" class="btn btn-primary" id="" value="Create" ng-click="createVehicle()">
+</div></div>
+<div class="row" >
+<div class="col-2"></div>
+		  <div class="col-8">
+		 <!--  <div class="filterDiv"  style="display:none;"> </div>  -->
+		  <div id="uploadDiv" class="col-12 filterDiv" style="display: none;">
+			<form method="post" action="#" id="#" class="ng-pristine ng-valid">
+				<div class="form-group files">
+					<input type="file" class="form-control" multiple="">
+				</div>
+				<div class="row">
+				<div class="col-12">
+				<input name="" type="button" class="btn btn-dark" id="" value="Close" style="margin-left: 1%;float: right;margin-top: 1%;" ng-click="closeUpload()">
+				<input name="" type="button" class="btn btn-dark" id="" value="Submit" style="margin-left: 1%;float: right;margin-top: 1%;" ng-click="submitUpload()">
+				</div></div>
+			</form>
+		</div>
+		  </div>
+		  <div class="col-2"></div>
+		 <!-- <div class="col-2">
+			<input name="" type="button" class="btn btn-primary" id="" value="Upload" ng-click="openUpload()" style="float: right;"></div> -->
+		</div>
+
 <table id="manage-vehicle-table" class="custTable" datatable="ng" dt-options="vehm.dtVehicle" dt-columns="vehm.dtVehicleColumns" style="width: 90%;">
 					<thead>
 						<tr>
