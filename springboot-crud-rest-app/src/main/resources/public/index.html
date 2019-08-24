@@ -1093,7 +1093,10 @@ app.controller('VehicleController', function ($scope, $window ,$http,$location,D
 							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
 							  {codeId: "3456",truckNo: "5675", rcno: "2345", fcDate: "23/4/2019", truckType: "Garbage truck"},
 							  {codeId: "5643",truckNo: "56756", rcno: "1234", fcDate: "23/4/2019", truckType: "Box truck"}]; */				
-	$scope.trip = {from: "",to: "",date: "",vehicleType: "",vehicleNo: "",driverName: ""};
+	$scope.trip = [{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",remarks: "good"},
+					{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",remarks: "good"}];
+							  
+							  
 	scope=$scope;
 	$scope.vehm = {};
 	$scope.vehm.dtVehicle = DTOptionsBuilder.newOptions()
@@ -1207,9 +1210,9 @@ $scope.editVehicle = function(index){
   $(".vehId").css("display","none");
   $(".addVeh").css("display","none");
   $(".updateVeh").css("display","block");
-for(i in $scope.listVehicleJson) {
-       if($scope.listVehicleJson[i].truckno == index.truckno) {
-           $scope.item = angular.copy($scope.listVehicleJson[i]);
+for(i in $scope.trip) {
+       if($scope.trip[i].truckNo == index.truckNo) {
+           $scope.item = angular.copy($scope.trip[i]);
        }
    }
 }
