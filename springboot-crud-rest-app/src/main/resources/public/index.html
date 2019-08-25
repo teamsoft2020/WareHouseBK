@@ -689,10 +689,10 @@ for(i in $scope.listCustomerJson) {
 });
 app.controller('VendorController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	$scope.listVendorJson=[];
-	/* $scope.listVendorJson =[{vendorid: "1111",vendorName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"},{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
-	                        {vendorId: "2222",vendorName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", vendorAddress:[{ vendorAddr: "3,xyz street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
-	                        {vendorId: "3333",vendorName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", vendorAddress:[{ vendorAddr: "3,abc street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]},
-	                        {vendorId: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA", vendorAddress:[{ vendorAddr: "3,sri street,mumbai", mobileNo: "123544", phoneNo: "123544",gstin: "12354RTUGF"}]}];	 */			
+	 $scope.listVendorJson =[{vendorid: "1111",vendorName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",bankName:"ICICI",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}],vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"},{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
+	                        {vendorid: "2222",vendorName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"HDFC",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
+	                        {vendorid: "3333",vendorName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"ICICI",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,abc street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
+	                        {vendorid: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"AXIS",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,sri street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]}];	 		
 	$scope.vm = {};
 	$scope.vm.dtVendor = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -726,6 +726,7 @@ $(".addVen").css("display","block");
 $(".updateVen").css("display","none");
 $scope.item = {};
 $scope.item.vendorAddress = [{vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+$scope.item.vendorVehicle = [{drivername: "",mobileno: "",vehicleno: "",vehicleType: "",FC: "",insurance: "",RCno: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""}];
 }
 
 $scope.addVendorDetails = function(data){

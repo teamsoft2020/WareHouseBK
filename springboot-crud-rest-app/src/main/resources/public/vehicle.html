@@ -106,11 +106,11 @@
         <div class="modal-body">
           <div class='addItems'>
           
-          <div class='col-md-12 '>
+          <div class='col-md-12 tripItems'>
           
            <div class="row">
 		<div class='col-md-3'>
-          <label class="col-12"><b>Load NO </b></label>
+          <label class="col-12"><b>LR NO </b></label>
            <input type="text"  ng-model="item.loadNo" class="form-control col-12" placeholder="LR NO" />
           </div>
           <div class='col-md-3'>
@@ -200,17 +200,39 @@
 		
 		</div>
 		<div class="row">
-		<div class='col-md-3'>
+		
+		  
+		  <div class='col-md-3'>
+          <label class="col-12"><b>TollBill</b></label>
+           <input type="text" ng-model="item.tollBill" class="form-control col-12" placeholder="Toll Bill" />
+		  </div>
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Police Bill </b></label>
+           <input type="text" ng-model="item.policeBill" class="form-control col-12" placeholder="Police Bill Charge" />
+		  </div>
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Freight Amount </b></label>
+           <input type="text" ng-model="item.freightAmt" class="form-control col-12" placeholder="Freight Amount" />
+		  </div>
+		  
+		  <div class='col-md-3'>
           <label class="col-12"><b>Profit</b></label>
            <input type="text" ng-model="item.profit" class="form-control col-12" placeholder="Profit" />
 		  </div>
-		  <div class='col-md-3'>
+		</div>
+		
+		<div class="row">
+		 <div class='col-md-3'>
+          <label class="col-12"><b>Halting Charges </b></label>
+           <input type="text" ng-model="item.haltingCharge" class="form-control col-12" placeholder="Halting Charge" />
+		  </div>
+		   <div class='col-md-3'>
           <label class="col-12"><b>Remarks </b></label>
            <input type="text" ng-model="item.remarks" class="form-control col-12" placeholder="Remarks" />
 		  </div>
 		</div>
            <div class="float-right" style="margin-top: 3%;">
-          <input type="Button" class='btn btn-info' id="print"  value="Print"  />
+          <input type="Button" class='btn btn-info' id="print"  value="Print" ng-click="bay();" />
            </div>
        
       </div>
@@ -293,7 +315,7 @@
           
            <div class="row">
 		<div class='col-md-3'>
-          <label class="col-12"><b>Load NO </b></label>
+          <label class="col-12"><b>LR NO </b></label>
            <input type="text"  ng-model="trip.loadNo" class="form-control col-12" placeholder="LR NO" />
           </div>
           <div class='col-md-3'>
@@ -383,10 +405,7 @@
 		
 		</div>
 		<div class="row">
-		<div class='col-md-3'>
-          <label class="col-12"><b>Profit</b></label>
-           <input type="text" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" />
-		  </div>
+		
 		  
 		  <div class='col-md-3'>
           <label class="col-12"><b>TollBill</b></label>
@@ -399,6 +418,11 @@
 		  <div class='col-md-3'>
           <label class="col-12"><b>Freight Amount </b></label>
            <input type="text" ng-model="trip.freightAmt" class="form-control col-12" placeholder="Freight Amount" />
+		  </div>
+		  
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Profit</b></label>
+           <input type="text" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" />
 		  </div>
 		</div>
 		
