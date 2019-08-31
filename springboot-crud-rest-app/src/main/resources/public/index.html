@@ -689,10 +689,10 @@ for(i in $scope.listCustomerJson) {
 });
 app.controller('VendorController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	$scope.listVendorJson=[];
-	 $scope.listVendorJson =[{vendorid: "1111",vendorName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",bankName:"ICICI",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}],vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"},{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
+	 /* $scope.listVendorJson =[{vendorid: "1111",vendorName: "Demo",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF",iec: "12354UUFFA",bankName:"ICICI",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}],vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"},{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
 	                        {vendorid: "2222",vendorName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"HDFC",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
 	                        {vendorid: "3333",vendorName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"ICICI",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,abc street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
-	                        {vendorid: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"AXIS",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,sri street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]}];	 		
+	                        {vendorid: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"AXIS",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,sri street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]}];	 */ 		
 	$scope.vm = {};
 	$scope.vm.dtVendor = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -725,22 +725,29 @@ $(".venId").css("display","");
 $(".addVen").css("display","block");
 $(".updateVen").css("display","none");
 $scope.item = {};
-$scope.item.vendorAddress = [{vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
-$scope.item.vendorVehicle = [{drivername: "",mobileno: "",vehicleno: "",vehicleType: "",FC: "",insurance: "",RCno: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""}];
+$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""}];
 }
 
 $scope.addVendorDetails = function(data){
-	$scope.item.vendorAddress.push({vendoraddr: "",mobileno: "",phoneno: "",gstin: ""});
+	$scope.item.vendorAddress.push({vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""});
 
 }
+$scope.addVendorVehDetails = function(data){
+	$scope.item.vendorvehicle.push({driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""});
 
+}
+$scope.deleteVendorVehDetails = function(index){
+	$scope.item.vendorvehicle.splice(index,1);
+
+}
 $scope.deleteVendorDetails = function(index){
 	$scope.item.vendorAddress.splice(index,1);
 
 }
 $scope.addItem = function(item) {
 //$scope.listVendorJson.push(angular.copy(item));
-var url = location.origin +"/api/v2/createvendor";
+var url = location.origin +"/api/v1/createvendor";
 	//$scope.listCustomerJson.push(angular.copy(item));
 	    $http({
 	        method : 'POST',
@@ -758,7 +765,9 @@ var url = location.origin +"/api/v2/createvendor";
 	          console.log(response.status);
 	        });
 $scope.item = {};
-$scope.item.vendorAddress=[{vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""}];
+
 
 }
 $scope.updateItem = function(item) {
@@ -767,7 +776,7 @@ $scope.updateItem = function(item) {
                   $scope.listVendorJson[i] = $scope.item;
               }
        } */
-	var url = location.origin +"/api/v2/vendorrupdate";
+	var url = location.origin +"/api/v1/vendorrupdate";
 	//$scope.listCustomerJson.push(angular.copy(item));
 	console.log($scope.item);
 	    $http({
@@ -790,7 +799,7 @@ $scope.removeItem = function(item){
 //$scope.listVendorJson.splice(index,1);
 
 	console.log(item.id);
-	var url=location.origin +"/api/v2/vendor/"+item.id;
+	var url=location.origin +"/api/v1/vendor/"+item.id;
 	 $http({
 		    method : 'DELETE',
 		    url : url,
@@ -816,7 +825,7 @@ for(i in $scope.listVendorJson) {
 	
 $scope.initven =function(){
 	 
-	 var url=location.origin +"/api/v2/vendorlist";
+	 var url=location.origin +"/api/v1/vendorlist";
 	 $http({
 		    method : 'GET',
 		    url : url,

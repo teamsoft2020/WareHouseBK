@@ -61,7 +61,7 @@
 </div>
 <!-- The Modal -->
   <div class="modal fade" id="venModal">
-    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 75%;">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 77%;">
       <div class="modal-content">
       
         <!-- Modal Header  -->
@@ -146,6 +146,9 @@
 	          <td colspan="1"><span class="labelfont">GSTIN</span></td>
           </tr>
             <tr ng-repeat="vendorDetail in  item.vendorAddress track by $index">
+             <td colspan="1" style="display:none;">
+				<label>{{vendorDetail.vendoraddrid}}</label>
+              </td>
               <td colspan="1">
 				<textarea rows = "1" cols = "22" name = "description" ng-model="vendorDetail.vendoraddr" placeholder="Enter your Addr"> </textarea>
               </td>
@@ -168,8 +171,8 @@
       
       <fieldset class="col-12 px-3" style="padding: 1%;">
     	<legend>Vehicle Details</legend>
-          <div class="col-12 ">
-        <table ng-repeat="vendorVehicle in  item.vendorVehicle track by $index">
+          <div class="col-12 " ng-repeat="vendorVehicle in  item.vendorvehicle track by $index">
+        <table >
        
         <tbody>
         <tr>
@@ -181,20 +184,23 @@
 	          <td colspan="1"><span class="labelfont">Insurance</span></td>
           </tr>
         <tr >
-              <td colspan="1">
-				<input type='text' ng-model="vendorVehicle.drivername" placeholder="DriverName"/>
-			 </td>
-              <td colspan="1">
-                <input type='text' ng-model="vendorVehicle.mobileno" placeholder="MobileNo"/>
+        	  <td colspan="1" style="display:none;">
+				<label>{{vendorVehicle.vehicleid}}</label>
               </td>
               <td colspan="1">
-                <input type="text" ng-model="vendorVehicle.vehicleno" placeholder="VehicleNo"/>
+				<input type='text' ng-model="vendorVehicle.driverName" placeholder="DriverName"/>
+			 </td>
+              <td colspan="1">
+                <input type='text' ng-model="vendorVehicle.mobileNo" placeholder="MobileNo"/>
+              </td>
+              <td colspan="1">
+                <input type="text" ng-model="vendorVehicle.vehicleNo" placeholder="VehicleNo"/>
               </td>
               <td colspan="1">
               <input type="text" ng-model="vendorVehicle.vehicleType" placeholder="Vehicle Type"/>
               </td>
               <td colspan="1">
-              <input type="text" ng-model="vendorVehicle.FC" placeholder="FC"/>
+              <input type="text" ng-model="vendorVehicle.fc" placeholder="FC"/>
               </td>
               <td colspan="1">
               <input type="text" ng-model="vendorVehicle.insurance" placeholder="Insurance"/>
@@ -209,7 +215,7 @@
           </tr>
               <tr>
               <td colspan="1">
-                <input type='text' ng-model="vendorVehicle.RCno" placeholder="RC NO"/>
+                <input type='text' ng-model="vendorVehicle.rCNo" placeholder="RC NO"/>
               </td>
               <td colspan="1">
                 <input type="text" ng-model="vendorVehicle.roadTax" placeholder="Road Tax"/>
@@ -230,6 +236,7 @@
               </tr>
         </tbody>
         </table>
+        <hr>
       </div>
       </fieldset>
         </div>
