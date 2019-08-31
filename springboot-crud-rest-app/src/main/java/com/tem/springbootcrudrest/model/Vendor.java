@@ -49,13 +49,39 @@ public class Vendor {
 	@Column(name = "iec", nullable = true)
 	private String IEC;
 	
-	@Temporal(TemporalType.DATE)
+	
+	
+	@Column(name = "bankname", nullable = true)
+	private String bankName;
+	
+	@Column(name = "branch", nullable = true)
+	private String branch;
+	
+	@Column(name = "accountno", nullable = true)
+	private String accountNo;
+	
+	@Column(name = "ifsc", nullable = true)
+	private String ifsc;
+	
+	@Column(name = "contactperson", nullable = true)
+	private String contactPerson;
+	
+	@Column(name = "contactno", nullable = true)
+	private String contactNo;
+	
+	/*@Temporal(TemporalType.DATE)
 	@Column(name = "createddate", nullable = true)
 	private Date createddate;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "modifieddate", nullable = true)
-	private Date modifieddate;
+	private Date modifieddate;*/
+	
+	@Column(name = "createddate")
+	private String createdDate;
+	
+	@Column(name = "modifieddate")
+	private String modifiedDate;
 	
 	@Column(name = "Createdby", nullable = true)
 	private String createdby;
@@ -63,6 +89,11 @@ public class Vendor {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "vendorandvendoraddress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<VendorAddress> vendorAddress;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "vendorandvehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Vehicle> vendorvehicle;
+
 
 	public Long getId() {
 		return id;
@@ -120,7 +151,7 @@ public class Vendor {
 		IEC = iEC;
 	}
 
-	public Date getCreateddate() {
+	/*public Date getCreateddate() {
 		return createddate;
 	}
 
@@ -134,7 +165,7 @@ public class Vendor {
 
 	public void setModifieddate(Date modifieddate) {
 		this.modifieddate = modifieddate;
-	}
+	}*/
 
 	public String getCreatedby() {
 		return createdby;
@@ -152,5 +183,76 @@ public class Vendor {
 		this.vendorAddress = vendorAddress;
 	}
 
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
+	public String getIfsc() {
+		return ifsc;
+	}
+
+	public void setIfsc(String ifsc) {
+		this.ifsc = ifsc;
+	}
+
+	public String getContactPerson() {
+		return contactPerson;
+	}
+
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(String modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public List<Vehicle> getVendorvehicle() {
+		return vendorvehicle;
+	}
+
+	public void setVendorvehicle(List<Vehicle> vendorvehicle) {
+		this.vendorvehicle = vendorvehicle;
+	}
 	
 }

@@ -55,6 +55,7 @@
 					</tbody> -->
 					 <thead>
 						<tr>
+						<th scope="col" style="display:none;"><h5>Trip ID</h5></th>
 							<th scope="col"><h5>Load No</h5></th>
 							<th scope="col" ><h5>Trip NO</h5></th>
 							<th scope="col"><h5>Origin</h5></th>
@@ -70,8 +71,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="list in  trip track by $index">
-							 
+						<tr ng-repeat="list in  listVehicleJson track by $index">
+							 <td style="display:none;">{{list.tripid}}</td>
 							<td>{{list.loadNo}}</td>
 							<td>{{list.tripNo}}</td>
 							<td>{{list.origin}}</td>
@@ -91,18 +92,18 @@
 					</tbody>
 				</table>
 </div>
-<!-- The Modal -->
+<!-- The Modal 
   <div class="modal fade" id="vehModal">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 76%;">
       <div class="modal-content">
       
-        <!-- Modal Header  -->
+  
         <div class="modal-header">
           <h4 class="modal-title"> TripSheet</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div> 
         
-        <!-- Modal body -->
+
         <div class="modal-body">
           <div class='addItems'>
           
@@ -159,10 +160,7 @@
           <label class="col-12"><b>DriverName </b></label>
            <input type="text" ng-model="item.driverName" class="form-control col-12" placeholder="DriverName" />
           </div>
-          <!-- <div class='col-md-3'>
-          <label class="col-12"><b>CustomerName </b></label>
-           <input type="text" ng-model="trip.CustomerName" class="form-control col-12" placeholder="CustomerName" />
-          </div> -->
+        
           <div class='col-md-3'>
           <label class="col-12"><b>No Of Case </b></label>
            <input type="text" ng-model="item.noOfCase" class="form-control col-12" placeholder="No Of Case" />
@@ -237,50 +235,7 @@
        
       </div>
           
-        <!-- <table id='addData'>
-         
-			<tr> 
-			 <td colspan="1" class="truckId">
-                <label>Truck No:</label>
-              </td>
-              <td colspan="1">
-              <input type="text" ng-model="item.truckno" class="form-control" placeholder="Truck No" /> 
-              </td>
-              <td colspan="1" class="">
-                <label>RC No:</label>
-              </td>
-              <td colspan="1">
-                <input type='text' ng-model="item.rcno" class="form-control" placeholder="RC No"/>
-              </td>
-            </tr>
-			<tr>
-			 <td colspan="1" class="">
-                <label>FC Date:</label>
-              </td>
-              <td colspan="1">
-               <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="item.fcdate" placeholder="FC Date"/>
-                    <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                </div>
-              </td>
-              <td colspan="1" class="">
-                <label>Truck Type:</label>
-              </td>
-              <td colspan="1">
-                <select ng-model="item.trucktype" class="form-control" tabindex="8">
-		              <option value="">Select TruckType</option>
-		              <option>Transport truck</option>
-		              <option>Dump truck</option>
-		              <option>Garbage truck</option>
-		              <option>Box truck</option>
-		              <option>Tank truck</option>
-		      </select>
-              </td>
-            </tr>
-            
-        </table> -->
+
       </div>
         </div>
         <div class="modal-footer">
@@ -288,14 +243,11 @@
 	 	<button type="button" class='btn btn-primary updateVeh' ng-click="updateItem(item)" >Update</button>
        	<button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button>
         </div>
-        <!-- Modal footer 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div> -->
+        
         
       </div>
     </div>
-  </div>
+  </div>  -->
   
   
   <!-- The tripsheet Modal -->
@@ -339,7 +291,13 @@
           </div>
 			<div class='col-md-3'>
           <label class="col-12"><b>Date&Time </b></label>
-           <input type="text" ng-model="trip.dateTime" class="form-control col-12" placeholder="From" />
+          <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="trip.dateTime" placeholder="FC Date"/>
+                    <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+           <!-- <input type="text" ng-model="trip.dateTime" class="form-control col-12" placeholder="From" /> -->
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>TruckType </b></label>
@@ -374,11 +332,11 @@
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Open KMs </b></label>
-           <input type="text" ng-model="trip.OPKM" class="form-control col-12" placeholder="Open KMs" />
+           <input type="text" ng-model="trip.opkm" class="form-control col-12" placeholder="Open KMs" />
 		  </div>
 		   <div class='col-md-3'>
           <label class="col-12"><b>Close KMs </b></label>
-           <input type="text" ng-model="trip.CLSKM" class="form-control col-12" placeholder="Close KMs" />
+           <input type="text" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" />
           </div>
           
 		  </div>
@@ -436,15 +394,24 @@
            <input type="text" ng-model="trip.remarks" class="form-control col-12" placeholder="Remarks" />
 		  </div>
 		</div>
-           <div class="float-right" style="margin-top: 3%;">
+           <!-- <div class="float-right" style="margin-top: 3%;">
           <input type="Button" class='btn btn-info' id="print"  value="Print" ng-click="bay();" />
-           </div>
+        <button type="button" class='btn btn-primary addVeh' ng-click="addItem(item)" >Add</button>
+	 	<button type="button" class='btn btn-primary updateVeh' ng-click="updateItem(item)" >Update</button>
+           </div> -->
        
       </div>
  
         </div>
         
-       
+       <div class="modal-footer">
+        <button type="button" class='btn btn-primary addVeh' ng-click="addItem(trip)" >Save</button>
+	 	<button type="button" class='btn btn-primary updateVeh' ng-click="updateItem(trip)" >Update</button>
+	 	<button type="button" class='btn btn-primary' id="print"  value="Print" ng-click="bay();">Print</button>
+       	<!-- <button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button> -->
+        </div>
+        
+        
         
       </div>
     </div>

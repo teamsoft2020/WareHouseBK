@@ -1089,15 +1089,15 @@ $scope.initProduct = function(){
 $scope.initProduct();
 });
 app.controller('VehicleController', function ($scope, $window ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
-	$scope.listVehicleJson =[];
+	$scope.listVehicleJson ={};
 	/* $scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
 							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
 							  {codeId: "3456",truckNo: "5675", rcno: "2345", fcDate: "23/4/2019", truckType: "Garbage truck"},
 							  {codeId: "5643",truckNo: "56756", rcno: "1234", fcDate: "23/4/2019", truckType: "Box truck"}]; */				
-	$scope.trip = [{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",tollBill: "654787",policeBill: "57890",freightAmt: "700",haltingCharge: "700",remarks: "good"},
+	/*$scope.trip = [{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",tollBill: "654787",policeBill: "57890",freightAmt: "700",haltingCharge: "700",remarks: "good"},
 					{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",tollBill: "654787",policeBill: "57890",freightAmt: "700",haltingCharge: "700",remarks: "good"}];
 							  
-							  
+	*/						  
 	scope=$scope;
 	$scope.vehm = {};
 	$scope.vehm.dtVehicle = DTOptionsBuilder.newOptions()
@@ -1130,19 +1130,22 @@ $("#vehModal").modal('show');
 $(".vehId").css("display","");
 $(".addVeh").css("display","block");
 $(".updateVeh").css("display","none");
-$scope.item = {};
+
 }
 $scope.createTrip = function() {
 $('#tripModal').modal('show');
+$(".addVeh").css("display","block");
+$(".updateVeh").css("display","none");
+$scope.trip={};
 }
 $scope.addItem = function(item) {
 //$scope.listVehicleJson.push(item);
-var url = location.origin +"/api/v1/createvehicle";
+var url = location.origin +"/api/v1/createtripsheet";
 	//$scope.listCustomerJson.push(angular.copy(item));
 	    $http({
 	        method : 'POST',
 	        url : url,
-	        data : angular.toJson($scope.item),
+	        data : angular.toJson($scope.trip),
 	        headers : {
 	        'Content-Type' : 'application/json'
 	        }
@@ -1154,7 +1157,7 @@ var url = location.origin +"/api/v1/createvehicle";
 	        	toastr.success('Data not added');
 	          console.log(response.status);
 	        });
-$scope.item = {};
+$scope.trip = {};
 
 }
 
@@ -1172,13 +1175,13 @@ $scope.updateItem = function(item) {
                    $scope.listVehicleJson[i] = $scope.item;
                }
         } */
-	var url = location.origin +"/api/v1/vehicleupdate";
+	var url = location.origin +"/api/v1/updatetripsheet";
 	//$scope.listCustomerJson.push(angular.copy(item));
 	console.log($scope.item);
 	    $http({
 	        method : 'PUT',
 	        url : url,
-	        data : angular.toJson($scope.item),
+	        data : angular.toJson($scope.trip),
 	        headers : {
 	        'Content-Type' : 'application/json'
 	        }
@@ -1193,7 +1196,7 @@ $scope.updateItem = function(item) {
 }
 $scope.removeItem = function(item){
 //$scope.listVehicleJson.splice(index,1);
-	var url=location.origin +"/api/v1/vehicle/"+item.id;
+	var url=location.origin +"/api/v1/tripsheet/"+item.tripid;
 	 $http({
 		    method : 'DELETE',
 		    url : url,
@@ -1206,14 +1209,14 @@ $scope.removeItem = function(item){
 		   });
 }
 $scope.editVehicle = function(index){
-
-  $("#vehModal").modal('show');
+	$('#tripModal').modal('show');
+  //$("#vehModal").modal('show');
   $(".vehId").css("display","none");
   $(".addVeh").css("display","none");
   $(".updateVeh").css("display","block");
-for(i in $scope.trip) {
-       if($scope.trip[i].truckNo == index.truckNo) {
-           $scope.item = angular.copy($scope.trip[i]);
+for(i in $scope.listVehicleJson) {
+       if($scope.listVehicleJson[i].truckNo == index.truckNo) {
+           $scope.trip = angular.copy($scope.listVehicleJson[i]);
        }
    }
 }
@@ -1235,10 +1238,10 @@ $scope.newtabTrip =function(){
 	}, 500);
 }
 $scope.initVeh =function(){
-	 $('#datetimepicker5').datetimepicker({
+	 $('#datetimepicker5').datetimepicker(/* {
 	        format: 'DD/MM/YYYY'
-	    });
-	 var url=location.origin +"/api/v1/vehiclelist";
+	    } */);
+	 var url=location.origin +"/api/v1/triplist";
 	 $http({
 		    method : 'GET',
 		    url : url,
