@@ -1177,7 +1177,51 @@ $scope.openUpload =function(){
 	$("#uploadDiv").css("display","block");
 };
 $scope.submitUpload =function(){
+	console.log("submit");
+	 var fd = new FormData()
+     for (var i in $scope.files) {
+         fd.append("uploadedFile", $scope.files[i]);
+     }
+     var xhr = new XMLHttpRequest()
+     xhr.upload.addEventListener("progress", $scope.uploadProgress, false)
+     xhr.addEventListener("load", $scope.uploadComplete, false)
+     xhr.addEventListener("error", $scope.uploadFailed, false)
+     xhr.addEventListener("abort", $scope.uploadCanceled, false)
+     xhr.open("POST", "/fileupload")
+     //scope.progressVisible = true
+     xhr.send(fd)
 };
+
+
+$scope.uploadProgress =function(evt) {
+    
+}
+
+$scope.uploadComplete = function(evt) {
+    /* This event is raised when the server send back a response */
+    alert(evt.target.responseText);
+}
+
+$scope.uploadFailed = function(evt) {
+    alert("There was an error attempting to upload the file.");
+}
+
+$scope.uploadCanceled = function(evt) {
+    alert("The upload has been canceled by the user or the browser dropped the connection.");
+}
+
+$scope.setFiles = function(element) {
+    $scope.$apply(function(scope) {
+      console.log('files:', element.files);
+      // Turn the FileList object into an Array
+        $scope.files = []
+        for (var i = 0; i < element.files.length; i++) {
+          $scope.files.push(element.files[i])
+        }
+    // scope.progressVisible = false
+      });
+    };
+
 $scope.updateItem = function(item) {
 /* for(i in $scope.listVehicleJson) {
                if($scope.listVehicleJson[i].codeId == $scope.item.codeId) {

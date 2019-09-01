@@ -15,7 +15,7 @@
 		  <div id="uploadDiv" class="col-12 filterDiv" style="display: none;">
 			<form method="post" action="#" id="#" class="ng-pristine ng-valid">
 				<div class="form-group files">
-					<input type="file" class="form-control" multiple="">
+					<input type="file"  class="form-control"  multiple="" onchange="angular.element(this).scope().setFiles(this)" >
 				</div>
 				<div class="row">
 				<div class="col-12">
@@ -268,11 +268,11 @@
            <div class="row">
 		<div class='col-md-3'>
           <label class="col-12"><b>LR NO </b></label>
-           <input type="text"  ng-model="trip.loadNo" class="form-control col-12" placeholder="LR NO" />
+           <input type="number" min="0" ng-model="trip.loadNo" class="form-control col-12" placeholder="LR NO" />
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Trip NO </b></label>
-           <input type="text"  ng-model="trip.tripNo" class="form-control col-12" placeholder="Trip NO" />
+           <input type="number" min="0" ng-model="trip.tripNo" class="form-control col-12" placeholder="Trip NO" />
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Origin </b></label>
@@ -287,7 +287,7 @@
 		  <div class="row" style="margin-top: 1%;">
 		  <div class='col-md-3'>
           <label class="col-12"><b>Invoice NO </b></label>
-           <input type="text"  ng-model="trip.invoiceNO" class="form-control col-12" placeholder="InvoiceNO" />
+           <input type="number"  min="0"ng-model="trip.invoiceNO" class="form-control col-12" placeholder="InvoiceNO" />
           </div>
 			<div class='col-md-3'>
           <label class="col-12"><b>Date&Time </b></label>
@@ -313,7 +313,7 @@
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>TruckNo </b></label>
-           <input type="text" ng-model="trip.truckNo" class="form-control col-12" placeholder="TruckTo" />
+           <input type="number" min="0" ng-model="trip.truckNo" class="form-control col-12" placeholder="TruckTo" />
           </div>
           
 		  </div>
@@ -328,36 +328,36 @@
           </div> -->
           <div class='col-md-3'>
           <label class="col-12"><b>No Of Case </b></label>
-           <input type="text" ng-model="trip.noOfCase" class="form-control col-12" placeholder="No Of Case" />
+           <input type="number" min="0" ng-model="trip.noOfCase" class="form-control col-12" placeholder="No Of Case" />
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Open KMs </b></label>
-           <input type="text" ng-model="trip.opkm" class="form-control col-12" placeholder="Open KMs" />
+           <input type="number" min="0" ng-model="trip.opkm" class="form-control col-12" placeholder="Open KMs" />
 		  </div>
 		   <div class='col-md-3'>
           <label class="col-12"><b>Close KMs </b></label>
-           <input type="text" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" />
+           <input type="number" min="0" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" />
           </div>
           
 		  </div>
 		  <div class="row" style="margin-top: 1%;">
 			<div class='col-md-3'>
           <label class="col-12"><b>Diff KMs </b></label>
-           <input type="text" ng-model="trip.diffKM" class="form-control col-12" placeholder="Diff KMs" />
+           <input type="number" min="0" ng-model="trip.diffKM" class="form-control col-12" placeholder="Diff KMs" />
 		  </div>
 		  <div class='col-md-3'>
           <label class="col-12"><b>Advance </b></label>
-           <input type="text" ng-model="trip.advance" class="form-control col-12" placeholder="Advance" />
+           <input type="number" min="0" ng-model="trip.advance" class="form-control col-12" placeholder="Advance" />
 		  </div>
 		  
 		  <div class='col-md-3'>
           <label class="col-12"><b>Per Kms(Customer) </b></label>
-           <input type="text" ng-model="trip.perKMchargeCustomer" class="form-control col-12" placeholder="Per Kms(Customer)" />
+           <input type="number" min="0" ng-model="trip.perKMchargeCustomer" class="form-control col-12" placeholder="Per Kms(Customer)" />
 		  </div>
 		  
 		  <div class='col-md-3'>
           <label class="col-12"><b>Per Kms(vendor) </b></label>
-           <input type="text" ng-model="trip.perKMchargeVendor" class="form-control col-12" placeholder="Per Kms(vendor)" />
+           <input type="number" min="0" ng-model="trip.perKMchargeVendor" class="form-control col-12" placeholder="Per Kms(vendor)" />
 		  </div>
 		
 		
@@ -367,27 +367,27 @@
 		  
 		  <div class='col-md-3'>
           <label class="col-12"><b>TollBill</b></label>
-           <input type="text" ng-model="trip.tollBill" class="form-control col-12" placeholder="Toll Bill" />
+           <input type="number" min="0" ng-model="trip.tollBill" class="form-control col-12" placeholder="Toll Bill" />
 		  </div>
 		  <div class='col-md-3'>
           <label class="col-12"><b>Police Bill </b></label>
-           <input type="text" ng-model="trip.policeBill" class="form-control col-12" placeholder="Police Bill Charge" />
+           <input type="number" min="0" ng-model="trip.policeBill" class="form-control col-12" placeholder="Police Bill Charge" />
 		  </div>
 		  <div class='col-md-3'>
           <label class="col-12"><b>Freight Amount </b></label>
-           <input type="text" ng-model="trip.freightAmt" class="form-control col-12" placeholder="Freight Amount" />
+           <input type="number" min="0" ng-model="trip.freightAmt" class="form-control col-12" placeholder="Freight Amount" />
 		  </div>
 		  
 		  <div class='col-md-3'>
           <label class="col-12"><b>Profit</b></label>
-           <input type="text" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" />
+           <input type="number" min="0" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" />
 		  </div>
 		</div>
 		
 		<div class="row">
 		 <div class='col-md-3'>
           <label class="col-12"><b>Halting Charges </b></label>
-           <input type="text" ng-model="trip.haltingCharge" class="form-control col-12" placeholder="Halting Charge" />
+           <input type="number"  min="0" ng-model="trip.haltingCharge" class="form-control col-12" placeholder="Halting Charge" />
 		  </div>
 		   <div class='col-md-3'>
           <label class="col-12"><b>Remarks </b></label>
