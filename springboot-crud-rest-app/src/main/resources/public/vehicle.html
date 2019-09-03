@@ -263,7 +263,7 @@
         
        
         <div class="modal-body">
-          <div class='col-md-12 tripItems'>
+          <div class='col-md-12 tripItems filterDiv'>
           
            <div class="row">
 		<div class='col-md-3'>
@@ -388,6 +388,10 @@
 		 <div class='col-md-3'>
           <label class="col-12"><b>Halting Charges </b></label>
            <input type="number"  min="0" ng-model="trip.haltingCharge" class="form-control col-12" placeholder="Halting Charge" />
+		  </div>
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Discount </b></label>
+           <input type="number"  min="0"  ng-model="trip.discount" class="form-control col-12" placeholder="Discount" />
 		  </div>
 		   <div class='col-md-3'>
           <label class="col-12"><b>Remarks </b></label>
