@@ -1554,27 +1554,7 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
       }
     ]); */
     
-    $scope.bm = {};
-	$scope.bm.dtOptions = DTOptionsBuilder.newOptions()
-			 /* .withLightColumnFilter({
-		            '1' : {
-		                type : 'text'
-		            },
-		            '2' : {
-		                type : 'text'
-		            },
-		            '3' : {
-		                type : 'text',
-		            }
-		        }) */
-	        .withOption('scrollY', '300px')
-	        .withOption('scrollX', '100%')
-	        .withOption('scrollCollapse', true)
-	        .withOption('fixedColumns', true)
-	        .withFixedColumns({
-	            leftColumns: 1
-	            //rightColumns: 1
-	        });
+   
 	
 	
 	//$scope.customerInvoiceJson =[];
@@ -1605,12 +1585,32 @@ app.controller('BillingController', function ($scope,DTOptionsBuilder, DTColumnB
 			$('#datetimepicker_tovendordate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 			});
+			 $scope.bm = {};
+				$scope.bm.dtOptions = DTOptionsBuilder.newOptions()
+						 /*  .withLightColumnFilter({
+					            '0' : {
+					                type : 'text'
+					            },
+					            '1' : {
+					                type : 'text'
+					            },
+					            '2' : {
+					                type : 'text',
+					            }
+					        })  */
+				        .withOption('scrollY', '300px')
+				        .withOption('scrollX', '100%')
+				        .withOption('scrollCollapse', true)
+				        .withFixedColumns({
+				            leftColumns: 1,
+				            rightColumns: 1
+				        });
 			
-			       /*  $scope.bm.dtColumn = [
+			        /*  $scope.bm.dtColumn = [
 			            DTColumnBuilder.newColumn('LRNO').withTitle('LRNO'),
 			            DTColumnBuilder.newColumn('date').withTitle('Date'),
 			            DTColumnBuilder.newColumn('invoiceNo').withTitle('InvoiceNo')
-			        ]; */
+			        ];  */
 			 // $('#CustomerInvoice').show();
 			 // $('#VendorInvoice').hide();
 			 // $('#Receipt').hide();	
