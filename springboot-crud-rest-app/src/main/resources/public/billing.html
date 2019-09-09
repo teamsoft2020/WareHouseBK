@@ -16,9 +16,8 @@
 	<h4 style="display:none;">Customer Invoice</h4>
 <div  >
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	<div class="row" style="margin-top: 1%;">
+	<!-- <div class="row" style="margin-top: 1%;">
 		  <div class="col-10">
-		 <!--  <div class="filterDiv"  style="display:none;"> </div>  -->
 		  <div id="uploadDiv" class="col-12 filterDiv" style="display:none;">
 			<form method="post" action="#" id="#">
 				<div class="form-group files">
@@ -34,7 +33,7 @@
 		  </div>
 		 <div class="col-2">
 			<input name="" type="button" class="btn btn-primary" id="" value="Upload"  ng-click="openUpload()" style="float: right;"/></div>
-		</div>
+		</div> -->
 <div class="filterDiv">
 <div class="row">
   <div class="col-3">
@@ -133,10 +132,17 @@
 
 </div> --></div>
  <div class="row" style="margin-top: 1%;">
-
-<table class="table table-bordered table-hover table-striped"  >
+<!--  class="table table-bordered table-hover table-striped" -->
+<table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn"  >
 							<thead>
 								<tr>
+								    <th scope="col">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" value="">
+									</label>
+								</div>
+									</th> 
 									<th width="15%">LRNO</th>
 									<th width="15%">Date</th>
 									<th width="15%">InvoiceNo</th>
@@ -156,8 +162,16 @@
 									<th></th>
 								</tr>
 							</thead>
+							
 							<tbody>
 								<tr ng-repeat="invoice in  customerInvoiceJson track by $index">
+								  <td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="">
+									</label>
+								</div>
+									</td> 
 										<td><label>{{invoice.LRNO}}</label></td>
 										<td><label>{{invoice.date}}</label></td>
 										<td><label>{{invoice.invoiceNo}}</label></td>
@@ -369,7 +383,7 @@
 </div></div>
  <div class="row" style="margin-top: 1%;">
 
-<table class="table table-bordered table-hover table-striped"  >
+<table id="manage-vendor-table" class="table table-bordered table-hover table-striped"  >
 							<thead>
 								<tr>
 									<th width="15%">LRNO</th>
