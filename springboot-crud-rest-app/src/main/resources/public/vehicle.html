@@ -78,9 +78,9 @@
 							<td>{{list.origin}}</td>
 							<td>{{list.destination}}</td>
 							<td>{{list.invoiceNO}}</td>
-							<td>{{list.dateTime}}</td>
+							<td>{{list.datetime}}</td>
 							<td>{{list.truckType}}</td>
-							<td>{{list.truckNo}}</td>
+							<td>{{list.truckno}}</td>
 							<td>{{list.driverName}}</td>
 							<td>{{list.advance}}</td>
 							<td>{{list.profit}}</td>
@@ -292,7 +292,7 @@
 			<div class='col-md-3'>
           <label class="col-12"><b>Date&Time </b></label>
           <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="trip.dateTime" placeholder="FC Date"/>
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="trip.datetime" placeholder="FC Date"/>
                     <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -313,7 +313,7 @@
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>TruckNo </b></label>
-           <input type="number" min="0" ng-model="trip.truckNo" class="form-control col-12" placeholder="TruckTo" />
+           <input type="number" min="0" ng-model="trip.truckno" class="form-control col-12" placeholder="TruckTo" />
           </div>
           
 		  </div>

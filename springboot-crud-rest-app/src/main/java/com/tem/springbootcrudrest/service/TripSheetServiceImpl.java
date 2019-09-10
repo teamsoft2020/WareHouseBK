@@ -19,6 +19,9 @@ public class TripSheetServiceImpl implements TripSheetService{
 	@Override
 	public TripSheet createTripSheet(TripSheet tripSheet) {
 
+		tripSheet.setCustomerinvoice("NO");
+		tripSheet.setVendorinvoice("NO");
+		
 		
 		return tripRepository.save(tripSheet);
 	}
@@ -67,6 +70,23 @@ public class TripSheetServiceImpl implements TripSheetService{
 		
 	//	tripRepository.save(tripSeet);
 		return "Status Successfully Updated";
+	}
+
+	@Override
+	public List<TripSheet> getCustomerInvoiceList() {
+		
+		return tripRepository.findAllCustomerInvoiceDetails();
+	}
+
+	@Override
+	public List<TripSheet> getVendoInvoiceList() {
+		return tripRepository.findAllVendorInvoiceDetails();
+	}
+
+	@Override
+	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate,String todate,String truckno) {
+		
+		return tripRepository.findCustomerInvoiceBetweenDateList(fromdate, todate, truckno);
 	}
 
 

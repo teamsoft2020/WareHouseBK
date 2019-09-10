@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "tripsheet")
 @EntityListeners(AuditingEntityListener.class)
 public class TripSheet implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -42,14 +42,14 @@ public class TripSheet implements Serializable {
 	@Column(name = "invoiceNO")
 	private String invoiceNO;
 
-	@Column(name = "dateTime")
-	private String dateTime;
+	@Column(name = "datetime")
+	private String datetime;
 
 	@Column(name = "truckType")
 	private String truckType;
 
-	@Column(name = "truckNo")
-	private String truckNo;
+	@Column(name = "truckno")
+	private String truckno;
 
 	@Column(name = "driverName")
 	private String driverName;
@@ -69,11 +69,11 @@ public class TripSheet implements Serializable {
 	@Column(name = "advance")
 	private String advance;
 
-	@Column(name = "perKMchargeCustomer")
-	private String perKMchargeCustomer;
+	@Column(name = "perkmchargecustomer")
+	private String perkmchargecustomer;
 
-	@Column(name = "perKMchargeVendor")
-	private String perKMchargeVendor;
+	@Column(name = "perkmchargevendor")
+	private String perkmchargevendor;
 
 	@Column(name = "profit")
 	private String profit;
@@ -95,9 +95,24 @@ public class TripSheet implements Serializable {
 
 	@Column(name = "updatedatetime")
 	private String updateDateTime;
-	
+
 	@Column(name = "status")
 	private String status;
+
+	@Column(name = "username")
+	private String username;
+
+	@Column(name = "lastupdate")
+	private String lastupdate;
+
+	@Column(name = "customerinvoice")
+	private String customerinvoice;
+
+	@Column(name = "vendorinvoice")
+	private String vendorinvoice;
+
+	@Column(name = "paymentreceivedornot")
+	private String paymentreceivedornot;
 
 	public long getTripid() {
 		return tripid;
@@ -147,12 +162,12 @@ public class TripSheet implements Serializable {
 		this.invoiceNO = invoiceNO;
 	}
 
-	public String getDateTime() {
-		return dateTime;
+	public String getDatetime() {
+		return datetime;
 	}
 
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
 	}
 
 	public String getTruckType() {
@@ -163,12 +178,12 @@ public class TripSheet implements Serializable {
 		this.truckType = truckType;
 	}
 
-	public String getTruckNo() {
-		return truckNo;
+	public String getTruckno() {
+		return truckno;
 	}
 
-	public void setTruckNo(String truckNo) {
-		this.truckNo = truckNo;
+	public void setTruckno(String truckno) {
+		this.truckno = truckno;
 	}
 
 	public String getDriverName() {
@@ -219,20 +234,20 @@ public class TripSheet implements Serializable {
 		this.advance = advance;
 	}
 
-	public String getPerKMchargeCustomer() {
-		return perKMchargeCustomer;
+	public String getPerkmchargecustomer() {
+		return perkmchargecustomer;
 	}
 
-	public void setPerKMchargeCustomer(String perKMchargeCustomer) {
-		this.perKMchargeCustomer = perKMchargeCustomer;
+	public void setPerkmchargecustomer(String perkmchargecustomer) {
+		this.perkmchargecustomer = perkmchargecustomer;
 	}
 
-	public String getPerKMchargeVendor() {
-		return perKMchargeVendor;
+	public String getPerkmchargevendor() {
+		return perkmchargevendor;
 	}
 
-	public void setPerKMchargeVendor(String perKMchargeVendor) {
-		this.perKMchargeVendor = perKMchargeVendor;
+	public void setPerkmchargevendor(String perkmchargevendor) {
+		this.perkmchargevendor = perkmchargevendor;
 	}
 
 	public String getProfit() {
@@ -297,5 +312,45 @@ public class TripSheet implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getLastupdate() {
+		return lastupdate;
+	}
+
+	public void setLastupdate(String lastupdate) {
+		this.lastupdate = lastupdate;
+	}
+
+	public String getCustomerinvoice() {
+		return customerinvoice;
+	}
+
+	public void setCustomerinvoice(String customerinvoice) {
+		this.customerinvoice = customerinvoice;
+	}
+
+	public String getVendorinvoice() {
+		return vendorinvoice;
+	}
+
+	public void setVendorinvoice(String vendorinvoice) {
+		this.vendorinvoice = vendorinvoice;
+	}
+
+	public String getPaymentreceivedornot() {
+		return paymentreceivedornot;
+	}
+
+	public void setPaymentreceivedornot(String paymentreceivedornot) {
+		this.paymentreceivedornot = paymentreceivedornot;
 	}
 }

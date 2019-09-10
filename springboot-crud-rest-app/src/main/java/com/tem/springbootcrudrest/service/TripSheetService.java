@@ -16,5 +16,11 @@ public interface TripSheetService {
 	public String updateTripSheetStatus(long tripid);
 
 	public List<TripSheet> getTripSheetList();
+	
+	public List<TripSheet> getCustomerInvoiceList();
+	
+	public List<TripSheet> getVendoInvoiceList();
+	
+	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate,String todate,String truckno);
 
 }
