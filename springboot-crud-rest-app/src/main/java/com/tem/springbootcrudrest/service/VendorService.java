@@ -16,4 +16,6 @@ public interface VendorService {
 	public String deleteById(long vendorId);
 
 	public List<Vendor> getVendorList();
+	
+	public List<String> getVendorListByName();
 }

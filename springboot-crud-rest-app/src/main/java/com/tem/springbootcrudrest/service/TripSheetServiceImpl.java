@@ -21,6 +21,7 @@ public class TripSheetServiceImpl implements TripSheetService{
 
 		tripSheet.setCustomerinvoice("NO");
 		tripSheet.setVendorinvoice("NO");
+		tripSheet.setStatus("YES");
 		
 		
 		return tripRepository.save(tripSheet);
@@ -87,6 +88,12 @@ public class TripSheetServiceImpl implements TripSheetService{
 	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate,String todate,String truckno) {
 		
 		return tripRepository.findCustomerInvoiceBetweenDateList(fromdate, todate, truckno);
+	}
+
+	@Override
+	public List<String> getTrucknoList() {
+		
+		return tripRepository.getListsBytrucknos();
 	}
 
 

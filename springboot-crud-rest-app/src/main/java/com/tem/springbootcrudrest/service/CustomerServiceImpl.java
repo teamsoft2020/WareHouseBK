@@ -37,4 +37,10 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerRepository.findAll();
 	}
 
+	@Override
+	public List<String> getCustomerListByName() {
+		
+		return customerRepository.getCustomersListByName();
+	}
+
 }

@@ -3,12 +3,13 @@ package com.tem.springbootcrudrest.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import com.tem.springbootcrudrest.model.Vendor;
 import com.tem.springbootcrudrest.repository.VendorRepository;
 
-@Controller
+@Component
 public class VendorServiceImpl implements VendorService {
 
 	@Autowired
@@ -33,6 +34,12 @@ public class VendorServiceImpl implements VendorService {
 	@Override
 	public List<Vendor> getVendorList() {
 		return vendorRepository.findAll();
+	}
+
+	@Override
+	public List<String> getVendorListByName() {
+		
+		return vendorRepository.getVendorListByNames();
 	}
 
 }

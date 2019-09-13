@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customer")
 @EntityListeners(AuditingEntityListener.class)
 public class Customer {
 	@Id
@@ -40,8 +40,8 @@ public class Customer {
 	@Column(name = "Customer_Id")
 	private long customerId;
 	
-	@Column(name = "Customer_name")
-	private String customerName;
+	@Column(name = "customername")
+	private String customername;
 	
 	@Column(name = "pan")
 	private String PAN;
@@ -97,13 +97,12 @@ public class Customer {
 		this.customerId = customerId;
 	}
 	
-	public String getCustomerName() {
-		return customerName;
+	public String getCustomername() {
+		return customername;
 	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setCustomername(String customername) {
+		this.customername = customername;
 	}
-	
 	public Date getCreateddate() {
 		return createddate;
 	}

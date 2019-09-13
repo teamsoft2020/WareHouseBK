@@ -89,7 +89,7 @@
 <label class="col-12"><b>FROM </b></label>
   
   <div class="input-group date" id="datetimepicker_fromdate" data-target-input="nearest">
-     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_fromdate" placeholder="From Date"/>
+     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_fromdate" ng-model="customerInvoice.fromdate" placeholder="From Date"/>
         <div class="input-group-append" data-target="#datetimepicker_fromdate" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
 		</div>
@@ -100,7 +100,7 @@
 	 <div class="col-3">
 	  <label class="col-12"><b>TO </b></label>
 	  <div class="input-group date" id="datetimepicker_todate" data-target-input="nearest">
-        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_todate" placeholder="To Date"/>
+        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_todate" ng-model="customerInvoice.todate" placeholder="To Date"/>
         <div class="input-group-append" data-target="#datetimepicker_todate" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
@@ -108,17 +108,17 @@
 
   </div>
   <div class="col-2">
-		<label class="col-12"><b>VEHICLE NO </b></label>
-		<input type="text"  ng-model="vehicleNumber" class="form-control col-12" placeholder="Vehicle Number" />  
+		<label class="col-12"><b>TRUCK NO </b></label>
+		<input type="text"  ng-model="customerInvoice.truckno" class="form-control col-12" placeholder="Vehicle Number" />  
 	 </div>
-	 <div class="col-2">
+	<!--  <div class="col-2">
 
-	 <labl class="col-12"><b>CUSTOMER NAME </b></labl>
+	 <label class="col-12"><b>CUSTOMER NAME </b></label>
            <input type="text"  ng-model="customerName" class="form-control col-12" placeholder="Customer Name" />  
-  </div>
+  </div> -->
      <div class="col-2">
 
-		<input name="" type="button" class="btn btn-dark" id="" value="Search" style="margin-top:9%">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustItem()" style="margin-top:15%">
 	 </div> 
  </div>
 <!--  <div class="row" style="margin-top: 1%;" ng-if="$scope.customerInvoiceJson !=''">
@@ -138,16 +138,17 @@
 </div> --></div>
  <div class="row" style="margin-top: 1%;">
 <!--  class="table table-bordered table-hover table-striped" -->
-<table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn" dt-instance="bm.dtInstance"  >
+<!-- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-columns="bm.dtColumns"  class="row-border hover" ></table> -->
+ <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn" dt-instance="bm.dtInstance"  >
 							<thead>
 								<tr>
-								    <th scope="col">
+								     <th scope="col">
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" value="">
 									</label>
 								</div>
-									</th> 
+									</th>  
 									<th width="15%">LRNO</th>
 									<th width="15%">Date</th>
 									<th width="15%">InvoiceNo</th>
@@ -194,11 +195,11 @@
 										<td><label>{{invoice.advance}}</label></td>
 										<td><label>{{invoice.grandTotal}}</label></td>
 										
-										<td> <!--<i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>-->
+										<td>
 									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td>
 								</tr>
 							</tbody>
-						</table>
+						</table>  
  </div>
  
 </div>
@@ -387,10 +388,11 @@
 
 </div></div>
  <div class="row" style="margin-top: 1%;">
-
-<table id="manage-vendor-table" class="table table-bordered table-hover table-striped"  >
+<!-- datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" dt-instance="dtInstanceCallback" -->
+<table id="manage-vendor-table"  class="table table-bordered table-hover table-striped"  >
 							<thead>
 								<tr>
+								<th><input type="checkbox" ng-model="settings.selectAll"></th>
 									<th width="15%">LRNO</th>
 									<th width="15%">Date</th>
 									<th width="15%">InvoiceNo</th>

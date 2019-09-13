@@ -10,8 +10,8 @@
 										<input type="checkbox" value="">
 									</label>
 								</div>
-							</th> --> 
-							<th scope="col"><h5>VendorId</h5></th>
+							</th>  
+							<th scope="col"><h5>VendorId</h5></th>-->
 							<th scope="col"><h5>Vendor Name</h5></th>
 							<th scope="col" ><h5>Address</h5></th>
 							<th scope="col" ><h5>MobileNo</h5></th>
@@ -32,9 +32,9 @@
 										<input  type="checkbox" value="">
 									</label>
 								</div>
-							</td> --> 
-							<td>{{list.vendorid}}</td>
-							<td>{{list.vendorName}}</td>
+							</td> 
+							<td>{{list.vendorid}}</td>--> 
+							<td>{{list.vendorname}}</td>
 							<td>{{list.vendorAddress[0].vendoraddr}}</td>
 							<td>{{list.vendorAddress[0].mobileno}}</td>
 							<td>{{list.vendorAddress[0].phoneno}}</td>
@@ -81,19 +81,19 @@
            
             </tr> -->
              <tr>
-              <td colspan="1" class="venId"><span class="labelfont">Id</span></td>
-          	  <td colspan="1" ><span class="labelfont">VendorName</span></td>
+             <!--  <td colspan="1" class="venId"><span class="labelfont">Id</span></td> -->
+          	  <td colspan="1" ><span class="labelfont">VendorName</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">TAN</span></td>
 	          <td colspan="1"><span class="labelfont">KYC</span></td>
-	          <td colspan="1"><span class="labelfont">PAN</span></td>
+	          <td colspan="1"><span class="labelfont">PAN</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">IEC</span></td>
 	         </tr>
              <tr>
-              <td colspan="1" class="venId">
+              <!-- <td colspan="1" class="venId">
               <input type="text" ng-model="item.vendorid" placeholder="ID"/>
-            </td>
+            </td> -->
             <td colspan="1">
-              <input type="text" ng-model="item.vendorName" placeholder="Vendor Name"/>
+              <input type="text" ng-model="item.vendorname" placeholder="Vendor Name"/>
             </td>
                <td colspan="1">
                 <input type="tel" ng-model="item.tan" placeholder="TAN"/>
@@ -102,7 +102,7 @@
                 <input type="tel" ng-model="item.kyc" placeholder="KYC"/>
               </td>
                 <td colspan="1">
-                <input type="tel" ng-model="item.pan" placeholder="PAN"/>
+                <input type="tel" ng-model="item.pan" placeholder="PAN" pan-regex/>
               </td>
               <td colspan="1">
                 <input type="tel" ng-model="item.iec" placeholder="IEC"/>
@@ -111,12 +111,12 @@
             </tr>
             
             <tr>
-          <td colspan="1"><span class="labelfont">Bank Name</span></td>
-          <td colspan="1"><span class="labelfont">Branch</span></td>
-          <td colspan="1"><span class="labelfont">Bank Account No</span></td>
-          <td colspan="1"><span class="labelfont">IFSC Code</span></td>
-          <td colspan="1"><span class="labelfont">Contact Person</span></td>
-          <td colspan="1"><span class="labelfont">Contact No</span></td>
+          <td colspan="1"><span class="labelfont">Bank Name</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Branch</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Bank Account No</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">IFSC Code</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Contact Person</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Contact No</span><span class="mandatory">*</span></td>
           </tr>
             <tr>
                <td colspan="1">
@@ -135,15 +135,15 @@
                 <input type="text" ng-model="item.contactPerson" placeholder="Contact Person"/>
               </td>
               <td colspan="1">
-                <input type="text" ng-model="item.contactNo" placeholder="Contact No"/>
+                <input type="text" ng-model="item.contactNo" placeholder="Contact No" numeric-regex/>
               </td>
             </tr>
             
             <tr>
-	          <td colspan="1"><span class="labelfont">Address</span></td>
-	          <td colspan="1"><span class="labelfont">MobileNo</span></td>
+	          <td colspan="1"><span class="labelfont">Address</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">MobileNo</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">PhoneNo</span></td>
-	          <td colspan="1"><span class="labelfont">GSTIN</span></td>
+	          <td colspan="1"><span class="labelfont">GSTIN</span><span class="mandatory">*</span></td>
           </tr>
             <tr ng-repeat="vendorDetail in  item.vendorAddress track by $index">
              <td colspan="1" style="display:none;">
@@ -153,7 +153,7 @@
 				<textarea rows = "1" cols = "22" name = "description" ng-model="vendorDetail.vendoraddr" placeholder="Enter your Addr"> </textarea>
               </td>
               <td colspan="1">
-                <input type='text' ng-model="vendorDetail.mobileno" placeholder="MobileNo"/>
+                <input type='text' ng-model="vendorDetail.mobileno" placeholder="MobileNo" numeric-regex/>
               </td>
               <td colspan="1">
                 <input type="text" ng-model="vendorDetail.phoneno" placeholder="PhoneNo"/>
@@ -176,12 +176,12 @@
        
         <tbody>
         <tr>
-	          <td colspan="1"><span class="labelfont">DriverName</span></td>
-	          <td colspan="1"><span class="labelfont">Driver MobNo</span></td>
-	          <td colspan="1"><span class="labelfont">Vehicle No</span></td>
-	          <td colspan="1"><span class="labelfont">Vehicle Type</span></td>
-	          <td colspan="1"><span class="labelfont">FC</span></td>
-	          <td colspan="1"><span class="labelfont">Insurance</span></td>
+	          <td colspan="1"><span class="labelfont">DriverName</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">Driver MobNo</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">Vehicle No</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">Vehicle Type</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">FC</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">Insurance</span><span class="mandatory">*</span></td>
           </tr>
         <tr >
         	  <td colspan="1" style="display:none;">

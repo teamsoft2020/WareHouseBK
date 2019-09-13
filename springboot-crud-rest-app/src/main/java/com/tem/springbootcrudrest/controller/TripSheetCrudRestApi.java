@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.Customer;
@@ -26,12 +27,10 @@ import com.tem.springbootcrudrest.service.TripSheetService;
 @RestController
 @RequestMapping("/api/v1")
 public class TripSheetCrudRestApi {
-	
 
 	@Autowired
 	TripSheetService tripSheetService;
 
-	
 	@PostMapping("/createtripsheet")
 	public TripSheet createCustomer(@Valid @RequestBody TripSheet tripSheet) {
 
@@ -47,40 +46,74 @@ public class TripSheetCrudRestApi {
 		return tripSheetresponse;
 	}
 
-	
+	@GetMapping("/customerinvoicebydate")
+	public List<TripSheet> findCustomerInvoiceBetweenDate() {
+		List<TripSheet> tripSheetList = tripSheetService.getTripSheetList();
 
-	/*@DeleteMapping("/tripsheet/{id}")
-	public ResponseEntity<Map<String,String>> deleteCustomer(@PathVariable(value = "id") Long tripId) {
-		String response = tripSheetService.deleteById(tripId);
-		
-		Map<String,String>responsemap=new HashMap<String,String>();
-		responsemap.put("status", response);
-
-		return ResponseEntity.ok(responsemap);
-
+		return tripSheetList;
 	}
-*/
 
 	
+	@GetMapping("/trucknolist")
+	public List<String> getVendorListByName() {
+		List<String> vendorList = tripSheetService.getTrucknoList();
+		return vendorList;
+	}
+
+	
+	
+	/*
+	 * @DeleteMapping("/tripsheet/{id}") public ResponseEntity<Map<String,String>>
+	 * deleteCustomer(@PathVariable(value = "id") Long tripId) { String response =
+	 * tripSheetService.deleteById(tripId);
+	 * 
+	 * Map<String,String>responsemap=new HashMap<String,String>();
+	 * responsemap.put("status", response);
+	 * 
+	 * return ResponseEntity.ok(responsemap);
+	 * 
+	 * }
+	 */
 
 	@DeleteMapping("/tripsheet/{tripid}")
-	public ResponseEntity<Map<String,String>> deleteCustomer(@PathVariable(value = "tripid") long tripid) {
+	public ResponseEntity<Map<String, String>> deleteCustomer(@PathVariable(value = "tripid") long tripid) {
 		String response = tripSheetService.updateTripSheetStatus(tripid);
-		
-		Map<String,String>responsemap=new HashMap<String,String>();
+
+		Map<String, String> responsemap = new HashMap<String, String>();
 		responsemap.put("status", response);
 
 		return ResponseEntity.ok(responsemap);
 
 	}
 
-	
-	
 	@GetMapping("/triplist")
 	public List<TripSheet> getCustomerList() {
 		List<TripSheet> tripSheetList = tripSheetService.getTripSheetList();
+
+		return tripSheetList;
+	}
+
+	@GetMapping("/test")
+	public String getMap() {
+		return "test..";
+	}
+	
+	//@RequestMapping(path = "/customerinvoicelist/{fromdate}/{todate}", method = RequestMethod.GET)
+	
+/*	public List<TripSheet> getCustomerInvoiceList(@PathVariable String fromdate, @PathVariable String todate) {*/
+	@RequestMapping(path = "/customerinvoicelist", method = RequestMethod.GET)
+
+	public List<TripSheet> getCustomerInvoiceList(@RequestParam String fromdate, @RequestParam String todate, @RequestParam String truckno) {
 		
-		
+		List<TripSheet> tripSheetList = tripSheetService.findCustomerInvoiceBetweenDate(fromdate, todate, truckno);
+
+		return tripSheetList;
+	}
+
+	@GetMapping("/vendorinvoicelist")
+	public List<TripSheet> getVendorInvoiceList() {
+		List<TripSheet> tripSheetList = tripSheetService.getTripSheetList();
+
 		return tripSheetList;
 	}
 

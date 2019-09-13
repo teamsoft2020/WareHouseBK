@@ -46,6 +46,13 @@ public class VendorCrudRestApi {
 
 		return vendorresponse;
 	}
+	
+
+	@GetMapping("/vendorlistbyname")
+	public List<String> getVendorListByName() {
+		List<String> vendorList = vendorService.getVendorListByName();
+		return vendorList;
+	}
 
 	@DeleteMapping("/vendor/{id}")
 	public ResponseEntity<Map<String,String>> deleteVendor(@PathVariable(value = "id") Long vendorId) {

@@ -58,6 +58,12 @@ public class CustomerCrudRestApi {
 	}
 
 
+	@GetMapping("/customerlistbyname")
+	public List<String> getCustomerListByName() {
+		List<String> customerList = customerService.getCustomerListByName();
+		return customerList;
+	}
+	
 	@GetMapping("/customerlist")
 	public List<Customer> getCustomerList() {
 		List<Customer> customerList = customerService.getCustomerList();

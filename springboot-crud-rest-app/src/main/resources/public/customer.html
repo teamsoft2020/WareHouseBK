@@ -17,7 +17,7 @@
 									</label>
 								</div>
 							</th> --> 
-							<th scope="col"><h5>CustomerId</h5></th>
+							<!-- <th scope="col"><h5>CustomerId</h5></th> -->
 							<th scope="col"><h5>Customer Name</h5></th>
 							<th scope="col" ><h5>Address</h5></th>
 							<th scope="col" ><h5>MobileNo</h5></th>
@@ -39,8 +39,8 @@
 									</label>
 								</div>
 							</td> --> 
-							<td>{{list.customerId}}</td>
-							<td>{{list.customerName}}</td>
+							<!-- <td>{{list.customerId}}</td> -->
+							<td>{{list.customername}}</td>
 							<td>{{list.customerDetails[0].customerAddr}}</td>
 							<td>{{list.customerDetails[0].mobileNo}}</td>
 							<td>{{list.customerDetails[0].phoneNo}}</td>
@@ -122,19 +122,19 @@
          <!--  <tr></tr>
           <tr></tr> -->
             <tr>
-          <td colspan="1" class="custId"><span class="labelfont">Id</span></td>
-          <td colspan="1"><span class="labelfont">CustomerName</span></td>
+          <!-- <td colspan="1" class="custId"><span class="labelfont">Id</span></td> -->
+          <td colspan="1"><span class="labelfont">CustomerName</span><span class="mandatory">*</span></td>
           <td colspan="1"><span class="labelfont">TAN</span></td>
           <td colspan="1"><span class="labelfont">KYC</span></td>
-          <td colspan="1"><span class="labelfont">PAN</span></td>
+          <td colspan="1"><span class="labelfont">PAN</span><span class="mandatory">*</span></td>
           <td colspan="1"><span class="labelfont">IEC</span></td>
           </tr>
             <tr>
-            <td colspan="1" class="custId">
+            <!-- <td colspan="1" class="custId">
               <input type="text" ng-model="item.customerId" placeholder="ID"/>
-            </td>
+            </td> -->
             <td colspan="1">
-              <input type="text" ng-model="item.customerName" placeholder="CustomerName"/>
+              <input type="text" ng-model="item.customername" placeholder="CustomerName"/>
             </td>
                <td colspan="1">
                 <input type="text" ng-model="item.tan" placeholder="TAN"/>
@@ -143,7 +143,7 @@
                 <input type="text" ng-model="item.kyc" placeholder="KYC"/>
               </td>
                 <td colspan="1">
-                <input type="text" ng-model="item.pan" placeholder="PAN"/>
+                <input type="text" ng-model="item.pan" placeholder="PAN" pan-regex/>
               </td>
               <td colspan="1">
                 <input type="text" ng-model="item.iec" placeholder="IEC"/>
@@ -151,12 +151,12 @@
              
             </tr>
             <tr>
-          <td colspan="1"><span class="labelfont">Bank Name</span></td>
-          <td colspan="1"><span class="labelfont">Branch</span></td>
-          <td colspan="1"><span class="labelfont">Bank Account No</span></td>
-          <td colspan="1"><span class="labelfont">IFSC Code</span></td>
-          <td colspan="1"><span class="labelfont">Contact Person</span></td>
-          <td colspan="1"><span class="labelfont">Contact No</span></td>
+          <td colspan="1"><span class="labelfont">Bank Name</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Branch</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Bank Account No</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">IFSC Code</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Contact Person</span><span class="mandatory">*</span></td>
+          <td colspan="1"><span class="labelfont">Contact No</span><span class="mandatory">*</span></td>
           </tr>
             <tr>
                <td colspan="1">
@@ -175,28 +175,28 @@
                 <input type="text" ng-model="item.contactPerson" placeholder="Contact Person"/>
               </td>
               <td colspan="1">
-                <input type="text" ng-model="item.contactNo" placeholder="Contact No"/>
+                <input type="text" ng-model="item.contactNo" placeholder="Contact No" numeric-regex/>
               </td>
             </tr>
             
              <tr>
-	          <td colspan="1"><span class="labelfont">Address</span></td>
-	          <td colspan="1"><span class="labelfont">MobileNo</span></td>
+	          <td colspan="1"><span class="labelfont">Address</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">MobileNo</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">PhoneNo</span></td>
-	          <td colspan="1"><span class="labelfont">GSTIN</span></td>
+	          <td colspan="1"><span class="labelfont">GSTIN</span><span class="mandatory">*</span></td>
 	          </tr>
             <tr ng-repeat="customerDetail in  item.customerDetails track by $index">
               <td colspan="1">
 				<textarea rows = "1" cols = "22" name = "description" ng-model="customerDetail.customerAddr" placeholder="Enter your Addr"> </textarea>
               </td>
               <td colspan="1">
-                <input type='text' ng-model="customerDetail.mobileNo" placeholder="MobileNo"/>
+                <input type='text' ng-model="customerDetail.mobileNo" placeholder="MobileNo" numeric-regex/>
               </td>
               <td colspan="1">
                 <input type="text" ng-model="customerDetail.phoneNo" placeholder="PhoneNo"/>
               </td>
               <td colspan="1">
-              <input type="text" ng-model="customerDetail.gstin" placeholder="GSTIN"/>
+              <input type="text" ng-model="customerDetail.gstin" placeholder="GSTIN" />
               </td>
                <td> 
 				<i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addCustomerDetails(customerDetail);"></i>

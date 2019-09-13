@@ -17,4 +17,6 @@ public interface CustomerService {
 	public String deleteById(long customerId);
 
 	public List<Customer> getCustomerList();
+	
+	public List<String> getCustomerListByName();
 }

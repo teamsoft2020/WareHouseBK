@@ -35,7 +35,7 @@ public class Vendor {
 	private long vendorid;
 	
 	@Column(name = "vendorname", nullable = false)
-	private String vendorName;
+	private String vendorname;
 	
 	@Column(name = "pan", nullable = true)
 	private String PAN;
@@ -111,12 +111,12 @@ public class Vendor {
 		this.vendorid = vendorid;
 	}
 
-	public String getVendorName() {
-		return vendorName;
+	public String getVendorname() {
+		return vendorname;
 	}
 
-	public void setVendorName(String vendorName) {
-		this.vendorName = vendorName;
+	public void setVendorname(String vendorname) {
+		this.vendorname = vendorname;
 	}
 
 	public String getPAN() {

@@ -114,6 +114,17 @@ public class TripSheet implements Serializable {
 	@Column(name = "paymentreceivedornot")
 	private String paymentreceivedornot;
 
+	@Column(name = "discount")
+	private String discount;
+	
+	public String getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+
 	public long getTripid() {
 		return tripid;
 	}
