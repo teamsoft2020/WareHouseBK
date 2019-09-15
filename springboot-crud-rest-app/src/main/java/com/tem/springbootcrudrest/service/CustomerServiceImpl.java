@@ -43,4 +43,9 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerRepository.getCustomersListByName();
 	}
 
+	@Override
+	public List<String> getListOfCombineName() {
+		
+		return customerRepository.getListOfCombineNames();
+	}
 }

@@ -138,14 +138,14 @@
 </div> --></div>
  <div class="row" style="margin-top: 1%;">
 <!--  class="table table-bordered table-hover table-striped" -->
-<!-- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-columns="bm.dtColumns"  class="row-border hover" ></table> -->
- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn" dt-instance="bm.dtInstance"  >
+<!-- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-columns="bm.dtColumns" dt-instance="bm.dtInstance" class="row-border hover" ></table> -->
+ <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn"  dt-instance="dtInstanceCallback" >
 							<thead>
 								<tr>
 								     <th scope="col">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" value="">
+										<input type="checkbox" ng-model="settings.selectAll">
 									</label>
 								</div>
 									</th>  

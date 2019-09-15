@@ -14,4 +14,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 	
 	@Query(value = "SELECT customername FROM Customer", nativeQuery = true)
 	public List<String> getCustomersListByName();
+	
+	@Query(value = "Select c.customername as combinenames FROM Customer c UNION SELECT v.vendorname FROM Vendor v ORDER BY combinenames", nativeQuery = true)
+	public List<String> getListOfCombineNames();
+
 }

@@ -278,12 +278,15 @@
           <label class="col-12"><b>Origin </b></label>
            <input type="text"  ng-model="trip.origin" class="form-control col-12" placeholder="Origin" list="dataList"/>
            <datalist id="dataList">
-		       <option ng-repeat="v in listdataJson" value="{{v}}">Name {{v}}</option>
+		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
 		    </datalist>
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Destination</b> </label>
-           <input type="text" ng-model="trip.destination" class="form-control col-12" placeholder="Destination" />
+           <input type="text" ng-model="trip.destination" class="form-control col-12" placeholder="Destination" list="dataListDest" />
+		  <datalist id="dataListDest">
+		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
+		    </datalist>
 		  </div>
 		  
           </div>
@@ -304,19 +307,22 @@
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>TruckType </b></label>
-		  <select ng-model="trip.truckType" class="form-control col-12" tabindex="8">
-		              <option value="">Select TruckType</option>
-		              <option>LCV2</option>
-		              <option>LCV4</option>
-		              <option>CAN6</option>
-		              <option>HCV9</option>
-					  <option>TARUS</option>
-					  <option>TRALIER</option>
+          <!-- ng-change="getTruckNo(trip.truckType)" -->
+		  <select ng-model="trip.truckType" class="form-control col-12" tabindex="8" >
+		               <option value="">Select TruckType</option>
+		              <option  ng-repeat="v in vehlistdataJson" value="{{v.vehicleType}}">{{v.vehicleType}}</option>
 		      </select>
           </div>
+          
           <div class='col-md-3'>
           <label class="col-12"><b>TruckNo </b></label>
-           <input type="text" min="0" ng-model="trip.truckno" class="form-control col-12" placeholder="TruckTo" />
+           <select ng-model="trip.truckno" class="form-control col-12" tabindex="8" ng-options="b.vehicleNo as b.vehicleNo for b in vehlistdataJson|filter:{vehicleType: trip.truckType}: true| orderBy:'vehicleNo'">
+		         <option value="">Select TruckNo</option>
+		   </select>  
+             <!-- <input type="text" min="0" ng-model="trip.truckno" class="form-control col-12" placeholder="TruckTo" list="dataListTruckNo"/>
+            <datalist id="dataListTruckNo">
+		      <option ng-repeat="b in getTruckType" value="{{b}}"></option>
+		    </datalist>   -->
           </div>
           
 		  </div>

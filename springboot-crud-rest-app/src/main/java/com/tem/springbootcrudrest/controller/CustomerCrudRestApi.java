@@ -70,4 +70,14 @@ public class CustomerCrudRestApi {
 		return customerList;
 	}
 	
+	@GetMapping("/combinenameslist")
+	public List<String> getListOfCombineName() {
+		
+		List<String> combinelists = customerService.getListOfCombineName();
+		return combinelists;
+		
+	}
+	
+	
+	
 }

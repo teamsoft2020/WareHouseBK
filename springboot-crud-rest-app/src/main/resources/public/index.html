@@ -378,7 +378,7 @@ legend {
 <!-- <div ng-view style="width: 100%;height: 90%;"></div> -->
 </div>
 <script>
-var app = angular.module("homeApp", ["ngRoute","ui.router","ngResource","datatables","datatables.buttons","ngAnimate", "toastr","datatables.fixedcolumns","datatables.light-columnfilter"]);
+var app = angular.module("homeApp", ["ngRoute","ngResource","datatables","datatables.buttons","ngAnimate", "toastr","datatables.fixedcolumns","datatables.light-columnfilter"]);
 app.config(['$routeProvider',function($routeProvider) {
     $routeProvider
       .when("/", {
@@ -1190,11 +1190,13 @@ $scope.initProduct = function(){
 }
 $scope.initProduct();
 });
-app.controller('VehicleController', function ($scope, $window ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
+app.controller('VehicleController', function ($scope, $window ,$filter,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	$scope.listVehicleJson ={};
-	 $scope.listCustJson=[];
-	 $scope.listVenJson=[];
+	 //$scope.listCustJson=[];
+	 //$scope.listVenJson=[];
 	 $scope.listdataJson=[];
+	 $scope.getTruckType=[];
+	 //$scope.vehlistdataJson=[];
 	/* $scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
 							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
 							  {codeId: "3456",truckNo: "5675", rcno: "2345", fcDate: "23/4/2019", truckType: "Garbage truck"},
@@ -1400,33 +1402,51 @@ $scope.initVeh =function(){
 		    console.log(response.statusText);
 		   });
 }
-$scope.getCustList =function(){
-	 var url=location.origin +"/api/v1/customerlistbyname";
+$scope.getCustVenList =function(){
+	 var url=location.origin +"/api/v1/combinenameslist";
 	 $http({
 		    method : 'GET',
 		    url : url,
 		   }).then(function successCallback(response) {
-		   $scope.listCustJson = response.data;
-		   $scope.listdataJson.push(response.data);
+		   //$scope.listCustJson = response.data;
+		   $scope.listdataJson=response.data;
 		   }, function errorCallback(response) {
 		    console.log(response.statusText);
 		   });
 }
-$scope.getVenList =function(){
-	 var url=location.origin +"/api/v1/vendorlistbyname";
+$scope.getTruckList =function(){
+	 var url=location.origin +"/api/v1/vehiclelist";
 	 $http({
 		    method : 'GET',
 		    url : url,
 		   }).then(function successCallback(response) {
-		   $scope.listVenJson = response.data;
-		   $scope.listdataJson.push(response.data);
+		   //$scope.listCustJson = response.data;
+		    $scope.vehlistdataJson = []; 
+           /*  var values = [ 
+            {name: 'Binary Search'}, 
+            {name: 'Linear Search'}, 
+            {name: 'Interpolation Search'} 
+            ];   
+            angular.forEach(values, function (value, key) { 
+                $scope.names.push(value.name); 
+            }); */ 
+		   $scope.vehlistdataJson=response.data;
 		   }, function errorCallback(response) {
 		    console.log(response.statusText);
 		   });
 }
+$scope.getTruckNo = function(selectedType) {
+
+    // get the selected bank object from the banks array
+    var filteredBank = $filter('filter')($scope.vehlistdataJson, selectedType);
+    $scope.getTruckType.push(filteredBank[0].vehicleNo);
+    // return the branches of the selected bank
+    //return filteredBank[0].vehicleNo;
+    
+};
 $scope.initVeh();
-$scope.getCustList();
-$scope.getVenList();
+$scope.getCustVenList();
+$scope.getTruckList();
 	
 $scope.bay=function() {
 	var xmlhttp;
@@ -1692,7 +1712,22 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
       }
     ]); */
     
-   
+    $scope.settings = {
+		      selectAll: true
+		    }
+		    
+		    $scope.$watch('settings.selectAll', function(newVal, oldVal) {
+		      if (newVal == oldVal) return
+		      var api = $scope.bm.dtInstance.DataTable;
+		      api.rows({search:'applied'}).every(function() {
+		        api.cell({ row: this.index(), column: 0 })
+		         .nodes()
+		         .to$()
+		         .find('input')
+		         .prop('checked', $scope.settings.selectAll);
+		      })
+		      $scope.bm.dtInstance.DataTable.draw()
+		    })
 	
 	
 	//$scope.customerInvoiceJson =[];
@@ -1725,7 +1760,10 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
 			});
 			
 			$scope.bm = {};
-			$scope.bm.dtInstance = {};
+			//$scope.bm.dtInstance = {};
+			 $scope.bm.dtInstanceCallback = function(instance) {
+			 	 $scope.bm.dtInstance = instance;
+	    };
 			$scope.bm.dtOptions = DTOptionsBuilder.newOptions()
 			/* bm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
 				
@@ -1754,7 +1792,8 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
 			        });
 			 // $('#CustomerInvoice').show();
 			 // $('#VendorInvoice').hide();
-			 // $('#Receipt').hide();	
+			 // $('#Receipt').hide();
+			  
 	}
 	/* $scope.addKmsandFixed =function(kms,fix){
 

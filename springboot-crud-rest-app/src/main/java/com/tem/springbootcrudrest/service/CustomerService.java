@@ -19,4 +19,6 @@ public interface CustomerService {
 	public List<Customer> getCustomerList();
 	
 	public List<String> getCustomerListByName();
+	
+	public List<String> getListOfCombineName();
 }
