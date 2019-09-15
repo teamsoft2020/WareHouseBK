@@ -276,14 +276,14 @@
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Origin </b></label>
-           <input type="text"  ng-model="trip.origin" class="form-control col-12" placeholder="Origin" list="dataList"/>
+           <input type="text"  ng-model="trip.origin" class="form-control col-12" placeholder="Origin" list="dataList" ng-blur="validateOrigin(trip.origin)"/>
            <datalist id="dataList">
 		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
 		    </datalist>
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Destination</b> </label>
-           <input type="text" ng-model="trip.destination" class="form-control col-12" placeholder="Destination" list="dataListDest" />
+           <input type="text" ng-model="trip.destination" class="form-control col-12" placeholder="Destination" list="dataListDest" ng-blur="validateOrigin(trip.origin)"/>
 		  <datalist id="dataListDest">
 		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
 		    </datalist>
@@ -298,7 +298,7 @@
 			<div class='col-md-3'>
           <label class="col-12"><b>Date&Time </b></label>
           <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="trip.datetime" placeholder="FC Date"/>
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="trip.datetime" placeholder="Enter Date"/>
                     <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -383,14 +383,15 @@
            <input type="text" min="0" ng-model="trip.policeBill" class="form-control col-12" placeholder="Police Bill Charge" />
 		  </div>
 		  <div class='col-md-3'>
-          <label class="col-12"><b>Freight Amount </b></label>
-           <input type="text" min="0" ng-model="trip.freightAmt" class="form-control col-12" placeholder="Freight Amount" />
+          <label class="col-12"><b>Freight Amount(Customer) </b></label>
+           <input type="text" min="0" ng-model="trip.freightAmtCust" class="form-control col-12" placeholder="Freight Amount" />
 		  </div>
 		  
 		  <div class='col-md-3'>
-          <label class="col-12"><b>Profit</b></label>
-           <input type="text" min="0" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" />
+          <label class="col-12"><b>Freight Amount(Vendor) </b></label>
+           <input type="text" min="0" ng-model="trip.freightAmtVen" class="form-control col-12" placeholder="Freight Amount" />
 		  </div>
+		  
 		</div>
 		
 		<div class="row">
@@ -405,6 +406,10 @@
 		   <div class='col-md-3'>
           <label class="col-12"><b>Remarks </b></label>
            <input type="text" ng-model="trip.remarks" class="form-control col-12" placeholder="Remarks" />
+		  </div>
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Profit</b></label>
+           <input type="text" min="0" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" />
 		  </div>
 		</div>
            <!-- <div class="float-right" style="margin-top: 3%;">

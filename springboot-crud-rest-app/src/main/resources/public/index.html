@@ -352,7 +352,7 @@ legend {
       <li class='sidebar-brand'><a id="vendor_master"   ng-click="redirectUrl($event)">Vendor<i class="fa fa-user-circle sub_icon"></i></a></li> 
       <li class='sidebar-brand' ><a id="employee_master" ng-click="redirectUrl($event)">Employee<i class="fa fa-users sub_icon" aria-hidden="true"></i></a></li> 
       <!-- <li class='sidebar-brand' ><a id="product_master"  ng-click="redirectUrl($event)">Product<i class="fa fa-product-hunt sub_icon" aria-hidden="true"></i></a></li> --> 
-      <li class='sidebar-brand'><a id="vehicle_master"  ng-click="redirectUrl($event)">Vehicle<i class="fa fa-truck sub_icon" aria-hidden="true"></i></a></li>
+      <li class='sidebar-brand'><a id="vehicle_master"  ng-click="redirectUrl($event)">TripSheet<i class="fa fa-truck sub_icon" aria-hidden="true"></i></a></li>
       <li class='sidebar-brand' ><a id="user_master"  ng-click="redirectUrl($event)">User<i class="fa fa-user sub_icon" aria-hidden="true"></i></a></li>
       <li class='sidebar-brand'><a id="userAccess_master"  ng-click="redirectUrl($event)">Access<i class="fa fa-check-square-o sub_icon" aria-hidden="true"></i></a></li>
       <li class='sidebar-brand'><a id="billing_master"  ng-click="redirectUrl($event)">Billing<i class="fa fa-money sub_icon" aria-hidden="true"></i></a></li>
@@ -604,7 +604,7 @@ $(".custId").css("display","");
 $(".addCust").css("display","block");
 $(".updateCust").css("display","none");
 
-$scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
+$scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
 $scope.item.customerDetails = [{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
 }
 
@@ -670,8 +670,8 @@ $scope.addItem = function(item) {
 	        	toastr.success('Data not added');
 	          console.log(response.status);
 	        });
-	    $scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
-        $scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
+	    $scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
+	    $scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
 	}
 	   
 }
@@ -751,6 +751,11 @@ app.controller('VendorController', function ($scope ,$http,$location,DTOptionsBu
 	                        {vendorid: "2222",vendorName: "XYZ",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"HDFC",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,xyz street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
 	                        {vendorid: "3333",vendorName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"ICICI",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,abc street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
 	                        {vendorid: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"AXIS",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,sri street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]}];	 */ 		
+	
+    $scope.item = {vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
+    $scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+    $scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
+                        
 	$scope.vm = {};
 	$scope.vm.dtVendor = DTOptionsBuilder.newOptions()
     .withOption('order', [0, 'asc'])
@@ -784,7 +789,7 @@ $(".addVen").css("display","block");
 $(".updateVen").css("display","none");
 $scope.item = {vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
 $scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
-$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""}];
+$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
 }
 
 $scope.addVendorDetails = function(data){
@@ -792,7 +797,7 @@ $scope.addVendorDetails = function(data){
 
 }
 $scope.addVendorVehDetails = function(data){
-	$scope.item.vendorvehicle.push({driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""});
+	$scope.item.vendorvehicle.push({driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""});
 
 }
 $scope.deleteVendorVehDetails = function(index){
@@ -856,10 +861,9 @@ $scope.addItem = function(item) {
 			        	toastr.success('Data not added');
 			          console.log(response.status);
 			        });
-		$scope.item = {};
+	    $scope.item = {vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
 		$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
-		$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: ""}];
-
+		$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
 	}
 	
 }
@@ -917,7 +921,7 @@ for(i in $scope.listVendorJson) {
 }
 	
 $scope.initven =function(){
-	 
+	
 	 var url=location.origin +"/api/v1/vendorlist";
 	 $http({
 		    method : 'GET',
@@ -928,7 +932,10 @@ $scope.initven =function(){
 		    console.log(response.statusText);
 		   });
 }
+
+
 $scope.initven();
+
 });
 app.controller('EmployeeController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	 $scope.listEmployeeJson =[];
@@ -1204,7 +1211,8 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 	/*$scope.trip = [{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",tollBill: "654787",policeBill: "57890",freightAmt: "700",haltingCharge: "700",remarks: "good"},
 					{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",tollBill: "654787",policeBill: "57890",freightAmt: "700",haltingCharge: "700",remarks: "good"}];
 							  
-	*/						  
+	*/	
+	$scope.trip = {loadNo: "",tripNo: "",origin: "",destination: "",invoiceNO: "",dateTime: "",truckType: "",truckno: "",driverName: "",noOfCase: "",opkm: "",clskm: "",diffKM: "",advance: "",perkmchargecustomer: "",perkmchargevendor: "",profit: "",tollBill: "",policeBill: "",freightAmtCust: "",freightAmtVen:"",haltingCharge: "",discount:"",remarks: ""};
 	scope=$scope;
 	$scope.vehm = {};
 	$scope.vehm.dtVehicle = DTOptionsBuilder.newOptions()
@@ -1232,6 +1240,12 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
         ]
       }
     ]);
+	
+	$scope.validateOrigin =function(data){
+		if($scope.listdataJson.indexOf(data) == -1) {
+			 toastr.error('Invalid Data');
+			}
+	}
 $scope.createVehicle = function() {
 $("#vehModal").modal('show');
 $(".vehId").css("display","");
@@ -1975,6 +1989,7 @@ $(document).ready(function(){
         e.preventDefault();
         $("#wrapper").toggleClass("active");
 	});
+	
 	/* $('#datetimepicker4').datetimepicker({
         format: 'DD/MM/YYYY'
     }); */
@@ -2017,6 +2032,28 @@ app.directive("numericRegex", function() {
     }
 
 });
+
+app.directive('initialDate', function () {
+    return {
+      link: function (scope, elem, attrs, ctrl) {
+    	  console.log("hello");
+    	 // $scope.initdate = function () {
+    			$('#datetimepicker_fc').datetimepicker({
+    			    format: 'DD/MM/YYYY'
+    			});
+    			$('#datetimepicker_ins').datetimepicker({
+    			    format: 'DD/MM/YYYY'
+    			});
+    		//};
+        /* var hello = function () {
+          for (var i = 0; i < attrs.repeatHelloWorld; i++) {
+            console.log('Hello world!');
+          }
+        }
+        hello(); */
+      }
+    }
+  });
 /* function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder){
 	var bm = this;
 	 bm.selected = {};

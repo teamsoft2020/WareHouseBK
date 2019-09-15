@@ -39,6 +39,12 @@ public class Vehicle {
 	@Column(name = "fc")
 	private String fc;
 	
+	@Column(name = "fcdate")
+	private String fcdate;
+	
+	@Column(name = "insurancedate")
+	private String insurancedate; 
+	
 	@Column(name = "insurance")
 	private String insurance;
 	
@@ -66,12 +72,50 @@ public class Vehicle {
 	@Column(name = "Createdby", nullable = true)
 	private String createdby;
 	
+	@Column(name = "fixedamt")
+	private String fixedamt;
+	
+	@Column(name = "perkmamt")
+	private String perkmamt;
+	
 	@JsonBackReference
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "id")
 	private Vendor vendorandvehicle;
 
 	
+	public String getFcdate() {
+		return fcdate;
+	}
+
+	public void setFcdate(String fcdate) {
+		this.fcdate = fcdate;
+	}
+
+	public String getInsurancedate() {
+		return insurancedate;
+	}
+
+	public void setInsurancedate(String insurancedate) {
+		this.insurancedate = insurancedate;
+	}
+
+	public String getFixedamt() {
+		return fixedamt;
+	}
+
+	public void setFixedamt(String fixedamt) {
+		this.fixedamt = fixedamt;
+	}
+
+	public String getPerkmamt() {
+		return perkmamt;
+	}
+
+	public void setPerkmamt(String perkmamt) {
+		this.perkmamt = perkmamt;
+	}
+
 	public long getVehicleid() {
 		return vehicleid;
 	}

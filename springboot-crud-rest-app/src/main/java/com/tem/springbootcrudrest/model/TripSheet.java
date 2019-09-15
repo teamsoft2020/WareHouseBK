@@ -84,9 +84,12 @@ public class TripSheet implements Serializable {
 	@Column(name = "policeBill")
 	private String policeBill;
 
-	@Column(name = "freightAmt")
-	private String freightAmt;
+	@Column(name = "freightAmtCust")
+	private String freightAmtCust;
 
+	@Column(name = "freightAmtVen")
+	private String freightAmtVen;
+	
 	@Column(name = "haltingCharge")
 	private String haltingCharge;
 
@@ -139,6 +142,22 @@ public class TripSheet implements Serializable {
 
 	public void setLoadNo(String loadNo) {
 		this.loadNo = loadNo;
+	}
+
+	public String getFreightAmtCust() {
+		return freightAmtCust;
+	}
+
+	public void setFreightAmtCust(String freightAmtCust) {
+		this.freightAmtCust = freightAmtCust;
+	}
+
+	public String getFreightAmtVen() {
+		return freightAmtVen;
+	}
+
+	public void setFreightAmtVen(String freightAmtVen) {
+		this.freightAmtVen = freightAmtVen;
 	}
 
 	public String getTripNo() {
@@ -283,14 +302,6 @@ public class TripSheet implements Serializable {
 
 	public void setPoliceBill(String policeBill) {
 		this.policeBill = policeBill;
-	}
-
-	public String getFreightAmt() {
-		return freightAmt;
-	}
-
-	public void setFreightAmt(String freightAmt) {
-		this.freightAmt = freightAmt;
 	}
 
 	public String getHaltingCharge() {

@@ -1,4 +1,4 @@
-<div >
+<div>
 <div>
 <input name="" type="button"  style="float: right;margin: 1%; " class="btn btn-primary" id="" value="Create" ng-click="createVendor()" >
 <table id="manage-vendor-table" class="vendorTable" datatable="ng" dt-options="vm.dtVendor" dt-column-defs="vm.dtColumnDefs"  style="width: 90%;">
@@ -73,7 +73,7 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class='addItems filterDiv'>
-        <table id='addData' class="table table-borderless">
+        <table id='addData' class="">
          <!-- <tr>
          
           </tr>
@@ -197,7 +197,16 @@
                 <input type="text" ng-model="vendorVehicle.vehicleNo" placeholder="VehicleNo"/>
               </td>
               <td colspan="1">
-              <input type="text" ng-model="vendorVehicle.vehicleType" placeholder="Vehicle Type"/>
+              <!-- <input type="text" ng-model="vendorVehicle.vehicleType" placeholder="Vehicle Type"/> -->
+              <select ng-model="vendorVehicle.vehicleType" class="form-control col-12" tabindex="8">
+		              <option value="">Select VehicleType</option>
+		              <option>LCV2</option>
+		              <option>LCV4</option>
+		              <option>CAN6</option>
+		              <option>HCV9</option>
+					  <option>TARUS</option>
+					  <option>TRALIER</option>
+		      </select>
               </td>
               <td colspan="1">
               <input type="text" ng-model="vendorVehicle.fc" placeholder="FC"/>
@@ -206,20 +215,64 @@
               <input type="text" ng-model="vendorVehicle.insurance" placeholder="Insurance"/>
               </td>
               </tr>
+              
+              
                <tr>
+	          <td colspan="1"><span class="labelfont">Fc Date</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">Insurance Date</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">Fixed Amount</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">Per Kms Charge</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">RC NO</span></td>
 	          <td colspan="1"><span class="labelfont">Road Tax</span></td>
-	          <td colspan="1"><span class="labelfont">Pollution Certificate</span></td>
-	          <td colspan="1"><span class="labelfont">Good Permit</span></td>
-	          <td colspan="1"><span class="labelfont">State Permit</span></td>
           </tr>
-              <tr>
+        <tr >
+         	<td colspan="1">
+              <!-- <input type="text" ng-model="vendorVehicle.fcdate" placeholder="FC Date"/> -->
+              <div class="input-group date" id="datetimepicker_fc" data-target-input="nearest"  style="width: 83%;" initial-date>
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_fc" ng-model="vendorVehicle.fcdate" placeholder="FC Date"/>
+                    <div class="input-group-append" data-target="#datetimepicker_fc" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+              </td>
+              <td colspan="1">
+              <!-- <input type="text" ng-model="vendorVehicle.insurancedate" placeholder="Insurance Date"/> -->
+              <div class="input-group date" id="datetimepicker_ins" data-target-input="nearest" style="width: 83%;">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_ins" ng-model="vendorVehicle.insurancedate" placeholder="Insurance Date"/>
+                    <div class="input-group-append" data-target="#datetimepicker_ins" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+              </td>
+              <td colspan="1">
+				<input type='text' ng-model="vendorVehicle.fixedamt" placeholder="Fixed Amt"/>
+			 </td>
+              <td colspan="1">
+                <input type='text' ng-model="vendorVehicle.perkmamt" placeholder="Per Kms Charge"/>
+              </td>
               <td colspan="1">
                 <input type='text' ng-model="vendorVehicle.rCNo" placeholder="RC NO"/>
               </td>
               <td colspan="1">
                 <input type="text" ng-model="vendorVehicle.roadTax" placeholder="Road Tax"/>
               </td>
+              <!-- <td colspan="1">
+                <input type="text" ng-model="vendorVehicle.vehicleNo" placeholder="VehicleNo"/>
+              </td> -->
+              
+             
+              </tr>
+              
+              
+              
+               <tr>
+	          
+	          <td colspan="1"><span class="labelfont">Pollution Certificate</span></td>
+	          <td colspan="1"><span class="labelfont">Good Permit</span></td>
+	          <td colspan="1"><span class="labelfont">State Permit</span></td>
+          </tr>
+              <tr>
+              
               <td colspan="1">
                 <input type='text' ng-model="vendorVehicle.pollutioncert" placeholder="Pollution Certificate"/>
               </td>
