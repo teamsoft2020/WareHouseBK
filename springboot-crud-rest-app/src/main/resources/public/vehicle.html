@@ -345,14 +345,14 @@
 		  </div>
 		   <div class='col-md-3'>
           <label class="col-12"><b>Close KMs </b></label>
-           <input type="text" min="0" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" />
+           <input type="text" min="0" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" ng-blur="calculateKm(trip.opkm,trip.clskm)"/>
           </div>
           
 		  </div>
 		  <div class="row" style="margin-top: 1%;">
 			<div class='col-md-3'>
           <label class="col-12"><b>Diff KMs </b></label>
-           <input type="text" min="0" ng-model="trip.diffKM" class="form-control col-12" placeholder="Diff KMs" />
+           <input type="text" min="0" ng-model="trip.diffKM" class="form-control col-12" placeholder="Diff KMs" readonly/>
 		  </div>
 		  <div class='col-md-3'>
           <label class="col-12"><b>Advance </b></label>

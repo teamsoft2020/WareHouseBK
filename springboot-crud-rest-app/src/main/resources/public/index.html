@@ -725,7 +725,7 @@ $scope.removeItem = function(item){
    $(".addCust").css("display","none");
    $(".updateCust").css("display","block");
 for(i in $scope.listCustomerJson) {
-        if($scope.listCustomerJson[i].customerId == index.customerId) {
+        if($scope.listCustomerJson[i].id == index.id) {
             $scope.item = angular.copy($scope.listCustomerJson[i]);
         }
     }
@@ -1246,6 +1246,18 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 			 toastr.error('Invalid Data');
 			}
 	}
+	$scope.calculateKm=function(opkm,clskm){
+		if(opkm){
+			if(eval(opkm)<eval(clskm)){
+				$scope.trip.diffKM=eval(clskm)-eval(opkm);
+			}else{
+				toastr.error('Close Kms should lesser than Open Kms');
+			}
+		}else{
+			toastr.error('Please Enter OpKms');
+		}
+		
+	}
 $scope.createVehicle = function() {
 $("#vehModal").modal('show');
 $(".vehId").css("display","");
@@ -1727,10 +1739,10 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
     ]); */
     
     $scope.settings = {
-		      selectAll: true
+		      selectAll: false
 		    }
 		    
-		    $scope.$watch('settings.selectAll', function(newVal, oldVal) {
+		    $scope.$watchCollection('settings.selectAll', function(newVal, oldVal) {
 		      if (newVal == oldVal) return
 		      var api = $scope.bm.dtInstance.DataTable;
 		      api.rows({search:'applied'}).every(function() {
@@ -1818,6 +1830,8 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
   value.grandTotal=(value.totalkms * value.forKms)+value.tRTypeFixed -value.advance;
 });
 	}; */
+	
+
 	$scope.searchcustItem =function(){
 		if($scope.customerInvoice.fromdate==""){
 			 toastr.error('Please enter From date');
@@ -1937,7 +1951,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		  
 	}
 	$scope.init_Billing();
-	//scope=$scope;
+	scope=$scope;
 });
 app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	
@@ -2032,6 +2046,8 @@ app.directive("numericRegex", function() {
     }
 
 });
+
+
 
 app.directive('initialDate', function () {
     return {
