@@ -138,8 +138,39 @@
 </div> --></div>
  <div class="row" style="margin-top: 1%;">
 <!--  class="table table-bordered table-hover table-striped" -->
-<!-- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-columns="bm.dtColumns" dt-instance="bm.dtInstance" class="row-border hover" ></table> -->
- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn"  dt-instance="dtInstanceCallback" >
+ <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-columns="bm.dtColumns" dt-instance="bm.dtInstance" class="row-border hover" >
+ <!-- <tbody>
+								<tr ng-repeat="invoice in  customerInvoiceJson track by $index">
+								  <td>
+								<div class="checkbox">
+									<label>
+										<input  type="checkbox" value="" ng-model="invoice.Selected">
+									</label>
+								</div>
+									</td> 
+										<td><label>{{invoice.LRNO}}</label></td>
+										<td><label>{{invoice.date}}</label></td>
+										<td><label>{{invoice.invoiceNo}}</label></td>
+										<td><label>{{invoice.origin}}</label></td>
+										<td><label>{{invoice.customerName}}</label></td>
+										<td><label>{{invoice.destination}}</label></td>
+										<td><label>{{invoice.truckNo}}</label></td>
+										<td><label>{{invoice.truckType}}</label></td>
+										<td><label>{{invoice.noOfCase}}</label></td>
+										<td><label>{{invoice.opKms}}</label></td>
+										<td><label>{{invoice.clsKms}}</label></td>
+										<td><label>{{invoice.totalkms}}</label></td>
+										<td><label>{{invoice.forKms}}</label></td>
+										<td><label>{{invoice.tRTypeFixed}}</label></td>
+										<td><label>{{invoice.advance}}</label></td>
+										<td><label>{{invoice.grandTotal}}</label></td>
+										
+										<td>
+									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td>
+								</tr>
+							</tbody> -->
+ </table> 
+ <!-- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn"  dt-instance="dtInstanceCallback" class="row-border hover">
 							<thead>
 								<tr>
 								     <th scope="col">
@@ -199,7 +230,7 @@
 									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td>
 								</tr>
 							</tbody>
-						</table>  
+						</table>  --> 
  </div>
  
 </div>

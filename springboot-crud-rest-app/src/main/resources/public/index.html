@@ -13,7 +13,9 @@
  <link rel="stylesheet" href="/css/angular-toastr.css" />
 <link rel="stylesheet" type="text/css" href="/css/fixedColumns.dataTables.css"/>
 <link rel="stylesheet" type="text/css" href="/css/fixedHeader.dataTables.css"/>
- 
+<link rel="stylesheet" type="text/css" href="/css/select.dataTables.css"/>
+
+
   <script src="/js/jquery.min.js"></script>
   <script src = "/js/jquery.dataTables.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
@@ -37,11 +39,16 @@
 <script src="/js/buttons.print.min.js"></script>
 <script type="text/javascript" src="/js/dataTables.fixedColumns.js"></script> 
 <script type="text/javascript" src="/js/dataTables.fixedHeader.js"></script>
+<script type="text/javascript" src="/js/dataTables.lightColumnFilter.min.js"></script>
+<script src="/js/dataTables.select.js"></script>
 <script src="/js/angular-datatables.fixedcolumns.js"></script>
 <script src="/js/angular-datatables.buttons.min.js"></script>
-<script type="text/javascript" src="/js/dataTables.lightColumnFilter.min.js"></script>
-<script type="text/javascript" src="/js/angular-datatables.light-columnfilter.min.js"></script>
+ <script type="text/javascript" src="/js/angular-datatables.light-columnfilter.min.js"></script> 
+<script type="text/javascript"src="/js/angular-datatables.select.min.js"></script>
 <script src="/js/angular-toastr.tpls.js"></script>
+
+
+
 <style>
 
 html,body{
@@ -378,7 +385,7 @@ legend {
 <!-- <div ng-view style="width: 100%;height: 90%;"></div> -->
 </div>
 <script>
-var app = angular.module("homeApp", ["ngRoute","ngResource","datatables","datatables.buttons","ngAnimate", "toastr","datatables.fixedcolumns","datatables.light-columnfilter"]);
+var app = angular.module("homeApp", ["ngRoute","ngResource","datatables","datatables.buttons","ngAnimate", "toastr","datatables.fixedcolumns","datatables.light-columnfilter","datatables.select"]);
 app.config(['$routeProvider',function($routeProvider) {
     $routeProvider
       .when("/", {
@@ -436,6 +443,10 @@ app.config(['$routeProvider',function($routeProvider) {
 	
 	
 }]);
+
+/* app.config(function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}); */
 app.controller('indexController',['$scope','$location', "$timeout", function ($scope, $location, $timeout) {
 	$scope.user = {
 	        username: '',
@@ -1652,22 +1663,18 @@ app.controller('UserAccessController', function ($scope,DTOptionsBuilder, DTColu
 								  {permissionScreen: "Billing",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true},
 								  {permissionScreen: "Product",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true}];				
 });
-app.controller('BillingController',function ($scope, $window,$http,$compile,$resource,$location, $q,$timeout,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
+app.controller('BillingController',function ($compile,$scope, $window,$http,$resource,$location, $q,$timeout,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
 	$scope.listBillingJson =[{customerName: "SAI Sakthi",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
 							  {customerName: "Samsang",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}},
 							  {customerName: "titan",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
 							  {customerName: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];	
-	$scope.customerInvoiceJson =[{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"",grandTotal:""},
-								{LRNO: "2008",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "1000",advance:"500",grandTotal:""},
-								{LRNO: "2998",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "500",advance:"",grandTotal:""},
-								{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"100",grandTotal:""},
-								{LRNO: "20002",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "400",advance:"",grandTotal:""},
-								{LRNO: "23",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "3000",advance:"400",grandTotal:""},
-								{LRNO: "23448",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "5000",advance:"",grandTotal:""},
-								{LRNO: "23558",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2334",advance:"600",grandTotal:""},
-								{LRNO: "2998",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2090",advance:"",grandTotal:""},
-								{LRNO: "268",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "3030",advance:"1000",grandTotal:""}];	
+	$scope.customerInvoiceJson =[{id:"1",LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"",grandTotal:""},
+								{id:"2",LRNO: "2008",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "1000",advance:"500",grandTotal:""},
+								{id:"3",LRNO: "2998",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "500",advance:"",grandTotal:""},
+								{id:"4",LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"100",grandTotal:""},
+								{id:"5",LRNO: "20002",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "400",advance:"",grandTotal:""},
+								{id:"6",LRNO: "23",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "3000",advance:"400",grandTotal:""}];	
 	$scope.vendorInvoiceJson =[{LRNO: "22222",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "234",advance:"",grandTotal:""},
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"500",grandTotal:""},
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
@@ -1679,66 +1686,94 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"1000",grandTotal:""}];	
 	
-	
-	//vendor datatable
-	 /*    $scope.dtInstanceCallback = function(instance) {
-		 	 $scope.dtInstance = instance;
+	$scope.toggleAll = function(selectAll, selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                selectedItems[id] = selectAll;
+            }
+        }
     };
-    
-    $scope.settings = {
-      selectAll: false
-    }
-    
-    $scope.$watch('settings.selectAll', function(newVal, oldVal) {
-      if (newVal == oldVal) return
-      var api = $scope.dtInstance.DataTable;
-      api.rows({search:'applied'}).every(function() {
-        api.cell({ row: this.index(), column: 0 })
-         .nodes()
-         .to$()
-         .find('input')
-         .prop('checked', $scope.settings.selectAll);
-      })
-      $scope.dtInstance.DataTable.draw()
-    })
-    
-    $scope.dtOptions = DTOptionsBuilder
-      .newOptions()
-      .withPaginationType('full_numbers');
+ $scope.toggleOne= function(selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if(!selectedItems[id]) {
+                	bm.selectAll = false;
+                    return;
+                }
+            }
+        }
+        bm.selectAll = true;
+    };
+	//vendor datatable
+	 var bm = $scope;
+	 bm.selected = {};
+	 bm.selectAll = false;
+	 bm.toggleAll = $scope.toggleAll;
+	 bm.toggleOne = $scope.toggleOne;
+	 bm.dtInstance = {};
+	 
+	 
+	
+	 
+	 var titleHtml = '<input type="checkbox" ng-model="bm.selectAll" ng-click="bm.toggleAll(bm.selectAll,bm.selected)">';
 
-     $scope.dtColumnDefs = [
-        DTColumnDefBuilder.newColumnDef(0).notSortable()
-     ]; */
-     
-	//vendor datatale ends
-	/*$scope.bm = {};
-	$scope.bm.dtOptions = DTOptionsBuilder.newOptions()
-    .withOption('order', [0, 'asc']);
-     .withButtons([
-      {
-        extend: 'collection',
-        text: 'Export',
-        buttons: [{
-            extend: 'copyHtml5',
-            title: 'Mylist'
-          },
-          {
-            extend: 'pdfHtml5',
-            title: 'My list'
-          },
-		  {
-            extend: 'excel',
-            title: 'Excel'
-          },
-		  {
-            extend: 'csv',
-            title: 'My list'
-          }
-        ]
-      }
-    ]); */
+		//$scope.bm.dtOptions = DTOptionsBuilder.newOptions()
+		bm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+			
+			 /*  var defer = $q.defer();
+	        defer.resolve($scope.customerInvoiceJson);
+	        return defer.promise;   */
+            return $resource($scope.customerInvoiceJson).query().$promise;
+        })
+         .withPaginationType('full_numbers')
+         .withOption('createdRow', function(row, data, dataIndex) {
+            // Recompiling so we can bind Angular directive to the DT
+            $compile(angular.element(row).contents())($scope);
+        })
+        	.withOption('headerCallback', function(header) {
+            if (!bm.headerCompiled) {
+                // Use this headerCompiled field to only compile header once
+                bm.headerCompiled = true;
+                $compile(angular.element(header).contents())($scope);
+            }
+        })
+		        .withOption('scrollY', '300px')
+		        .withOption('scrollX', '100%')
+		        .withOption('scrollCollapse', true)
+		        .withOption('order', [[1, 'asc']])
+		        .withFixedColumns({
+		            leftColumns: 1,
+		            rightColumns: 1
+		        });
+	
+		 bm.dtColumns = [
+	        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
+	            .renderWith(function(data, type, full, meta) {
+	            	bm.selected[full.id] = false;
+	                return '<input type="checkbox" ng-model="bm.selected[' + data.id + ']" ng-click="bm.toggleOne(bm.selected)">';
+	            }), 
+	           
+	        	DTColumnBuilder.newColumn('LRNO').withTitle('LRNO'),
+	            DTColumnBuilder.newColumn('date').withTitle('Date'),
+	            DTColumnBuilder.newColumn('invoiceNo').withTitle('InvoiceNo'),
+	            DTColumnBuilder.newColumn('origin').withTitle('Origin'),
+	            DTColumnBuilder.newColumn('customerName').withTitle('CustomerName'),
+	            DTColumnBuilder.newColumn('destination').withTitle('Destination'),
+	            DTColumnBuilder.newColumn('truckNo').withTitle('TruckNo'),
+	            DTColumnBuilder.newColumn('truckType').withTitle('TruckType'),
+	            DTColumnBuilder.newColumn('noOfCase').withTitle('No of case'),
+	            DTColumnBuilder.newColumn('opKms').withTitle('OP Kms'),
+	            DTColumnBuilder.newColumn('clsKms').withTitle('Cls Kms'),
+	            DTColumnBuilder.newColumn('totalkms').withTitle('Total kms'),
+	            DTColumnBuilder.newColumn('forKms').withTitle('For Kms'),
+	            DTColumnBuilder.newColumn('tRTypeFixed').withTitle('TRTypeFixed'),
+	            DTColumnBuilder.newColumn('advance').withTitle('Advance'),
+	            DTColumnBuilder.newColumn('grandTotal').withTitle('GrandTotal'),
+	            DTColumnBuilder.newColumn(null).withTitle('Action')
+	    ]; 
     
-    $scope.settings = {
+		 
+   /*  $scope.settings = {
 		      selectAll: false
 		    }
 		    
@@ -1753,12 +1788,9 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
 		         .prop('checked', $scope.settings.selectAll);
 		      })
 		      $scope.bm.dtInstance.DataTable.draw()
-		    })
+		    }) */
 	
 	
-	//$scope.customerInvoiceJson =[];
-	//$scope.perKms="";
-	//$scope.fixedCost="";
 	$scope.init_Billing =function(){
 		 $('#datetimepicker_billDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
@@ -1785,13 +1817,13 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
 		        format: 'DD/MM/YYYY'
 			});
 			
-			$scope.bm = {};
+			/*$scope.bm = {};
 			//$scope.bm.dtInstance = {};
 			 $scope.bm.dtInstanceCallback = function(instance) {
 			 	 $scope.bm.dtInstance = instance;
 	    };
-			$scope.bm.dtOptions = DTOptionsBuilder.newOptions()
-			/* bm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
+	    $scope.bm.dtOptions = DTOptionsBuilder.newOptions()
+			 bm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
 				
 				 var defer = $q.defer();
 		        defer.resolve($scope.customerInvoiceJson);
@@ -1808,17 +1840,15 @@ app.controller('BillingController',function ($scope, $window,$http,$compile,$res
 	                bm.headerCompiled = true;
 	                $compile(angular.element(header).contents())($scope);
 	            }
-	        })*/
+	        })
 			        .withOption('scrollY', '300px')
 			        .withOption('scrollX', '100%')
 			        .withOption('scrollCollapse', true)
 			        .withFixedColumns({
 			            leftColumns: 1,
 			            rightColumns: 1
-			        });
-			 // $('#CustomerInvoice').show();
-			 // $('#VendorInvoice').hide();
-			 // $('#Receipt').hide();
+			        });*/
+			 
 			  
 	}
 	/* $scope.addKmsandFixed =function(kms,fix){
@@ -2070,8 +2100,14 @@ app.directive('initialDate', function () {
       }
     }
   });
-/* function RowSelect($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder){
-	var bm = this;
+ /* function RowSelect($compile,$scope,$resource,$location, $q,$timeout,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder){
+	 $scope.customerInvoiceJson =[{id:"1",LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"",grandTotal:""},
+									{id:"2",LRNO: "2008",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "1000",advance:"500",grandTotal:""},
+									{id:"3",LRNO: "2998",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "500",advance:"",grandTotal:""},
+									{id:"4",LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"100",grandTotal:""},
+									{id:"5",LRNO: "20002",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "400",advance:"",grandTotal:""},
+									{id:"6",LRNO: "23",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "3000",advance:"400",grandTotal:""}];	
+	 var bm = $scope;
 	 bm.selected = {};
 	 bm.selectAll = false;
 	 bm.toggleAll = toggleAll;
@@ -2113,8 +2149,8 @@ app.directive('initialDate', function () {
 		 bm.dtColumns = [
 	        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
 	            .renderWith(function(data, type, full, meta) {
-	            	bm.selected[full.LRNO] = false;
-	                return '<input type="checkbox" ng-model="bm.selected[' + data.LRNO + ']" ng-click="bm.toggleOne(bm.selected)">';
+	            	bm.selected[full.id] = false;
+	                return '<input type="checkbox" ng-model="bm.selected[' + data.id + ']" ng-click="bm.toggleOne(bm.selected)">';
 	            }), 
 	            DTColumnBuilder.newColumn('LRNO').withTitle('LRNO'),
 	            DTColumnBuilder.newColumn('date').withTitle('Date'),
@@ -2150,7 +2186,7 @@ app.directive('initialDate', function () {
 		        }
 		        bm.selectAll = true;
 		    }
-} */
+}  */
 </script>
 </body>
 </html>
