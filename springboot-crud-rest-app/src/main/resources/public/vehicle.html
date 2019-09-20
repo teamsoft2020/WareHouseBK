@@ -276,14 +276,14 @@
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Origin </b></label>
-           <input type="text"  ng-model="trip.origin" class="form-control col-12" placeholder="Origin" list="dataList" ng-blur="validateOrigin(trip.origin)"/>
+           <input type="text"  ng-model="trip.origin" class="form-control col-12" placeholder="Origin" list="dataList" ng-blur="validateOrigin(trip.origin)" ng-change="getCommonDetails(trip.origin)"/>
            <datalist id="dataList">
 		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
 		    </datalist>
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Destination</b> </label>
-           <input type="text" ng-model="trip.destination" class="form-control col-12" placeholder="Destination" list="dataListDest" ng-blur="validateOrigin(trip.origin)"/>
+           <input type="text" ng-model="trip.destination" class="form-control col-12" placeholder="Destination" list="dataListDest" ng-blur="validateOrigin(trip.destination)" ng-change="getCommonDetails(trip.destination)"/>
 		  <datalist id="dataListDest">
 		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
 		    </datalist>
@@ -305,24 +305,26 @@
                 </div>
            <!-- <input type="text" ng-model="trip.dateTime" class="form-control col-12" placeholder="From" /> -->
           </div>
-          <div class='col-md-3'>
-          <label class="col-12"><b>TruckType </b></label>
-          <!-- ng-change="getTruckNo(trip.truckType)" -->
-		  <select ng-model="trip.truckType" class="form-control col-12" tabindex="8" >
-		               <option value="">Select TruckType</option>
-		              <option  ng-repeat="v in vehlistdataJson" value="{{v.vehicleType}}">{{v.vehicleType}}</option>
-		      </select>
-          </div>
+          
           
           <div class='col-md-3'>
           <label class="col-12"><b>TruckNo </b></label>
-           <select ng-model="trip.truckno" class="form-control col-12" tabindex="8" ng-options="b.vehicleNo as b.vehicleNo for b in vehlistdataJson|filter:{vehicleType: trip.truckType}: true| orderBy:'vehicleNo'">
+           <select ng-model="trip.truckno" class="form-control col-12" tabindex="8" ng-options="b.vehicleNo as b.vehicleNo for b in vehlistdataJson" ng-change="changeBasedNumber(trip.truckno)">
 		         <option value="">Select TruckNo</option>
 		   </select>  
              <!-- <input type="text" min="0" ng-model="trip.truckno" class="form-control col-12" placeholder="TruckTo" list="dataListTruckNo"/>
             <datalist id="dataListTruckNo">
 		      <option ng-repeat="b in getTruckType" value="{{b}}"></option>
 		    </datalist>   -->
+          </div>
+          
+          <div class='col-md-3'>
+          <label class="col-12"><b>TruckType </b></label>
+          <!-- ng-change="getTruckNo(trip.truckType)" -->
+		  <select ng-model="trip.truckType" class="form-control col-12" tabindex="8" disabled>
+		               <option value="">Select TruckType</option>
+		              <option  ng-repeat="v in vehlistdataJson" value="{{v.vehicleType}}">{{v.vehicleType}}</option>
+		      </select>
           </div>
           
 		  </div>
@@ -341,11 +343,11 @@
           </div>
           <div class='col-md-3'>
           <label class="col-12"><b>Open KMs </b></label>
-           <input type="text" min="0" ng-model="trip.opkm" class="form-control col-12" placeholder="Open KMs" />
+           <input type="text" min="0" ng-model="trip.opkm" class="form-control col-12" placeholder="Open KMs" ng-blur="calculateKm(trip.opkm,trip.clskm)"/>
 		  </div>
 		   <div class='col-md-3'>
           <label class="col-12"><b>Close KMs </b></label>
-           <input type="text" min="0" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" ng-blur="calculateKm(trip.opkm,trip.clskm)"/>
+           <input type="text" min="0" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" ng-blur="calculateKm(trip.opkm,trip.clskm)" />
           </div>
           
 		  </div>
@@ -376,40 +378,44 @@
 		  
 		  <div class='col-md-3'>
           <label class="col-12"><b>TollBill</b></label>
-           <input type="text" min="0" ng-model="trip.tollBill" class="form-control col-12" placeholder="Toll Bill" />
+           <input type="text" min="0" ng-model="trip.tollBill" class="form-control col-12" placeholder="Toll Bill" ng-blur="addAmtoFrieght()"/>
 		  </div>
 		  <div class='col-md-3'>
           <label class="col-12"><b>Police Bill </b></label>
-           <input type="text" min="0" ng-model="trip.policeBill" class="form-control col-12" placeholder="Police Bill Charge" />
+           <input type="text" min="0" ng-model="trip.policeBill" class="form-control col-12" placeholder="Police Bill Charge"  ng-blur="addAmtoFrieght()"/>
 		  </div>
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Freight Amount(Customer) </b></label>
-           <input type="text" min="0" ng-model="trip.freightAmtCust" class="form-control col-12" placeholder="Freight Amount" />
-		  </div>
-		  
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Freight Amount(Vendor) </b></label>
-           <input type="text" min="0" ng-model="trip.freightAmtVen" class="form-control col-12" placeholder="Freight Amount" />
-		  </div>
-		  
-		</div>
-		
-		<div class="row">
-		 <div class='col-md-3'>
+		   <div class='col-md-3'>
           <label class="col-12"><b>Halting Charges </b></label>
-           <input type="text"  min="0" ng-model="trip.haltingCharge" class="form-control col-12" placeholder="Halting Charge" />
+           <input type="text"  min="0" ng-model="trip.haltingCharge" class="form-control col-12" placeholder="Halting Charge" ng-blur="addAmtoFrieght()"/>
 		  </div>
 		  <div class='col-md-3'>
           <label class="col-12"><b>Discount </b></label>
            <input type="text"  min="0"  ng-model="trip.discount" class="form-control col-12" placeholder="Discount" />
 		  </div>
-		   <div class='col-md-3'>
-          <label class="col-12"><b>Remarks </b></label>
-           <input type="text" ng-model="trip.remarks" class="form-control col-12" placeholder="Remarks" />
+		</div>
+		
+		<div class="row">
+		
+		  
+		  
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Freight Amount(Customer) </b></label>
+           <input type="text"  ng-model="trip.freightAmtCust" class="form-control col-12" placeholder="Freight Amount" disabled/>
 		  </div>
+		  
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Freight Amount(Vendor) </b></label>
+           <input type="text"  ng-model="trip.freightAmtVen" class="form-control col-12" placeholder="Freight Amount" disabled/>
+		  </div>
+		  
+		   
 		  <div class='col-md-3'>
           <label class="col-12"><b>Profit</b></label>
-           <input type="text" min="0" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" />
+           <input type="text" min="0" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" disabled/>
+		  </div>
+		  <div class='col-md-3'>
+          <label class="col-12"><b>Remarks </b></label>
+           <input type="text" ng-model="trip.remarks" class="form-control col-12" placeholder="Remarks" />
 		  </div>
 		</div>
            <!-- <div class="float-right" style="margin-top: 3%;">

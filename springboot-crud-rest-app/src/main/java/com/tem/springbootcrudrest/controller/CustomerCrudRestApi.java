@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.Customer;
+import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.service.CustomerService;
 
 @RestController
@@ -78,6 +81,15 @@ public class CustomerCrudRestApi {
 		
 	}
 	
+	
+	@RequestMapping(path = "/customervendorobject", method = RequestMethod.GET)
+
+	public Object getCustomerVendorList(@RequestParam String name) {
+		
+		Object tripSheetList = customerService.findCustomerVendorByName(name);
+
+		return tripSheetList;
+	}
 	
 	
 }

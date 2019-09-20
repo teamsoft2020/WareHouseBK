@@ -21,4 +21,6 @@ public interface CustomerService {
 	public List<String> getCustomerListByName();
 	
 	public List<String> getListOfCombineName();
+	
+	public Object findCustomerVendorByName(String name);
 }

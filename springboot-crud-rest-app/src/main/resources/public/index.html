@@ -925,7 +925,7 @@ $scope.editVendor = function(index){
  $(".addVen").css("display","none");
  $(".updateVen").css("display","block");
 for(i in $scope.listVendorJson) {
-      if($scope.listVendorJson[i].vendorId == index.vendorId) {
+      if($scope.listVendorJson[i].id == index.id) {
           $scope.item = angular.copy($scope.listVendorJson[i]);
       }
   }
@@ -1214,6 +1214,10 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 	 //$scope.listVenJson=[];
 	 $scope.listdataJson=[];
 	 $scope.getTruckType=[];
+	 $scope.tempperkmchargevendor="0";
+	 $scope.tempfreightAmtCust="0";
+	 $scope.tempfreightAmtVen="0";
+	 $scope.getTempCustVen={};
 	 //$scope.vehlistdataJson=[];
 	/* $scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
 							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
@@ -1223,7 +1227,7 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 					{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",tollBill: "654787",policeBill: "57890",freightAmt: "700",haltingCharge: "700",remarks: "good"}];
 							  
 	*/	
-	$scope.trip = {loadNo: "",tripNo: "",origin: "",destination: "",invoiceNO: "",dateTime: "",truckType: "",truckno: "",driverName: "",noOfCase: "",opkm: "",clskm: "",diffKM: "",advance: "",perkmchargecustomer: "",perkmchargevendor: "",profit: "",tollBill: "",policeBill: "",freightAmtCust: "",freightAmtVen:"",haltingCharge: "",discount:"",remarks: ""};
+	$scope.trip = {loadNo: "",tripNo: "",origin: "",destination: "",invoiceNO: "",dateTime: "",truckType: "",truckno: "",driverName: "",noOfCase: "",opkm: "0",clskm: "0",diffKM: "0",advance: "0",perkmchargecustomer: "0",perkmchargevendor: "0",profit: "0",tollBill: "",policeBill: "",freightAmtCust: "0",freightAmtVen:"0",haltingCharge: "0",discount:"0",remarks: ""};
 	scope=$scope;
 	$scope.vehm = {};
 	$scope.vehm.dtVehicle = DTOptionsBuilder.newOptions()
@@ -1257,18 +1261,167 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 			 toastr.error('Invalid Data');
 			}
 	}
+	
+	$scope.getCommonDetails =function(item){
+		
+		if(item){
+		var url=location.origin +"/api/v1/customervendorobject";
+		 $http({
+			    method : 'GET',
+			    url : url,
+			    params: {name: item}
+			   }).then(function successCallback(response) {
+			   console.log(response);
+			   var respData=response.data[0];
+			   if(respData.customername){
+				   $scope.getTempCustVen =respData;
+				   $scope.trip.truckno="";
+			   }
+			   
+			   /* if(respData.customername){
+				   if($scope.trip.truckType=="LCV2"){
+					   $scope.trip.perkmchargecustomer=respData.perkmlc2;
+					   $scope.trip.freightAmtCust=respData.fixedamtlc2;
+				   }else if($scope.trip.truckType=="LCV4"){
+					   $scope.trip.perkmchargecustomer=respData.perkmlc4;
+						$scope.trip.freightAmtCust=respData.fixedamtlc2;
+				   }else if($scope.trip.truckType=="CAN6"){
+					   $scope.trip.perkmchargecustomer=respData.perkmcan6;
+						$scope.trip.freightAmtCust=respData.fixedamtcan6;
+				   }else if($scope.trip.truckType=="HCV9"){
+					   $scope.trip.perkmchargecustomer=respData.perkmhcv9;
+						$scope.trip.freightAmtCust=respData.fixedamthcv9;
+				   }else if($scope.trip.truckType=="TARUS"){
+					   $scope.trip.perkmchargecustomer=respData.perkmtrs;
+						$scope.trip.freightAmtCust=respData.fixedamttrs;
+				   }else if($scope.trip.truckType=="TRALIER"){
+					   $scope.trip.perkmchargecustomer=respData.perkmtrailer;
+					   $scope.trip.freightAmtCust=respData.fixedamttrailer;
+				   }
+			   } */
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+		}
+	}
+	$scope.changeBasedNumber =function(item){
+		 $scope.tempperkmchargecustomer="";
+		$scope.tempperkmchargevendor="";
+		$scope.tempfreightAmtCust="";
+		$scope.tempfreightAmtVen="";
+		//$scope.trip.perkmchargevendor="";
+		 angular.forEach($scope.vehlistdataJson,function(value,index){
+			 if(value.vehicleNo ==item){
+				 $scope.trip.truckType=value.vehicleType;
+				 //$scope.trip.perkmchargevendor=value.perkmamt;
+				 $scope.tempperkmchargevendor=value.perkmamt;
+				 $scope.tempfreightAmtVen=value.fixedamt;
+				// $scope.trip.freightAmtVen=value.fixedamt;
+				 $scope.trip.opkm="";
+				 $scope.trip.clskm="";
+				 $scope.trip.diffKM="";
+				 $scope.trip.perkmchargevendor="";
+				 $scope.trip.perkmchargecustomer="";
+				 $scope.trip.tollBill="";
+				 $scope.trip.policeBill="";
+				 
+				 
+				 //set customer perkm and fixed
+				 var tempcustVen =$scope.getTempCustVen;
+				 if($scope.getTempCustVen.customername){
+					   if($scope.trip.truckType=="LCV2"){
+						   //$scope.trip.perkmchargecustomer=tempcustVen.perkmlc2;
+						   //$scope.trip.freightAmtCust=tempcustVen.fixedamtlc2;
+						   $scope.tempfreightAmtCust=tempcustVen.fixedamtlc2;
+						   $scope.tempperkmchargecustomer=tempcustVen.perkmlc2;
+					   }else if($scope.trip.truckType=="LCV4"){
+						  // $scope.trip.perkmchargecustomer=tempcustVen.perkmlc4;
+						   $scope.tempperkmchargecustomer=tempcustVen.perkmlc4;
+						   $scope.tempfreightAmtCust=tempcustVen.fixedamtlc4;
+							
+					   }else if($scope.trip.truckType=="CAN6"){
+						   //$scope.trip.perkmchargecustomer=tempcustVen.perkmcan6;
+						   $scope.tempperkmchargecustomer=tempcustVen.perkmcan6;
+						   $scope.tempfreightAmtCust=tempcustVen.fixedamtcan6;
+					   }else if($scope.trip.truckType=="HCV9"){
+						  // $scope.trip.perkmchargecustomer=tempcustVen.perkmhcv9;
+						   $scope.tempperkmchargecustomer=tempcustVen.perkmhcv9;
+						   $scope.tempfreightAmtCust=tempcustVen.fixedamthcv9;
+					   }else if($scope.trip.truckType=="TARUS"){
+						  // $scope.trip.perkmchargecustomer=tempcustVen.perkmtrs;
+						   $scope.tempperkmchargecustomer=tempcustVen.perkmtrs;
+						   $scope.tempfreightAmtCust=tempcustVen.fixedamttrs;
+					   }else if($scope.trip.truckType=="TRALIER"){
+						   //$scope.trip.perkmchargecustomer=tempcustVen.perkmtrailer;
+						   $scope.tempperkmchargecustomer=tempcustVen.perkmtrailer;
+						   $scope.tempfreightAmtCust=tempcustVen.fixedamttrailer;
+					   }
+				   }	 
+			 }
+			 
+         })
+		
+		
+	}
+	
+	/* $scope.haltingCharge =function(){
+		
+		$scope.trip.freightAmtCust=eval($scope.trip.haltingCharge)+eval($scope.trip.freightAmtCust);
+		
+	} */
 	$scope.calculateKm=function(opkm,clskm){
 		if(opkm){
 			if(eval(opkm)<eval(clskm)){
 				$scope.trip.diffKM=eval(clskm)-eval(opkm);
+				$scope.trip.perkmchargevendor=eval($scope.trip.diffKM)*eval($scope.tempperkmchargevendor);
+				$scope.trip.perkmchargecustomer=eval($scope.trip.diffKM)*eval($scope.tempperkmchargecustomer);
 			}else{
 				toastr.error('Close Kms should lesser than Open Kms');
+				$scope.trip.diffKM="";
 			}
 		}else{
 			toastr.error('Please Enter OpKms');
 		}
 		
 	}
+	
+	$scope.addAmtoFrieght =function(){
+		
+		if(typeof($scope.trip.freightAmtCust)=="undefined"){
+			$scope.trip.freightAmtCust='0';
+		}
+		if(typeof($scope.trip.freightAmtVen)=="undefined" || typeof($scope.trip.freightAmtVen)=="number" ){
+			$scope.trip.freightAmtVen='0';
+		}
+		if(typeof($scope.trip.policeBill)=="undefined"){
+			$scope.trip.policeBill='0';
+		}
+		if(typeof($scope.trip.tollBill)=="undefined"){
+			$scope.trip.tollBill='0';
+		}
+		if(typeof($scope.trip.haltingCharge)=="undefined"){
+			$scope.trip.haltingCharge='0';
+		}
+		$scope.trip.freightAmtCust=eval($scope.trip.policeBill)+eval($scope.trip.tollBill)+eval($scope.tempfreightAmtCust)+eval($scope.trip.haltingCharge);
+		$scope.trip.freightAmtVen=eval($scope.trip.tollBill)+eval($scope.trip.policeBill)+eval($scope.tempfreightAmtVen);
+		
+		$scope.trip.profit=eval($scope.trip.freightAmtCust)-eval($scope.trip.freightAmtVen);
+	}
+	
+/* $scope.addAmtoFrieghtVen =function(data){
+		
+		if(typeof($scope.trip.freightAmtCust)=="undefined"){
+			$scope.trip.freightAmtCust='0';
+		}
+		if(typeof($scope.trip.freightAmtVen)=="undefined" || typeof($scope.trip.freightAmtVen)=="number" ){
+			$scope.trip.freightAmtVen='0';
+		}
+		if(typeof($scope.trip.tollBill)=="undefined"){
+			$scope.trip.tollBill='0';
+		}
+		$scope.trip.freightAmtVen=eval($scope.trip.tollBill)+eval(data)+eval($scope.tempfreightAmtVen);
+		//$scope.trip.freightAmtVen=eval($scope.trip.freightAmtVen)+eval(data);
+	} */
 $scope.createVehicle = function() {
 $("#vehModal").modal('show');
 $(".vehId").css("display","");
@@ -1697,60 +1850,61 @@ app.controller('BillingController',function ($compile,$scope, $window,$http,$res
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 if(!selectedItems[id]) {
-                	bm.selectAll = false;
+                	$scope.selectAll = false;
                     return;
                 }
             }
         }
-        bm.selectAll = true;
+        $scope.selectAll = true;
     };
 	//vendor datatable
-	 var bm = $scope;
-	 bm.selected = {};
-	 bm.selectAll = false;
-	 bm.toggleAll = $scope.toggleAll;
-	 bm.toggleOne = $scope.toggleOne;
-	 bm.dtInstance = {};
+	 //var bm = $scope;
+	 $scope.selected = {};
+	 $scope.selectAll = false;
+	 $scope.toggleAll = $scope.toggleAll;
+	 $scope.toggleOne = $scope.toggleOne;
+	 $scope.dtInstance = {};
 	 
-	 
+	 $scope.getTableData = function() {
+		    var deferred = $q.defer();
+		    deferred.resolve($scope.customerInvoiceJson); 
+		    return deferred.promise;
+		};
 	
 	 
 	 var titleHtml = '<input type="checkbox" ng-model="bm.selectAll" ng-click="bm.toggleAll(bm.selectAll,bm.selected)">';
 
-		//$scope.bm.dtOptions = DTOptionsBuilder.newOptions()
-		bm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-			
-			 /*  var defer = $q.defer();
-	        defer.resolve($scope.customerInvoiceJson);
-	        return defer.promise;   */
+		//$scope.bm.dtOptions = DTOptionsBuilder.newOptions()fromFnPromise
+		$scope.dtOptions = DTOptionsBuilder.fromSource($scope.getTableData) 
+		/* $scope.dtOptions = DTOptionsBuilder.fromSource(function() {
             return $resource($scope.customerInvoiceJson).query().$promise;
-        })
+        }) */
          .withPaginationType('full_numbers')
          .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
             $compile(angular.element(row).contents())($scope);
         })
         	.withOption('headerCallback', function(header) {
-            if (!bm.headerCompiled) {
+            if (!$scope.headerCompiled) {
                 // Use this headerCompiled field to only compile header once
-                bm.headerCompiled = true;
+                $scope.headerCompiled = true;
                 $compile(angular.element(header).contents())($scope);
             }
         })
 		        .withOption('scrollY', '300px')
 		        .withOption('scrollX', '100%')
 		        .withOption('scrollCollapse', true)
-		        .withOption('order', [[1, 'asc']])
+		        //.withOption('order', [[1, 'asc']])
 		        .withFixedColumns({
 		            leftColumns: 1,
 		            rightColumns: 1
 		        });
 	
-		 bm.dtColumns = [
+		$scope.dtColumns = [
 	        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
 	            .renderWith(function(data, type, full, meta) {
 	            	bm.selected[full.id] = false;
-	                return '<input type="checkbox" ng-model="bm.selected[' + data.id + ']" ng-click="bm.toggleOne(bm.selected)">';
+	                return '<input type="checkbox" ng-model="$scope.selected[' + data.id + ']" ng-click="$scope.toggleOne($scope.selected)">';
 	            }), 
 	           
 	        	DTColumnBuilder.newColumn('LRNO').withTitle('LRNO'),
