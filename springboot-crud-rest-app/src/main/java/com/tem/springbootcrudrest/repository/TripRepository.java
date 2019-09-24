@@ -33,5 +33,9 @@ public interface TripRepository extends JpaRepository<TripSheet, Long> {
 	
 	@Query(value = "SELECT truckno FROM Tripsheet", nativeQuery = true)
 	public List<String> getListsBytrucknos();
+	
+	
+	 @Query(value="SELECT t FROM TripSheet  t WHERE t.loadNo=:loadno",nativeQuery=true) 
+	 public TripSheet findByLoadNO(@Param("loadno") String loadno);
 
 }

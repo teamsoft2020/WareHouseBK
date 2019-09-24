@@ -1218,7 +1218,7 @@ $scope.initProduct = function(){
 }
 $scope.initProduct();
 });
-app.controller('VehicleController', function ($scope, $window ,$filter,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
+app.controller('VehicleController', function ($scope, $window ,$filter,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr,multipartForm) {
 	$scope.listVehicleJson ={};
 	 //$scope.listCustJson=[];
 	 //$scope.listVenJson=[];
@@ -1473,6 +1473,10 @@ $scope.closeUpload =function(){
 };
 $scope.openUpload =function(){
 	$("#uploadDiv").css("display","block");
+};
+$scope.submitFileUpload =function(){
+	var uploadUrl = '/api/v1/upload';
+    multipartForm.post(uploadUrl, $scope.file);
 };
 $scope.submitUpload =function(){
 	console.log("submit");
@@ -1826,7 +1830,8 @@ app.controller('UserAccessController', function ($scope,DTOptionsBuilder, DTColu
 								  {permissionScreen: "Billing",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true},
 								  {permissionScreen: "Product",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true}];				
 });
-app.controller('BillingController',function ($compile,$scope, $window,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,$http,$resource,$location, $q,$timeout,toastr) {
+app.controller('BillingController',function ($compile,$scope, $window,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,$http,$resource,$location, $q,$timeout,toastr,multipartForm) {
+	$scope.file = {};
 	$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
 	$scope.checkedValue=[];
 	$scope.listBillingJson =[{customerName: "SAI Sakthi",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
@@ -2099,8 +2104,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	$scope.closeUpload =function(){
 		$("#uploadDiv").css("display","none");
 	};
-	$scope.submitUpload =function(){
-	};
+	
 	$scope.openUpload =function(){
 		$("#uploadDiv").css("display","block");
 	};
@@ -2309,6 +2313,40 @@ app.directive('initialDate', function () {
       }
     }
   });
+  
+app.directive('fileModel', ['$parse', function($parse){
+    return {
+        restrict: 'A',
+        link: function(scope, element,attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function() {
+                scope.$apply(function() {
+                    modelSetter(scope, element[0].files[0]);
+                })
+            })
+        }
+    }
+}]);
+
+app.service('multipartForm', ['$http', function($http){
+    this.post = function(uploadUrl, data) {
+	    	var formData = new FormData();
+	    	formData.append("file", data);
+	    	jQuery.ajax({
+	    	    url: uploadUrl,
+	    	    data: formData,
+	    	    cache: false,
+	    	    contentType: false,
+	    	    processData: false,
+	    	    method: 'POST',
+	    	    success: function(data){
+	    	        alert(data);
+	    	    }
+	    	});
+        }
+}])
  /* function RowSelect($compile,$scope,$resource,$location, $q,$timeout,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder){
 	 $scope.customerInvoiceJson =[{id:"1",LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"",grandTotal:""},
 									{id:"2",LRNO: "2008",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "1000",advance:"500",grandTotal:""},

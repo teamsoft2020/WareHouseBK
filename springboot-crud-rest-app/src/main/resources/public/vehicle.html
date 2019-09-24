@@ -6,7 +6,9 @@
 
 				<input name="" type="button" class="btn btn-primary" id=""
 					value="Upload" ng-click="openUpload()"
-					style="float: right; margin: 1%;"> <input name=""
+					style="float: right; margin: 1%;"> 
+					
+					<input name=""
 					type="button" style="float: right; margin: 1%;"
 					class="btn btn-primary" id="" value="TripSheet"
 					ng-click="createTrip()">
@@ -18,23 +20,24 @@
 			<div class="col-8">
 				<!--  <div class="filterDiv"  style="display:none;"> </div>  -->
 				<div id="uploadDiv" class="col-12 filterDiv" style="display: none;">
-					<form method="post" action="#" id="#" class="ng-pristine ng-valid">
+				<!-- method="POST" action="/api/v1/upload" id="#" class="ng-pristine ng-valid" enctype="multipart/form-data" -->
+					<form>
 						<div class="form-group files">
-							<input type="file" class="form-control" multiple=""
-								onchange="angular.element(this).scope().setFiles(this)">
+							<input type="file" class="form-control" file-model="file" accept=".xls,.xlsx"  >
+							<!-- onchange="angular.element(this).scope().setFiles(this)" -->
 						</div>
 						<div class="row">
 							<div class="col-12">
 								<input name="" type="button" class="btn btn-dark" id=""
 									value="Close"
 									style="margin-left: 1%; float: right; margin-top: 1%;"
-									ng-click="closeUpload()"> <input name="" type="button"
+									ng-click="closeUpload()"> <input name="" type="submit"
 									class="btn btn-dark" id="" value="Submit"
-									style="margin-left: 1%; float: right; margin-top: 1%;"
-									ng-click="submitUpload()">
+									style="margin-left: 1%; float: right; margin-top: 1%;" ng-click="submitFileUpload()">
 							</div>
 						</div>
 					</form>
+					
 				</div>
 			</div>
 			<div class="col-2"></div>
