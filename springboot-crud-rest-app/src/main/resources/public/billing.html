@@ -137,38 +137,61 @@
 
 </div> --></div>
  <div class="row" style="margin-top: 1%;">
-<!--  class="table table-bordered table-hover table-striped" -->
- <table  id="manage-billing-table"  datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover" >
- <!-- <tbody>
+<!--  class="table table-bordered table-hover table-striped" dt-columns="bm.dtColumns" dt-instance="bm.dtInstance"-->
+ <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-instance="bm.dtInstance"  class="row-border hover" >
+ <thead>
+								<tr>
+								     <th scope="col">
+								     <!-- <input type="checkbox" > -->
+								
+									</th>  
+									<th width="15%">LoadID</th>
+									<th width="15%">Date</th>
+									<th width="15%">InvoiceNo</th>
+									<th width="15%">Origin</th>
+									<!-- <th width="15%">CustomerName</th> -->
+									<th width="15%">Destination</th>
+									<th width="15%">TruckNo</th>
+									<th width="15%">TruckType</th>
+									<th width="15%">No of case</th>
+									<th width="15%">OP Kms</th>
+									<th width="15%">Cls Kms</th>
+									<th width="15%">Total kms</th>
+									<th width="15%">For kms 6.5</th>
+									<th width="15%">TRType Fixed</th>
+									<th width="15%">Advance</th>
+									<!-- <th width="15%">Grand Total</th> -->
+									<th></th>
+								</tr>
+							</thead>
+ 
+  							<tbody>
 								<tr ng-repeat="invoice in  customerInvoiceJson track by $index">
 								  <td>
-								<div class="checkbox">
-									<label>
-										<input  type="checkbox" value="" ng-model="invoice.Selected">
-									</label>
-								</div>
+								<!-- -->
+										<input  type="checkbox" value="" ng-model="invoice.checked"  ng-click="saveInArray($index)">
+									
 									</td> 
-										<td><label>{{invoice.LRNO}}</label></td>
-										<td><label>{{invoice.date}}</label></td>
-										<td><label>{{invoice.invoiceNo}}</label></td>
+										<td><label>{{invoice.loadNo}}</label></td>
+										<td><label>{{invoice.datetime}}</label></td>
+										<td><label>{{invoice.invoiceNO}}</label></td>
 										<td><label>{{invoice.origin}}</label></td>
-										<td><label>{{invoice.customerName}}</label></td>
+										<!-- <td><label>{{invoice.customerName}}</label></td> -->
 										<td><label>{{invoice.destination}}</label></td>
-										<td><label>{{invoice.truckNo}}</label></td>
+										<td><label>{{invoice.truckno}}</label></td>
 										<td><label>{{invoice.truckType}}</label></td>
 										<td><label>{{invoice.noOfCase}}</label></td>
-										<td><label>{{invoice.opKms}}</label></td>
-										<td><label>{{invoice.clsKms}}</label></td>
-										<td><label>{{invoice.totalkms}}</label></td>
-										<td><label>{{invoice.forKms}}</label></td>
-										<td><label>{{invoice.tRTypeFixed}}</label></td>
+										<td><label>{{invoice.opkm}}</label></td>
+										<td><label>{{invoice.clskm}}</label></td>
+										<td><label>{{invoice.diffKM}}</label></td>
+										<td><label>{{invoice.perkmchargecustomer}}</label></td>
+										<td><label>{{invoice.freightAmtCust}}</label></td>
 										<td><label>{{invoice.advance}}</label></td>
-										<td><label>{{invoice.grandTotal}}</label></td>
-										
+										<!-- <td><label>{{invoice.grandTotal}}</label></td> -->
 										<td>
 									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td>
 								</tr>
-							</tbody> -->
+							</tbody> 
  </table> 
  <!-- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn"  dt-instance="dtInstanceCallback" class="row-border hover">
 							<thead>
@@ -236,8 +259,8 @@
 </div>
 		      			
 		      		</div>
-					<div class="pull-right">
-					<input name="" type="button" class="btn btn-primary" id="" value="Print" style="margin-left: -20%;">
+					<div class="pull-right" style="margin-top: 2%;">
+					<input name="" type="button" class="btn btn-primary" id="" value="Print"  ng-click="custInvoicePrint()" style="margin-left: -20%;">
 					<input name="" type="button" class="btn btn-primary" id="" value="Submit" style="margin-left: -1%;">
 					<input name="" type="button" class="btn btn-primary" id="" ng-click="calculateTotal()" value="Calculate" style="margin-left: -1%;">
 					</div>

@@ -1,37 +1,51 @@
-<div >
 <div>
-<div class="row">
-<div class="col-12" style="">
+	<div>
+		<div class="row">
+			<div class="col-12" style="">
 
 
-<input name="" type="button" class="btn btn-primary" id="" value="Upload" ng-click="openUpload()" style="float: right;margin: 1%;">
-<input name="" type="button" style="float: right;margin: 1%;" class="btn btn-primary" id="" value="TripSheet" ng-click="createTrip()">
-<!-- <input name="" type="button" style="float: right;margin: 1%;" class="btn btn-primary" id="" value="Create" ng-click="createVehicle()"> -->
-</div></div>
-<div class="row" >
-<div class="col-2"></div>
-		  <div class="col-8">
-		 <!--  <div class="filterDiv"  style="display:none;"> </div>  -->
-		  <div id="uploadDiv" class="col-12 filterDiv" style="display: none;">
-			<form method="post" action="#" id="#" class="ng-pristine ng-valid">
-				<div class="form-group files">
-					<input type="file"  class="form-control"  multiple="" onchange="angular.element(this).scope().setFiles(this)" >
-				</div>
-				<div class="row">
-				<div class="col-12">
-				<input name="" type="button" class="btn btn-dark" id="" value="Close" style="margin-left: 1%;float: right;margin-top: 1%;" ng-click="closeUpload()">
-				<input name="" type="button" class="btn btn-dark" id="" value="Submit" style="margin-left: 1%;float: right;margin-top: 1%;" ng-click="submitUpload()">
-				</div></div>
-			</form>
+				<input name="" type="button" class="btn btn-primary" id=""
+					value="Upload" ng-click="openUpload()"
+					style="float: right; margin: 1%;"> <input name=""
+					type="button" style="float: right; margin: 1%;"
+					class="btn btn-primary" id="" value="TripSheet"
+					ng-click="createTrip()">
+				<!-- <input name="" type="button" style="float: right;margin: 1%;" class="btn btn-primary" id="" value="Create" ng-click="createVehicle()"> -->
+			</div>
 		</div>
-		  </div>
-		  <div class="col-2"></div>
-		 <!-- <div class="col-2">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<!--  <div class="filterDiv"  style="display:none;"> </div>  -->
+				<div id="uploadDiv" class="col-12 filterDiv" style="display: none;">
+					<form method="post" action="#" id="#" class="ng-pristine ng-valid">
+						<div class="form-group files">
+							<input type="file" class="form-control" multiple=""
+								onchange="angular.element(this).scope().setFiles(this)">
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<input name="" type="button" class="btn btn-dark" id=""
+									value="Close"
+									style="margin-left: 1%; float: right; margin-top: 1%;"
+									ng-click="closeUpload()"> <input name="" type="button"
+									class="btn btn-dark" id="" value="Submit"
+									style="margin-left: 1%; float: right; margin-top: 1%;"
+									ng-click="submitUpload()">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-2"></div>
+			<!-- <div class="col-2">
 			<input name="" type="button" class="btn btn-primary" id="" value="Upload" ng-click="openUpload()" style="float: right;"></div> -->
 		</div>
 
-<table id="manage-vehicle-table" class="custTable" datatable="ng" dt-options="vehm.dtVehicle" dt-columns="vehm.dtVehicleColumns" style="width: 90%;">
-					<!-- <thead>
+		<table id="manage-vehicle-table" class="custTable" datatable="ng"
+			dt-options="vehm.dtVehicle" dt-columns="vehm.dtVehicleColumns"
+			style="width: 90%;">
+			<!-- <thead>
 						<tr>
 							<th scope="col"><h5>TruckNo</h5></th>
 							<th scope="col" ><h5>RC NO</h5></th>
@@ -53,46 +67,46 @@
 								</td>
 							</tr>
 					</tbody> -->
-					 <thead>
-						<tr>
-						<th scope="col" style="display:none;"><h5>Trip ID</h5></th>
-							<th scope="col"><h5>Load ID</h5></th>
-							<th scope="col" ><h5>Trip ID</h5></th>
-							<th scope="col"><h5>Origin</h5></th>
-							<th scope="col"><h5>Destination</h5></th>
-							<th scope="col"><h5>Invoice No</h5></th>
-							<th scope="col"><h5>Date</h5></th>
-							<th scope="col"><h5>TruckType</h5></th>
-							<th scope="col"><h5>TruckNo</h5></th>
-							<th scope="col"><h5>DriverName</h5></th>
-							<th scope="col"><h5>Advance</h5></th>
-							<th scope="col"><h5>Profit</h5></th>
-							<th scope="col" ><h5>Access</h5></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="list in  listVehicleJson track by $index">
-							 <td style="display:none;">{{list.tripid}}</td>
-							<td>{{list.loadNo}}</td>
-							<td>{{list.tripNo}}</td>
-							<td>{{list.origin}}</td>
-							<td>{{list.destination}}</td>
-							<td>{{list.invoiceNO}}</td>
-							<td>{{list.datetime}}</td>
-							<td>{{list.truckType}}</td>
-							<td>{{list.truckno}}</td>
-							<td>{{list.driverName}}</td>
-							<td>{{list.advance}}</td>
-							<td>{{list.profit}}</td>
-								<td style="width: 13%;"> 
-									<i class="fa fa-edit" aria-hidden="true" ng-click="editVehicle(list,$event)"></i>
-								<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeItem(list)" ></i>
-								</td>
-							</tr>
-					</tbody>
-				</table>
-</div>
-<!-- The Modal 
+			<thead>
+				<tr>
+					<th scope="col" style="display: none;"><h5>Trip ID</h5></th>
+					<th scope="col"><h5>Load ID</h5></th>
+					<th scope="col"><h5>Trip ID</h5></th>
+					<th scope="col"><h5>Origin</h5></th>
+					<th scope="col"><h5>Destination</h5></th>
+					<th scope="col"><h5>Invoice No</h5></th>
+					<th scope="col"><h5>Date</h5></th>
+					<th scope="col"><h5>TruckType</h5></th>
+					<th scope="col"><h5>TruckNo</h5></th>
+					<th scope="col"><h5>DriverName</h5></th>
+					<th scope="col"><h5>Advance</h5></th>
+					<th scope="col"><h5>Profit</h5></th>
+					<th scope="col"><h5>Access</h5></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="list in  listVehicleJson track by $index">
+					<td style="display: none;">{{list.tripid}}</td>
+					<td>{{list.loadNo}}</td>
+					<td>{{list.tripNo}}</td>
+					<td>{{list.origin}}</td>
+					<td>{{list.destination}}</td>
+					<td>{{list.invoiceNO}}</td>
+					<td>{{list.datetime}}</td>
+					<td>{{list.truckType}}</td>
+					<td>{{list.truckno}}</td>
+					<td>{{list.driverName}}</td>
+					<td>{{list.advance}}</td>
+					<td>{{list.profit}}</td>
+					<td style="width: 13%;"><i class="fa fa-edit"
+						aria-hidden="true" ng-click="editVehicle(list,$event)"></i> <i
+						class="fa fa-trash fa-lg" aria-hidden="true"
+						ng-click="removeItem(list)"></i></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- The Modal 
   <div class="modal fade" id="vehModal">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 76%;">
       <div class="modal-content">
@@ -248,196 +262,280 @@
       </div>
     </div>
   </div>  -->
-  
-  
-  <!-- The tripsheet Modal -->
-  <div class="modal fade" id="tripModal">
-    <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width: 77%;">
-      <div class="modal-content">
-      
-       
-        <div class="modal-header">
-          <h4 class="modal-title"> Trip Sheet</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div> 
-        
-       
-        <div class="modal-body">
-          <div class='col-md-12 tripItems filterDiv'>
-          
-           <div class="row">
-		<div class='col-md-3'>
-          <label class="col-12"><b>Load ID </b></label>
-           <input type="text" min="0" ng-model="trip.loadNo" class="form-control col-12" placeholder="Load ID" />
-          </div>
-          <div class='col-md-3'>
-          <label class="col-12"><b>Trip ID </b></label>
-           <input type="text" min="0" ng-model="trip.tripNo" class="form-control col-12" placeholder="Trip ID" />
-          </div>
-          <div class='col-md-3'>
-          <label class="col-12"><b>Origin </b></label>
-           <input type="text"  ng-model="trip.origin" class="form-control col-12" placeholder="Origin" list="dataList" ng-blur="validateOrigin(trip.origin)" ng-change="getCommonDetails(trip.origin)"/>
-           <datalist id="dataList">
-		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
-		    </datalist>
-          </div>
-          <div class='col-md-3'>
-          <label class="col-12"><b>Destination</b> </label>
-           <input type="text" ng-model="trip.destination" class="form-control col-12" placeholder="Destination" list="dataListDest" ng-blur="validateOrigin(trip.destination)" ng-change="getCommonDetails(trip.destination)"/>
-		  <datalist id="dataListDest">
-		       <option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
-		    </datalist>
-		  </div>
-		  
-          </div>
-		  <div class="row" style="margin-top: 1%;">
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Invoice NO </b></label>
-           <input type="text"  min="0"ng-model="trip.invoiceNO" class="form-control col-12" placeholder="InvoiceNO" />
-          </div>
-			<div class='col-md-3'>
-          <label class="col-12"><b>Date&Time </b></label>
-          <div class="input-group date" id="datetimepicker5" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker5" ng-model="trip.datetime" placeholder="Enter Date"/>
-                    <div class="input-group-append" data-target="#datetimepicker5" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                </div>
-           <!-- <input type="text" ng-model="trip.dateTime" class="form-control col-12" placeholder="From" /> -->
-          </div>
-          
-          
-          <div class='col-md-3'>
-          <label class="col-12"><b>TruckNo </b></label>
-           <select ng-model="trip.truckno" class="form-control col-12" tabindex="8" ng-options="b.vehicleNo as b.vehicleNo for b in vehlistdataJson" ng-change="changeBasedNumber(trip.truckno)">
-		         <option value="">Select TruckNo</option>
-		   </select>  
-             <!-- <input type="text" min="0" ng-model="trip.truckno" class="form-control col-12" placeholder="TruckTo" list="dataListTruckNo"/>
+
+
+	<!-- The tripsheet Modal -->
+	<div class="modal fade" id="tripModal">
+		<div class="modal-dialog modal-lg modal-dialog-centered"
+			style="max-width: 77%;">
+			<div class="modal-content">
+
+
+				<div class="modal-header">
+					<h4 class="modal-title">Trip Sheet</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+
+				<div class="modal-body">
+					<div class='col-md-12 tripItems filterDiv'>
+
+						<div class="row">
+							<div class='col-md-3'>
+								<label class="col-12"><b>Load ID </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.loadNo" class="form-control col-12"
+									placeholder="Load ID" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Trip ID </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.tripNo" class="form-control col-12"
+									placeholder="Trip ID" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Origin </b><span
+									class="mandatory">*</span></label> <input type="text"
+									ng-model="trip.origin" class="form-control col-12"
+									placeholder="Origin" list="dataList"
+									ng-blur="validateOrigin(trip.origin)"
+									ng-change="getCommonDetails(trip.origin)" />
+								<datalist id="dataList">
+									<option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
+								</datalist>
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Destination</b><span
+									class="mandatory">*</span> </label> <input type="text"
+									ng-model="trip.destination" class="form-control col-12"
+									placeholder="Destination" list="dataListDest"
+									ng-blur="validateOrigin(trip.destination)"
+									ng-change="getCommonDetails(trip.destination)" />
+								<datalist id="dataListDest">
+									<option ng-repeat="v in listdataJson" value="{{v}}"><!-- Name {{v}} --></option>
+								</datalist>
+							</div>
+
+						</div>
+						<div class="row" style="margin-top: 1%;">
+							<div class='col-md-3'>
+								<label class="col-12"><b>Invoice NO </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.invoiceNO" class="form-control col-12"
+									placeholder="InvoiceNO" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Date&Time </b><span
+									class="mandatory">*</span></label>
+								<div class="input-group date" id="datetimepicker5"
+									data-target-input="nearest">
+									<input type="text" class="form-control datetimepicker-input"
+										data-target="#datetimepicker5" ng-model="trip.datetime"
+										placeholder="Enter Date" />
+									<div class="input-group-append" data-target="#datetimepicker5"
+										data-toggle="datetimepicker">
+										<div class="input-group-text">
+											<i class="fa fa-calendar"></i>
+										</div>
+									</div>
+								</div>
+								<!-- <input type="text" ng-model="trip.dateTime" class="form-control col-12" placeholder="From" /> -->
+							</div>
+
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>TruckNo </b><span
+									class="mandatory">*</span></label> <select ng-model="trip.truckno"
+									class="form-control col-12" tabindex="8"
+									ng-options="b.vehicleNo as b.vehicleNo for b in vehlistdataJson"
+									ng-change="changeBasedNumber(trip.truckno)">
+									<option value="">Select TruckNo</option>
+								</select>
+								<!-- <input type="text" min="0" ng-model="trip.truckno" class="form-control col-12" placeholder="TruckTo" list="dataListTruckNo"/>
             <datalist id="dataListTruckNo">
 		      <option ng-repeat="b in getTruckType" value="{{b}}"></option>
 		    </datalist>   -->
-          </div>
-          
-          <div class='col-md-3'>
-          <label class="col-12"><b>TruckType </b></label>
-          <!-- ng-change="getTruckNo(trip.truckType)" -->
-		  <select ng-model="trip.truckType" class="form-control col-12" tabindex="8" disabled>
-		               <option value="">Select TruckType</option>
-		              <option  ng-repeat="v in vehlistdataJson" value="{{v.vehicleType}}">{{v.vehicleType}}</option>
-		      </select>
-          </div>
-          
-		  </div>
-		   <div class="row" style="margin-top: 1%;">
-		   <div class='col-md-3'>
-          <label class="col-12"><b>DriverName </b></label>
-           <input type="text" ng-model="trip.driverName" class="form-control col-12" placeholder="DriverName" />
-          </div>
-          <!-- <div class='col-md-3'>
+							</div>
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>TruckType </b></label>
+								<!-- ng-change="getTruckNo(trip.truckType)" -->
+								<select ng-model="trip.truckType" class="form-control col-12"
+									tabindex="8" disabled>
+									<option value="">Select TruckType</option>
+									<option ng-repeat="v in vehlistdataJson"
+										value="{{v.vehicleType}}">{{v.vehicleType}}</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="row" style="margin-top: 1%;">
+							<div class='col-md-3'>
+								<label class="col-12"><b>DriverName </b><span
+									class="mandatory">*</span></label> <input type="text"
+									ng-model="trip.driverName" class="form-control col-12"
+									placeholder="DriverName" />
+							</div>
+							<!-- <div class='col-md-3'>
           <label class="col-12"><b>CustomerName </b></label>
            <input type="text" ng-model="trip.CustomerName" class="form-control col-12" placeholder="CustomerName" />
           </div> -->
-          <div class='col-md-3'>
-          <label class="col-12"><b>No Of Case </b></label>
-           <input type="text" min="0" ng-model="trip.noOfCase" class="form-control col-12" placeholder="No Of Case" />
-          </div>
-          <div class='col-md-3'>
-          <label class="col-12"><b>Open KMs </b></label>
-           <input type="text" min="0" ng-model="trip.opkm" class="form-control col-12" placeholder="Open KMs" ng-blur="calculateKm(trip.opkm,trip.clskm)"/>
-		  </div>
-		   <div class='col-md-3'>
-          <label class="col-12"><b>Close KMs </b></label>
-           <input type="text" min="0" ng-model="trip.clskm" class="form-control col-12" placeholder="Close KMs" ng-blur="calculateKm(trip.opkm,trip.clskm)" />
-          </div>
-          
-		  </div>
-		  <div class="row" style="margin-top: 1%;">
-			<div class='col-md-3'>
-          <label class="col-12"><b>Diff KMs </b></label>
-           <input type="text" min="0" ng-model="trip.diffKM" class="form-control col-12" placeholder="Diff KMs" readonly/>
-		  </div>
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Advance </b></label>
-           <input type="text" min="0" ng-model="trip.advance" class="form-control col-12" placeholder="Advance" />
-		  </div>
-		  
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Per Kms(Customer) </b></label>
-           <input type="text" min="0" ng-model="trip.perkmchargecustomer" class="form-control col-12" placeholder="Per Kms(Customer)" />
-		  </div>
-		  
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Per Kms(vendor) </b></label>
-           <input type="text" min="0" ng-model="trip.perkmchargevendor" class="form-control col-12" placeholder="Per Kms(vendor)" />
-		  </div>
-		
-		
-		</div>
-		<div class="row">
-		
-		  
-		  <div class='col-md-3'>
-          <label class="col-12"><b>TollBill</b></label>
-           <input type="text" min="0" ng-model="trip.tollBill" class="form-control col-12" placeholder="Toll Bill" ng-blur="addAmtoFrieght()"/>
-		  </div>
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Police Bill </b></label>
-           <input type="text" min="0" ng-model="trip.policeBill" class="form-control col-12" placeholder="Police Bill Charge"  ng-blur="addAmtoFrieght()"/>
-		  </div>
-		   <div class='col-md-3'>
-          <label class="col-12"><b>Halting Charges </b></label>
-           <input type="text"  min="0" ng-model="trip.haltingCharge" class="form-control col-12" placeholder="Halting Charge" ng-blur="addAmtoFrieght()"/>
-		  </div>
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Discount </b></label>
-           <input type="text"  min="0"  ng-model="trip.discount" class="form-control col-12" placeholder="Discount" />
-		  </div>
-		</div>
-		
-		<div class="row">
-		
-		  
-		  
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Freight Amount(Customer) </b></label>
-           <input type="text"  ng-model="trip.freightAmtCust" class="form-control col-12" placeholder="Freight Amount" disabled/>
-		  </div>
-		  
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Freight Amount(Vendor) </b></label>
-           <input type="text"  ng-model="trip.freightAmtVen" class="form-control col-12" placeholder="Freight Amount" disabled/>
-		  </div>
-		  
-		   
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Profit</b></label>
-           <input type="text" min="0" ng-model="trip.profit" class="form-control col-12" placeholder="Profit" disabled/>
-		  </div>
-		  <div class='col-md-3'>
-          <label class="col-12"><b>Remarks </b></label>
-           <input type="text" ng-model="trip.remarks" class="form-control col-12" placeholder="Remarks" />
-		  </div>
-		</div>
-           <!-- <div class="float-right" style="margin-top: 3%;">
+							<div class='col-md-3'>
+								<label class="col-12"><b>No Of Case </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.noOfCase" class="form-control col-12"
+									placeholder="No Of Case" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Open KMs </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.opkm" class="form-control col-12"
+									placeholder="Open KMs"
+									ng-blur="calculateKm(trip.opkm,trip.clskm)" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Close KMs </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.clskm" class="form-control col-12"
+									placeholder="Close KMs"
+									ng-blur="calculateKm(trip.opkm,trip.clskm)" />
+							</div>
+
+						</div>
+						<div class="row" style="margin-top: 1%;">
+							<div class='col-md-3'>
+								<label class="col-12"><b>Diff KMs </b></label> <input
+									type="text" min="0" ng-model="trip.diffKM"
+									class="form-control col-12" placeholder="Diff KMs" readonly />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Advance </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.advance" class="form-control col-12"
+									placeholder="Advance" />
+							</div>
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Per Kms(Customer) </b></label> <input
+									type="text" min="0" ng-model="trip.perkmchargecustomer"
+									class="form-control col-12" placeholder="Per Kms(Customer)" />
+							</div>
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Per Kms(vendor) </b></label> <input
+									type="text" min="0" ng-model="trip.perkmchargevendor"
+									class="form-control col-12" placeholder="Per Kms(vendor)" />
+							</div>
+
+
+						</div>
+						<div class="row">
+
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>TollBill</b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.tollBill" class="form-control col-12"
+									placeholder="Toll Bill" ng-blur="addAmtoFrieght()" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Police Bill </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.policeBill" class="form-control col-12"
+									placeholder="Police Bill Charge" ng-blur="addAmtoFrieght()" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Halting Charges </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.haltingCharge" class="form-control col-12"
+									placeholder="Halting Charge" ng-blur="addAmtoFrieght()" />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Discount </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.discount" class="form-control col-12"
+									placeholder="Discount" />
+							</div>
+						</div>
+
+						<div class="row">
+
+
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Freight Amount(Customer) </b></label> <input
+									type="text" ng-model="trip.freightAmtCust"
+									class="form-control col-12" placeholder="Freight Amount"
+									disabled />
+							</div>
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Freight Amount(Vendor) </b></label> <input
+									type="text" ng-model="trip.freightAmtVen"
+									class="form-control col-12" placeholder="Freight Amount"
+									disabled />
+							</div>
+
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Profit</b></label> <input type="text"
+									min="0" ng-model="trip.profit" class="form-control col-12"
+									placeholder="Profit" disabled />
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Remarks </b></label> <input type="text"
+									ng-model="trip.remarks" class="form-control col-12"
+									placeholder="Remarks" />
+							</div>
+						</div>
+						<!-- <div class="float-right" style="margin-top: 3%;">
           <input type="Button" class='btn btn-info' id="print"  value="Print" ng-click="bay();" />
         <button type="button" class='btn btn-primary addVeh' ng-click="addItem(item)" >Add</button>
 	 	<button type="button" class='btn btn-primary updateVeh' ng-click="updateItem(item)" >Update</button>
            </div> -->
-       
-      </div>
- 
+
+					</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class='btn btn-primary addVeh'
+						ng-click="addItem(trip)">Save</button>
+					<button type="button" class='btn btn-primary updateVeh'
+						ng-click="updateItem(trip)">Update</button>
+					<button type="button" class='btn btn-primary' id="print"
+						value="Print" ng-click="bay();">Print</button>
+					<!-- <button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button> -->
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+	
+	  <!-- The Modal -->
+  <div class="modal" id="myuploadModal">
+    <div class="modal-dialog modal-lg ">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Pending Entry</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
-       <div class="modal-footer">
-        <button type="button" class='btn btn-primary addVeh' ng-click="addItem(trip)" >Save</button>
-	 	<button type="button" class='btn btn-primary updateVeh' ng-click="updateItem(trip)" >Update</button>
-	 	<button type="button" class='btn btn-primary' id="print"  value="Print" ng-click="bay();">Print</button>
-       	<!-- <button type="button" class="btn btn-primary " data-dismiss="modal" >Done</button> -->
+        <!-- Modal body -->
+        <div class="modal-body">
+          
         </div>
         
-        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
         
       </div>
     </div>
-  </div> 
+  </div>
 </div>

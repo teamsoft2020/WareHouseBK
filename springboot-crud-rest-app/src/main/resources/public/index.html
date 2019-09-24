@@ -18,13 +18,16 @@
 
   <script src="/js/jquery.min.js"></script>
   <script src = "/js/jquery.dataTables.min.js"></script>
+  
   <script src="/js/bootstrap.min.js"></script>
 <script src="/js/angular.min.js"></script>
+<script src="/js/angular-resource.js"></script>
+<script type="text/javascript" src="/js/angular-datatables.min.js"></script>
  <script src="/js/angular-route.js"></script> 
 <!-- <script src="/js/angular-ui-router.min.js"></script> -->
-<script src="/js/angular-resource.js"></script>
+
 <script src="/js/angular-animate.js"></script>
-<script type="text/javascript" src="/js/angular-datatables.min.js"></script>
+
 <script src="/js/moment.js"></script>
 <script type="text/javascript" src="/js/tempusdominus-bootstrap-4.min.js"></script>
 
@@ -37,14 +40,19 @@
 <script src="/js/vfs_fonts.js"></script>
 <script src="/js/buttons.html5.min.js"></script>
 <script src="/js/buttons.print.min.js"></script>
+<script src="/js/dataTables.select.js"></script>
 <script type="text/javascript" src="/js/dataTables.fixedColumns.js"></script> 
 <script type="text/javascript" src="/js/dataTables.fixedHeader.js"></script>
 <script type="text/javascript" src="/js/dataTables.lightColumnFilter.min.js"></script>
-<script src="/js/dataTables.select.js"></script>
+
+<script type="text/javascript"src="/js/angular-datatables.select.min.js"></script>
 <script src="/js/angular-datatables.fixedcolumns.js"></script>
 <script src="/js/angular-datatables.buttons.min.js"></script>
  <script type="text/javascript" src="/js/angular-datatables.light-columnfilter.min.js"></script> 
-<script type="text/javascript"src="/js/angular-datatables.select.min.js"></script>
+
+
+
+
 <script src="/js/angular-toastr.tpls.js"></script>
 
 
@@ -314,7 +322,9 @@ legend {
   #manage-billing-table_wrapper.dataTables_wrapper {
       width: 90%;
       margin: 0 auto;
+      overflow:auto;
   }
+ 
  .mandatory{
  color:red;
  font-weight: bold;
@@ -1816,18 +1826,20 @@ app.controller('UserAccessController', function ($scope,DTOptionsBuilder, DTColu
 								  {permissionScreen: "Billing",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true},
 								  {permissionScreen: "Product",addPerm: true, editPerm: true, delPerm: true, viewPerm: true, reportPerm: true}];				
 });
-app.controller('BillingController',function ($compile,$scope, $window,$http,$resource,$location, $q,$timeout,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
+app.controller('BillingController',function ($compile,$scope, $window,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,$http,$resource,$location, $q,$timeout,toastr) {
 	$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
+	$scope.checkedValue=[];
 	$scope.listBillingJson =[{customerName: "SAI Sakthi",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
 							  {customerName: "Samsang",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}},
 							  {customerName: "titan",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
 							  {customerName: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];	
-	$scope.customerInvoiceJson =[{id:"1",LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"",grandTotal:""},
-								{id:"2",LRNO: "2008",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "1000",advance:"500",grandTotal:""},
-								{id:"3",LRNO: "2998",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "500",advance:"",grandTotal:""},
-								{id:"4",LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "2000",advance:"100",grandTotal:""},
-								{id:"5",LRNO: "20002",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "400",advance:"",grandTotal:""},
-								{id:"6",LRNO: "23",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "3000",advance:"400",grandTotal:""}];	
+	 $scope.customerInvoiceJson =[{id:"1",loadNo: "23678",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "2000",advance:"",grandTotal:""},
+								{id:"2",loadNo: "2008",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "1000",advance:"500",grandTotal:""},
+								{id:"3",loadNo: "2998",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "500",advance:"",grandTotal:""},
+								{id:"4",loadNo: "23678",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "2000",advance:"100",grandTotal:""},
+								{id:"5",loadNo: "20002",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "400",advance:"",grandTotal:""},
+								{id:"6",loadNo: "23",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "3000",advance:"400",grandTotal:""}];	
+	
 	$scope.vendorInvoiceJson =[{LRNO: "22222",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "330", tRTypeFixed: "234",advance:"",grandTotal:""},
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"500",grandTotal:""},
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
@@ -1838,8 +1850,8 @@ app.controller('BillingController',function ($compile,$scope, $window,$http,$res
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"600",grandTotal:""},
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"",grandTotal:""},
 		{LRNO: "23678",date: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckNo: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opKms:"678",clsKms:"788",totalkms: "100", forKms: "", tRTypeFixed: "",advance:"1000",grandTotal:""}];	
-	
-	$scope.toggleAll = function(selectAll, selectedItems) {
+	$scope.checked=false;
+/* 	$scope.toggleAll = function(selectAll, selectedItems) {
         for (var id in selectedItems) {
             if (selectedItems.hasOwnProperty(id)) {
                 selectedItems[id] = selectAll;
@@ -1871,14 +1883,10 @@ app.controller('BillingController',function ($compile,$scope, $window,$http,$res
 		    return deferred.promise;
 		};
 	
-	 
 	 var titleHtml = '<input type="checkbox" ng-model="bm.selectAll" ng-click="bm.toggleAll(bm.selectAll,bm.selected)">';
 
 		//$scope.bm.dtOptions = DTOptionsBuilder.newOptions()fromFnPromise
 		$scope.dtOptions = DTOptionsBuilder.fromSource($scope.getTableData) 
-		/* $scope.dtOptions = DTOptionsBuilder.fromSource(function() {
-            return $resource($scope.customerInvoiceJson).query().$promise;
-        }) */
          .withPaginationType('full_numbers')
          .withOption('createdRow', function(row, data, dataIndex) {
             // Recompiling so we can bind Angular directive to the DT
@@ -1894,57 +1902,55 @@ app.controller('BillingController',function ($compile,$scope, $window,$http,$res
 		        .withOption('scrollY', '300px')
 		        .withOption('scrollX', '100%')
 		        .withOption('scrollCollapse', true)
-		        //.withOption('order', [[1, 'asc']])
 		        .withFixedColumns({
 		            leftColumns: 1,
 		            rightColumns: 1
 		        });
 	
 		$scope.dtColumns = [
-	        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
+	        DTColumnBuilder.newColumn(null).withTitle(titleHtml)
 	            .renderWith(function(data, type, full, meta) {
-	            	bm.selected[full.id] = false;
+	            	$scope.selected[full.id] = false;
 	                return '<input type="checkbox" ng-model="$scope.selected[' + data.id + ']" ng-click="$scope.toggleOne($scope.selected)">';
 	            }), 
 	           
 	        	DTColumnBuilder.newColumn('LRNO').withTitle('LRNO'),
-	            DTColumnBuilder.newColumn('date').withTitle('Date'),
-	            DTColumnBuilder.newColumn('invoiceNo').withTitle('InvoiceNo'),
-	            DTColumnBuilder.newColumn('origin').withTitle('Origin'),
-	            DTColumnBuilder.newColumn('customerName').withTitle('CustomerName'),
-	            DTColumnBuilder.newColumn('destination').withTitle('Destination'),
-	            DTColumnBuilder.newColumn('truckNo').withTitle('TruckNo'),
-	            DTColumnBuilder.newColumn('truckType').withTitle('TruckType'),
-	            DTColumnBuilder.newColumn('noOfCase').withTitle('No of case'),
-	            DTColumnBuilder.newColumn('opKms').withTitle('OP Kms'),
-	            DTColumnBuilder.newColumn('clsKms').withTitle('Cls Kms'),
-	            DTColumnBuilder.newColumn('totalkms').withTitle('Total kms'),
-	            DTColumnBuilder.newColumn('forKms').withTitle('For Kms'),
-	            DTColumnBuilder.newColumn('tRTypeFixed').withTitle('TRTypeFixed'),
-	            DTColumnBuilder.newColumn('advance').withTitle('Advance'),
-	            DTColumnBuilder.newColumn('grandTotal').withTitle('GrandTotal'),
-	            DTColumnBuilder.newColumn(null).withTitle('Action')
+	            DTColumnBuilder.newColumn('date').withTitle('date'),
+	            DTColumnBuilder.newColumn('invoiceNo').withTitle('invoiceNo'),
+	            DTColumnBuilder.newColumn('origin').withTitle('origin'),
+	            DTColumnBuilder.newColumn('customerName').withTitle('customerName'),
+	            DTColumnBuilder.newColumn('destination').withTitle('destination'),
+	            DTColumnBuilder.newColumn('truckNo').withTitle('truckNo'),
+	            DTColumnBuilder.newColumn('truckType').withTitle('truckType'),
+	            DTColumnBuilder.newColumn('noOfCase').withTitle('noOfcase'),
+	            DTColumnBuilder.newColumn('opKms').withTitle('opkms'),
+	            DTColumnBuilder.newColumn('clsKms').withTitle('clskms'),
+	            DTColumnBuilder.newColumn('totalkms').withTitle('totalkms'),
+	            DTColumnBuilder.newColumn('forKms').withTitle('forkms'),
+	            DTColumnBuilder.newColumn('tRTypeFixed').withTitle('tRTypeFixed'),
+	            DTColumnBuilder.newColumn('advance').withTitle('advance'),
+	            DTColumnBuilder.newColumn('grandTotal').withTitle('grandTotal')
+	           // DTColumnBuilder.newColumn(null).withTitle('Action')
 	    ]; 
-    
+     */
 		 
-   /*  $scope.settings = {
+    /*  $scope.settings = {
 		      selectAll: false
-		    }
+		    } */
 		    
-		    $scope.$watchCollection('settings.selectAll', function(newVal, oldVal) {
-		      if (newVal == oldVal) return
-		      var api = $scope.bm.dtInstance.DataTable;
-		      api.rows({search:'applied'}).every(function() {
-		        api.cell({ row: this.index(), column: 0 })
-		         .nodes()
-		         .to$()
-		         .find('input')
-		         .prop('checked', $scope.settings.selectAll);
-		      })
-		      $scope.bm.dtInstance.DataTable.draw()
-		    }) */
+		    
 	
-	
+	$scope.saveInArray =function(index){
+    	 if($scope.customerInvoiceJson[index].checked) {
+    	      $scope.checkedValue.push($scope.customerInvoiceJson[index]);
+    	    } else {
+    	       var newIndex = $scope.checkedValue.map(function(e) { return e.loadNo; }).indexOf($scope.customerInvoiceJson[index].loadNo);
+    	       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
+    	       // and $scope.customerInvoiceJson[index].uniqueField
+    	       if(newIndex !== -1)
+    	          $scope.checkedValue.splice(newIndex,1);
+    	    }
+     }
 	$scope.init_Billing =function(){
 		 $('#datetimepicker_billDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
@@ -1971,37 +1977,34 @@ app.controller('BillingController',function ($compile,$scope, $window,$http,$res
 		        format: 'DD/MM/YYYY'
 			});
 			
-			/*$scope.bm = {};
-			//$scope.bm.dtInstance = {};
-			 $scope.bm.dtInstanceCallback = function(instance) {
-			 	 $scope.bm.dtInstance = instance;
+			var bm = $scope;
+			bm.dtInstanceCallback = function(instance) {
+			 	bm.dtInstance = instance;
 	    };
-	    $scope.bm.dtOptions = DTOptionsBuilder.newOptions()
-			 bm.dtOptions = DTOptionsBuilder.fromFnPromise(function() {
-				
-				 var defer = $q.defer();
-		        defer.resolve($scope.customerInvoiceJson);
-		        return defer.promise; 
-	            return $resource($scope.customerInvoiceJson).query().$promise;
-	        }) 
-	         .withOption('createdRow', function(row, data, dataIndex) {
-	            // Recompiling so we can bind Angular directive to the DT
-	            $compile(angular.element(row).contents())($scope);
-	        })
-	        	.withOption('headerCallback', function(header) {
-	            if (!bm.headerCompiled) {
-	                // Use this headerCompiled field to only compile header once
-	                bm.headerCompiled = true;
-	                $compile(angular.element(header).contents())($scope);
-	            }
-	        })
+	    
+	   /*  $scope.$watchCollection('settings.selectAll', function(newVal, oldVal) {
+		      if (newVal == oldVal) return
+		      var api = $scope.dtInstance.DataTable;
+		      api.rows({search:'applied'}).every(function() {
+		        api.cell({ row: this.index(), column: 0 })
+		         .nodes()
+		         .to$()
+		         .find('input')
+		         .prop('checked', $scope.settings.selectAll);
+		      })
+		      $scope.dtInstance.DataTable.draw()
+		    })  */
+			//bm.dtInstance = {};
+	    bm.dtOptions = DTOptionsBuilder.newOptions()
 			        .withOption('scrollY', '300px')
 			        .withOption('scrollX', '100%')
 			        .withOption('scrollCollapse', true)
 			        .withFixedColumns({
 			            leftColumns: 1,
 			            rightColumns: 1
-			        });*/
+			        });
+	    
+	    //bm.dtColumns = [];
 			 
 			  
 	}
@@ -2034,12 +2037,58 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 				    params: $scope.customerInvoice,
 				   }).then(function successCallback(response) {
 				   $scope.customerInvoiceJson = response.data;
+				   $scope.checkedValue=[];
 				   }, function errorCallback(response) {
 				    console.log(response.statusText);
 				   });
 		}
 		
 	};
+	
+	
+	$scope.custInvoicePrint=function() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+			var myWindow = $window.open('', '', 'width=2000,height=1000');
+			  $(myWindow.document.head).append("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>");
+			  var scriptjquery = document.createElement( 'script' );
+			  scriptjquery.type = 'text/javascript';
+			  scriptjquery.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
+			  $(myWindow.document.head).append( scriptjquery );
+			  var scriptbootstrap = document.createElement( 'script' );
+			  scriptbootstrap.type = 'text/javascript';
+			  scriptbootstrap.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js';
+			  $(myWindow.document.head).append( scriptbootstrap );
+			  
+			myWindow.document.write("<body style='font: bold; font-size: xxx-small; line-height: 0.5cm;'><img src=\"img/sse.png height='42px' width='42px'\"><h1 align='center'>SSE LOGISTICS PRIVATE LIMITED</h1> ");
+							//+ "<h4  align='center'>484, Pantheon Plaza, Pantheon Road, Egmore, Chennai - 600 008. INDIA</h4>"
+							//+ "<h4  align='center'>Ph:+91-44-1111 4444, 2222 3333  FAX:+91-44-5559-5555</h4>");
+			
+			//$(myWindow.document.body).append("<div class='container'><div class='row'><div class='col-xs-5'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Company Details</h3></div><div class='panel-body'><dl class='dl-horizontal'><dt>Name</dt><dd><strong>Acme Corporation</strong></dd><dt>Industry</dt><dd>Software Development</dd><dt>Address</dt><dd>Field 3, Moon</dd><dt>Phone</dt><dd>123.4456.4567</dd><dt>Email</dt><dd>mainl@acme.com</dd><dt>Tax NO</dt><dd class='mono'>123456789</dd><dt>Tax Office</dt><dd>A' Moon</dd></div></div></div><div class='col-xs-7'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Customer Details</h3></div><div class='panel-body'><dl class='dl-horizontal'><dt>Name</dt><dd>Microsoft Corporation</dd><dt>Industry</dt><dd>Software Development</dd><dt>Address</dt><dd>One Microsoft Way Redmond, WA 98052-7329, USA</dd><dt>Phone</dt><dd>(425) 882-8080</dd><dt>Email</dt><dd>contact@microsoft.com</dd><dt>Tax NO</dt><dd class='mono'>123456789</dd><dt>&nbsp;</dt><dd>&nbsp;</dd></div></div></div></div></div>");
+			$(myWindow.document.body).append("<table border='1'; cellpadding=0.1; cellspacing=5; align='center' >"
+							+ "<tr><td><b>FROM</b></td><td><b>TO</b></td>"
+							+ "<td>DATE</td><td>VEHICLETYPE</td><td>VEHICLENO </td><td>DRIVERNAME</td>" + "</tr><tr><td><b> " +  $scope.trip.from
+							+ "   </b></td><td><b>" + $scope.trip.to + "</b></td>" + "<td>" + $scope.trip.date
+							+ "</td><td>" + $scope.trip.vehicleType + "</td><td>" + $scope.trip.vehicleNo + " </td><td>"+$scope.trip.driverName+"</td>"
+							+ "</tr></table>");
+			$(myWindow.document.body).append("");
+			
+			$(myWindow.document).close();
+			$(myWindow).focus();
+			$(myWindow).print();
+			$(myWindow).close();
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+			}
+		}
+		
+		xmlhttp.send();
+	}
 	$scope.addKmsandFixedVendor =function(kms,fix){
 		angular.forEach($scope.vendorInvoiceJson, function(value, key) {
 		  value.forKms=kms;
@@ -2061,7 +2110,13 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	};
 	
 	$scope.calculateTotal =function(){
-		 var tmpSum=0;
+		var total = 0;
+		angular.forEach($scope.checkedValue, function(value, key) {
+			 total += parseInt(value.diffKM);
+		});
+		console.log(total)
+		//$scope.setCheckedBox();
+		 /* var tmpSum=0;
 		 var fixTotal=0;
 		angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			tmpSum = tmpSum +parseInt(value.totalkms);
@@ -2074,7 +2129,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		 	if($scope.customerInvoiceJson[1].forKms){
 		 		$scope.addChargeKm= $scope.totalKM * $scope.customerInvoiceJson[1].forKms;
 		 	}
-		 	$scope.totalCust =$scope.addChargeKm + $scope.totalFixed;
+		 	$scope.totalCust =$scope.addChargeKm + $scope.totalFixed; */
 		 	
 	};
 	/* $scope.keyuptotalCust =function(){
