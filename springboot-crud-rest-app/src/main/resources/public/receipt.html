@@ -67,10 +67,10 @@
 									<th width="15%">InstrumentType</th>
 									<th width="28%" ng-show="paymentJson.paymentType != 'Credit' && paymentJson.paymentType != 'Cash'">Date</th>
 									<th width="15%">Amount</th>
-									<th width="15%">Quantity</th>
+									<!-- <th width="15%">Quantity</th>
 									<th width="15%">Currency</th>
-									<th width="15%">Exchange Rate</th>
-									<th width="15%">ProductTax</th>
+									<th width="15%">Exchange Rate</th> 
+									<th width="15%">ProductTax</th>-->
 									<th width="15%">TotalAmount  </th>
 									<th width="15%">InstrumentNo</th>
 									<th width="15%">Action</th>
@@ -99,7 +99,7 @@
 						              </div>
 										</td>
 										<td><input type="number"  id="amt" ng-model="paymentJson.amount" class="form-control " ></td>
-										<td> <input type="number"  id="qty" ng-model="paymentJson.quantity" class="form-control " ></td>
+										<!-- <td> <input type="number"  id="qty" ng-model="paymentJson.quantity" class="form-control " ></td>
 										<td> <select data-placeholder="Your Currency"  class="form-control" tabindex="8" ng-model="paymentJson.currency">
 									              <option value="">Select Currency</option>
 									              <option>INR</option>
@@ -115,12 +115,12 @@
 											 <option value="0.18">18%</option>
 											 <option value="0.2">20%</option>
 										</select>
-										</td>
+										</td> -->
 										<td><input type="number" id="total" class="form-control " ng-model="paymentJson.totalAmount"></td>
 										<td><input type="number" id="inst_no" class="form-control " ng-model="paymentJson.instrumentNo"></td>
 										<td> 
 										<!-- <input name="" type="button" class="btn btn-primary" id="" value="View"> -->
-									<i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+									<!-- <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i> -->
 									 <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
 									
 								</td>

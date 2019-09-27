@@ -187,13 +187,13 @@ public class TripSheetCrudRestApi {
 					if (row.getCell(12) != null) {
 						trip.setDiffKM(row.getCell(12).toString());
 					}
-
+					triplist.add(trip);
 				} catch (NullPointerException e) {
 					// System.out.println("Null caught..");
 				}
 				// System.out.println(trip.getDestination() + " " + trip.getLoadNo()+"
 				// "+trip.getInvoiceNO());
-				triplist.add(trip);
+				
 			}
 
 		}
