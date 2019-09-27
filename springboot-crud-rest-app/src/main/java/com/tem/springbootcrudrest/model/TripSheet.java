@@ -27,8 +27,8 @@ public class TripSheet implements Serializable {
 	@Column(name = "tripid")
 	private long tripid;
 
-	@Column(name = "loadNo")
-	private String loadNo;
+	@Column(name = "loadno")
+	private String loadno;
 
 	@Column(name = "tripNo")
 	private String tripNo;
@@ -136,12 +136,14 @@ public class TripSheet implements Serializable {
 		this.tripid = tripid;
 	}
 
-	public String getLoadNo() {
-		return loadNo;
+	
+
+	public String getLoadno() {
+		return loadno;
 	}
 
-	public void setLoadNo(String loadNo) {
-		this.loadNo = loadNo;
+	public void setLoadno(String loadno) {
+		this.loadno = loadno;
 	}
 
 	public String getFreightAmtCust() {

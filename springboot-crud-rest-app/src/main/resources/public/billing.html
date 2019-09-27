@@ -174,7 +174,7 @@
 									</td> 
 										<td><label>{{invoice.loadNo}}</label></td>
 										<td><label>{{invoice.datetime}}</label></td>
-										<td><label>{{invoice.invoiceNO}}</label></td>
+										<td><label>{{invoice.invoiceNo}}</label></td>
 										<td><label>{{invoice.origin}}</label></td>
 										<!-- <td><label>{{invoice.customerName}}</label></td> -->
 										<td><label>{{invoice.destination}}</label></td>
@@ -265,6 +265,30 @@
 					<input name="" type="button" class="btn btn-primary" id="" ng-click="calculateTotal()" value="Calculate" style="margin-left: -1%;">
 					</div>
 					<div class="row col-12">
+					
+					 <table  class="table table-bordered" >
+ 								<thead>
+						<tr><th colspan="9" class="textCenter"><label>S.SARAVANAN ENTERPRISES</label></th></tr>
+					 	<!-- <tr><th colspan="9" class="textCenter"><label>VEHICLE NO:</label></th></tr> -->
+					 	<tr>
+									<th width="15%">TruckNo</th>
+									<th width="15%">TruckType</th>
+									<th width="15%">No of case</th>
+									<th width="15%">Total kms</th>
+									<th width="15%">Per kms Total</th>
+									<th width="15%">Total Freight Amt</th>
+									<th width="15%">Advance</th>
+									<th width="15%">Discount</th>
+									<th width="15%">Grand Total</th>
+								</tr>
+					 </thead>
+						<tbody>
+						
+						</tbody>
+					 </table>
+					</div>
+					
+					<!-- <div class="row col-12">
 					<div class="col-2"></div>
 					 <div class="col-8">
 					 <table class="table table-bordered ">
@@ -280,7 +304,7 @@
 					</tr>
 					<tr>
 					<td><label class="labeltext">TRIP</label></td>
-					<td  class="textCenter"><label ng-bind="customerInvoiceJson.length"></label></td>
+					<td  class="textCenter"><label ng-bind="checkedValue.length"></label></td>
 					<td class="textCenter"><label ng-bind="totalFixed"></label></td>
 					</tr>
 					<tr>
@@ -294,20 +318,11 @@
 					</tr>
 					<tr>
 					<td colspan='2'><label class="labeltext">LEAKAGE/BREAKAGE</label></td>
-					<!-- <td><label></label></td> -->
 					<td class="textCenter"><label><input type="number"  ng-model="leakage" class="form-control col-5" placeholder="" /></label></td>
 					</tr>
-					<!-- <tr>
-					<td colspan='2' class="textCenter"><label class="labeltext">TOTAL</label></td>
-					<td class="textCenter"><label ng-bind="totalCust"></label></td></tr>
-					<tr> 
-					<td><label></label></td>
-					<td><label></label></td>
-					<td><label></label></td>
-					</tr>-->
+					
 					<tr>
 					<td colspan='2' class="textCenter"><label class="labeltext">GRAND TOTAL</label></td>
-					<!-- <td class="textCenter"><label></label></td> -->
 					<td class="textCenter"><label></label></td>
 					</tr>
 					</tbody>
@@ -315,7 +330,7 @@
 					 
 					 </div>
 					 <div class="col-2"></div>
-					 </div>
+					 </div> -->
  
  
 </div>

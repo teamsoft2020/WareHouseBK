@@ -101,7 +101,7 @@ public class TripSheetServiceImpl implements TripSheetService {
 
 			for (TripSheet tripsheet : list) {
 				// TripSheet loadno = tripRepository.findByloadno(sheet.getLoadno());
-				TripSheet triploadid = tripRepository.findByLoadNO(tripsheet.getLoadNo());
+				TripSheet triploadid = tripRepository.findByLoadNO(tripsheet.getLoadno());
 
 				if (triploadid == null) {
 					count++;

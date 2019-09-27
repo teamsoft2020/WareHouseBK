@@ -162,7 +162,7 @@ public class TripSheetCrudRestApi {
 				try {
 					if (row.getCell(2) != null) {
 						// trip.setLoadno(row.getCell(1).toString());
-						trip.setLoadNo(row.getCell(2).toString());
+						trip.setLoadno(row.getCell(2).toString());
 					}
 
 					if (row.getCell(3) != null) { // trip.setName(row.getCell(1).toString());
