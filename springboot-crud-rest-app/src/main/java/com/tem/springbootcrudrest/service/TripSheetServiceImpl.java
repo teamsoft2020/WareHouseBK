@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.repository.TripRepository;
 
@@ -19,9 +20,10 @@ public class TripSheetServiceImpl implements TripSheetService {
 	@Override
 	public TripSheet createTripSheet(TripSheet tripSheet) {
 
-		tripSheet.setCustomerinvoice("NO");
-		tripSheet.setVendorinvoice("NO");
+		tripSheet.setCustomerinvoicestatus("NO");
+		tripSheet.setVendorinvoicestatus("NO");
 		tripSheet.setStatus("YES");
+		tripSheet.setCustomerinvoiceno(0);
 
 		return tripRepository.save(tripSheet);
 	}
@@ -116,6 +118,42 @@ public class TripSheetServiceImpl implements TripSheetService {
 		if (count == 0) {
 			return tripsheetList;
 		}
+		
+		for(TripSheet t:tripsheetList) {
+			System.out.println("tripsheetList,... "+t.getOrigin()+" "+t.getDiffKM()+" "+t.getDestination()+" "+t.getTripNo());
+		}
 		return tripsheetList;
+	}
+
+	@Override
+	public String updateCustomerInvoiceNo(CustomerVendorInvoiceNo customerInvoiceNo) {
+		
+		for(String loadno:customerInvoiceNo.getLoadnnumber()) {
+			TripSheet tripsheetupdate = new TripSheet();
+			System.out.println("loadno "+loadno+" invoiceid "+customerInvoiceNo.getInvoiceid());
+			tripsheetupdate=tripRepository.findByLoadNO(loadno);
+			tripsheetupdate.setCustomerinvoicestatus("YES");
+			tripsheetupdate.setCustomerinvoiceno(customerInvoiceNo.getInvoiceid());
+			
+			tripRepository.save(tripsheetupdate);
+		}
+		
+		return "Updated Successfully";
+	}
+
+
+	@Override
+	public String updateVendorInvoiceNo(CustomerVendorInvoiceNo vendorInvoiceNo) {
+		
+		for(String loadno:vendorInvoiceNo.getLoadnnumber()) {
+			TripSheet tripsheetupdate = new TripSheet();
+			tripsheetupdate=tripRepository.findByLoadNO(loadno);
+			tripsheetupdate.setVendorinvoicestatus("YES");
+			tripsheetupdate.setVendorinvoiceno(vendorInvoiceNo.getInvoiceid());
+			
+			tripRepository.save(tripsheetupdate);
+		}
+		
+		return "Updated Successfully";
 	}
 }

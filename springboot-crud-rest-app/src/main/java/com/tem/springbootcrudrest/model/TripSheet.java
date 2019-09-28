@@ -30,6 +30,12 @@ public class TripSheet implements Serializable {
 	@Column(name = "loadno")
 	private String loadno;
 
+	@Column(name="customerinvoiceno")
+	private long customerinvoiceno;
+	
+	@Column(name="vendorinvoiceno")
+	private long vendorinvoiceno;	
+	
 	@Column(name = "tripNo")
 	private String tripNo;
 
@@ -108,11 +114,11 @@ public class TripSheet implements Serializable {
 	@Column(name = "lastupdate")
 	private String lastupdate;
 
-	@Column(name = "customerinvoice")
-	private String customerinvoice;
+	@Column(name = "customerinvoicestatus")
+	private String customerinvoicestatus;
 
-	@Column(name = "vendorinvoice")
-	private String vendorinvoice;
+	@Column(name = "vendorinvoicestatus")
+	private String vendorinvoicestatus;
 
 	@Column(name = "paymentreceivedornot")
 	private String paymentreceivedornot;
@@ -136,7 +142,21 @@ public class TripSheet implements Serializable {
 		this.tripid = tripid;
 	}
 
-	
+	public long getCustomerinvoiceno() {
+		return customerinvoiceno;
+	}
+
+	public void setCustomerinvoiceno(long customerinvoiceno) {
+		this.customerinvoiceno = customerinvoiceno;
+	}
+
+	public long getVendorinvoiceno() {
+		return vendorinvoiceno;
+	}
+
+	public void setVendorinvoiceno(long vendorinvoiceno) {
+		this.vendorinvoiceno = vendorinvoiceno;
+	}
 
 	public String getLoadno() {
 		return loadno;
@@ -354,20 +374,20 @@ public class TripSheet implements Serializable {
 		this.lastupdate = lastupdate;
 	}
 
-	public String getCustomerinvoice() {
-		return customerinvoice;
+	public String getCustomerinvoicestatus() {
+		return customerinvoicestatus;
 	}
 
-	public void setCustomerinvoice(String customerinvoice) {
-		this.customerinvoice = customerinvoice;
+	public void setCustomerinvoicestatus(String customerinvoicestatus) {
+		this.customerinvoicestatus = customerinvoicestatus;
 	}
 
-	public String getVendorinvoice() {
-		return vendorinvoice;
+	public String getVendorinvoicestatus() {
+		return vendorinvoicestatus;
 	}
 
-	public void setVendorinvoice(String vendorinvoice) {
-		this.vendorinvoice = vendorinvoice;
+	public void setVendorinvoicestatus(String vendorinvoicestatus) {
+		this.vendorinvoicestatus = vendorinvoicestatus;
 	}
 
 	public String getPaymentreceivedornot() {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
 
 @Service
@@ -26,5 +27,9 @@ public interface TripSheetService {
 	public List<String> getTrucknoList();
 	
 	public List<TripSheet> createTripSheetByExcel(List<TripSheet> list);
+	
+	public String updateCustomerInvoiceNo(CustomerVendorInvoiceNo customerInvoiceNo);
+	
+	public String updateVendorInvoiceNo(CustomerVendorInvoiceNo vendorInvoiceNo);
 
 }

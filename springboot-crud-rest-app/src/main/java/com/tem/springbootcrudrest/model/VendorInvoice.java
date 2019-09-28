@@ -29,35 +29,46 @@ public class VendorInvoice implements Serializable{
 	@Column(name = "vindorinvoiceid")
 	private long vindorinvoiceid;
 
-	@Column(name = "vehicleno")
-	private String vehicleno;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "customerinvoiceid")
+	private long customerinvoiceid;
+
+	@Column(name = "truckno")
+	private String truckno;
+
+	@Column(name = "trucktype")
+	private String trucktype;
+
+	@Column(name = "totalcase")
+	private String totalcase;
+
+	@Column(name = "totalkmpercharge")
+	private String totalkmpercharge;
+
+	@Column(name = "totalfreightamt")
+	private String totalfreightamt;
+
+	@Column(name = "totaladvance")
+	private String totaladvance;
+
+	@Column(name = "totaldiscount")
+	private String totaldiscount;
+
+	@Column(name = "netamount")
+	private String netamount;
+
+	@Column(name = "paymentstatus")
+	private String paymentstatus;
+
+	@Column(name = "receiptnumber")
+	private String receiptnumber;
+
+	@Column(name = "customername")
+	private String customername;
 
 	@Column(name = "totalkm")
 	private String totalkm;
-
-	@Column(name = "trip")
-	private String trip;
-
-	@Column(name = "tollbill")
-	private String tollbill;
-
-	@Column(name = "total")
-	private String total;
-
-	@Column(name = "leakagebreakage")
-	private String leakagebreakage;
-
-	@Column(name = "customerinvoicestatus")
-	private String vendorinvoicestatus;
-
-	@Column(name = "invoiceno")
-	private String invoiceno;
-	
-	@Column(name = "vendorname")
-	private String vendorname;
-	
-	@Column(name = "grandtotal")
-	private String grandtotal;	
 
 	@Column(name = "createddate")
 	private String createddate;
@@ -73,12 +84,100 @@ public class VendorInvoice implements Serializable{
 		this.vindorinvoiceid = vindorinvoiceid;
 	}
 
-	public String getVehicleno() {
-		return vehicleno;
+	public long getCustomerinvoiceid() {
+		return customerinvoiceid;
 	}
 
-	public void setVehicleno(String vehicleno) {
-		this.vehicleno = vehicleno;
+	public void setCustomerinvoiceid(long customerinvoiceid) {
+		this.customerinvoiceid = customerinvoiceid;
+	}
+
+	public String getTruckno() {
+		return truckno;
+	}
+
+	public void setTruckno(String truckno) {
+		this.truckno = truckno;
+	}
+
+	public String getTrucktype() {
+		return trucktype;
+	}
+
+	public void setTrucktype(String trucktype) {
+		this.trucktype = trucktype;
+	}
+
+	public String getTotalcase() {
+		return totalcase;
+	}
+
+	public void setTotalcase(String totalcase) {
+		this.totalcase = totalcase;
+	}
+
+	public String getTotalkmpercharge() {
+		return totalkmpercharge;
+	}
+
+	public void setTotalkmpercharge(String totalkmpercharge) {
+		this.totalkmpercharge = totalkmpercharge;
+	}
+
+	public String getTotalfreightamt() {
+		return totalfreightamt;
+	}
+
+	public void setTotalfreightamt(String totalfreightamt) {
+		this.totalfreightamt = totalfreightamt;
+	}
+
+	public String getTotaladvance() {
+		return totaladvance;
+	}
+
+	public void setTotaladvance(String totaladvance) {
+		this.totaladvance = totaladvance;
+	}
+
+	public String getTotaldiscount() {
+		return totaldiscount;
+	}
+
+	public void setTotaldiscount(String totaldiscount) {
+		this.totaldiscount = totaldiscount;
+	}
+
+	public String getNetamount() {
+		return netamount;
+	}
+
+	public void setNetamount(String netamount) {
+		this.netamount = netamount;
+	}
+
+	public String getPaymentstatus() {
+		return paymentstatus;
+	}
+
+	public void setPaymentstatus(String paymentstatus) {
+		this.paymentstatus = paymentstatus;
+	}
+
+	public String getReceiptnumber() {
+		return receiptnumber;
+	}
+
+	public void setReceiptnumber(String receiptnumber) {
+		this.receiptnumber = receiptnumber;
+	}
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
 	}
 
 	public String getTotalkm() {
@@ -87,70 +186,6 @@ public class VendorInvoice implements Serializable{
 
 	public void setTotalkm(String totalkm) {
 		this.totalkm = totalkm;
-	}
-
-	public String getTrip() {
-		return trip;
-	}
-
-	public void setTrip(String trip) {
-		this.trip = trip;
-	}
-
-	public String getVendorname() {
-		return vendorname;
-	}
-
-	public void setVendorname(String vendorname) {
-		this.vendorname = vendorname;
-	}
-
-	public String getTollbill() {
-		return tollbill;
-	}
-
-	public void setTollbill(String tollbill) {
-		this.tollbill = tollbill;
-	}
-
-	public String getTotal() {
-		return total;
-	}
-
-	public void setTotal(String total) {
-		this.total = total;
-	}
-
-	public String getLeakagebreakage() {
-		return leakagebreakage;
-	}
-
-	public void setLeakagebreakage(String leakagebreakage) {
-		this.leakagebreakage = leakagebreakage;
-	}
-
-	public String getVendorinvoicestatus() {
-		return vendorinvoicestatus;
-	}
-
-	public void setVendorinvoicestatus(String vendorinvoicestatus) {
-		this.vendorinvoicestatus = vendorinvoicestatus;
-	}
-
-	public String getInvoiceno() {
-		return invoiceno;
-	}
-
-	public void setInvoiceno(String invoiceno) {
-		this.invoiceno = invoiceno;
-	}
-
-	public String getGrandtotal() {
-		return grandtotal;
-	}
-
-	public void setGrandtotal(String grandtotal) {
-		this.grandtotal = grandtotal;
 	}
 
 	public String getCreateddate() {
@@ -167,5 +202,5 @@ public class VendorInvoice implements Serializable{
 
 	public void setModifieddate(String modifieddate) {
 		this.modifieddate = modifieddate;
-	}	
+	}
 }

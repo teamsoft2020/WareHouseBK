@@ -167,9 +167,9 @@
 										<input  type="checkbox" value="" ng-model="invoice.checked"  ng-click="saveInArray($index)">
 									
 									</td> 
-										<td><label>{{invoice.loadNo}}</label></td>
+										<td><label>{{invoice.loadno}}</label></td>
 										<td><label>{{invoice.datetime}}</label></td>
-										<td><label>{{invoice.invoiceNo}}</label></td>
+										<td><label>{{invoice.invoiceNO}}</label></td>
 										<td><label>{{invoice.origin}}</label></td>
 										<!-- <td><label>{{invoice.customerName}}</label></td> -->
 										<td><label>{{invoice.destination}}</label></td>
@@ -278,16 +278,16 @@
 					 </thead>
 						<tbody>
 						<tr>
-						<td><label>{{grandTotalList.truckNo}}</label></td>
-						<td><label>{{grandTotalList.truckType}}</label></td>
-						<td><label>{{grandTotalList.totalCase}}</label></td>
-						<td><label>{{grandTotalList.totalKM}}</label></td>
-						<td><label>{{grandTotalList.totalPerKMCharge}}</label></td>
-						<td><label>{{grandTotalList.totalfreightAmt}}</label></td>
-						<td><label>{{grandTotalList.totalAdvance}}</label></td>
-						<td><label>{{grandTotalList.totalDiscount}}</label></td>
+						<td><label>{{grandTotalList.truckno}}</label></td>
+						<td><label>{{grandTotalList.trucktype}}</label></td>
+						<td><label>{{grandTotalList.totalcase}}</label></td>
+						<td><label>{{grandTotalList.totalkm}}</label></td>
+						<td><label>{{grandTotalList.totalkmpercharge}}</label></td>
+						<td><label>{{grandTotalList.totalfreightamt}}</label></td>
+						<td><label>{{grandTotalList.totaladvance}}</label></td>
+						<td><label>{{grandTotalList.totaldiscount}}</label></td>
 						<td><input type="number" class="form-control" ng-model="leakage" ng-blur="addLeakTotal(leakage)"/></td>
-						<td><label>{{grandTotalList.NetAmount}}</label></td>
+						<td><label>{{grandTotalList.netamount}}</label></td>
 						
 						
 						</tr>

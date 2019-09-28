@@ -17,7 +17,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService{
 	
 	@Override
 	public CustomerInvoice createCustomerInvoice(CustomerInvoice customerinvoice) {
-		customerinvoice.setCustomerinvoicestatus("YES");
+		customerinvoice.setPaymentstatus("NO");
 		
 		return customerInvoiceRepository.save(customerinvoice);
 		
@@ -37,8 +37,8 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService{
 
 	@Override
 	public List<CustomerInvoice> getCustomerInvoiceList() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return customerInvoiceRepository.findAll();
 	}
 
 }

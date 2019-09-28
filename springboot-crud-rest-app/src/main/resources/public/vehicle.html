@@ -45,9 +45,7 @@
 			<input name="" type="button" class="btn btn-primary" id="" value="Upload" ng-click="openUpload()" style="float: right;"></div> -->
 		</div>
 
-		<table id="manage-vehicle-table" class="custTable" datatable="ng"
-			dt-options="vehm.dtVehicle" dt-columns="vehm.dtVehicleColumns"
-			style="width: 90%;">
+		<table id="manage-vehicle-table" class="custTable table table-bordered table-striped" datatable="ng" dt-options="vehm.dtVehicle" dt-columns="vehm.dtVehicleColumns" style="width: 90%;">
 			<!-- <thead>
 						<tr>
 							<th scope="col"><h5>TruckNo</h5></th>
@@ -90,7 +88,7 @@
 			<tbody>
 				<tr ng-repeat="list in  listVehicleJson track by $index">
 					<td style="display: none;">{{list.tripid}}</td>
-					<td>{{list.loadNo}}</td>
+					<td>{{list.loadno}}</td>
 					<td>{{list.tripNo}}</td>
 					<td>{{list.origin}}</td>
 					<td>{{list.destination}}</td>
@@ -287,7 +285,7 @@
 							<div class='col-md-3'>
 								<label class="col-12"><b>Load ID </b><span
 									class="mandatory">*</span></label> <input type="text" min="0"
-									ng-model="trip.loadNo" class="form-control col-12"
+									ng-model="trip.loadno" class="form-control col-12"
 									placeholder="Load ID" />
 							</div>
 							<div class='col-md-3'>

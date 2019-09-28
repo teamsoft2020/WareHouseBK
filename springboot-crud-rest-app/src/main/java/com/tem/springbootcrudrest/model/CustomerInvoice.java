@@ -12,11 +12,10 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-
 @Entity
 @Table(name = "customerinvoice")
 @EntityListeners(AuditingEntityListener.class)
-public class CustomerInvoice implements Serializable{
+public class CustomerInvoice implements Serializable {
 
 	/**
 	 * 
@@ -28,35 +27,44 @@ public class CustomerInvoice implements Serializable{
 	@Column(name = "customerinvoiceid")
 	private long customerinvoiceid;
 
-	@Column(name = "vehicleno")
-	private String vehicleno;
+	@Column(name = "truckno")
+	private String truckno;
 
-	@Column(name = "totalkm")
-	private String totalkm;
+	@Column(name = "trucktype")
+	private String trucktype;
 
-	@Column(name = "trip")
-	private String trip;
+	@Column(name = "totalcase")
+	private String totalcase;
+
+	@Column(name = "totalkmpercharge")
+	private String totalkmpercharge;
+
+	@Column(name = "totalfreightamt")
+	private String totalfreightamt;
+
+	@Column(name = "totaladvance")
+	private String totaladvance;
+
+	@Column(name = "totaldiscount")
+	private String totaldiscount;
+
+	@Column(name = "leakage")
+	private String leakage;
 	
+	@Column(name = "netamount")
+	private String netamount;
+
+	@Column(name = "paymentstatus")
+	private String paymentstatus;
+
+	@Column(name = "receiptnumber")
+	private String receiptnumber;
+
 	@Column(name = "customername")
 	private String customername;
 
-	@Column(name = "tollbill")
-	private String tollbill;
-
-	@Column(name = "total")
-	private String total;
-
-	@Column(name = "leakagebreakage")
-	private String leakagebreakage;
-
-	@Column(name = "customerinvoicestatus")
-	private String customerinvoicestatus;
-
-	@Column(name = "invoiceno")
-	private String invoiceno;
-	
-	@Column(name = "grandtotal")
-	private String grandtotal;	
+	@Column(name = "totalkm")
+	private String totalkm;
 
 	@Column(name = "createddate")
 	private String createddate;
@@ -64,7 +72,6 @@ public class CustomerInvoice implements Serializable{
 	@Column(name = "modifieddate")
 	private String modifieddate;
 
-	
 	public long getCustomerinvoiceid() {
 		return customerinvoiceid;
 	}
@@ -73,10 +80,94 @@ public class CustomerInvoice implements Serializable{
 		this.customerinvoiceid = customerinvoiceid;
 	}
 
-	public String getVehicleno() {
-		return vehicleno;
+	public String getLeakage() {
+		return leakage;
 	}
-	
+
+	public void setLeakage(String leakage) {
+		this.leakage = leakage;
+	}
+
+	public String getTruckno() {
+		return truckno;
+	}
+
+	public void setTruckno(String truckno) {
+		this.truckno = truckno;
+	}
+
+	public String getTrucktype() {
+		return trucktype;
+	}
+
+	public void setTrucktype(String trucktype) {
+		this.trucktype = trucktype;
+	}
+
+	public String getTotalcase() {
+		return totalcase;
+	}
+
+	public void setTotalcase(String totalcase) {
+		this.totalcase = totalcase;
+	}
+
+	public String getTotalkmpercharge() {
+		return totalkmpercharge;
+	}
+
+	public void setTotalkmpercharge(String totalkmpercharge) {
+		this.totalkmpercharge = totalkmpercharge;
+	}
+
+	public String getTotalfreightamt() {
+		return totalfreightamt;
+	}
+
+	public void setTotalfreightamt(String totalfreightamt) {
+		this.totalfreightamt = totalfreightamt;
+	}
+
+	public String getTotaladvance() {
+		return totaladvance;
+	}
+
+	public void setTotaladvance(String totaladvance) {
+		this.totaladvance = totaladvance;
+	}
+
+	public String getTotaldiscount() {
+		return totaldiscount;
+	}
+
+	public void setTotaldiscount(String totaldiscount) {
+		this.totaldiscount = totaldiscount;
+	}
+
+	public String getNetamount() {
+		return netamount;
+	}
+
+	public void setNetamount(String netamount) {
+		this.netamount = netamount;
+	}
+
+	public String getPaymentstatus() {
+		return paymentstatus;
+	}
+
+	public void setPaymentstatus(String paymentstatus) {
+		this.paymentstatus = paymentstatus;
+	}
+
+	public String getReceiptnumber() {
+		return receiptnumber;
+	}
+
+	public void setReceiptnumber(String receiptnumber) {
+		this.receiptnumber = receiptnumber;
+	}
+
 	public String getCustomername() {
 		return customername;
 	}
@@ -85,72 +176,12 @@ public class CustomerInvoice implements Serializable{
 		this.customername = customername;
 	}
 
-	public void setVehicleno(String vehicleno) {
-		this.vehicleno = vehicleno;
-	}
-
 	public String getTotalkm() {
 		return totalkm;
 	}
 
 	public void setTotalkm(String totalkm) {
 		this.totalkm = totalkm;
-	}
-
-	public String getTrip() {
-		return trip;
-	}
-
-	public void setTrip(String trip) {
-		this.trip = trip;
-	}
-
-	public String getTollbill() {
-		return tollbill;
-	}
-
-	public void setTollbill(String tollbill) {
-		this.tollbill = tollbill;
-	}
-
-	public String getTotal() {
-		return total;
-	}
-
-	public void setTotal(String total) {
-		this.total = total;
-	}
-
-	public String getLeakagebreakage() {
-		return leakagebreakage;
-	}
-
-	public void setLeakagebreakage(String leakagebreakage) {
-		this.leakagebreakage = leakagebreakage;
-	}
-
-	public String getCustomerinvoicestatus() {
-		return customerinvoicestatus;
-	}
-
-	public void setCustomerinvoicestatus(String customerinvoicestatus) {
-		this.customerinvoicestatus = customerinvoicestatus;
-	}
-
-	public String getInvoiceno() {
-		return invoiceno;
-	}
-
-	public void setInvoiceno(String invoiceno) {
-		this.invoiceno = invoiceno;
-	}
-	
-	public String getGrandtotal() {
-		return grandtotal;
-	}
-
-	public void setGrandtotal(String grandtotal) {
-		this.grandtotal = grandtotal;
 	}
 
 	public String getCreateddate() {
@@ -167,5 +198,5 @@ public class CustomerInvoice implements Serializable{
 
 	public void setModifieddate(String modifieddate) {
 		this.modifieddate = modifieddate;
-	}	
+	}
 }

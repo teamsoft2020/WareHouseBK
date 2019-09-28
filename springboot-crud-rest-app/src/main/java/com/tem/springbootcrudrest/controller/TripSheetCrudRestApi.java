@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tem.springbootcrudrest.model.Customer;
+import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.service.CustomerService;
 import com.tem.springbootcrudrest.service.TripSheetService;
@@ -54,6 +55,21 @@ public class TripSheetCrudRestApi {
 		TripSheet tripSheetresponse = tripSheetService.updateTripSheet(tripSheet);
 
 		return tripSheetresponse;
+	}
+
+	@PutMapping("/updatecustomerinvoice")
+	public String updateCustomerInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
+
+		String customerInvoiceNoRes = tripSheetService.updateCustomerInvoiceNo(customerInvoiceNo);
+
+		return customerInvoiceNoRes;
+	}
+
+	@PutMapping("/updatevendorinvoice")
+	public String updateVendorInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
+		String vendorInvoiceNoRes = tripSheetService.updateVendorInvoiceNo(customerInvoiceNo);
+
+		return vendorInvoiceNoRes;
 	}
 
 	@GetMapping("/customerinvoicebydate")
@@ -188,12 +204,12 @@ public class TripSheetCrudRestApi {
 						trip.setDiffKM(row.getCell(12).toString());
 					}
 					triplist.add(trip);
+
 				} catch (NullPointerException e) {
 					// System.out.println("Null caught..");
 				}
 				// System.out.println(trip.getDestination() + " " + trip.getLoadNo()+"
 				// "+trip.getInvoiceNO());
-				
 			}
 
 		}
@@ -224,7 +240,6 @@ public class TripSheetCrudRestApi {
 		workbook.close();
 
 		List<TripSheet> response = tripSheetService.createTripSheetByExcel(triplist);
-
 
 		return response;
 

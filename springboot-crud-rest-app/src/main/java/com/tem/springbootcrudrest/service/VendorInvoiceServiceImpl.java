@@ -18,7 +18,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 
 	@Override
 	public VendorInvoice createVendorInvoice(VendorInvoice vendorInvoice) {
-		vendorInvoice.setVendorinvoicestatus("YES");
+		vendorInvoice.setPaymentstatus("NO");
 		return vendorInvoiceRepository.save(vendorInvoice);
 
 	}
@@ -32,12 +32,9 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 
 		vendorInvoice = VendorInvoiceresults.get();
 
-		vendorInvoice.setVendorinvoicestatus("NO");
+		vendorInvoice.setPaymentstatus("NO");
 
 		VendorInvoice finalvendorinvoice = vendorInvoiceRepository.save(vendorInvoice);
-
-		System.out.println(vendorInvoice.getLeakagebreakage() + " nnmmm" + "status "
-				+ finalvendorinvoice.getVendorinvoicestatus());
 
 		return "Status Successfully Updated";
 	}
