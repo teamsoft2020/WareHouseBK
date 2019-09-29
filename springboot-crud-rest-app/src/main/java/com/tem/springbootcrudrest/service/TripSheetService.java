@@ -24,6 +24,8 @@ public interface TripSheetService {
 	
 	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate,String todate,String truckno);
 	
+	public List<TripSheet> findVendorInvoiceBetweenDate(String fromdate,String todate,String truckno);
+	
 	public List<String> getTrucknoList();
 	
 	public List<TripSheet> createTripSheetByExcel(List<TripSheet> list);

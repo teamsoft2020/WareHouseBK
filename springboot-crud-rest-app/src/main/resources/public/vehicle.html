@@ -71,14 +71,15 @@
 			<thead>
 				<tr>
 					<th scope="col" style="display: none;"><h5>Trip ID</h5></th>
+					<th scope="col"><h5>Date</h5></th>
 					<th scope="col"><h5>Load ID</h5></th>
 					<th scope="col"><h5>Trip ID</h5></th>
-					<th scope="col"><h5>Origin</h5></th>
-					<th scope="col"><h5>Destination</h5></th>
 					<th scope="col"><h5>Invoice No</h5></th>
-					<th scope="col"><h5>Date</h5></th>
+					<th scope="col"><h5>No Of Case</h5></th>
 					<th scope="col"><h5>TruckType</h5></th>
 					<th scope="col"><h5>TruckNo</h5></th>
+					<th scope="col"><h5>Origin</h5></th>
+					<th scope="col"><h5>Destination</h5></th>
 					<th scope="col"><h5>DriverName</h5></th>
 					<th scope="col"><h5>Advance</h5></th>
 					<th scope="col"><h5>Profit</h5></th>
@@ -88,14 +89,15 @@
 			<tbody>
 				<tr ng-repeat="list in  listVehicleJson track by $index">
 					<td style="display: none;">{{list.tripid}}</td>
+					<td>{{list.datetime}}</td>
 					<td>{{list.loadno}}</td>
 					<td>{{list.tripNo}}</td>
-					<td>{{list.origin}}</td>
-					<td>{{list.destination}}</td>
 					<td>{{list.invoiceNO}}</td>
-					<td>{{list.datetime}}</td>
+					<td>{{list.noOfCase}}</td>
 					<td>{{list.truckType}}</td>
 					<td>{{list.truckno}}</td>
+					<td>{{list.origin}}</td>
+					<td>{{list.destination}}</td>
 					<td>{{list.driverName}}</td>
 					<td>{{list.advance}}</td>
 					<td>{{list.profit}}</td>
@@ -419,13 +421,13 @@
 							<div class='col-md-3'>
 								<label class="col-12"><b>Per Kms(Customer) </b></label> <input
 									type="text" min="0" ng-model="trip.perkmchargecustomer"
-									class="form-control col-12" placeholder="Per Kms(Customer)" />
+									class="form-control col-12" placeholder="Per Kms(Customer)" disabled />
 							</div>
 
 							<div class='col-md-3'>
 								<label class="col-12"><b>Per Kms(vendor) </b></label> <input
 									type="text" min="0" ng-model="trip.perkmchargevendor"
-									class="form-control col-12" placeholder="Per Kms(vendor)" />
+									class="form-control col-12" placeholder="Per Kms(vendor)" disabled />
 							</div>
 
 

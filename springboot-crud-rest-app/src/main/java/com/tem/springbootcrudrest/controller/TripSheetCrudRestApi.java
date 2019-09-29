@@ -58,18 +58,24 @@ public class TripSheetCrudRestApi {
 	}
 
 	@PutMapping("/updatecustomerinvoice")
-	public String updateCustomerInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
+	public ResponseEntity<Map<String,String>> updateCustomerInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
 
 		String customerInvoiceNoRes = tripSheetService.updateCustomerInvoiceNo(customerInvoiceNo);
+		Map<String,String>responsemap=new HashMap<String,String>();
+		responsemap.put("status", customerInvoiceNoRes);
 
-		return customerInvoiceNoRes;
+		return ResponseEntity.ok(responsemap);
+
 	}
 
 	@PutMapping("/updatevendorinvoice")
-	public String updateVendorInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
+	public ResponseEntity<Map<String,String>> updateVendorInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
 		String vendorInvoiceNoRes = tripSheetService.updateVendorInvoiceNo(customerInvoiceNo);
+		Map<String,String>responsemap=new HashMap<String,String>();
+		responsemap.put("status", vendorInvoiceNoRes);
 
-		return vendorInvoiceNoRes;
+		return ResponseEntity.ok(responsemap);
+
 	}
 
 	@GetMapping("/customerinvoicebydate")
@@ -138,6 +144,17 @@ public class TripSheetCrudRestApi {
 		return tripSheetList;
 	}
 
+	
+	@RequestMapping(path = "/vendorinvoicelistintripsheet", method = RequestMethod.GET)
+
+	public List<TripSheet> getVendorInvoiceList(@RequestParam String fromdate, @RequestParam String todate,
+			@RequestParam String truckno) {
+
+		List<TripSheet> tripSheetList = tripSheetService.findVendorInvoiceBetweenDate(fromdate, todate, truckno);
+
+		return tripSheetList;
+	}
+	
 	@GetMapping("/vendorinvoicelist")
 	public List<TripSheet> getVendorInvoiceList() {
 		List<TripSheet> tripSheetList = tripSheetService.getTripSheetList();

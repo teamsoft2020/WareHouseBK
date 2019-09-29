@@ -1422,8 +1422,8 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 		if(typeof($scope.trip.haltingCharge)=="undefined"){
 			$scope.trip.haltingCharge='0';
 		}
-		$scope.trip.freightAmtCust=eval($scope.trip.policeBill)+eval($scope.trip.tollBill)+eval($scope.tempfreightAmtCust)+eval($scope.trip.haltingCharge);
-		$scope.trip.freightAmtVen=eval($scope.trip.tollBill)+eval($scope.trip.policeBill)+eval($scope.tempfreightAmtVen);
+		$scope.trip.freightAmtCust=eval($scope.trip.policeBill)+eval($scope.trip.tollBill)+eval($scope.tempfreightAmtCust)+eval($scope.trip.haltingCharge)+eval($scope.trip.perkmchargecustomer);
+		$scope.trip.freightAmtVen=eval($scope.trip.tollBill)+eval($scope.trip.policeBill)+eval($scope.tempfreightAmtVen)+eval($scope.trip.perkmchargevendor);
 		
 		$scope.trip.profit=(parseInt($scope.trip.freightAmtCust)? parseInt($scope.trip.freightAmtCust):0) - (parseInt($scope.trip.freightAmtVen)? parseInt($scope.trip.freightAmtVen):0);
 	}
@@ -1912,12 +1912,13 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 								{id:"5",loadNo: "20002",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "400",advance:"",discount:"400",grandTotal:""},
 								{id:"6",loadNo: "23",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "3000",advance:"400",discount:"",grandTotal:""}]; */	
 	$scope.customerInvoiceJson =[];
-	$scope.vendorInvoiceJson =[{id:"1",loadNo: "23678",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "2000",advance:"",discount:"1000",grandTotal:""},
+	$scope.vendorInvoiceJson =[];
+	/* $scope.vendorInvoiceJson =[{id:"1",loadNo: "23678",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "2000",advance:"",discount:"1000",grandTotal:""},
 		{id:"2",loadNo: "2008",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "1000",advance:"500",discount:"",grandTotal:""},
 		{id:"3",loadNo: "2998",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "500",advance:"",discount:"200",grandTotal:""},
 		{id:"4",loadNo: "23678",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "2000",advance:"100",discount:"",grandTotal:""},
 		{id:"5",loadNo: "20002",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "400",advance:"",discount:"400",grandTotal:""},
-		{id:"6",loadNo: "23",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "3000",advance:"400",discount:"",grandTotal:""}];
+		{id:"6",loadNo: "23",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "3000",advance:"400",discount:"",grandTotal:""}]; */
 	$scope.checked=false;
 /* 	$scope.toggleAll = function(selectAll, selectedItems) {
         for (var id in selectedItems) {
@@ -2108,7 +2109,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			 toastr.error('Please enter Truck No');
 			return;
 		}else{
-			var url=location.origin +"/api/v1/customerinvoicelist";
+			var url=location.origin +"/api/v1/vendorinvoicelistintripsheet";
 			 $http({
 				    method : 'GET',
 				    url : url,
@@ -2187,7 +2188,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	};
 	
 	$scope.calculateTotal =function(){
-		$scope.grandTotalList={customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+		$scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		angular.forEach($scope.checkedValue, function(value, key) {
 			$scope.grandTotalList.customername = value.origin;
 			$scope.grandTotalList.truckno = value.truckno;
@@ -2195,13 +2196,14 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			$scope.grandTotalList.totalkm += parseInt(value.diffKM)? parseInt(value.diffKM):0;
 			$scope.grandTotalList.totalcase +=parseInt(value.noOfCase)?parseInt(value.noOfCase):0;;
 			$scope.grandTotalList.totalkmpercharge +=parseInt(value.perkmchargecustomer)?parseInt(value.perkmchargecustomer):0;;
-			$scope.grandTotalList.totalfreightamt +=parseInt(value.freightAmtCust)?parseInt(value.freightAmtCust):0;;
+			$scope.grandTotalList.totalfreightamt +=parseInt(value.freightAmtCust)?parseInt(value.freightAmtCust):0;
 			$scope.grandTotalList.totaladvance +=parseInt(value.advance)?parseInt(value.advance):0;
 			$scope.grandTotalList.totaldiscount +=parseInt(value.discount)? parseInt(value.discount):0;
 		});
-		$scope.grandTotalList.netamount =parseInt($scope.grandTotalList.totalkmpercharge) ?parseInt($scope.grandTotalList.totalkmpercharge) :0 + parseInt($scope.grandTotalList.totalfreightamt)?parseInt($scope.grandTotalList.totalfreightamt):0;
-		var adCount =parseInt($scope.grandTotalList.totaldiscount) ? parseInt($scope.grandTotalList.totaldiscount): 0 +parseInt($scope.grandTotalList.totaladvance) ? parseInt($scope.grandTotalList.totaladvance): 0;
-		$scope.grandTotalList.netamount =parseInt($scope.grandTotalList.netamount) ? parseInt($scope.grandTotalList.netamount): 0 - parseInt(adCount) ? parseInt(adCount):0;
+		$scope.grandTotalList.totaltrip=$scope.checkedValue.length;
+		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.totalkmpercharge) ?parseInt($scope.grandTotalList.totalkmpercharge) :0) + (parseInt($scope.grandTotalList.totalfreightamt)?parseInt($scope.grandTotalList.totalfreightamt):0);
+		var adCount =(parseInt($scope.grandTotalList.totaldiscount) ? parseInt($scope.grandTotalList.totaldiscount): 0) +(parseInt($scope.grandTotalList.totaladvance) ? parseInt($scope.grandTotalList.totaladvance): 0);
+		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netamount) ? parseInt($scope.grandTotalList.netamount): 0) - (parseInt(adCount) ? parseInt(adCount):0);
 		console.log($scope.grandTotalList);
 	};
 	
@@ -2211,32 +2213,34 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	}
 	
 	$scope.calculateVendorTotal =function(){
-		$scope.grandTotalVendorList={truckNo:"",truckType:"",totalKM:0,totalCase:0,totalPerKMCharge:0,totalfreightAmt:0,totalAdvance:0,totalDiscount:0,NetAmount:0};
+		$scope.grandTotalVendorList={customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		angular.forEach($scope.checkedValue, function(value, key) {
-			$scope.grandTotalVendorList.truckNo = value.truckno;
-			$scope.grandTotalVendorList.truckType = value.truckType;
-			$scope.grandTotalVendorList.customerName =value.customerName;
-			$scope.grandTotalVendorList.totalKM += parseInt(value.diffKM)? parseInt(value.diffKM):0;
-			$scope.grandTotalVendorList.totalCase +=parseInt(value.noOfCase)?parseInt(value.noOfCase):0;;
-			$scope.grandTotalVendorList.totalPerKMCharge +=parseInt(value.perkmchargecustomer)?parseInt(value.perkmchargecustomer):0;;
-			$scope.grandTotalVendorList.totalfreightAmt +=parseInt(value.freightAmtCust)?parseInt(value.freightAmtCust):0;;
-			$scope.grandTotalVendorList.totalAdvance +=parseInt(value.advance)?parseInt(value.advance):0;
-			$scope.grandTotalVendorList.totalDiscount +=parseInt(value.discount)? parseInt(value.discount):0;
+			$scope.grandTotalList.customername = value.destination;
+			$scope.grandTotalVendorList.truckno = value.truckno;
+			$scope.grandTotalVendorList.trucktype = value.truckType;
+			
+			$scope.grandTotalVendorList.totalkm += parseInt(value.diffKM)? parseInt(value.diffKM):0;
+			$scope.grandTotalVendorList.totalcase +=parseInt(value.noOfCase)?parseInt(value.noOfCase):0;;
+			$scope.grandTotalVendorList.totalkmpercharge +=parseInt(value.perkmchargecustomer)?parseInt(value.perkmchargecustomer):0;;
+			$scope.grandTotalVendorList.totalfreightamt +=parseInt(value.freightAmtCust)?parseInt(value.freightAmtCust):0;
+			$scope.grandTotalVendorList.totaladvance +=parseInt(value.advance)?parseInt(value.advance):0;
+			$scope.grandTotalVendorList.totaldiscount +=parseInt(value.discount)? parseInt(value.discount):0;
 		});
 		
-		$scope.grandTotalVendorList.NetAmount =parseInt($scope.grandTotalVendorList.totalPerKMCharge) ?parseInt($scope.grandTotalVendorList.totalPerKMCharge) :0 + parseInt($scope.grandTotalVendorList.totalfreightAmt)?parseInt($scope.grandTotalVendorList.totalfreightAmt):0;
-		var adVenCount =parseInt($scope.grandTotalList.totalDiscount) ? parseInt($scope.grandTotalVendorList.totalDiscount): 0 +parseInt($scope.grandTotalVendorList.totalAdvance) ? parseInt($scope.grandTotalVendorList.totalAdvance): 0;
-		$scope.grandTotalVendorList.NetAmount =parseInt($scope.grandTotalVendorList.NetAmount) ? parseInt($scope.grandTotalVendorList.NetAmount): 0 - parseInt(adVenCount) ? parseInt(adVenCount):0;
+		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.totalkmpercharge) ?parseInt($scope.grandTotalVendorList.totalkmpercharge) :0) + (parseInt($scope.grandTotalVendorList.totalfreightamt)?parseInt($scope.grandTotalVendorList.totalfreightamt):0);
+		var adVenCount =(parseInt($scope.grandTotalList.totaldiscount) ? parseInt($scope.grandTotalVendorList.totaldiscount): 0) +(parseInt($scope.grandTotalVendorList.totaladvance) ? parseInt($scope.grandTotalVendorList.totaladvance): 0);
+		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) - (parseInt(adVenCount) ? parseInt(adVenCount):0);
 		console.log($scope.grandTotalVendorList);
 		
 	} 
 	
 	$scope.addVendorLeakTotal =function(leak){
-		$scope.grandTotalVendorList.NetAmount =(parseInt($scope.grandTotalVendorList.NetAmount) ? parseInt($scope.grandTotalVendorList.NetAmount): 0) + (parseInt(leak) ? parseInt(leak): 0);
+		$scope.grandTotalVendorList.leakage=parseInt(leak) ? parseInt(leak): 0;
+		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) + (parseInt(leak) ? parseInt(leak): 0);
 	}
 	
 	$scope.saveCustomerInvoice =function(){
-		$scope.custcallBackdata={invoiceid:"",loadnumber:[]};
+		$scope.custcallBackdata={invoiceid:"",loadnnumber:[]};
 		var url = location.origin +"/api/v1/createcustomerinvoice";
 		    $http({
 		        method : 'POST',
@@ -2248,7 +2252,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		        }).then(function (response) {
 		        	$scope.custcallBackdata.invoiceid=response.data.customerinvoiceid;
 		        	angular.forEach($scope.checkedValue, function(list, key) {
-		        		$scope.custcallBackdata.loadnumber.push(list.loadno);
+		        		$scope.custcallBackdata.loadnnumber.push(list.loadno);
 		        	});
 		        	$scope.updateBilledTrip($scope.custcallBackdata);
 		            //toastr.success('Data added successfully');
@@ -2261,25 +2265,27 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	$scope.updateBilledTrip =function(data){
 		var url = location.origin +"/api/v1/updatecustomerinvoice";
 		$http({
-	        method : 'POST',
+	        method : 'PUT',
 	        url : url,
 	        data : angular.toJson(data),
 	        headers : {
 	        'Content-Type' : 'application/json'
 	        }
 	        }).then(function (response) {
-	            toastr.success('Billed successfully');
-	            $scope.customerInvoiceJson = [];
-				$scope.checkedValue=[];
-				$scope.grandTotalVendorList={truckNo:"",truckType:"",totalKM:0,totalCase:0,totalPerKMCharge:0,totalfreightAmt:0,totalAdvance:0,totalDiscount:0,NetAmount:0};
+	        	if(response.data.status=="Updated Successfully"){
+	        		$scope.customerInvoiceJson = [];
+					$scope.checkedValue=[];
+					$scope.grandTotalVendorList={truckNo:"",truckType:"",totalKM:0,totalCase:0,totalPerKMCharge:0,totalfreightAmt:0,totalAdvance:0,totalDiscount:0,NetAmount:0};
+					toastr.success('Billed successfully');
+	        	}
 	        }, function error(response) {
-	        	toastr.success('Not able to Bill');
+	        	toastr.error('Not able to Bill');
 	          console.log(response.status);
 	        });
 	}
 $scope.saveVendorInvoice =function(){
 		
-		//var url = location.origin +"/api/v1/createuser";
+		var url = location.origin +"/api/v1/createvendorinvoice";
 		    $http({
 		        method : 'POST',
 		        url : url,
@@ -2354,6 +2360,7 @@ $scope.saveVendorInvoice =function(){
 			    
 			  //$('#CustomerInvoice').removeClass("active");
 			  //$('#Receipt').removeClass("active");
+		    $scope.grandTotalVendorList={customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		  }else{
 			  $('#CustomerInvoice').show();
 			  $('#VendorInvoice').hide();
@@ -2361,6 +2368,7 @@ $scope.saveVendorInvoice =function(){
 			  $('#CustomerInvoice').addClass("active");
 			 // $('#Receipt').removeClass("active");
 			 // $('#VendorInvoice').removeClass("active");
+			  $scope.grandTotalList={customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		  }
 
 		  

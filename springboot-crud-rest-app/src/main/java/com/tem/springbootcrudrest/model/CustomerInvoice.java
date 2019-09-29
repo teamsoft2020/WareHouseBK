@@ -33,6 +33,9 @@ public class CustomerInvoice implements Serializable {
 	@Column(name = "trucktype")
 	private String trucktype;
 
+	@Column(name = "totaltrip")
+	private String totaltrip;
+	
 	@Column(name = "totalcase")
 	private String totalcase;
 
@@ -71,6 +74,14 @@ public class CustomerInvoice implements Serializable {
 
 	@Column(name = "modifieddate")
 	private String modifieddate;
+
+	public String getTotaltrip() {
+		return totaltrip;
+	}
+
+	public void setTotaltrip(String totaltrip) {
+		this.totaltrip = totaltrip;
+	}
 
 	public long getCustomerinvoiceid() {
 		return customerinvoiceid;

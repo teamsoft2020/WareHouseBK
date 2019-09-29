@@ -29,11 +29,6 @@ public class VendorInvoice implements Serializable{
 	@Column(name = "vindorinvoiceid")
 	private long vindorinvoiceid;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "customerinvoiceid")
-	private long customerinvoiceid;
-
 	@Column(name = "truckno")
 	private String truckno;
 
@@ -43,6 +38,9 @@ public class VendorInvoice implements Serializable{
 	@Column(name = "totalcase")
 	private String totalcase;
 
+	@Column(name = "totaltrip")
+	private String totaltrip;
+	
 	@Column(name = "totalkmpercharge")
 	private String totalkmpercharge;
 
@@ -84,12 +82,12 @@ public class VendorInvoice implements Serializable{
 		this.vindorinvoiceid = vindorinvoiceid;
 	}
 
-	public long getCustomerinvoiceid() {
-		return customerinvoiceid;
+	public String getTotaltrip() {
+		return totaltrip;
 	}
 
-	public void setCustomerinvoiceid(long customerinvoiceid) {
-		this.customerinvoiceid = customerinvoiceid;
+	public void setTotaltrip(String totaltrip) {
+		this.totaltrip = totaltrip;
 	}
 
 	public String getTruckno() {
