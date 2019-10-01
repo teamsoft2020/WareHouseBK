@@ -59,6 +59,106 @@
 
 <style>
 
+.card{
+transition: transform .2s;
+}
+.card:hover{
+	
+	transform: scale(1.1);
+}
+
+@media (min-width:480px)  {
+ .container{
+    margin-left: 4%;
+}
+}
+@media (min-width:320px)  {
+ .container{
+    width: 100%;
+    height: 100%;
+}
+}
+
+input[name=username] {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #e2d9d9;
+  box-shadow: none;
+  color: #111;
+}
+input[type=password] {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #e2d9d9;
+  box-shadow: none;
+  color: #111;
+}
+.input-field {
+  position: relative;
+  width: 250px;
+  height: 44px;
+  line-height: 44px;
+}
+
+.textspan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #d3d3d3;
+  transition: 0.2s all;
+  cursor: text;
+}
+.passSpan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #d3d3d3;
+  transition: 0.2s all;
+  cursor: text;
+}
+input[name=username] :invalid {
+  outline: 0;
+
+}
+input[name=username]:focus,
+input[name=username]:valid {
+  border-color: #e2d9d9;
+}
+input[name=username]:focus~.textspan,
+input[name=username]:valid~.textspan {
+  font-size: 14px;
+  top: -24px;
+  color: #e2d9d9;
+}
+
+input[name=password] :invalid {
+  outline: 0;
+  
+}
+input[name=password]:focus,
+input[name=password]:valid {
+  border-color: #e2d9d9;
+}
+input[name=password]:focus~.passSpan,
+input[name=password]:valid~.passSpan {
+  font-size: 14px;
+  top: -24px;
+  color: #e2d9d9;
+}
+
+
+
+/*login css end*/
+
+
+
+
 html,body{
 width:100% !important;
 height:100% !important;
@@ -181,6 +281,7 @@ font-size:12px;
     float: right;
     padding-right: 21px;
     padding-top: 15px;
+    color: orange;
 }
 .content-header {
   height: 65px;
@@ -2209,12 +2310,12 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	
 	$scope.addLeakTotal =function(leak){
 		$scope.grandTotalList.leakage=parseInt(leak) ? parseInt(leak): 0;
-		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netamount) ? parseInt($scope.grandTotalList.netamount): 0) + (parseInt(leak) ? parseInt(leak): 0);
+		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netamount) ? parseInt($scope.grandTotalList.netamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
 	}
 	
 	$scope.calculateVendorTotal =function(){
-		$scope.grandTotalVendorList={customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
-		angular.forEach($scope.checkedValue, function(value, key) {
+		$scope.grandTotalVendorList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+		angular.forEach($scope.checkedVendorValue, function(value, key) {
 			$scope.grandTotalList.customername = value.destination;
 			$scope.grandTotalVendorList.truckno = value.truckno;
 			$scope.grandTotalVendorList.trucktype = value.truckType;
@@ -2226,7 +2327,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			$scope.grandTotalVendorList.totaladvance +=parseInt(value.advance)?parseInt(value.advance):0;
 			$scope.grandTotalVendorList.totaldiscount +=parseInt(value.discount)? parseInt(value.discount):0;
 		});
-		
+		$scope.grandTotalVendorList.totaltrip=$scope.checkedVendorValue.length;
 		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.totalkmpercharge) ?parseInt($scope.grandTotalVendorList.totalkmpercharge) :0) + (parseInt($scope.grandTotalVendorList.totalfreightamt)?parseInt($scope.grandTotalVendorList.totalfreightamt):0);
 		var adVenCount =(parseInt($scope.grandTotalList.totaldiscount) ? parseInt($scope.grandTotalVendorList.totaldiscount): 0) +(parseInt($scope.grandTotalVendorList.totaladvance) ? parseInt($scope.grandTotalVendorList.totaladvance): 0);
 		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) - (parseInt(adVenCount) ? parseInt(adVenCount):0);
@@ -2236,7 +2337,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	
 	$scope.addVendorLeakTotal =function(leak){
 		$scope.grandTotalVendorList.leakage=parseInt(leak) ? parseInt(leak): 0;
-		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) + (parseInt(leak) ? parseInt(leak): 0);
+		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
 	}
 	
 	$scope.saveCustomerInvoice =function(){
