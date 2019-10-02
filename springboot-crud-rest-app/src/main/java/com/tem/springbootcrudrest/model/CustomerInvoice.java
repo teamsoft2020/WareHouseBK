@@ -63,8 +63,8 @@ public class CustomerInvoice implements Serializable {
 	@Column(name = "receiptnumber")
 	private String receiptnumber;
 
-	@Column(name = "customername")
-	private String customername;
+	@Column(name = "name")
+	private String name;
 
 	@Column(name = "totalkm")
 	private String totalkm;
@@ -179,12 +179,13 @@ public class CustomerInvoice implements Serializable {
 		this.receiptnumber = receiptnumber;
 	}
 
-	public String getCustomername() {
-		return customername;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setCustomername(String customername) {
-		this.customername = customername;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getTotalkm() {

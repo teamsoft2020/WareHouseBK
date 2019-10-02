@@ -62,8 +62,8 @@ public class VendorInvoice implements Serializable{
 	@Column(name = "receiptnumber")
 	private String receiptnumber;
 
-	@Column(name = "vendorname")
-	private String vendorname;
+	@Column(name = "name")
+	private String name;
 
 	@Column(name = "totalkm")
 	private String totalkm;
@@ -170,12 +170,12 @@ public class VendorInvoice implements Serializable{
 		this.receiptnumber = receiptnumber;
 	}
 
-	public String getVendorname() {
-		return vendorname;
+	public String getName() {
+		return name;
 	}
 
-	public void setVendorname(String vendorname) {
-		this.vendorname = vendorname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getTotalkm() {
