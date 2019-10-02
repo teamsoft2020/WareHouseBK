@@ -18,7 +18,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 
 	@Override
 	public VendorInvoice createVendorInvoice(VendorInvoice vendorInvoice) {
-		vendorInvoice.setPaymentstatus("NO");
+		vendorInvoice.setPaymentstatus("Pending");
 		return vendorInvoiceRepository.save(vendorInvoice);
 
 	}

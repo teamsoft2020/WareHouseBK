@@ -29,10 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
-import com.tem.springbootcrudrest.service.CustomerService;
 import com.tem.springbootcrudrest.service.TripSheetService;
 
 @RestController

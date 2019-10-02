@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.CustomerInvoice;
 import com.tem.springbootcrudrest.service.CustomerInvoiceService;
+import com.tem.util.UTCDateTime;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,8 +22,13 @@ public class CustomerInvoiceCrudRestApi {
 	@Autowired
 	CustomerInvoiceService customerInvoiceService;
 	
+	
 	@PostMapping("/createcustomerinvoice")
 	public CustomerInvoice createCustomerInvoice(@Valid @RequestBody CustomerInvoice customerInvoice) {
+		
+		String datetime = UTCDateTime.getCurentTimeAndDate();
+		
+		customerInvoice.setCreateddate(datetime);
 
 		CustomerInvoice customerInvoiceresponse = customerInvoiceService.createCustomerInvoice(customerInvoice);
 		return customerInvoiceresponse;

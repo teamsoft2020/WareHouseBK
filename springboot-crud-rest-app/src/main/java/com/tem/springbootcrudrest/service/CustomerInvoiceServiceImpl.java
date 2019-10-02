@@ -23,7 +23,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService{
 	
 	@Override
 	public CustomerInvoice createCustomerInvoice(CustomerInvoice customerinvoice) {
-		customerinvoice.setPaymentstatus("NO");
+		customerinvoice.setPaymentstatus("Pending");
 		
 		return customerInvoiceRepository.save(customerinvoice);
 		

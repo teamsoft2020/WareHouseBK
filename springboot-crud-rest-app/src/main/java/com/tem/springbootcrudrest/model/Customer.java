@@ -53,9 +53,9 @@ public class Customer {
 	@Column(name = "iec")
 	private String IEC;
 
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	@Column(name = "createddate")
-	private Date createddate;
+	private String createddate;
 
 	@Column(name = "Created_by")
 	private String createdby;
@@ -241,14 +241,14 @@ public class Customer {
 		this.customername = customername;
 	}
 
-	public Date getCreateddate() {
+	/*public Date getCreateddate() {
 		return createddate;
 	}
 
 	public void setCreateddate(Date createddate) {
 		this.createddate = createddate;
 	}
-
+*/
 	public String getCreatedby() {
 		return createdby;
 	}

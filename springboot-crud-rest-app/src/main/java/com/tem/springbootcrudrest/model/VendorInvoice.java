@@ -62,8 +62,8 @@ public class VendorInvoice implements Serializable{
 	@Column(name = "receiptnumber")
 	private String receiptnumber;
 
-	@Column(name = "name")
-	private String name;
+	@Column(name = "vendorname")
+	private String vendorname;
 
 	@Column(name = "totalkm")
 	private String totalkm;
@@ -73,7 +73,20 @@ public class VendorInvoice implements Serializable{
 
 	@Column(name = "modifieddate")
 	private String modifieddate;
-
+	
+	@Column(name = "paymenttype")
+	private String paymenttype;
+	
+	@Column(name = "amount")
+	private String amount;
+	
+	@Column(name = "paymentdate")
+	private String paymentdate;
+	
+	@Column(name = "instrumentno")
+	private String instrumentno;
+	
+	
 	public long getVindorinvoiceid() {
 		return vindorinvoiceid;
 	}
@@ -170,12 +183,12 @@ public class VendorInvoice implements Serializable{
 		this.receiptnumber = receiptnumber;
 	}
 
-	public String getName() {
-		return name;
+	public String getVendorname() {
+		return vendorname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setVendorname(String vendorname) {
+		this.vendorname = vendorname;
 	}
 
 	public String getTotalkm() {
@@ -200,5 +213,37 @@ public class VendorInvoice implements Serializable{
 
 	public void setModifieddate(String modifieddate) {
 		this.modifieddate = modifieddate;
+	}
+
+	public String getPaymenttype() {
+		return paymenttype;
+	}
+
+	public void setPaymenttype(String paymenttype) {
+		this.paymenttype = paymenttype;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	public String getPaymentdate() {
+		return paymentdate;
+	}
+
+	public void setPaymentdate(String paymentdate) {
+		this.paymentdate = paymentdate;
+	}
+
+	public String getInstrumentno() {
+		return instrumentno;
+	}
+
+	public void setInstrumentno(String instrumentno) {
+		this.instrumentno = instrumentno;
 	}
 }

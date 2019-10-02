@@ -1,5 +1,9 @@
 package com.tem.springbootcrudrest.controller;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,29 +21,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.VendorInvoice;
 import com.tem.springbootcrudrest.service.VendorInvoiceService;
+import com.tem.util.UTCDateTime;
 
 @RestController
 @RequestMapping("/api/v1")
 public class VendorInvoiceCrudRestApi {
-	
+
 	@Autowired
 	VendorInvoiceService vendorInvoiceService;
-	
+
 	@PostMapping("/createvendorinvoice")
 	public VendorInvoice createVendorInvoice(@Valid @RequestBody VendorInvoice vendorInvoice) {
 
+		String datetime = UTCDateTime.getCurentTimeAndDate();
+		vendorInvoice.setCreateddate(datetime);
 		VendorInvoice vendorInvoiceresponse = vendorInvoiceService.createVendorInvoice(vendorInvoice);
 		return vendorInvoiceresponse;
 	}
 
 	@DeleteMapping("/vendorinvoiceupdate/{vindorinvoiceid}")
-	public ResponseEntity<Map<String,String>> updateVendorInvoice(@PathVariable(value = "vindorinvoiceid") long vindorinvoiceid) {
-		System.out.println("welcome...");
+	public ResponseEntity<Map<String, String>> updateVendorInvoice(
+			@PathVariable(value = "vindorinvoiceid") long vindorinvoiceid) {
 
 		String response = vendorInvoiceService.updateVendorInvoice(vindorinvoiceid);
-		
-		System.out.println("welcome...");
-		Map<String,String>responsemap=new HashMap<String,String>();
+
+		Map<String, String> responsemap = new HashMap<String, String>();
 		responsemap.put("status", response);
 
 		return ResponseEntity.ok(responsemap);

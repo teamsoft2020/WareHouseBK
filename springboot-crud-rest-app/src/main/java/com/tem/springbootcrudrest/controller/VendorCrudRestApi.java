@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.Vendor;
 import com.tem.springbootcrudrest.service.VendorService;
+import com.tem.util.UTCDateTime;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,7 +30,8 @@ public class VendorCrudRestApi {
 
 	@PostMapping("/createvendor")
 	public Vendor createUser(@Valid @RequestBody Vendor vendor) {
-
+		String datetime = UTCDateTime.getCurentTimeAndDate();
+		vendor.setCreatedDate(datetime);
 		Vendor vendorresponse = vendorService.createVendor(vendor);
 		return vendorresponse;
 	}
