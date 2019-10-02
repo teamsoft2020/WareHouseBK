@@ -14,7 +14,4 @@ public class UTCDateTime {
 		return datestr;
 	}
 	
-	public static void main(String[] args) {
-		getCurentTimeAndDate();
-	}
 }

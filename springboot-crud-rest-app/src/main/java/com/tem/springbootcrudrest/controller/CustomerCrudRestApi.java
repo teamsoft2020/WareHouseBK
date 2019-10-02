@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.service.CustomerService;
+import com.tem.util.UTCDateTime;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -29,11 +30,11 @@ public class CustomerCrudRestApi {
 
 	@Autowired
 	CustomerService customerService;
-	
-	
-	
+
 	@PostMapping("/createcustomer")
 	public Customer createCustomer(@Valid @RequestBody Customer customer) {
+		String datetime = UTCDateTime.getCurentTimeAndDate();
+		customer.setCreateddate(datetime);
 
 		Customer customerresponse = customerService.createCustomer(customer);
 
@@ -47,49 +48,44 @@ public class CustomerCrudRestApi {
 		return customerresponse;
 	}
 
-	
-
 	@DeleteMapping("/customer/{id}")
-	public ResponseEntity<Map<String,String>> deleteCustomer(@PathVariable(value = "id") Long customerId) {
+	public ResponseEntity<Map<String, String>> deleteCustomer(@PathVariable(value = "id") Long customerId) {
 		String response = customerService.deleteById(customerId);
-		
-		Map<String,String>responsemap=new HashMap<String,String>();
+
+		Map<String, String> responsemap = new HashMap<String, String>();
 		responsemap.put("status", response);
 
 		return ResponseEntity.ok(responsemap);
 
 	}
 
-
 	@GetMapping("/customerlistbyname")
 	public List<String> getCustomerListByName() {
 		List<String> customerList = customerService.getCustomerListByName();
 		return customerList;
 	}
-	
+
 	@GetMapping("/customerlist")
 	public List<Customer> getCustomerList() {
 		List<Customer> customerList = customerService.getCustomerList();
 		return customerList;
 	}
-	
+
 	@GetMapping("/combinenameslist")
 	public List<String> getListOfCombineName() {
-		
+
 		List<String> combinelists = customerService.getListOfCombineName();
 		return combinelists;
-		
+
 	}
-	
-	
+
 	@RequestMapping(path = "/customervendorobject", method = RequestMethod.GET)
 
 	public Object getCustomerVendorList(@RequestParam String name) {
-		
+
 		Object tripSheetList = customerService.findCustomerVendorByName(name);
 
 		return tripSheetList;
 	}
-	
-	
+
 }

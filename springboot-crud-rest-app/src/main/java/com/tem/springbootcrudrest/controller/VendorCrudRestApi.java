@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tem.springbootcrudrest.model.Vehicle;
 import com.tem.springbootcrudrest.model.Vendor;
 import com.tem.springbootcrudrest.service.VendorService;
 import com.tem.util.UTCDateTime;
@@ -32,6 +33,11 @@ public class VendorCrudRestApi {
 	public Vendor createUser(@Valid @RequestBody Vendor vendor) {
 		String datetime = UTCDateTime.getCurentTimeAndDate();
 		vendor.setCreatedDate(datetime);
+		
+		for(Vehicle vehicle:vendor.getVendorvehicle()) {
+			vehicle.setCreatedDate(datetime);
+		}
+		
 		Vendor vendorresponse = vendorService.createVendor(vendor);
 		return vendorresponse;
 	}
