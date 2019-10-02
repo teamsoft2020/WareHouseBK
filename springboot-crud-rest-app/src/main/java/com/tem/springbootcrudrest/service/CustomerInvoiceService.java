@@ -16,4 +16,6 @@ public interface CustomerInvoiceService {
 	public String deleteById(long custInvoiceId);
 
 	public List<CustomerInvoice> getCustomerInvoiceList();
+	
+	public List<Object> findVendorandCustomerList();
 }

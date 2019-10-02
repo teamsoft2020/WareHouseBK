@@ -69,7 +69,7 @@ transition: transform .2s;
 
 @media (min-width:480px)  {
  .container{
-    margin-left: 4%;
+    margin-left: 12%;
 }
 }
 @media (min-width:320px)  {
@@ -2114,13 +2114,24 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
     	 if($scope.customerInvoiceJson[index].checked) {
     	      $scope.checkedValue.push($scope.customerInvoiceJson[index]);
     	    } else {
-    	       var newIndex = $scope.checkedValue.map(function(e) { return e.loadNo; }).indexOf($scope.customerInvoiceJson[index].loadNo);
+    	       var newIndex = $scope.checkedValue.map(function(e) { return e.loadno; }).indexOf($scope.customerInvoiceJson[index].loadno);
     	       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
     	       // and $scope.customerInvoiceJson[index].uniqueField
     	       if(newIndex !== -1)
     	          $scope.checkedValue.splice(newIndex,1);
     	    }
      }
+	$scope.saveVendorInArray =function(index){
+   	 if($scope.vendorInvoiceJson[index].checked) {
+   	      $scope.checkedVendorValue.push($scope.vendorInvoiceJson[index]);
+   	    } else {
+   	       var newIndex = $scope.checkedVendorValue.map(function(e) { return e.loadno; }).indexOf($scope.vendorInvoiceJson[index].loadno);
+   	       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
+   	       // and $scope.customerInvoiceJson[index].uniqueField
+   	       if(newIndex !== -1)
+   	          $scope.checkedVendorValue.splice(newIndex,1);
+   	    }
+    }
 	$scope.init_Billing =function(){
 		 $('#datetimepicker_billDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
@@ -2316,7 +2327,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	$scope.calculateVendorTotal =function(){
 		$scope.grandTotalVendorList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		angular.forEach($scope.checkedVendorValue, function(value, key) {
-			$scope.grandTotalList.customername = value.destination;
+			$scope.grandTotalVendorList.customername = value.destination;
 			$scope.grandTotalVendorList.truckno = value.truckno;
 			$scope.grandTotalVendorList.trucktype = value.truckType;
 			
@@ -2329,7 +2340,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		});
 		$scope.grandTotalVendorList.totaltrip=$scope.checkedVendorValue.length;
 		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.totalkmpercharge) ?parseInt($scope.grandTotalVendorList.totalkmpercharge) :0) + (parseInt($scope.grandTotalVendorList.totalfreightamt)?parseInt($scope.grandTotalVendorList.totalfreightamt):0);
-		var adVenCount =(parseInt($scope.grandTotalList.totaldiscount) ? parseInt($scope.grandTotalVendorList.totaldiscount): 0) +(parseInt($scope.grandTotalVendorList.totaladvance) ? parseInt($scope.grandTotalVendorList.totaladvance): 0);
+		var adVenCount =(parseInt($scope.grandTotalVendorList.totaldiscount) ? parseInt($scope.grandTotalVendorList.totaldiscount): 0) +(parseInt($scope.grandTotalVendorList.totaladvance) ? parseInt($scope.grandTotalVendorList.totaladvance): 0);
 		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) - (parseInt(adVenCount) ? parseInt(adVenCount):0);
 		console.log($scope.grandTotalVendorList);
 		

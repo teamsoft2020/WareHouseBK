@@ -33,5 +33,12 @@ public class CustomerInvoiceCrudRestApi {
 		List<CustomerInvoice> customerInvoiceList = customerInvoiceService.getCustomerInvoiceList();
 		return customerInvoiceList;
 	}
+	
+	@GetMapping("/vendorandcustomerlist")
+	public List<Object> findVendorandCustomerList(){
+		
+		List<Object> customerInvoiceList = customerInvoiceService.findVendorandCustomerList();
+		return customerInvoiceList;
+	}
 
 }
