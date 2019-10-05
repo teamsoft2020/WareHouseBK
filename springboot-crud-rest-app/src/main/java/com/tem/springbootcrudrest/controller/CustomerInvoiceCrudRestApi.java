@@ -50,7 +50,7 @@ public class CustomerInvoiceCrudRestApi {
 		return customerInvoiceList;
 	}
 	
-	@RequestMapping(path = "/vendorinvoicelistincustomer", method = RequestMethod.GET)
+	@RequestMapping(path = "/invoicelistincustomer", method = RequestMethod.GET)
 	public List<CustomerInvoice> getVendorInvoiceList(@RequestParam String fromdate, @RequestParam String todate,
 			@RequestParam String customername) {
 
