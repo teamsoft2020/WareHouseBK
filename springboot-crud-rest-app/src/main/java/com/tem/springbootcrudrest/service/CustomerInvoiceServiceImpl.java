@@ -13,25 +13,25 @@ import com.tem.springbootcrudrest.repository.CustomerInvoiceRepository;
 import com.tem.springbootcrudrest.repository.VendorInvoiceRepository;
 
 @Component
-public class CustomerInvoiceServiceImpl implements CustomerInvoiceService{
+public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 
 	@Autowired
 	CustomerInvoiceRepository customerInvoiceRepository;
-	
+
 	@Autowired
 	VendorInvoiceRepository vendorInvoiceRepository;
-	
+
 	@Override
 	public CustomerInvoice createCustomerInvoice(CustomerInvoice customerinvoice) {
 		customerinvoice.setPaymentstatus("Pending");
-		
+
 		return customerInvoiceRepository.save(customerinvoice);
-		
+
 	}
 
 	@Override
 	public CustomerInvoice updateCustomerInvoice(CustomerInvoice customerInvoice) {
-		
+
 		return customerInvoiceRepository.save(customerInvoice);
 	}
 
@@ -43,31 +43,32 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService{
 
 	@Override
 	public List<CustomerInvoice> getCustomerInvoiceList() {
-		
+
 		return customerInvoiceRepository.findAll();
 	}
 
 	@Override
 	public List<Object> findVendorandCustomerList() {
-		
-		List<VendorInvoice> vendorinvoicelist=vendorInvoiceRepository.findAll();
-		List<CustomerInvoice>customerinvoicelist = customerInvoiceRepository.findAll();
-		List<Object>vendorCustomerList = new ArrayList<Object>();
 
-		for(CustomerInvoice customerinvoice:customerinvoicelist) {
-			
+		List<VendorInvoice> vendorinvoicelist = vendorInvoiceRepository.findAll();
+		List<CustomerInvoice> customerinvoicelist = customerInvoiceRepository.findAll();
+		List<Object> vendorCustomerList = new ArrayList<Object>();
+
+		for (CustomerInvoice customerinvoice : customerinvoicelist) {
+
 			vendorCustomerList.add(customerinvoice);
 		}
-		
-		for(VendorInvoice vendorinvoice:vendorinvoicelist) {
+
+		for (VendorInvoice vendorinvoice : vendorinvoicelist) {
 			vendorCustomerList.add(vendorinvoice);
 		}
-		
-		
-		
-		
-		
+
 		return vendorCustomerList;
+	}
+	
+	@Override
+	public List<CustomerInvoice> getCustomerInvoiceLists(String fromdate, String todate, String customername) {
+		return customerInvoiceRepository.findInvoiceBetweenDateList(fromdate, todate, customername);
 	}
 
 }

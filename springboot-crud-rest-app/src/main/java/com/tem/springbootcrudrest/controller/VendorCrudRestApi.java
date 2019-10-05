@@ -32,7 +32,7 @@ public class VendorCrudRestApi {
 	@PostMapping("/createvendor")
 	public Vendor createUser(@Valid @RequestBody Vendor vendor) {
 		String datetime = UTCDateTime.getCurentTimeAndDate();
-		vendor.setCreatedDate(datetime);
+		vendor.setCreateddate(datetime);
 		
 		for(Vehicle vehicle:vendor.getVendorvehicle()) {
 			vehicle.setCreatedDate(datetime);

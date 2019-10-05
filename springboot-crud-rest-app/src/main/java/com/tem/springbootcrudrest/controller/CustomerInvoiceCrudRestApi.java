@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.CustomerInvoice;
+import com.tem.springbootcrudrest.model.VendorInvoice;
 import com.tem.springbootcrudrest.service.CustomerInvoiceService;
 import com.tem.util.UTCDateTime;
 
@@ -45,6 +47,14 @@ public class CustomerInvoiceCrudRestApi {
 		
 		List<Object> customerInvoiceList = customerInvoiceService.findVendorandCustomerList();
 		return customerInvoiceList;
+	}
+	
+	public List<CustomerInvoice> getVendorInvoiceList(@RequestParam String fromdate, @RequestParam String todate,
+			@RequestParam String customername) {
+
+		List<CustomerInvoice> customerList = customerInvoiceService.getCustomerInvoiceLists(fromdate, todate, customername);
+
+		return customerList;
 	}
 
 }

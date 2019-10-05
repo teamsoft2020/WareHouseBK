@@ -78,7 +78,7 @@ public class Vendor {
 	private Date modifieddate;*/
 	
 	@Column(name = "createddate")
-	private String createdDate;
+	private String createddate;
 	
 	@Column(name = "modifieddate")
 	private String modifiedDate;
@@ -231,12 +231,12 @@ public class Vendor {
 		this.contactNo = contactNo;
 	}
 
-	public String getCreatedDate() {
-		return createdDate;
+	public String getCreateddate() {
+		return createddate;
 	}
 
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
+	public void setCreateddate(String createddate) {
+		this.createddate = createddate;
 	}
 
 	public String getModifiedDate() {

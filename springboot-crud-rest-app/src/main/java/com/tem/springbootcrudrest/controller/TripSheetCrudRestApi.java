@@ -188,28 +188,54 @@ public class TripSheetCrudRestApi {
 			sheet = workbook.getSheetAt(k);
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+				Row firstrow=sheet.getRow(0);
 				TripSheet trip = new TripSheet();
 				row = sheet.getRow(i);
 				try {
-					if (row.getCell(2) != null) {
+					
+					if(String.valueOf(firstrow.getCell(28)).equals("Load ID")) {
+						if (row.getCell(28) != null) {
+							//student.setEmail(row.getCell(1).toString());
+							trip.setLoadno(row.getCell(28).toString());
+						}
+					}
+					
+					/*if (row.getCell(2) != null) {
 						// trip.setLoadno(row.getCell(1).toString());
 						trip.setLoadno(row.getCell(2).toString());
-					}
+					}*/
+					
 
 					if (row.getCell(3) != null) { // trip.setName(row.getCell(1).toString());
 						trip.setTripNo(row.getCell(3).toString());
 
 					}
+					
+					
+					if(String.valueOf(firstrow.getCell(26)).equals("Origin Address")) {
+						if (row.getCell(26) != null) {
+							trip.setOrigin(row.getCell(10).toString());
+						}
+					}
 
-					if (row.getCell(10) != null) {
+					/*if (row.getCell(10) != null) {
 						// trip.setOrigin(row.getCell(5).toString());
 						trip.setOrigin(row.getCell(10).toString());
-					}
+					}*/
 
 					if (row.getCell(6) != null) {
 						// trip.setOrigin(row.getCell(5).toString());
 						trip.setTruckno(row.getCell(6).toString());
 					}
+					
+					
+					
+					if(String.valueOf(firstrow.getCell(27)).equals("Destination Address")) {
+						if (row.getCell(27) != null) {
+							trip.setOrigin(row.getCell(27).toString());
+						}
+					}
+					
 
 					if (row.getCell(11) != null) {
 						trip.setDestination(row.getCell(11).toString());

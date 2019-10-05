@@ -16,4 +16,8 @@ public interface VendorInvoiceService {
 	public String deleteById(long vendorId);
 
 	public List<VendorInvoice> getVendorInvoiceList();
+	
+	public List<VendorInvoice> getVendorInvoiceLists(String fromdate,String todate,String vendorname);
+	
+	
 }

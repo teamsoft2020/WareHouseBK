@@ -49,4 +49,9 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 		return null;
 	}
 
+	@Override
+	public List<VendorInvoice> getVendorInvoiceLists(String fromdate, String todate, String vendorname) {
+		return vendorInvoiceRepository.findInvoiceBetweenDateList(fromdate, todate, vendorname);
+	}
+
 }
