@@ -2014,6 +2014,8 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 								{id:"6",loadNo: "23",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "3000",advance:"400",discount:"",grandTotal:""}]; */	
 	$scope.customerInvoiceJson =[];
 	$scope.vendorInvoiceJson =[];
+	$scope.customerViewList=[];
+	$scope.vendorViewList =[];
 	/* $scope.vendorInvoiceJson =[{id:"1",loadNo: "23678",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "2000",advance:"",discount:"1000",grandTotal:""},
 		{id:"2",loadNo: "2008",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "1000",advance:"500",discount:"",grandTotal:""},
 		{id:"3",loadNo: "2998",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "500",advance:"",discount:"200",grandTotal:""},
@@ -2133,12 +2135,12 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
    	    }
     }
 	$scope.init_Billing =function(){
-		 $('#datetimepicker_billDate').datetimepicker({
+		 /* $('#datetimepicker_billDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
-		    });
+		    }); 
 		    $('#datetimepicker_billvenDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
-		    });
+		    });*/
 		    $('#datetimepicker_startBillDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 		    });
@@ -2157,7 +2159,12 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 			$('#datetimepicker_tovendordate').datetimepicker({
 		        format: 'MM/DD/YYYY'
 			});
-			
+			$('#datetimepicker_fromcustview').datetimepicker({
+		        format: 'MM/DD/YYYY'
+			});
+			$('#datetimepicker_tocustview').datetimepicker({
+		        format: 'MM/DD/YYYY'
+			});
 			var bm = $scope;
 			bm.dtInstanceCallback = function(instance) {
 			 	bm.dtInstance = instance;
@@ -2325,9 +2332,9 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	}
 	
 	$scope.calculateVendorTotal =function(){
-		$scope.grandTotalVendorList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+		$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		angular.forEach($scope.checkedVendorValue, function(value, key) {
-			$scope.grandTotalVendorList.customername = value.destination;
+			$scope.grandTotalVendorList.vendorname = value.destination;
 			$scope.grandTotalVendorList.truckno = value.truckno;
 			$scope.grandTotalVendorList.trucktype = value.truckType;
 			
@@ -2431,7 +2438,16 @@ $scope.saveVendorInvoice =function(){
 		$("#uploadVendorDiv").css("display","block");
 	};
 	
-	$scope.submitvendorUpload =function(){
+	$scope.initView =function(){
+		var url=location.origin +"/api/v1/listcustomerinvoice";
+		 $http({
+			    method : 'GET',
+			    url : url
+			   }).then(function successCallback(response) {
+			   $scope.customerViewList = response.data;
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
 	};
 	$scope.calculateAmountTax =function(data){
 		console.log(data);
@@ -2439,22 +2455,19 @@ $scope.saveVendorInvoice =function(){
 		$scope.customerInvoiceJson.totalAmount =amt + amt * data;
 	}
 	$scope.navRedirect =function(event){
-		
 		 $(".nav").find(".active").removeClass("active");
-		// $(".tab-content").find(".active").removeClass("active");
 		   $(event).addClass("active");
 		   var currEvent=$(event.target).attr('bind-attr');
-		  if(currEvent =="Receipt"){
+		  if(currEvent =="customerView"){
 			  $('#CustomerInvoice').hide();
 			  $('#VendorInvoice').hide();
-			  $('#Receipt').show();
-			  $('#Receipt').addClass("active");
-			  //$('#VendorInvoice').removeClass("active");
-			 // $('#CustomerInvoice').removeClass("active");
+			  $('#customerView').show();
+			  $('#customerView').addClass("active");
+			  $scope.initView();
 		  }else if(currEvent =="VendorInvoice"){
 			  $('#CustomerInvoice').hide();
 			  $('#VendorInvoice').show();
-			  $('#Receipt').hide();
+			  $('#customerView').hide();
 			  $('#VendorInvoice').addClass("active");
 			  var vm = $scope;
 				vm.dtInstanceCallback = function(instance) {
@@ -2469,21 +2482,20 @@ $scope.saveVendorInvoice =function(){
 				            leftColumns: 1,
 				            rightColumns: 1
 				        }); 
-			    
-			  //$('#CustomerInvoice').removeClass("active");
-			  //$('#Receipt').removeClass("active");
-		    $scope.grandTotalVendorList={customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
-		  }else{
+		   $scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+		  }else if(currEvent =="CustomerInvoice"){
 			  $('#CustomerInvoice').show();
-			  $('#VendorInvoice').hide();
-			  $('#Receipt').hide();
 			  $('#CustomerInvoice').addClass("active");
-			 // $('#Receipt').removeClass("active");
-			 // $('#VendorInvoice').removeClass("active");
-			  $scope.grandTotalList={customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+			  $('#VendorInvoice').hide();
+			  $('#customerView').hide();
+			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+		  }else{
+			  $('#vendorView').show();
+			  $('#vendorView').addClass("active");
+			  $('#CustomerInvoice').hide();
+			  $('#VendorInvoice').hide();
+			  $('#customerView').hide();
 		  }
-
-		  
 	}
 	$scope.init_Billing();
 	scope=$scope;
