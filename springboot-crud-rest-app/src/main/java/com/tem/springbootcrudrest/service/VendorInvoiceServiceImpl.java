@@ -46,7 +46,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 
 	@Override
 	public List<VendorInvoice> getVendorInvoiceList() {
-		return null;
+		return vendorInvoiceRepository.findAll();
 	}
 
 	@Override
