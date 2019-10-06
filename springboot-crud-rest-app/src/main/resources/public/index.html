@@ -2000,6 +2000,8 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 	$scope.file = {};
 	$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
 	$scope.vendorInvoice={fromdate:"",todate:"",truckno:""};
+	$scope.customerView=={fromdate:"",todate:"",customername:""};
+	$scope.vendorView=={fromdate:"",todate:"",vendorname:""};
 	$scope.checkedValue=[];
 	$scope.checkedVendorValue=[];
 	$scope.listBillingJson =[{customerName: "SAI Sakthi",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
@@ -2016,6 +2018,8 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 	$scope.vendorInvoiceJson =[];
 	$scope.customerViewList=[];
 	$scope.vendorViewList =[];
+	$scope.criteriaCust = {};
+	$scope.criteriaView = {};
 	/* $scope.vendorInvoiceJson =[{id:"1",loadNo: "23678",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "2000",advance:"",discount:"1000",grandTotal:""},
 		{id:"2",loadNo: "2008",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "1000",advance:"500",discount:"",grandTotal:""},
 		{id:"3",loadNo: "2998",datetime: "1-Apr-2019", invoiceNo: "7345300022", origin: "NEMAM",customerName:"HCCBPL REDHILLS DEPOT",destination:"POOCHIATHIPATTU",truckno: "TN3QU2333", truckType: "TRS", noOfCase: "1123",opkm:"678",clskm:"788",diffKM: "100", perkmchargecustomer: "330", freightAmtCust: "500",advance:"",discount:"200",grandTotal:""},
@@ -2148,22 +2152,22 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_fromdate').datetimepicker({
-		        format: 'MM/DD/YYYY'
+		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_todate').datetimepicker({
-		        format: 'MM/DD/YYYY'
+		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_fromvendordate').datetimepicker({
-		        format: 'MM/DD/YYYY'
+		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_tovendordate').datetimepicker({
-		        format: 'MM/DD/YYYY'
+		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_fromcustview').datetimepicker({
-		        format: 'MM/DD/YYYY'
+		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_tocustview').datetimepicker({
-		        format: 'MM/DD/YYYY'
+		        format: 'DD/MM/YYYY'
 			});
 			var bm = $scope;
 			bm.dtInstanceCallback = function(instance) {
@@ -2243,6 +2247,66 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		
 	};
 	
+	$scope.searchcustView =function(){
+		if($scope.customerView.fromdate=="" || $scope.customerView.fromdate== undefined){
+			 toastr.error('Please enter From date');
+			return;
+		}else if($scope.customerView.todate=="" || $scope.customerView.todate==undefined){
+			 toastr.error('Please enter To date');
+			return;
+		}else if($scope.customerView.customername=="" || $scope.customerView.customername== undefined){
+			 toastr.error('Please enter CustomerName');
+			return;
+		}else{
+			var url=location.origin +"/api/v1/invoicelistincustomer";
+			 $http({
+				    method : 'GET',
+				    url : url,
+				    params: $scope.customerView,
+				   }).then(function successCallback(response) {
+				   $scope.customerViewList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		}
+		
+	};
+	
+	$scope.searchvenView =function(){
+		if($scope.vendorView.fromdate=="" || $scope.vendorView.fromdate== undefined){
+			 toastr.error('Please enter From date');
+			return;
+		}else if($scope.vendorView.todate=="" || $scope.vendorView.todate== undefined){
+			 toastr.error('Please enter To date');
+			return;
+		}else if($scope.vendorView.vendorname=="" || $scope.vendorView.vendorname== undefined){
+			 toastr.error('Please enter CustomerName');
+			return;
+		}else{
+			var url=location.origin +"/api/v1/vendorinvoicelistinvendor";
+			 $http({
+				    method : 'GET',
+				    url : url,
+				    params: $scope.vendorView,
+				   }).then(function successCallback(response) {
+				   $scope.vendorViewList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		}
+		
+	};
+	
+	$scope.resetvenView=function() {
+		$scope.vendorView={fromdate:"",todate:"",vendorname:""};
+		$scope.initvenView();
+	}
+	
+	$scope.resetcustView=function() {
+		$scope.initView();
+		$scope.customerView={fromdate:"",todate:"",customername:""};
+		//$scope.$digest();
+	}
 	
 	$scope.custInvoicePrint=function() {
 		var xmlhttp;
@@ -2303,7 +2367,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	};
 	$scope.removeInvoice  =function(index){
 		$scope.customerInvoiceJson.splice(index,1);
-		$scope.bm.dtInstance.rerender();
+		//$scope.bm.dtInstance.rerender();
 	};
 	
 	$scope.calculateTotal =function(){
@@ -2357,7 +2421,16 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		$scope.grandTotalVendorList.leakage=parseInt(leak) ? parseInt(leak): 0;
 		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
 	}
-	
+	$scope.resetCustomerInvoice =function(){
+		$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
+		$scope.customerInvoiceJson =[];
+		$scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+	}
+	$scope.resetVendorInvoice =function(){
+		$scope.vendorInvoice={fromdate:"",todate:"",truckno:""};
+		$scope.vendorInvoiceJson =[];
+		$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+	}
 	$scope.saveCustomerInvoice =function(){
 		$scope.custcallBackdata={invoiceid:"",loadnnumber:[]};
 		var url = location.origin +"/api/v1/createcustomerinvoice";
@@ -2449,6 +2522,17 @@ $scope.saveVendorInvoice =function(){
 			    console.log(response.statusText);
 			   });
 	};
+	$scope.initvenView =function(){
+		var url=location.origin +"/api/v1/listvendorinvoice";
+		 $http({
+			    method : 'GET',
+			    url : url
+			   }).then(function successCallback(response) {
+			   $scope.vendorViewList = response.data;
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	};
 	$scope.calculateAmountTax =function(data){
 		console.log(data);
 		var amt =$scope.customerInvoiceJson.amount * $scope.customerInvoiceJson.quantity;
@@ -2495,6 +2579,7 @@ $scope.saveVendorInvoice =function(){
 			  $('#CustomerInvoice').hide();
 			  $('#VendorInvoice').hide();
 			  $('#customerView').hide();
+			  $scope.initvenView();
 		  }
 	}
 	$scope.init_Billing();

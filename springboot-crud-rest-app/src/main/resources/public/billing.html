@@ -142,67 +142,6 @@
 								</tr>
 							</tbody> 
  </table> 
- <!-- <table  id="manage-billing-table"  datatable="ng" dt-options="bm.dtOptions" dt-column-defs="bm.dtColumn"  dt-instance="dtInstanceCallback" class="row-border hover">
-							<thead>
-								<tr>
-								     <th scope="col">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" ng-model="settings.selectAll"  />
-									</label>
-								</div>
-									</th>  
-									<th width="15%">LRNO</th>
-									<th width="15%">Date</th>
-									<th width="15%">InvoiceNo</th>
-									<th width="15%">Origin</th>
-									<th width="15%">CustomerName</th>
-									<th width="15%">Destination</th>
-									<th width="15%">TruckNo</th>
-									<th width="15%">TruckType</th>
-									<th width="15%">No of case</th>
-									<th width="15%">OP Kms</th>
-									<th width="15%">Cls Kms</th>
-									<th width="15%">Total kms</th>
-									<th width="15%">For kms 6.5</th>
-									<th width="15%">TRType Fixed</th>
-									<th width="15%">Advance</th>
-									<th width="15%">Grand Total</th>
-									<th></th>
-								</tr>
-							</thead>
-							
-							<tbody>
-								<tr ng-repeat="invoice in  customerInvoiceJson track by $index">
-								  <td>
-								<div class="checkbox">
-									<label>
-										<input  type="checkbox" value="" ng-model="invoice.Selected">
-									</label>
-								</div>
-									</td> 
-										<td><label>{{invoice.LRNO}}</label></td>
-										<td><label>{{invoice.date}}</label></td>
-										<td><label>{{invoice.invoiceNo}}</label></td>
-										<td><label>{{invoice.origin}}</label></td>
-										<td><label>{{invoice.customerName}}</label></td>
-										<td><label>{{invoice.destination}}</label></td>
-										<td><label>{{invoice.truckNo}}</label></td>
-										<td><label>{{invoice.truckType}}</label></td>
-										<td><label>{{invoice.noOfCase}}</label></td>
-										<td><label>{{invoice.opKms}}</label></td>
-										<td><label>{{invoice.clsKms}}</label></td>
-										<td><label>{{invoice.totalkms}}</label></td>
-										<td><label>{{invoice.forKms}}</label></td>
-										<td><label>{{invoice.tRTypeFixed}}</label></td>
-										<td><label>{{invoice.advance}}</label></td>
-										<td><label>{{invoice.grandTotal}}</label></td>
-										
-										<td>
-									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td>
-								</tr>
-							</tbody>
-						</table>  --> 
  </div>
  
 </div>
@@ -254,6 +193,7 @@
 					 <div class="pull-right">
 					<input name="" type="button" class="btn btn-primary" id="" value="Print"  ng-click="custInvoicePrint()" style="margin-left: -20%;">
 					<input name="" type="button" class="btn btn-primary" id="" value="Submit" ng-click="saveCustomerInvoice()" style="margin-left: -1%;">
+					<input name="" type="button" class="btn btn-primary" id="" value="Reset" ng-click="resetCustomerInvoice()" style="margin-left: -1%;">
 					</div>
 					
 					 
@@ -403,6 +343,7 @@
 					 <div class="pull-right">
 					<input name="" type="button" class="btn btn-primary" id="" value="Print"  ng-click="venInvoicePrint()" style="margin-left: -20%;">
 					<input name="" type="button" class="btn btn-primary" id="" value="Submit" ng-click="saveVendorInvoice()" style="margin-left: -1%;">
+					<input name="" type="button" class="btn btn-primary" id="" value="Reset" ng-click="resetVendorInvoice()" style="margin-left: -1%;">
 					</div>
 					
 					
@@ -421,7 +362,7 @@
  <div class="col-3">
 <label class="col-12"><b>FROM </b></label>
 <div class="input-group date" id="datetimepicker_startBillDate" data-target-input="nearest">
-           <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_startBillDate" placeholder="Bill Start Date">
+           <input type="text" ng-model="customerView.fromdate" class="form-control datetimepicker-input" data-target="#datetimepicker_startBillDate" placeholder="Bill Start Date">
            <div class="input-group-append" data-target="#datetimepicker_startBillDate" data-toggle="datetimepicker">
                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
            </div>
@@ -432,7 +373,7 @@
 	 <div class="col-3">
 	  <label class="col-12"><b>TO </b></label>
 	  <div class="input-group date" id="datetimepicker_endBillDate" data-target-input="nearest">
-           <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_endBillDate" placeholder="Bill End Date">
+           <input type="text" ng-model="customerView.todate" class="form-control datetimepicker-input" data-target="#datetimepicker_endBillDate" placeholder="Bill End Date">
            <div class="input-group-append" data-target="#datetimepicker_endBillDate" data-toggle="datetimepicker">
                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
            </div>
@@ -440,20 +381,17 @@
 
   </div>
   <div class="col-2">
-		<label class="col-12"><b>Customer </b></label>
-		<select ng-model="CustomerName"  class="form-control"  ng-change="selectCustomerName()" style="display: block;margin: 2% auto;">
+		<label class="col-12"><b>CUSTOMER NAME </b></label>
+		<select ng-model="customerView.customername"  class="form-control" style="display: block;margin: 2% auto;">
 		<option value="" selected>Select Customer</option>
+		<option ng-repeat="custView in customerViewList" value="{{custView.customername}}">{{custView.customername}}</option>
 	  </select> 
 	 </div>
-	 <div class="col-2">
-		<label class="col-12"><b>VendorName </b></label>
-		<select ng-model="VendorName"  class="form-control"  ng-change="selectVendorName()" style="display: block;margin: 2% auto;">
-		<option value="" selected>Select Customer</option>
-	  </select> 
-	 </div>
+	
      <div class="col-2">
 
-		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchvenItem()" style="margin-top:15%">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustView()" style="margin-top:15%">
+		<input name="" type="button" class="btn btn-dark" id="" value="Reset" ng-click="resetcustView()" style="margin-top:15%">
 	 </div> 
  </div>
 
@@ -470,21 +408,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="view in  customerViewList track by $index">
+							<!-- ng-repeat="view in  customerViewList track by $index" -->
+								<tr ng-repeat="view in filtered = (customerViewList | filter : {customername : criteriaCust.customerName})">
 										<td><label>{{view.customerinvoiceid}}</label></td>
-										<td><label>{{view.name}}</label></td>
+										<td><label>{{view.customername}}</label></td>
 										<td><label>{{view.totaltrip}}</label></td>
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
-										<td><label>{{view.paymentstatus}}</label></td>
+										<td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td>
 										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
 								</tr>
 							</tbody>
 						</table>
 		      		</div>
-					<div class="pull-right">
+					<!-- <div class="pull-right">
 					<input name="" type="button" class="btn btn-primary" id="" value="Print" style="margin-left: 20%;">
-					</div>
+					</div> -->
 </div>
 	</div>
 
@@ -499,7 +438,7 @@
  <div class="col-3">
 <label class="col-12"><b>FROM </b></label>
 <div class="input-group date" id="datetimepicker_fromcustview" data-target-input="nearest">
-           <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_fromcustview" placeholder="Bill Start Date">
+           <input type="text" ng-model="vendorView.fromdate" class="form-control datetimepicker-input" data-target="#datetimepicker_fromcustview" placeholder="Bill Start Date">
            <div class="input-group-append" data-target="#datetimepicker_fromcustview" data-toggle="datetimepicker">
                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
            </div>
@@ -510,28 +449,31 @@
 	 <div class="col-3">
 	  <label class="col-12"><b>TO </b></label>
 	  <div class="input-group date" id="datetimepicker_tocustview" data-target-input="nearest">
-           <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_tocustview" placeholder="Bill End Date">
+           <input type="text"  ng-model="vendorView.todate" class="form-control datetimepicker-input" data-target="#datetimepicker_tocustview" placeholder="Bill End Date">
            <div class="input-group-append" data-target="#datetimepicker_tocustview" data-toggle="datetimepicker">
                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
            </div>
        </div>
 
   </div>
-  <div class="col-2">
+ <!--  <div class="col-2">
 		<label class="col-12"><b>Customer </b></label>
 		<select ng-model="CustomerName"  class="form-control"  ng-change="selectCustomerName()" style="display: block;margin: 2% auto;">
 		<option value="" selected>Select Customer</option>
 	  </select> 
-	 </div>
+	 </div> -->
 	 <div class="col-2">
-		<label class="col-12"><b>VendorName </b></label>
-		<select ng-model="VendorName"  class="form-control"  ng-change="selectVendorName()" style="display: block;margin: 2% auto;">
-		<option value="" selected>Select Customer</option>
+		<label class="col-12"><b>VENDOR NAME </b></label>
+		<select   ng-model="vendorView.vendorname" class="form-control"  style="display: block;margin: 2% auto;">
+		<option value="" selected>Select Vendor</option>
+		<option ng-repeat="venView in vendorViewList" value="{{venView.vendorname}}">{{venView.vendorname}}</option>
+	  
 	  </select> 
 	 </div>
      <div class="col-2">
 
-		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchvenItem()" style="margin-top:15%">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchvenView()" style="margin-top:15%">
+	    <input name="" type="button" class="btn btn-dark" id="" value="Reset" ng-click="resetvenView()" style="margin-top:15%">
 	 </div> 
  </div>
 
@@ -548,21 +490,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="view in  customerViewList track by $index">
-										<td><label>{{view.customerinvoiceid}}</label></td>
-										<td><label>{{view.name}}</label></td>
+								<tr ng-repeat="view in  vendorViewList track by $index">
+										<td><label>{{view.vindorinvoiceid}}</label></td>
+										<td><label>{{view.vendorname}}</label></td>
 										<td><label>{{view.totaltrip}}</label></td>
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
-										<td><label>{{view.paymentstatus}}</label></td>
+										<td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td>
 										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
 								</tr>
 							</tbody>
 						</table>
 		      		</div>
-					<div class="pull-right">
+					<!-- <div class="pull-right">
 					<input name="" type="button" class="btn btn-primary" id="" value="Print" style="margin-left: 20%;">
-					</div>
+					</div> -->
 </div>
 	</div>
 
