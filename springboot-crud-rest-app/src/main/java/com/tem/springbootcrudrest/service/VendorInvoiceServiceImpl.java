@@ -1,5 +1,6 @@
 package com.tem.springbootcrudrest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,34 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 	@Override
 	public List<VendorInvoice> getVendorInvoiceLists(String fromdate, String todate, String vendorname) {
 		return vendorInvoiceRepository.findInvoiceBetweenDateList(fromdate, todate, vendorname);
+	}
+
+	@Override
+	public List<VendorInvoice> updateVendorPayment(List<VendorInvoice> vendorInvoice) {
+		
+		List<VendorInvoice> listVendor = new ArrayList<VendorInvoice>();
+
+		for (VendorInvoice vendorInvoices : vendorInvoice) {
+			
+			VendorInvoice vendorinvoice = vendorInvoiceRepository.findByVendorinvoiceid(vendorInvoices.getVendorinvoiceid());
+			
+			vendorinvoice.setAmount(vendorInvoices.getAmount());
+			
+			if(vendorInvoices.getAmount().equals(vendorinvoice.getNetamount())) {
+				vendorinvoice.setPaymentstatus("Completed");
+			}
+			
+			vendorinvoice.setInstrumentno(vendorInvoices.getInstrumentno());
+			vendorinvoice.setPaymentdate(vendorInvoices.getPaymentdate());
+			vendorinvoice.setPaymenttype(vendorInvoices.getPaymenttype());
+			vendorinvoice.setVendorname(vendorInvoices.getVendorname());
+			
+		VendorInvoice vendorinvo = 	vendorInvoiceRepository.save(vendorinvoice);
+		listVendor.add(vendorinvo);
+			
+		}
+
+		return listVendor;
 	}
 
 }

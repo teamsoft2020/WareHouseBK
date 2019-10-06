@@ -10,9 +10,14 @@ import org.springframework.stereotype.Repository;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 
 @Repository
-public interface VendorInvoiceRepository extends JpaRepository<VendorInvoice, Long>{
+public interface VendorInvoiceRepository extends JpaRepository<VendorInvoice, Long> {
 
 	@Query(value = "select t From VendorInvoice t where t.vendorname=:vendorname and t.createddate between :fromdate and :todate")
 	public List<VendorInvoice> findInvoiceBetweenDateList(@Param("fromdate") String fromdate,
-			@Param("todate") String todate,@Param("vendorname") String vendorname);
+			@Param("todate") String todate, @Param("vendorname") String vendorname);
+
+	/*@Query(value = "select v From VendorInvoice v where v.vendorinvoiceid=:vendorinvoiceid",nativeQuery=true)
+	public VendorInvoice findByVendorinvoiceid(@Param("vendorinvoiceid") long vendorinvoiceid);*/
+	
+	public VendorInvoice findByVendorinvoiceid(long vendorinvoiceid);
 }

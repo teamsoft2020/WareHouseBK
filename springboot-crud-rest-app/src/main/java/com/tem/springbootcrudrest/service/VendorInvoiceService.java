@@ -19,5 +19,7 @@ public interface VendorInvoiceService {
 	
 	public List<VendorInvoice> getVendorInvoiceLists(String fromdate,String todate,String vendorname);
 	
+	public List<VendorInvoice> updateVendorPayment(List<VendorInvoice> vendorInvoice);
+	
 	
 }

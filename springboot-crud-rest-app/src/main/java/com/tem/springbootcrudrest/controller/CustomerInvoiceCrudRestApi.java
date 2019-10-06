@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,5 +59,16 @@ public class CustomerInvoiceCrudRestApi {
 
 		return customerList;
 	}
+	
+	@PutMapping("/updatecustomerinvoicepayments")
+	public List<CustomerInvoice> updateCustomerPayment(@RequestBody List<CustomerInvoice> customerInvoice) {
+
+		List<CustomerInvoice> customerInvoiceresponse = customerInvoiceService.updateCustomerPayment(customerInvoice);
+		
+
+		return customerInvoiceresponse;
+
+	}
+
 
 }

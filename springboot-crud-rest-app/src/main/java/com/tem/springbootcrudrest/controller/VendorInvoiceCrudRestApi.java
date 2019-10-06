@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.CustomerInvoice;
+import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 import com.tem.springbootcrudrest.service.VendorInvoiceService;
@@ -72,6 +73,16 @@ public class VendorInvoiceCrudRestApi {
 		List<VendorInvoice> tripSheetList = vendorInvoiceService.getVendorInvoiceLists(fromdate, todate, vendorname);
 
 		return tripSheetList;
+	}
+	
+	@PutMapping("/updatevendorinvoicepayments")
+	public List<VendorInvoice> updateVendorPayment(@RequestBody List<VendorInvoice> vendorInvoice) {
+
+		List<VendorInvoice> vendorInvoiceresponse = vendorInvoiceService.updateVendorPayment(vendorInvoice);
+		
+
+		return vendorInvoiceresponse;
+
 	}
 
 }

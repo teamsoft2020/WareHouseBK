@@ -20,4 +20,6 @@ public interface CustomerInvoiceService {
 	public List<Object> findVendorandCustomerList();
 	
 	public List<CustomerInvoice>getCustomerInvoiceLists(String fromdate, String todate, String customername);
+	
+	public List<CustomerInvoice> updateCustomerPayment(List<CustomerInvoice> customerinvoice);
 }

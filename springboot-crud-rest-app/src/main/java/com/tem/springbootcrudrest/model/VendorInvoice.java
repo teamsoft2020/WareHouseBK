@@ -12,12 +12,10 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-
-
 @Entity
 @Table(name = "vendorinvoice")
 @EntityListeners(AuditingEntityListener.class)
-public class VendorInvoice implements Serializable{
+public class VendorInvoice implements Serializable {
 
 	/**
 	 * 
@@ -26,8 +24,8 @@ public class VendorInvoice implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "vindorinvoiceid")
-	private long vindorinvoiceid;
+	@Column(name = "vendorinvoiceid")
+	private long vendorinvoiceid;
 
 	@Column(name = "truckno")
 	private String truckno;
@@ -40,7 +38,7 @@ public class VendorInvoice implements Serializable{
 
 	@Column(name = "totaltrip")
 	private String totaltrip;
-	
+
 	@Column(name = "totalkmpercharge")
 	private String totalkmpercharge;
 
@@ -73,26 +71,25 @@ public class VendorInvoice implements Serializable{
 
 	@Column(name = "modifieddate")
 	private String modifieddate;
-	
+
 	@Column(name = "paymenttype")
 	private String paymenttype;
-	
+
 	@Column(name = "amount")
 	private String amount;
-	
+
 	@Column(name = "paymentdate")
 	private String paymentdate;
-	
+
 	@Column(name = "instrumentno")
 	private String instrumentno;
-	
-	
-	public long getVindorinvoiceid() {
-		return vindorinvoiceid;
+
+	public long getVendorinvoiceid() {
+		return vendorinvoiceid;
 	}
 
-	public void setVindorinvoiceid(long vindorinvoiceid) {
-		this.vindorinvoiceid = vindorinvoiceid;
+	public void setVendorinvoiceid(long vendorinvoiceid) {
+		this.vendorinvoiceid = vendorinvoiceid;
 	}
 
 	public String getTotaltrip() {

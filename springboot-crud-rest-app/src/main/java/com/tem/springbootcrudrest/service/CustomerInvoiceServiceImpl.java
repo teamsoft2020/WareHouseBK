@@ -71,4 +71,32 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		return customerInvoiceRepository.findInvoiceBetweenDateList(fromdate, todate, customername);
 	}
 
+	@Override
+	public List<CustomerInvoice> updateCustomerPayment(List<CustomerInvoice> customerinvoices) {
+		
+		List<CustomerInvoice> listCustomer = new ArrayList<CustomerInvoice>();
+
+		for (CustomerInvoice customerInvoice : customerinvoices) {
+			
+			CustomerInvoice customerinvoiceobj = customerInvoiceRepository.findByCustomerinvoiceid(customerInvoice.getCustomerinvoiceid());
+			
+			customerinvoiceobj.setAmount(customerInvoice.getAmount());
+			
+			if(customerInvoice.getAmount().equals(customerinvoiceobj.getNetamount())) {
+				customerinvoiceobj.setPaymentstatus("Completed");
+			}
+			
+			customerinvoiceobj.setInstrumentno(customerInvoice.getInstrumentno());
+			customerinvoiceobj.setPaymentdate(customerInvoice.getPaymentdate());
+			customerinvoiceobj.setPaymenttype(customerInvoice.getPaymenttype());
+			customerinvoiceobj.setCustomername(customerInvoice.getCustomername());
+			
+		CustomerInvoice customerinvo = 	customerInvoiceRepository.save(customerinvoiceobj);
+		listCustomer.add(customerinvo);
+			
+		}
+		
+		return listCustomer;
+	}
+
 }
