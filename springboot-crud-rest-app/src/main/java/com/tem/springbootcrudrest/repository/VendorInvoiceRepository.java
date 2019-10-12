@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 
 @Repository
@@ -19,5 +20,8 @@ public interface VendorInvoiceRepository extends JpaRepository<VendorInvoice, Lo
 	/*@Query(value = "select v From VendorInvoice v where v.vendorinvoiceid=:vendorinvoiceid",nativeQuery=true)
 	public VendorInvoice findByVendorinvoiceid(@Param("vendorinvoiceid") long vendorinvoiceid);*/
 	
-	public VendorInvoice findByVendorinvoiceid(long vendorinvoiceid);
+	//public VendorInvoice findByvendorinvoiceid(long vendorinvoiceid);
+	
+	 @Query(value="SELECT v FROM VendorInvoice v WHERE v.vendorinvoiceid=:vendorinvoiceid") 
+	 public VendorInvoice findByvendorinvoiceid(@Param("vendorinvoiceid") long vendorinvoiceid);
 }

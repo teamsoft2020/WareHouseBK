@@ -6,26 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tem.springbootcrudrest.model.CustomerInvoice;
+import com.tem.springbootcrudrest.model.CustomerPaymentParent;
 import com.tem.springbootcrudrest.model.Customerpayment;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 import com.tem.springbootcrudrest.model.Vendorpayment;
 import com.tem.springbootcrudrest.repository.CustomerInvoiceRepository;
+import com.tem.springbootcrudrest.repository.CustomerPaymentParentRepository;
 import com.tem.springbootcrudrest.repository.CustomerPaymentRepository;
 
 @Component
 public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 	
-	@Autowired
-	CustomerPaymentRepository customerPaymentRepository;
 	
 	@Autowired
-	CustomerInvoiceRepository customerInvoiceRepository;
+	CustomerPaymentParentRepository customerPaymentParentRepository;
+	
 
 	@Override
-	public List<Customerpayment> createCustomerPayment(List<Customerpayment> customerpaymentlist) {
+	public CustomerPaymentParent createCustomerPayment(CustomerPaymentParent customerpaymentlist) {
 		
 		
-		List<Customerpayment>customerpaymentresponse=customerPaymentRepository.saveAll(customerpaymentlist);
+		CustomerPaymentParent customerpaymentresponse=customerPaymentParentRepository.save(customerpaymentlist);
 		
 	/*	for(Customerpayment customerpayment:customerpaymentresponse) {
 			CustomerInvoice customerinvoice = new CustomerInvoice();

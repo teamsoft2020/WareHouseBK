@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.CustomerInvoice;
+import com.tem.springbootcrudrest.model.CustomerPaymentUpdateInCustomerInvoice;
 import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.model.VendorInvoice;
+import com.tem.springbootcrudrest.model.VendorPaymentUpdateInCustomerInvoice;
 import com.tem.springbootcrudrest.service.VendorInvoiceService;
 import com.tem.util.UTCDateTime;
 
@@ -82,6 +84,16 @@ public class VendorInvoiceCrudRestApi {
 		
 
 		return vendorInvoiceresponse;
+
+	}
+	
+	@PutMapping("/updatevendorpaymentid")
+	public List<VendorInvoice> updateVendorPaymentFromCusPayment(@RequestBody VendorPaymentUpdateInCustomerInvoice vendpaymentupdateobj) {
+
+		List<VendorInvoice> vendorPaymentUpdateInCustomerInvoice = vendorInvoiceService.updateVendPaymentFromCusPayment(vendpaymentupdateobj);
+		
+
+		return vendorPaymentUpdateInCustomerInvoice;
 
 	}
 

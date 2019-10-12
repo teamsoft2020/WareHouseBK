@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tem.springbootcrudrest.model.CustomerPaymentParent;
 import com.tem.springbootcrudrest.model.Customerpayment;
 import com.tem.springbootcrudrest.service.CustomerPaymentService;
 import com.tem.util.UTCDateTime;
@@ -22,16 +23,16 @@ public class CustomerPaymentCrudRestApi {
 	
 	
 	@PostMapping("/createcustomerpayment")
-	public List<Customerpayment> createCustomerPayment(@RequestBody List<Customerpayment> customerpaymentlist) {
+	public CustomerPaymentParent createCustomerPayment(@RequestBody CustomerPaymentParent customerpaymentlist) {
 		
 		String datetime = UTCDateTime.getCurentTimeAndDate();
 		
-		for(Customerpayment customerpayment:customerpaymentlist) {
-		customerpayment.setCreateddate(datetime);
 		
-		}
+		customerpaymentlist.setCreateddate(datetime);
+		
+		
 
-		List<Customerpayment> customerPaymentresponse = customerPaymentService.createCustomerPayment(customerpaymentlist);
+		CustomerPaymentParent customerPaymentresponse = customerPaymentService.createCustomerPayment(customerpaymentlist);
 		
 		return customerPaymentresponse;
 	}

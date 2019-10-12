@@ -81,8 +81,8 @@ public class VendorInvoice implements Serializable {
 	@Column(name = "instrumentno")
 	private String instrumentno;
 	
-	@Column(name = "vendorpaymentid")
-	private String vendorpaymentid;
+	@Column(name = "vendpaymentid")
+	private long vendpaymentid;
 	
 	@Column(name = "paymentmodifieddate")
 	private String paymentmodifieddate;	
@@ -245,5 +245,21 @@ public class VendorInvoice implements Serializable {
 
 	public void setInstrumentno(String instrumentno) {
 		this.instrumentno = instrumentno;
+	}
+
+	public long getVendpaymentid() {
+		return vendpaymentid;
+	}
+
+	public void setVendpaymentid(long vendpaymentid) {
+		this.vendpaymentid = vendpaymentid;
+	}
+
+	public String getPaymentmodifieddate() {
+		return paymentmodifieddate;
+	}
+
+	public void setPaymentmodifieddate(String paymentmodifieddate) {
+		this.paymentmodifieddate = paymentmodifieddate;
 	}
 }

@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.model.VendorInvoice;
+import com.tem.springbootcrudrest.model.VendorPaymentUpdateInCustomerInvoice;
 import com.tem.springbootcrudrest.repository.VendorInvoiceRepository;
 
 @Component
@@ -57,30 +57,53 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 
 	@Override
 	public List<VendorInvoice> updateVendorPayment(List<VendorInvoice> vendorInvoice) {
-		
+
 		List<VendorInvoice> listVendor = new ArrayList<VendorInvoice>();
 
 		for (VendorInvoice vendorInvoices : vendorInvoice) {
-			
-			VendorInvoice vendorinvoice = vendorInvoiceRepository.findByVendorinvoiceid(vendorInvoices.getVendorinvoiceid());
-			
+
+			VendorInvoice vendorinvoice = vendorInvoiceRepository
+					.findByvendorinvoiceid(vendorInvoices.getVendorinvoiceid());
+
 			vendorinvoice.setAmount(vendorInvoices.getAmount());
-			
-			if(vendorInvoices.getAmount().equals(vendorinvoice.getNetamount())) {
+
+			if (vendorInvoices.getAmount().equals(vendorinvoice.getNetamount())) {
 				vendorinvoice.setPaymentstatus("Completed");
 			}
-			
+
 			vendorinvoice.setInstrumentno(vendorInvoices.getInstrumentno());
 			vendorinvoice.setPaymentdate(vendorInvoices.getPaymentdate());
 			vendorinvoice.setPaymenttype(vendorInvoices.getPaymenttype());
 			vendorinvoice.setVendorname(vendorInvoices.getVendorname());
-			
-		VendorInvoice vendorinvo = 	vendorInvoiceRepository.save(vendorinvoice);
-		listVendor.add(vendorinvo);
-			
+
+			VendorInvoice vendorinvo = vendorInvoiceRepository.save(vendorinvoice);
+			listVendor.add(vendorinvo);
+
 		}
 
 		return listVendor;
+	}
+
+	@Override
+	public List<VendorInvoice> updateVendPaymentFromCusPayment(
+			VendorPaymentUpdateInCustomerInvoice vendorPaymentUpdateInCustomerInvoice) {
+		List<VendorInvoice> venlist = new ArrayList<VendorInvoice>();
+
+		for (long vendorinvoiceid : vendorPaymentUpdateInCustomerInvoice.getInvoiceid()) {
+			VendorInvoice vendinvoice = new VendorInvoice();
+
+			System.out.println("invoiceid "+vendorinvoiceid + "up "+vendorPaymentUpdateInCustomerInvoice.getPaymentid());
+			
+			VendorInvoice vendInvoice =new VendorInvoice();
+			 vendInvoice = vendorInvoiceRepository.findByvendorinvoiceid(vendorinvoiceid);
+			System.out.println("invoiceid "+vendInvoice.getVendorinvoiceid() + "up "+vendorPaymentUpdateInCustomerInvoice.getPaymentid());
+
+			vendInvoice.setVendpaymentid(vendorPaymentUpdateInCustomerInvoice.getPaymentid());
+			vendinvoice = vendorInvoiceRepository.save(vendInvoice);
+			venlist.add(vendinvoice);
+		}
+
+		return venlist;
 	}
 
 }

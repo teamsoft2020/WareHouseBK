@@ -87,8 +87,8 @@ public class CustomerInvoice implements Serializable {
 	@Column(name = "instrumentno")
 	private String instrumentno;
 	
-	@Column(name = "customerpaymentid")
-	private String customerpaymentid;
+	@Column(name = "paymentid")
+	private long paymentid;
 	
 	@Column(name = "paymentmodifieddate")
 	private String paymentmodifieddate;
@@ -261,12 +261,12 @@ public class CustomerInvoice implements Serializable {
 		this.instrumentno = instrumentno;
 	}
 
-	public String getCustomerpaymentid() {
-		return customerpaymentid;
+	public long getPaymentid() {
+		return paymentid;
 	}
 
-	public void setCustomerpaymentid(String customerpaymentid) {
-		this.customerpaymentid = customerpaymentid;
+	public void setPaymentid(long paymentid) {
+		this.paymentid = paymentid;
 	}
 
 	public String getPaymentmodifieddate() {

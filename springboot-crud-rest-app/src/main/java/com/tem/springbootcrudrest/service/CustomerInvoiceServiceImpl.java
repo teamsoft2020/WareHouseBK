@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.model.CustomerInvoice;
+import com.tem.springbootcrudrest.model.CustomerPaymentUpdateInCustomerInvoice;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 import com.tem.springbootcrudrest.repository.CustomerInvoiceRepository;
 import com.tem.springbootcrudrest.repository.VendorInvoiceRepository;
@@ -97,6 +98,22 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		}
 		
 		return listCustomer;
+	}
+
+	@Override
+	public List<CustomerInvoice> updateCustPaymentFromCusPayment(
+			CustomerPaymentUpdateInCustomerInvoice customerPaymentUpdateInCustomerInvoice) {
+		List<CustomerInvoice> customerinvoice = new ArrayList<CustomerInvoice>();
+
+		for(long invoiceid:customerPaymentUpdateInCustomerInvoice.getInvoiceid()) {	
+			
+			CustomerInvoice customerIvoice = customerInvoiceRepository.findByCustomerinvoiceid(invoiceid);
+			customerIvoice.setPaymentid(customerPaymentUpdateInCustomerInvoice.getPaymentid());
+			CustomerInvoice ustomerinvoiceres = customerInvoiceRepository.save(customerIvoice);
+			customerinvoice.add(ustomerinvoiceres);
+			
+		}
+		return customerinvoice;
 	}
 
 }
