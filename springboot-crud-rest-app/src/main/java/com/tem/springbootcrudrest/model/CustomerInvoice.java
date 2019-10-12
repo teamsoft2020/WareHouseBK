@@ -86,6 +86,12 @@ public class CustomerInvoice implements Serializable {
 	
 	@Column(name = "instrumentno")
 	private String instrumentno;
+	
+	@Column(name = "customerpaymentid")
+	private String customerpaymentid;
+	
+	@Column(name = "paymentmodifieddate")
+	private String paymentmodifieddate;
 
 	public String getTotaltrip() {
 		return totaltrip;
@@ -254,5 +260,22 @@ public class CustomerInvoice implements Serializable {
 	public void setInstrumentno(String instrumentno) {
 		this.instrumentno = instrumentno;
 	}
+
+	public String getCustomerpaymentid() {
+		return customerpaymentid;
+	}
+
+	public void setCustomerpaymentid(String customerpaymentid) {
+		this.customerpaymentid = customerpaymentid;
+	}
+
+	public String getPaymentmodifieddate() {
+		return paymentmodifieddate;
+	}
+
+	public void setPaymentmodifieddate(String paymentmodifieddate) {
+		this.paymentmodifieddate = paymentmodifieddate;
+	}
+	
 	
 }

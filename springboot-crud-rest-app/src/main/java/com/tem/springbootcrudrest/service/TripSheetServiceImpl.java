@@ -131,7 +131,6 @@ public class TripSheetServiceImpl implements TripSheetService {
 
 		for (String loadno : customerInvoiceNo.getLoadnnumber()) {
 			TripSheet tripsheetupdate = new TripSheet();
-			System.out.println("loadno " + loadno + " invoiceid " + customerInvoiceNo.getInvoiceid());
 			tripsheetupdate = tripRepository.findByLoadNO(loadno);
 			tripsheetupdate.setCustomerinvoicestatus("YES");
 			tripsheetupdate.setCustomerinvoiceno(customerInvoiceNo.getInvoiceid());

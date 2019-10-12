@@ -17,9 +17,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class VendorInvoice implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -83,6 +80,12 @@ public class VendorInvoice implements Serializable {
 
 	@Column(name = "instrumentno")
 	private String instrumentno;
+	
+	@Column(name = "vendorpaymentid")
+	private String vendorpaymentid;
+	
+	@Column(name = "paymentmodifieddate")
+	private String paymentmodifieddate;	
 
 	public long getVendorinvoiceid() {
 		return vendorinvoiceid;
