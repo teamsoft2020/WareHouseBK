@@ -2,10 +2,10 @@
 <div class="col-md-12">
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" data-toggle="tab"  bind-attr="Payment" role="tab" ng-click="navRedirect($event)">Payment</a>
+		<a class="nav-link active" data-toggle="tab"  bind-attr="customerPayment" role="tab" ng-click="navRedirect($event)">Customer Payment</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" data-toggle="tab"  bind-attr="Receipt" role="tab" ng-click="navRedirect($event)">Receipt</a>
+		<a class="nav-link" data-toggle="tab"  bind-attr="vendorPayment" role="tab" ng-click="navRedirect($event)">Vendor Payment</a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" data-toggle="tab"  bind-attr="view" role="tab" ng-click="navRedirect($event)">View</a>
@@ -13,74 +13,115 @@
 </ul><!-- Tab panes -->
 <div class="tab-content">
 <div class="tab-pane active" id="Payment" role="tabpanel">
-<h4>Payment</h4>
+<h4>Customer Payment</h4>
 <div >
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-<div class="row" >
-  <div class="col-4">
-  <select ng-model="shipName" class="form-control" ng-change="selectShipperName()" style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select Shipper</option>
-    <option   >Sai Store</option>
-	<option   >Sri Store</option>
-  </select>
-  </div>
-  <div class="col-4">
-  <select ng-model="ConsName" class="form-control" ng-change="selectConsignorName()" style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select Consignor</option>
-    <option   >SSS Store</option>
-	<option   >ECO Store</option>
-  </select>
-  </div>
-   <div class="col-4">
-  <div class="input-group date" id="datetimepicker_repbill" data-target-input="nearest">
-        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_repbill" placeholder="Bill Date"/>
-        <div class="input-group-append" data-target="#datetimepicker_repbill" data-toggle="datetimepicker">
+
+<div class="filterDiv">
+<div class="row" style="margin-top: 1%;">
+ <div class="col-3">
+<label class="col-12"><b>FROM </b></label>
+  
+  <div class="input-group date" id="datetimepicker_custfromrepbill" data-target-input="nearest">
+     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custfromrepbill" ng-model="customerPayment.fromdate" placeholder="From Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_custfromrepbill" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		</div>
+		</div>
+	</div>
+
+
+	 <div class="col-3">
+	  <label class="col-12"><b>TO </b></label>
+	  <div class="input-group date" id="datetimepicker_custtorepbill" data-target-input="nearest">
+        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custtorepbill" ng-model="customerPayment.todate" placeholder="To Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_custtorepbill" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
     </div>
+
   </div>
+  <div class="col-2">
+		<label class="col-12"><b>CUSTOMER </b></label>
+	 	<select ng-model="customerPayment.customername"  class="form-control" style="display: block;margin: 2% auto;">
+		<option value="" selected>Select Customer</option>
+		<option ng-repeat="custView in customerpaymentList | unique:'customername'" value="{{custView.customername}}">{{custView.customername}}</option>
+	  </select> 
+	 
+	 </div>
+	
+     <div class="col-2">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustPaymentItem()" style="margin-top:15%">
+	 </div> 
+ </div>
 </div>
 
-<div class="row">
- <div class="col-4">
-  <select ng-model="shipPayBranch"  class="form-control " style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select ShipperBranch</option>
-    <option >Trichy Branch</option>
-	<option >Velacherry Branch</option>
-	<option >Chennai Branch</option>
-  </select>
+<div class="row" style="margin-top: 1%;">
+ <table  id="manage-custPayment-table"  datatable="ng" dt-options="pm.dtOptions" dt-instance="pm.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+								     <th scope="col"></th>  
+									<th width="15%">InvoiceNo</th>
+									<th width="15%">CustomerName</th>
+									<th width="15%">Total Trip</th>
+									<th width="15%">Amount</th>
+									 <th width="15%">Date</th> 
+									<th width="15%">Status</th>
+								</tr>
+							</thead>
+ 
+  							<tbody>
+								<tr ng-repeat="view in filtered = (customerpaymentList | filter : {paymentstatus : 'Pending'})">
+										<td><input  type="checkbox" value="" ng-model="view.checked"  ng-click="checkcustPayInArray($index)"></td>
+										<td><label>{{view.customerinvoiceid}}</label></td>
+										<td><label>{{view.customername}}</label></td>
+										<td><label>{{view.totaltrip}}</label></td>
+										<td><label>{{view.netamount}}</label></td>
+										<td><label>{{view.createddate}}</label></td>
+										<td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td>
+										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
+								</tr>
+							</tbody> 
+ </table> 
+
  </div>
-  <div class="col-4">
-   <select ng-model="ConsPayBranch"  class="form-control " style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select ConsignorBranch</option>
-    <option >Trichy Branch</option>
-	<option >Velacherry Branch</option>
-	<option >Chennai Branch</option>
-  </select>
-  </div>
-   <div class="col-4"></div>
+  <hr>
+  <div class="pull-right" style="margin-top: 1%;">
+					<input name="" type="button" class="btn btn-primary" id="" ng-click="calculatepaymentTotal()" value="Calculate" style="margin-left: -1%;">
+					</div>
+ <div class="row">
+ <div class="col-6">
+ <div class="row">
+ <label class="col-6" style="font-weight: bold;"> Receipt Date</label>
+<div class="col-6 input-group date" id="datetimepicker_custreceiptDate" data-target-input="nearest">
+    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custreceiptDate" ng-model="commoncustList.custreceiptDate" placeholder="Receipt Date"/>
+    <div class="input-group-append" data-target="#datetimepicker_custreceiptDate" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+    </div>
 </div>
-		      			<table class="table table-bordered table-hover">
+</div>
+ </div>
+ <div class="col-6">
+  <div class="row">
+ <label class="col-6" style="font-weight: bold;">Total Amount</label>
+  <label class="col-6" >{{commoncustList.totalamount}} </label>
+ </div>
+ </div>
+ </div>
+		      			<table  class="table table-bordered table-hover" style="margin-top: 1%;">
 							<thead>
 								<tr>
-									<!-- <th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th> -->
 									<th width="15%">InstrumentType</th>
-									<th width="28%" ng-show="paymentJson.paymentType != 'Credit' && paymentJson.paymentType != 'Cash'">Date</th>
+									<th width="28%" >Date</th>
 									<th width="15%">Amount</th>
-									<!-- <th width="15%">Quantity</th>
-									<th width="15%">Currency</th>
-									<th width="15%">Exchange Rate</th> 
-									<th width="15%">ProductTax</th>-->
-									<th width="15%">TotalAmount  </th>
 									<th width="15%">InstrumentNo</th>
 									<th width="15%">Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-										<!-- <td><input class="case" type="checkbox"></td> -->
-										<td><!-- <input type="text"  id="productList" value="" class=" custom-select custom-select-sm" > -->
-									            <select data-placeholder="Your Product"  class="form-control" tabindex="8" ng-model="paymentJson.paymentType">
+								<tr ng-repeat="pay in  paymentJson track by $index">
+										<td>
+									            <select data-placeholder="Your Product"  class="form-control" tabindex="8" ng-model="pay.paymentType">
 									              <option value="">Select Inst_Type</option>
 									              <option value="Credit">Credit</option>
 									              <option value="Cheque">Cheque</option>
@@ -90,38 +131,19 @@
 									              <option value="RTGS">RTGS</option>
 									            </select>
 										</td>
-										<td ng-show="paymentJson.paymentType != 'Credit' && paymentJson.paymentType != 'Cash'"><!-- <input type="text"  id="dateId" class="form-control " > -->
-										<div class="input-group date" id="datetimepicker_instDate" data-target-input="nearest">
-						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_instDate" ng-model="paymentJson.instrumentDate" placeholder="Instrument Date"/>
-						                  <div class="input-group-append" data-target="#datetimepicker_instDate" data-toggle="datetimepicker">
+										<td >
+										<div class="input-group date" id="datetimepicker_custinstDate" data-target-input="nearest" ng-show="pay.paymentType != 'Credit' && pay.paymentType != 'Cash'">
+						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custinstDate" ng-model="pay.instrumentDate" placeholder="Instrument Date"/>
+						                  <div class="input-group-append" data-target="#datetimepicker_custinstDate" data-toggle="datetimepicker">
 						                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
 						                  </div>
 						              </div>
 										</td>
-										<td><input type="number"  id="amt" ng-model="paymentJson.amount" class="form-control " ></td>
-										<!-- <td> <input type="number"  id="qty" ng-model="paymentJson.quantity" class="form-control " ></td>
-										<td> <select data-placeholder="Your Currency"  class="form-control" tabindex="8" ng-model="paymentJson.currency">
-									              <option value="">Select Currency</option>
-									              <option>INR</option>
-									              <option>Dollar</option>
-									            </select></td>
-										<td><input type="number" id="exRate" class="form-control " ng-model="paymentJson.exRate"></td>
-										<td>
-										<select class="form-control " ng-model="paymentJson.tax" ng-change="calculatePaymentAmountTax(paymentJson.tax)">
-											 <option value="0" selected>0%</option>
-											 <option value="0.05">5%</option>
-											 <option value="0.08">8%</option>
-											 <option value="0.12">12%</option>
-											 <option value="0.18">18%</option>
-											 <option value="0.2">20%</option>
-										</select>
-										</td> -->
-										<td><input type="number" id="total" class="form-control " ng-model="paymentJson.totalAmount"></td>
-										<td><input type="number" id="inst_no" class="form-control " ng-model="paymentJson.instrumentNo"></td>
+										<td><input type="number"  id="amt" ng-model="pay.amount" class="form-control " ></td>
+										<td><input type="number" id="inst_no" class="form-control " ng-model="pay.instrumentNo"></td>
 										<td> 
-										<!-- <input name="" type="button" class="btn btn-primary" id="" value="View"> -->
-									<!-- <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i> -->
-									 <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
+									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deletepaymentIndex($index);"></i>
 									
 								</td>
 								</tr>
@@ -130,64 +152,153 @@
 		      		</div>
 					<div class="pull-right">
 					<input name="" type="button" class="btn btn-primary" id="" value="Print" style="margin-left: -20%;">
-					<input name="" type="button" class="btn btn-primary" id="" value="Save" style="margin-left: -1%;">
+					<input name="" type="button" class="btn btn-primary" id="" value="Save" style="margin-left: -1%;" ng-click="saveCustPayment()">
 					</div>
 </div>
 <div >
 </div>
 </div>
 <div class="tab-pane" id="Receipt" role="tabpanel">
-<h4>Receipt</h4>
+<h4>Vendor Payment</h4>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-<div class="row"  >
-  <div class="col-4">
-  <select ng-model="shipperName" class="form-control" ng-change="selectShipperName()" style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select Shipper</option>
-    <option   >Sai Store</option>
-	<option   >Sri Store</option>
-  </select>
-  </div>
-  <div class="col-4">
-  <select ng-model="ConsignorName" class="form-control" ng-change="selectConsignorName()" style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select Consignor</option>
-    <option   >SSS Store</option>
-	<option   >ECO Store</option>
-  </select>
-  </div>
-   <div class="col-4">
-  <div class="input-group date" id="datetimepicker_repbill1" data-target-input="nearest">
-        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_repbill1" placeholder="Bill Date"/>
-        <div class="input-group-append" data-target="#datetimepicker_repbill1" data-toggle="datetimepicker">
+
+<div class="filterDiv">
+<div class="row" style="margin-top: 1%;">
+ <div class="col-3">
+<label class="col-12"><b>FROM </b></label>
+  
+  <div class="input-group date" id="datetimepicker_venfromrepbill" data-target-input="nearest">
+     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_venfromrepbill" ng-model="vendorPayment.fromdate" placeholder="From Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_venfromrepbill" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		</div>
+		</div>
+	</div>
+
+
+	 <div class="col-3">
+	  <label class="col-12"><b>TO </b></label>
+	  <div class="input-group date" id="datetimepicker_ventorepbill" data-target-input="nearest">
+        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_ventorepbill" ng-model="vendorPayment.todate" placeholder="To Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_ventorepbill" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
     </div>
+
   </div>
-</div>
-<div class="row">
- <div class="col-4">
-  <select ng-model="shipRepBranch"  class="form-control " style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select ShipperBranch</option>
-    <option >Trichy Branch</option>
-	<option >Velacherry Branch</option>
-	<option >Chennai Branch</option>
-  </select>
+  <div class="col-2">
+		<label class="col-12"><b>VENDOR </b></label>
+	 	<select ng-model="vendorPayment.vendorname"  class="form-control" style="display: block;margin: 2% auto;">
+		<option value="" selected>Select Customer</option>
+		<option ng-repeat="custView in vendorpaymentList | unique:'vendorname'" value="{{custView.vendorname}}">{{custView.vendorname}}</option>
+	  </select> 
+	 
+	 </div>
+	
+     <div class="col-2">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustPaymentItem()" style="margin-top:15%">
+	 </div> 
  </div>
-  <div class="col-4">
-   <select ng-model="ConsRepBranch"  class="form-control " style="display: block;margin: 2% auto;">
-  <option value=""  selected>Select ConsignorBranch</option>
-    <option >Trichy Branch</option>
-	<option >Velacherry Branch</option>
-	<option >Chennai Branch</option>
-  </select>
-  </div>
-   <div class="col-4"></div>
 </div>
 
-
-		      			<table class="table table-bordered table-hover">
+<div class="row" style="margin-top: 1%;">
+<!--  class="table table-bordered table-hover table-striped" dt-columns="bm.dtColumns" dt-instance="bm.dtInstance"-->
+ <table  id="manage-venPayment-table"  datatable="ng" dt-options="pvm.dtOptions" dt-instance="pvm.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+								     <th scope="col">
+									</th>  
+									<th width="15%">InvoiceNo</th>
+									<th width="15%">VendorName</th>
+									<th width="15%">Total Trip</th>
+									<th width="15%">Amount</th>
+									 <th width="15%">Date</th> 
+									<th width="15%">Status</th>
+								</tr>
+							</thead>
+ 
+  							<tbody>
+								<tr ng-repeat="view in filtered = (vendorpaymentList | filter : {paymentstatus : 'Pending'})">
+										<td>
+										<input  type="checkbox" value="" ng-model="view.checked"  ng-click="checkvenPayInArray($index)">
+										</td>
+										<td><label>{{view.vendorinvoiceid}}</label></td>
+										<td><label>{{view.vendorname}}</label></td>
+										<td><label>{{view.totaltrip}}</label></td>
+										<td><label>{{view.netamount}}</label></td>
+										<td><label>{{view.createddate}}</label></td>
+										<td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td>
+								</tr>
+							</tbody> 
+ </table> 
+ </div>
+  <hr>
+  <div class="pull-right" style="margin-top: 1%;">
+					<input name="" type="button" class="btn btn-primary" id="" ng-click="calculatevenpaymentTotal()" value="Calculate" style="margin-left: -1%;">
+					</div>
+ <div class="row">
+ <div class="col-6">
+ <div class="row">
+ <label class="col-6" style="font-weight: bold;"> Receipt Date</label>
+<div class="col-6 input-group date" id="datetimepicker_venreceiptDate" data-target-input="nearest">
+    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_venreceiptDate" ng-model="commonvenList.venreceiptDate" placeholder="Receipt Date"/>
+    <div class="input-group-append" data-target="#datetimepicker_venreceiptDate" data-toggle="datetimepicker">
+        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+    </div>
+</div>
+</div>
+ </div>
+ <div class="col-6">
+  <div class="row">
+ <label class="col-6" style="font-weight: bold;">Total Amount</label>
+  <label class="col-6" >{{commonvenList.totalamount}} </label>
+ </div>
+ </div>
+ </div>
+<table  class="table table-bordered table-hover" style="margin-top: 1%;">
 							<thead>
 								<tr>
-									<!-- <th width="2%"><input id="check_all" class="formcontrol" type="checkbox"></th> -->
+									<th width="15%">InstrumentType</th>
+									<th width="28%" >Date</th>
+									<th width="15%">Amount</th>
+									<th width="15%">InstrumentNo</th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="pay in  paymentvenJson track by $index">
+										<td>
+									            <select data-placeholder="Your Product"  class="form-control" tabindex="8" ng-model="pay.paymentType">
+									              <option value="">Select Inst_Type</option>
+									              <option value="Credit">Credit</option>
+									              <option value="Cheque">Cheque</option>
+									              <option value="Cash">Cash</option>
+									              <option value="NetBanking">Net Banking</option>
+									              <option value="NEFT">NEFT</option>
+									              <option value="RTGS">RTGS</option>
+									            </select>
+										</td>
+										<td >
+										<div class="input-group date" id="datetimepicker_veninstDate" data-target-input="nearest" ng-show="pay.paymentType != 'Credit' && pay.paymentType != 'Cash'">
+						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_veninstDate" ng-model="pay.instrumentDate" placeholder="Instrument Date"/>
+						                  <div class="input-group-append" data-target="#datetimepicker_veninstDate" data-toggle="datetimepicker">
+						                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						                  </div>
+						              </div>
+										</td>
+										<td><input type="number"  id="amt" ng-model="pay.amount" class="form-control " ></td>
+										<td><input type="number" id="inst_no" class="form-control " ng-model="pay.instrumentNo"></td>
+										<td> 
+									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
+									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deletepaymentIndex($index);"></i>
+									
+								</td>
+								</tr>
+							</tbody>
+						</table>
+		      			<!-- <table class="table table-bordered table-hover">
+							<thead>
+								<tr>
 									<th width="15%">InstrumentType</th>
 									<th width="28%">Date</th>
 									<th width="15%">Amount</th>
@@ -200,8 +311,7 @@
 							</thead>
 							<tbody>
 								<tr>
-										<!-- <td><input class="case" type="checkbox"></td> -->
-										<td><!-- <input type="text"  id="productList" value="" class=" custom-select custom-select-sm" > -->
+										<td>
 									            <select data-placeholder="Your Product"  class="chosen-select chosen-rtl" tabindex="8">
 									              <option value="">Select Product</option>
 									              <option>American Black Bear</option>
@@ -231,7 +341,7 @@
 								</td>
 								</tr>
 							</tbody>
-						</table>
+						</table> -->
 		      		</div>
 		      		<div class="pull-right">
 					<input name="" type="button" class="btn btn-primary" id="" value="Print" style="margin-left: -20%;">

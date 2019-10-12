@@ -24,6 +24,7 @@
 <script src="/js/angular-resource.js"></script>
 <script type="text/javascript" src="/js/angular-datatables.min.js"></script>
  <script src="/js/angular-route.js"></script> 
+ <script src="/js/angular-filter.min.js"></script>
 <!-- <script src="/js/angular-ui-router.min.js"></script> -->
 
 <script src="/js/angular-animate.js"></script>
@@ -435,7 +436,26 @@ legend {
       margin: 0 auto;
       overflow:auto;
   }
+
+ #manage-custPayment-table th,
+  #manage-custPayment-table td {
+      white-space: nowrap;
+  }
+  #manage-custPayment-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
  
+  #manage-venPayment-table th,
+  #manage-venPayment-table td {
+      white-space: nowrap;
+  }
+  #manage-venPayment-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
  .mandatory{
  color:red;
  font-weight: bold;
@@ -506,7 +526,7 @@ legend {
 <!-- <div ng-view style="width: 100%;height: 90%;"></div> -->
 </div>
 <script>
-var app = angular.module("homeApp", ["ngRoute","ngResource","datatables","datatables.buttons","ngAnimate", "toastr","datatables.fixedcolumns","datatables.light-columnfilter","datatables.select"]);
+var app = angular.module("homeApp", ["angular.filter","ngRoute","ngResource","datatables","datatables.buttons","ngAnimate", "toastr","datatables.fixedcolumns","datatables.light-columnfilter","datatables.select"]);
 app.config(['$routeProvider',function($routeProvider) {
     $routeProvider
       .when("/", {
@@ -2000,8 +2020,8 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 	$scope.file = {};
 	$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
 	$scope.vendorInvoice={fromdate:"",todate:"",truckno:""};
-	$scope.customerView=={fromdate:"",todate:"",customername:""};
-	$scope.vendorView=={fromdate:"",todate:"",vendorname:""};
+	$scope.customerView={fromdate:"",todate:"",customername:""};
+	$scope.vendorView={fromdate:"",todate:"",vendorname:""};
 	$scope.checkedValue=[];
 	$scope.checkedVendorValue=[];
 	$scope.listBillingJson =[{customerName: "SAI Sakthi",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
@@ -2152,21 +2172,29 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_fromdate').datetimepicker({
-		        format: 'DD/MM/YYYY'
+		        format: 'MM/DD/YYYY'
 			});
 			$('#datetimepicker_todate').datetimepicker({
-		        format: 'DD/MM/YYYY'
+		        format: 'MM/DD/YYYY'
 			});
 			$('#datetimepicker_fromvendordate').datetimepicker({
-		        format: 'DD/MM/YYYY'
+		        format: 'MM/DD/YYYY'
 			});
 			$('#datetimepicker_tovendordate').datetimepicker({
-		        format: 'DD/MM/YYYY'
+		        format: 'MM/DD/YYYY'
 			});
 			$('#datetimepicker_fromcustview').datetimepicker({
 		        format: 'DD/MM/YYYY'
 			});
 			$('#datetimepicker_tocustview').datetimepicker({
+		        format: 'DD/MM/YYYY'
+			});
+			
+			$('#datetimepicker_custinvoicedate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+			});
+			
+			$('#datetimepicker_veninvoicedate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 			});
 			var bm = $scope;
@@ -2492,14 +2520,6 @@ $scope.saveVendorInvoice =function(){
 		          console.log(response.status);
 		        });
 	}
-	/* $scope.keyuptotalCust =function(){
-		if($scope.tollBill){
-			$scope.totalCust = $scope.totalCust + $scope.tollBill;
-		}else{
-			$scope.totalCust = $scope.totalCust + 0;
-		}
-		
-	} */
 	
 	$scope.removevendorInvoice  =function(index){
 		$scope.vendorInvoiceJson.splice(index,1);
@@ -2585,29 +2605,227 @@ $scope.saveVendorInvoice =function(){
 	$scope.init_Billing();
 	scope=$scope;
 });
-app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 	
 	$scope.listReceiptJson =[{instrumentType: "Sew",shipperName: "xyzz", consignorName: "ABCCC", billingDetails: {}},
 							  {instrumentType: "Software",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}},
 							  {instrumentType: "Equipment",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
 							  {instrumentType: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];				
-	$scope.paymentJson ={paymentType: "",instrumentDate: "", exRate: "", currency: "",instrumentNo:"",totalAmount:""};	
+	
+	$scope.paymentJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];	
+	$scope.paymentvenJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];	
+	 $scope.customerpaymentList =[];
+	 $scope.vendorpaymentList =[];
+	$scope.customerPayment={fromdate:"",todate:"",customername:""};
+	$scope.vendorPayment={fromdate:"",todate:"",customername:""};
+	$scope.checkedcustPaymentValue=[];
+	$scope.checkedvenPaymentValue=[];
+	$scope.commoncustList={custreceiptDate:"",totalamount:0};
+	$scope.commonvenList={venreceiptDate:"",totalamount:0};
+	
+	  
+	$scope.dtInstanceCallback = function(instance) {
+		$scope.dtInstance = instance;
+ 	};
+ 
+ 	$scope.dtOptions = DTOptionsBuilder.newOptions()
+		        .withOption('scrollY', '300px')
+		        .withOption('scrollX', '100%')
+		        .withOption('scrollCollapse', true)
+		        .withFixedColumns({
+		            leftColumns: 1,
+		            rightColumns: 1
+		        });
+	$scope.deletepaymentIndex =function(index){
+		$scope.paymentJson.splice(index,1);		
+	}
+ 	$scope.addNewpayment =function(){
+ 		$scope.paymentJson.push({paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}); 		
+ 	}
+ 	$scope.calculatepaymentTotal =function(){
+ 		$scope.commoncustList={custreceiptDate:"",totalamount:0};
+ 		$scope.paymentJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];
+ 		angular.forEach($scope.checkedcustPaymentValue, function(value, key) {
+ 			$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
+		});
+ 	}
+ 	$scope.calculatevenpaymentTotal =function(){
+ 		$scope.commonvenList={venreceiptDate:"",totalamount:0};
+ 		$scope.paymentvenJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];
+ 		angular.forEach($scope.checkedcustPaymentValue, function(value, key) {
+ 			$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
+		});
+ 	}
+ $scope.checkcustPayInArray =function(index){
+	 if($scope.customerpaymentList[index].checked) {
+	      $scope.checkedcustPaymentValue.push($scope.customerpaymentList[index]);
+	    } else {
+	       var newIndex = $scope.checkedcustPaymentValue.map(function(e) { return e.customerinvoiceid; }).indexOf($scope.customerpaymentList[index].customerinvoiceid);
+	       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
+	       // and $scope.customerInvoiceJson[index].uniqueField
+	       if(newIndex !== -1)
+	          $scope.checkedcustPaymentValue.splice(newIndex,1);
+	    }
+ }
+ 
+ $scope.checkvenPayInArray =function(index){
+	 if($scope.vendorpaymentList[index].checked) {
+	      $scope.checkedvenPaymentValue.push($scope.vendorpaymentList[index]);
+	    } else {
+	       var newIndex = $scope.checkedvenPaymentValue.map(function(e) { return e.vendorinvoiceid; }).indexOf($scope.vendorpaymentList[index].vendorinvoiceid);
+	       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
+	       // and $scope.customerInvoiceJson[index].uniqueField
+	       if(newIndex !== -1)
+	          $scope.checkedvenPaymentValue.splice(newIndex,1);
+	    }
+ }
+ 
+ $scope.searchcustPaymentItem =function(){
+		if($scope.customerPayment.fromdate=="" || $scope.customerPayment.fromdate== undefined){
+			 toastr.error('Please enter From date');
+			return;
+		}else if($scope.customerPayment.todate=="" || $scope.customerPayment.todate==undefined){
+			 toastr.error('Please enter To date');
+			return;
+		}else if($scope.customerPayment.customername=="" || $scope.customerPayment.customername== undefined){
+			 toastr.error('Please enter CustomerName');
+			return;
+		}else{
+			var url=location.origin +"/api/v1/invoicelistincustomer";
+			 $http({
+				    method : 'GET',
+				    url : url,
+				    params: $scope.customerPayment,
+				   }).then(function successCallback(response) {
+				   $scope.customerpaymentList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		}
+		
+	};
+	
+	$scope.saveCustPayment =function(){
+		var url = location.origin +"/api/v1/";
+		$scope.checkCredit=false;
+		$scope.checkamt=0;
+		angular.forEach($scope.paymentJson, function(value, key) {
+			if(value.paymentType =="Credit"){
+				$scope.checkCredit=true;
+			}
+			value.custreceiptDate =$scope.commoncustList.custreceiptDate;
+			$scope.checkamt +=parseInt(value.amount)?parseInt(value.amount):0;
+ 			//$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
+		});
+		if($scope.checkCredit){
+			if($scope.commoncustList.totalamount ==$scope.checkamt){
+				toastr.success('matched');
+				
+				    $http({
+				        method : 'POST',
+				        url : url,
+				        data : angular.toJson($scope.item),
+				        headers : {
+				        'Content-Type' : 'application/json'
+				        }
+				        }).then(function (response) {
+				            //$scope.listCustomerJson = response.data;
+				            toastr.success('Data added successfully');
+				        	//$scope.initcust();
+				        }, function error(response) {
+				        	toastr.success('Data not added');
+				          console.log(response.status);
+				        });
+			}else{
+				toastr.error('Amount does not match');
+			}
+			
+		}else{
+			if($scope.commoncustList.totalamount <=$scope.checkamt){
+				toastr.success('Matched');
+				$http({
+			        method : 'POST',
+			        url : url,
+			        data : angular.toJson($scope.item),
+			        headers : {
+			        'Content-Type' : 'application/json'
+			        }
+			        }).then(function (response) {
+			            //$scope.listCustomerJson = response.data;
+			            toastr.success('Data added successfully');
+			        	//$scope.initcust();
+			        }, function error(response) {
+			        	toastr.success('Data not added');
+			          console.log(response.status);
+			        });
+			}else{
+				toastr.error('Invoice and Receipt Amount is not matched..');
+			}
+			
+		}
+	}
 	$scope.calculatePaymentAmountTax =function(data){
 		console.log(data);
 		var amt =$scope.paymentJson.amount * $scope.paymentJson.quantity;
 		$scope.paymentJson.totalAmount =amt + amt * data;
 	}
 	$scope.init_Inst =function(){
-		 $('#datetimepicker_instDate').datetimepicker({
+		 $('#datetimepicker_custfromrepbill').datetimepicker({
 		        format: 'DD/MM/YYYY'
 		    });
+		 $('#datetimepicker_custtorepbill').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_venfromrepbill').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_ventorepbill').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_custreceiptDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_venreceiptDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 
+		 
+		 $scope.initcustPayment();
+		
 	}
+	
+	 
+	 
 	 $('#datetimepicker_startBillDate1').datetimepicker({
 	        format: 'DD/MM/YYYY'
 	    });
 	    $('#datetimepicker_endBillDate2').datetimepicker({
 	        format: 'DD/MM/YYYY'
 	    });
+	    
+	    $scope.initcustPayment =function(){
+			var url=location.origin +"/api/v1/listcustomerinvoice";
+			 $http({
+				    method : 'GET',
+				    url : url
+				   }).then(function successCallback(response) {
+				   $scope.customerpaymentList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		};
+		
+		 $scope.initvenPayment =function(){
+				var url=location.origin +"/api/v1/listvendorinvoice";
+				 $http({
+					    method : 'GET',
+					    url : url
+					   }).then(function successCallback(response) {
+					   $scope.vendorpaymentList = response.data;
+					   }, function errorCallback(response) {
+					    console.log(response.statusText);
+					   });
+			};
 	$scope.navRedirect =function(event){
 		
 		 $(".nav").find(".active").removeClass("active");
@@ -2617,17 +2835,29 @@ app.controller('ReceiptController', function ($scope,DTOptionsBuilder, DTColumnB
 			  $('#Payment').hide();
 			  $('#Receipt').hide();
 			  $('#view').show();
-		  }else if(currEvent =="Receipt"){
+		  }else if(currEvent =="vendorPayment"){
 			  $('#Payment').hide();
 			  $('#Receipt').show();
 			  $('#view').hide();
+			  $scope.initvenPayment();
 		  }else{
 			  $('#Payment').show();
 			  $('#Receipt').hide();
 			  $('#view').hide();
+			  $scope.initcustPayment();
 		  }
 	}
 	$scope.init_Inst();
+	
+	 $timeout(function() { 
+		 $('#datetimepicker_custinstDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_veninstDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 
+		 }, 2000);
 	scope=$scope;
 });
 $(document).ready(function(){
