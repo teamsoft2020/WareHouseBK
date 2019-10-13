@@ -506,6 +506,7 @@ legend {
       <li class='sidebar-brand'><a id="billing_master"  ng-click="redirectUrl($event)">Billing<i class="fa fa-money sub_icon" aria-hidden="true"></i></a></li>
       <li class='sidebar-brand' ><a id="receipt_master"  ng-click="redirectUrl($event)">Receipt<i class="fa fa-address-book sub_icon" aria-hidden="true"></i></a></li>
 	  <li class='sidebar-brand' ><a id="voucher_master"  ng-click="redirectUrl($event)">Voucher<i class="fa fa-address-book sub_icon" aria-hidden="true"></i></a></li>
+	 <li class='sidebar-brand' ><a id="ledger_master"  ng-click="redirectUrl($event)">Ledger<i class="fa fa-address-book sub_icon" aria-hidden="true"></i></a></li>
 	  <li class='sidebar-brand' ><a id="logout"  ng-click="redirectUrl($event)">Logout<i class="fa fa-sign-out sub_icon" aria-hidden="true"></i></a></li>
       </ul>
         
@@ -577,6 +578,10 @@ app.config(['$routeProvider',function($routeProvider) {
     .when('/voucher_master', {
         templateUrl: 'voucher.html',
         controller: 'VoucherController'
+    })
+    .when('/ledger_master', {
+        templateUrl: 'ledger.html',
+        controller: 'LedgerController'
     })
      .when('/user_master', {
         templateUrl: 'user.html',
@@ -678,6 +683,13 @@ app.controller('indexController',['$scope','$location', "$timeout", function ($s
 				//angular.element('#navMenu').trigger('click');
 				$location.path("/"+menuId);
 				$("#title").text("Voucher"); 
+				//angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
+		}else if(menuId == "ledger_master"){
+			$timeout( function(){
+				//angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Ledger");
 				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 		}
@@ -2757,6 +2769,15 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			$scope.checkamt +=parseInt(value.amount)?parseInt(value.amount):0;
  			//$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
 		});
+		
+		if($scope.commoncustList.totalamount == 0){
+		toastr.warning('No data');
+		return;	
+		}
+		if($scope.commonvenList.custreceiptDate ==""){
+			toastr.warning('Please select Receipt Date..');
+			return;	
+		}
 		if($scope.checkCredit){
 			if($scope.commoncustList.totalamount ==$scope.checkamt){
 				//toastr.success('matched');
@@ -2775,7 +2796,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 				        	});
 				        	$scope.updatecustomerInvoice();
 				        }, function error(response) {
-				        	toastr.success('Error while Payment process');
+				        	toastr.error('Error while Payment process');
 				          console.log(response.status);
 				        });
 			}else{
@@ -2801,7 +2822,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			        	});
 			        	$scope.updatecustomerInvoice();
 			        }, function error(response) {
-			        	toastr.success('Error while Payment process');
+			        	toastr.error('Error while Payment process');
 			          console.log(response.status);
 			        });
 			}else{
@@ -2816,16 +2837,17 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		$http({
 	        method : 'PUT',
 	        url : url,
-	        data : angular.toJson($scope.checkedcustPaymentValue),
+	        data : angular.toJson($scope.custPaymentcallBackdata),
 	        headers : {
 	        'Content-Type' : 'application/json'
 	        }
 	        }).then(function (response) {
 	            //$scope.listCustomerJson = response.data;
 	            toastr.success('Payment registered successfully');
+	            $scope.initcustPayment();
 	            
 	        }, function error(response) {
-	        	toastr.success('Payment not registered');
+	        	toastr.error('Payment not registered');
 	          console.log(response.status);
 	        });
 	}
@@ -2833,6 +2855,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	
 	
 	$scope.saveVenPayment =function(){
+		
 		$scope.venPaymentcallBackdata={paymentid:"",invoiceid:[]};
 		$scope.venPaymentsubmitData={vendorreceiptdate:$scope.commonvenList.venreceiptDate,vendorpayment:[]};
 		$scope.venPaymentsubmitData.vendorpayment=$scope.paymentvenJson;
@@ -2845,6 +2868,14 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			}
 			$scope.checkvenamt +=parseInt(value.amount)?parseInt(value.amount):0;
 		});
+		if($scope.commonvenList.totalamount == 0){
+			toastr.warning('No data');
+			return;	
+		}
+		if($scope.commonvenList.venreceiptDate ==""){
+			toastr.warning('Please select Receipt Date..');
+			return;	
+		}
 		if($scope.checkvenCredit){
 			if($scope.commonvenList.totalamount ==$scope.checkvenamt){
 				//toastr.success('matched');
@@ -2863,7 +2894,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 				        	});
 				        	$scope.updatevendorInvoice();
 				        }, function error(response) {
-				        	toastr.success('Error while Payment process');
+				        	toastr.error('Error while Payment process');
 				          console.log(response.status);
 				        });
 			}else{
@@ -2889,7 +2920,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			        	});
 			        	$scope.updatevendorInvoice();
 			        }, function error(response) {
-			        	toastr.success('Error while Payment process');
+			        	toastr.error('Error while Payment process');
 			          console.log(response.status);
 			        });
 			}else{
@@ -2904,14 +2935,14 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		$http({
 	        method : 'PUT',
 	        url : url,
-	        data : angular.toJson($scope.checkedvenPaymentValue),
+	        data : angular.toJson($scope.venPaymentcallBackdata),
 	        headers : {
 	        'Content-Type' : 'application/json'
 	        }
 	        }).then(function (response) {
 	            toastr.success('Payment registered successfully');
 	        }, function error(response) {
-	        	toastr.success('Payment not registered');
+	        	toastr.error('Payment not registered');
 	          console.log(response.status);
 	        });
 	}
@@ -2941,9 +2972,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		        format: 'DD/MM/YYYY'
 		    });
 		 
-		 
 		 $scope.initcustPayment();
-		
 	}
 	
 	 
@@ -2956,6 +2985,12 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	    });
 	    
 	    $scope.initcustPayment =function(){
+	    	$scope.paymentJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
+	    	$scope.customerpaymentList =[];
+	    	$scope.customerPayment={fromdate:"",todate:"",customername:""};
+	    	$scope.checkedcustPaymentValue=[];
+	    	$scope.commoncustList={custreceiptDate:"",totalamount:0};
+	    	$scope.customerpaymentList=[];
 			var url=location.origin +"/api/v1/listcustomerinvoice";
 			 $http({
 				    method : 'GET',
@@ -2968,6 +3003,12 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		};
 		
 		 $scope.initvenPayment =function(){
+			 $scope.paymentvenJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];	
+			 $scope.vendorpaymentList =[];
+			 $scope.vendorPayment={fromdate:"",todate:"",vendorname:""};
+			 $scope.checkedvenPaymentValue=[];
+			 $scope.vendorpaymentList=[];
+			 $scope.commonvenList={venreceiptDate:"",totalamount:0};
 				var url=location.origin +"/api/v1/listvendorinvoice";
 				 $http({
 					    method : 'GET',
@@ -3040,6 +3081,19 @@ app.controller('VoucherController', function ($scope) {
 			  $('#vendorCredit').hide();
 			  $('#customerCheque').hide();
 			   $('#vendorCheque').show();
+		  }
+	}
+});
+
+app.controller('LedgerController', function ($scope) {
+	
+	
+	$scope.navLedgerRedirect =function(event){
+		 $(".nav").find(".active").removeClass("active");
+		   $(event).addClass("active");
+		   var currEvent=$(event.target).attr('bind-attr');
+		  if(currEvent =="ledger"){
+			  $('#ledger').show(); 
 		  }
 	}
 });

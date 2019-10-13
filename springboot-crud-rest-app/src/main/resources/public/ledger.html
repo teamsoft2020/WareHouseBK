@@ -1,0 +1,72 @@
+<div class="col-md-12">
+<ul class="nav nav-tabs" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" data-toggle="tab"  bind-attr="ledger" role="tab" ng-click="navLedgerRedirect($event)">Ledger</a>
+	</li>
+	<!-- <li class="nav-item">
+		<a class="nav-link" data-toggle="tab"  bind-attr="vendorCredit" role="tab" ng-click="navVoucherRedirect($event)">Vendor Payment</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-toggle="tab"  bind-attr="customerCheque" role="tab" ng-click="navVoucherRedirect($event)">Customer Cheque</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-toggle="tab"  bind-attr="vendorCheque" role="tab" ng-click="navVoucherRedirect($event)">Vendor Cheque</a>
+	</li> -->
+</ul><!-- Tab panes -->
+
+<div class="tab-content">
+<div class="tab-pane active" id="ledger" role="tabpanel">
+
+<!-- <h4>Ledger</h4> -->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="filterDiv">
+<div class="row" style="margin-top: 1%;">
+ <div class="col-3">
+<label class="col-12"><b>FROM </b></label>
+  
+  <div class="input-group date" id="datetimepicker_customerfromcredit" data-target-input="nearest">
+     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_customerfromcredit" ng-model="customerPayment.fromdate" placeholder="From Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_customerfromcredit" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		</div>
+		</div>
+	</div>
+
+
+	 <div class="col-3">
+	  <label class="col-12"><b>TO </b></label>
+	  <div class="input-group date" id="datetimepicker_customertocredit" data-target-input="nearest">
+        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_customertocredit" ng-model="customerPayment.todate" placeholder="To Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_customertocredit" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+    </div>
+
+  </div>
+  <!-- <div class="col-2">
+		<label class="col-12"><b>CUSTOMER </b></label>
+	 	<select ng-model="customerPayment.customername"  class="form-control" style="display: block;margin: 2% auto;">
+		<option value="" selected>Select Customer</option>
+		<option ng-repeat="custView in customerpaymentList | unique:'customername'" value="{{custView.customername}}">{{custView.customername}}</option>
+	  </select> 
+	 
+	 </div> -->
+	
+     <div class="col-2">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustCreditItem()" style="margin-top:15%">
+	 </div> 
+ </div>
+</div>
+
+
+
+
+
+</div>
+</div>
+
+
+
+</div>
+
+</div>
