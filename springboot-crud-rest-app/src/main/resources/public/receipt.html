@@ -121,7 +121,7 @@
 							<tbody>
 								<tr ng-repeat="pay in  paymentJson track by $index">
 										<td>
-									            <select data-placeholder="Your Product"  class="form-control" tabindex="8" ng-model="pay.paymentType">
+									            <select data-placeholder="Your Product"  class="form-control" tabindex="8" ng-model="pay.paymenttype">
 									              <option value="">Select Inst_Type</option>
 									              <option value="Credit">Credit</option>
 									              <option value="Cheque">Cheque</option>
@@ -132,15 +132,15 @@
 									            </select>
 										</td>
 										<td >
-										<div class="input-group date" id="datetimepicker_custinstDate" data-target-input="nearest" ng-show="pay.paymentType != 'Credit' && pay.paymentType != 'Cash'">
-						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custinstDate" ng-model="pay.instrumentDate" placeholder="Instrument Date"/>
+										<div class="input-group date" id="datetimepicker_custinstDate" data-target-input="nearest" ng-show="pay.paymenttype != 'Credit' && pay.paymenttype != 'Cash'">
+						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custinstDate" ng-model="pay.instrumentdate" placeholder="Instrument Date"/>
 						                  <div class="input-group-append" data-target="#datetimepicker_custinstDate" data-toggle="datetimepicker">
 						                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
 						                  </div>
 						              </div>
 										</td>
 										<td><input type="number"  id="amt" ng-model="pay.amount" class="form-control " ></td>
-										<td><input type="number" id="inst_no" class="form-control " ng-model="pay.instrumentNo"></td>
+										<td><input type="number" id="inst_no" class="form-control " ng-model="pay.instrumentno"></td>
 										<td> 
 									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
 									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deletepaymentIndex($index);"></i>
@@ -196,7 +196,7 @@
 	 </div>
 	
      <div class="col-2">
-		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustPaymentItem()" style="margin-top:15%">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchvenPaymentItem()" style="margin-top:15%">
 	 </div> 
  </div>
 </div>
@@ -218,7 +218,7 @@
 							</thead>
  
   							<tbody>
-								<tr ng-repeat="view in filtered = (vendorpaymentList | filter : {paymentstatus : 'Pending'})">
+								<tr ng-repeat="view in venfiltered = (vendorpaymentList | filter : {paymentstatus : 'Pending'})">
 										<td>
 										<input  type="checkbox" value="" ng-model="view.checked"  ng-click="checkvenPayInArray($index)">
 										</td>
@@ -345,7 +345,7 @@
 		      		</div>
 		      		<div class="pull-right">
 					<input name="" type="button" class="btn btn-primary" id="" value="Print" style="margin-left: -20%;">
-					<input name="" type="button" class="btn btn-primary" id="" value="Save" style="margin-left: -1%;">
+					<input name="" type="button" class="btn btn-primary" id="" value="Save" ng-click="saveVenPayment()" style="margin-left: -1%;">
 					</div>
 					
 </div>

@@ -505,6 +505,7 @@ legend {
       <li class='sidebar-brand'><a id="userAccess_master"  ng-click="redirectUrl($event)">Access<i class="fa fa-check-square-o sub_icon" aria-hidden="true"></i></a></li>
       <li class='sidebar-brand'><a id="billing_master"  ng-click="redirectUrl($event)">Billing<i class="fa fa-money sub_icon" aria-hidden="true"></i></a></li>
       <li class='sidebar-brand' ><a id="receipt_master"  ng-click="redirectUrl($event)">Receipt<i class="fa fa-address-book sub_icon" aria-hidden="true"></i></a></li>
+	  <li class='sidebar-brand' ><a id="voucher_master"  ng-click="redirectUrl($event)">Voucher<i class="fa fa-address-book sub_icon" aria-hidden="true"></i></a></li>
 	  <li class='sidebar-brand' ><a id="logout"  ng-click="redirectUrl($event)">Logout<i class="fa fa-sign-out sub_icon" aria-hidden="true"></i></a></li>
       </ul>
         
@@ -573,11 +574,15 @@ app.config(['$routeProvider',function($routeProvider) {
         templateUrl: 'receipt.html',
         controller: 'ReceiptController'
     })
+    .when('/voucher_master', {
+        templateUrl: 'voucher.html',
+        controller: 'VoucherController'
+    })
      .when('/user_master', {
         templateUrl: 'user.html',
         controller: 'UserController'
     });
-    /* .
+    /* .voucher_master
     otherwise({
         redirectTo: '/Home'
     }); */
@@ -668,6 +673,13 @@ app.controller('indexController',['$scope','$location', "$timeout", function ($s
 				//angular.element('#menuToggle').css('z-index',"0");
 	        }, 500);
 			
+		}else if(menuId == "voucher_master"){
+			$timeout( function(){
+				//angular.element('#navMenu').trigger('click');
+				$location.path("/"+menuId);
+				$("#title").text("Voucher"); 
+				//angular.element('#menuToggle').css('z-index',"0");
+	        }, 500);
 		}
 		
 	} 
@@ -2612,12 +2624,12 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 							  {instrumentType: "Equipment",shipperName: "ABCCC", consignorName: "ABCCC",billingDetails: {}},
 							  {instrumentType: "sonaata",shipperName: "ABCCC", consignorName: "ABCCC", billingDetails: {}}];				
 	
-	$scope.paymentJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];	
-	$scope.paymentvenJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];	
+	$scope.paymentJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];	
+	$scope.paymentvenJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];	
 	 $scope.customerpaymentList =[];
 	 $scope.vendorpaymentList =[];
 	$scope.customerPayment={fromdate:"",todate:"",customername:""};
-	$scope.vendorPayment={fromdate:"",todate:"",customername:""};
+	$scope.vendorPayment={fromdate:"",todate:"",vendorname:""};
 	$scope.checkedcustPaymentValue=[];
 	$scope.checkedvenPaymentValue=[];
 	$scope.commoncustList={custreceiptDate:"",totalamount:0};
@@ -2640,20 +2652,20 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		$scope.paymentJson.splice(index,1);		
 	}
  	$scope.addNewpayment =function(){
- 		$scope.paymentJson.push({paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}); 		
+ 		$scope.paymentJson.push({paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}); 		
  	}
  	$scope.calculatepaymentTotal =function(){
  		$scope.commoncustList={custreceiptDate:"",totalamount:0};
- 		$scope.paymentJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];
+ 		$scope.paymentJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
  		angular.forEach($scope.checkedcustPaymentValue, function(value, key) {
  			$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
 		});
  	}
  	$scope.calculatevenpaymentTotal =function(){
  		$scope.commonvenList={venreceiptDate:"",totalamount:0};
- 		$scope.paymentvenJson =[{paymentType: "",instrumentDate: "", amount: "", instrumentNo:""}];
- 		angular.forEach($scope.checkedcustPaymentValue, function(value, key) {
- 			$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
+ 		$scope.paymentvenJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
+ 		angular.forEach($scope.checkedvenPaymentValue, function(value, key) {
+ 			$scope.commonvenList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
 		});
  	}
  $scope.checkcustPayInArray =function(index){
@@ -2705,35 +2717,65 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		
 	};
 	
+	 $scope.searchvenPaymentItem =function(){
+			if($scope.vendorPayment.fromdate=="" || $scope.vendorPayment.fromdate== undefined){
+				 toastr.error('Please enter From date');
+				return;
+			}else if($scope.vendorPayment.todate=="" || $scope.vendorPayment.todate==undefined){
+				 toastr.error('Please enter To date');
+				return;
+			}else if($scope.vendorPayment.vendorname=="" || $scope.vendorPayment.vendorname== undefined){
+				 toastr.error('Please enter CustomerName');
+				return;
+			}else{
+				var url=location.origin +"/api/v1/vendorinvoicelistinvendor";
+				 $http({
+					    method : 'GET',
+					    url : url,
+					    params: $scope.vendorPayment,
+					   }).then(function successCallback(response) {
+					   $scope.vendorpaymentList = response.data;
+					   }, function errorCallback(response) {
+					    console.log(response.statusText);
+					   });
+			}
+			
+		};
+	
 	$scope.saveCustPayment =function(){
-		var url = location.origin +"/api/v1/";
+		$scope.custPaymentcallBackdata={paymentid:"",invoiceid:[]};
+		$scope.custPaymentsubmitData={customerreceiptdate:$scope.commoncustList.custreceiptDate,customerpayment:[]};
+		$scope.custPaymentsubmitData.customerpayment=$scope.paymentJson;
+		var url = location.origin +"/api/v1/createcustomerpayment";
 		$scope.checkCredit=false;
 		$scope.checkamt=0;
 		angular.forEach($scope.paymentJson, function(value, key) {
-			if(value.paymentType =="Credit"){
+			if(value.paymenttype =="Credit"){
 				$scope.checkCredit=true;
 			}
-			value.custreceiptDate =$scope.commoncustList.custreceiptDate;
+			//value.customerreceiptdate =$scope.commoncustList.custreceiptDate;
 			$scope.checkamt +=parseInt(value.amount)?parseInt(value.amount):0;
  			//$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
 		});
 		if($scope.checkCredit){
 			if($scope.commoncustList.totalamount ==$scope.checkamt){
-				toastr.success('matched');
+				//toastr.success('matched');
 				
 				    $http({
 				        method : 'POST',
 				        url : url,
-				        data : angular.toJson($scope.item),
+				        data : angular.toJson($scope.custPaymentsubmitData),
 				        headers : {
 				        'Content-Type' : 'application/json'
 				        }
 				        }).then(function (response) {
-				            //$scope.listCustomerJson = response.data;
-				            toastr.success('Data added successfully');
-				        	//$scope.initcust();
+				            $scope.custPaymentcallBackdata.paymentid=response.data.cuspaymentid;
+				        	angular.forEach($scope.checkedcustPaymentValue, function(list, key) {
+				        		$scope.custPaymentcallBackdata.invoiceid.push(list.customerinvoiceid);
+				        	});
+				        	$scope.updatecustomerInvoice();
 				        }, function error(response) {
-				        	toastr.success('Data not added');
+				        	toastr.success('Error while Payment process');
 				          console.log(response.status);
 				        });
 			}else{
@@ -2742,20 +2784,24 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			
 		}else{
 			if($scope.commoncustList.totalamount <=$scope.checkamt){
-				toastr.success('Matched');
+				//toastr.success('Matched');
 				$http({
 			        method : 'POST',
 			        url : url,
-			        data : angular.toJson($scope.item),
+			        data : angular.toJson($scope.custPaymentsubmitData),
 			        headers : {
 			        'Content-Type' : 'application/json'
 			        }
 			        }).then(function (response) {
 			            //$scope.listCustomerJson = response.data;
-			            toastr.success('Data added successfully');
-			        	//$scope.initcust();
+			           // toastr.success('Data added successfully');
+			            $scope.custPaymentcallBackdata.paymentid=response.data.cuspaymentid;
+			        	angular.forEach($scope.checkedcustPaymentValue, function(list, key) {
+			        		$scope.custPaymentcallBackdata.invoiceid.push(list.customerinvoiceid);
+			        	});
+			        	$scope.updatecustomerInvoice();
 			        }, function error(response) {
-			        	toastr.success('Data not added');
+			        	toastr.success('Error while Payment process');
 			          console.log(response.status);
 			        });
 			}else{
@@ -2764,11 +2810,117 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			
 		}
 	}
-	$scope.calculatePaymentAmountTax =function(data){
+	
+	$scope.updatecustomerInvoice=function(){
+		var url = location.origin +"/api/v1/updatecustomerpaymentid";
+		$http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.checkedcustPaymentValue),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Payment registered successfully');
+	            
+	        }, function error(response) {
+	        	toastr.success('Payment not registered');
+	          console.log(response.status);
+	        });
+	}
+	
+	
+	
+	$scope.saveVenPayment =function(){
+		$scope.venPaymentcallBackdata={paymentid:"",invoiceid:[]};
+		$scope.venPaymentsubmitData={vendorreceiptdate:$scope.commonvenList.venreceiptDate,vendorpayment:[]};
+		$scope.venPaymentsubmitData.vendorpayment=$scope.paymentvenJson;
+		var url = location.origin +"/api/v1/createvendorpayment";
+		$scope.checkvenCredit=false;
+		$scope.checkvenamt=0;
+		angular.forEach($scope.paymentvenJson, function(value, key) {
+			if(value.paymenttype =="Credit"){
+				$scope.checkvenCredit=true;
+			}
+			$scope.checkvenamt +=parseInt(value.amount)?parseInt(value.amount):0;
+		});
+		if($scope.checkvenCredit){
+			if($scope.commonvenList.totalamount ==$scope.checkvenamt){
+				//toastr.success('matched');
+				
+				    $http({
+				        method : 'POST',
+				        url : url,
+				        data : angular.toJson($scope.venPaymentsubmitData),
+				        headers : {
+				        'Content-Type' : 'application/json'
+				        }
+				        }).then(function (response) {
+				            $scope.venPaymentcallBackdata.paymentid=response.data.venpaymentid;
+				        	angular.forEach($scope.checkedvenPaymentValue, function(list, key) {
+				        		$scope.venPaymentcallBackdata.invoiceid.push(list.vendorinvoiceid);
+				        	});
+				        	$scope.updatevendorInvoice();
+				        }, function error(response) {
+				        	toastr.success('Error while Payment process');
+				          console.log(response.status);
+				        });
+			}else{
+				toastr.error('Amount does not match');
+			}
+			
+		}else{
+			if($scope.commonvenList.totalamount <=$scope.checkvenamt){
+				//toastr.success('Matched');
+				$http({
+			        method : 'POST',
+			        url : url,
+			        data : angular.toJson($scope.venPaymentsubmitData),
+			        headers : {
+			        'Content-Type' : 'application/json'
+			        }
+			        }).then(function (response) {
+			            //$scope.listCustomerJson = response.data;
+			           // toastr.success('Data added successfully');
+			        	$scope.venPaymentcallBackdata.paymentid=response.data.venpaymentid;
+			        	angular.forEach($scope.checkedvenPaymentValue, function(list, key) {
+			        		$scope.venPaymentcallBackdata.invoiceid.push(list.vendorinvoiceid);
+			        	});
+			        	$scope.updatevendorInvoice();
+			        }, function error(response) {
+			        	toastr.success('Error while Payment process');
+			          console.log(response.status);
+			        });
+			}else{
+				toastr.error('Invoice and Receipt Amount is not matched..');
+			}
+			
+		}
+	}
+	
+	$scope.updatevendorInvoice=function(){
+		var url = location.origin +"/api/v1/updatevendorpaymentid";
+		$http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.checkedvenPaymentValue),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            toastr.success('Payment registered successfully');
+	        }, function error(response) {
+	        	toastr.success('Payment not registered');
+	          console.log(response.status);
+	        });
+	}
+	
+	/* $scope.calculatePaymentAmountTax =function(data){
 		console.log(data);
 		var amt =$scope.paymentJson.amount * $scope.paymentJson.quantity;
 		$scope.paymentJson.totalAmount =amt + amt * data;
-	}
+	} */
 	$scope.init_Inst =function(){
 		 $('#datetimepicker_custfromrepbill').datetimepicker({
 		        format: 'DD/MM/YYYY'
@@ -2859,6 +3011,37 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		 
 		 }, 2000);
 	scope=$scope;
+});
+
+app.controller('VoucherController', function ($scope) {
+	
+	
+	$scope.navVoucherRedirect =function(event){
+		 $(".nav").find(".active").removeClass("active");
+		   $(event).addClass("active");
+		   var currEvent=$(event.target).attr('bind-attr');
+		  if(currEvent =="customerCredit"){
+			  $('#customerCredit').show();
+			  $('#vendorCredit').hide();
+			  $('#customerCheque').hide();
+			   $('#vendorCheque').hide();
+		  }else if(currEvent =="vendorCredit"){
+			  $('#customerCredit').hide();
+			  $('#vendorCredit').show();
+			  $('#customerCheque').hide();
+			   $('#vendorCheque').hide();
+		  }else if(currEvent =="customerCheque"){
+			  $('#customerCredit').hide();
+			  $('#vendorCredit').hide();
+			  $('#customerCheque').show();
+			   $('#vendorCheque').hide();
+		  }else if(currEvent =="vendorCheque"){
+			  $('#customerCredit').hide();
+			  $('#vendorCredit').hide();
+			  $('#customerCheque').hide();
+			   $('#vendorCheque').show();
+		  }
+	}
 });
 $(document).ready(function(){
 	$(".menu-toggle").click(function(e) {
