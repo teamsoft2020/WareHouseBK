@@ -77,7 +77,7 @@ public class VendorInvoiceCrudRestApi {
 		return tripSheetList;
 	}
 	
-	@PutMapping("/updatevendorinvoicepayments")
+	/*@PutMapping("/updatevendorinvoicepayments")
 	public List<VendorInvoice> updateVendorPayment(@RequestBody List<VendorInvoice> vendorInvoice) {
 
 		List<VendorInvoice> vendorInvoiceresponse = vendorInvoiceService.updateVendorPayment(vendorInvoice);
@@ -85,7 +85,7 @@ public class VendorInvoiceCrudRestApi {
 
 		return vendorInvoiceresponse;
 
-	}
+	}*/
 	
 	@PutMapping("/updatevendorpaymentid")
 	public List<VendorInvoice> updateVendorPaymentFromCusPayment(@RequestBody VendorPaymentUpdateInCustomerInvoice vendpaymentupdateobj) {

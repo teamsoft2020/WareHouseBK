@@ -61,7 +61,7 @@ public class CustomerInvoiceCrudRestApi {
 		return customerList;
 	}
 	
-	@PutMapping("/updatecustomerinvoicepayments")
+	/*@PutMapping("/updatecustomerinvoicepayments")
 	public List<CustomerInvoice> updateCustomerPayment(@RequestBody List<CustomerInvoice> customerInvoice) {
 
 		List<CustomerInvoice> customerInvoiceresponse = customerInvoiceService.updateCustomerPayment(customerInvoice);
@@ -69,7 +69,7 @@ public class CustomerInvoiceCrudRestApi {
 
 		return customerInvoiceresponse;
 
-	}
+	}*/
 	
 	
 	@PutMapping("/updatecustomerpaymentid")

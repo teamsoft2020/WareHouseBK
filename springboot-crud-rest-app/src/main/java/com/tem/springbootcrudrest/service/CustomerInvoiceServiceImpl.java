@@ -25,6 +25,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 	@Override
 	public CustomerInvoice createCustomerInvoice(CustomerInvoice customerinvoice) {
 		customerinvoice.setPaymentstatus("Pending");
+		customerinvoice.setCustomerpaymentid(0);
 
 		return customerInvoiceRepository.save(customerinvoice);
 
@@ -72,7 +73,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		return customerInvoiceRepository.findInvoiceBetweenDateList(fromdate, todate, customername);
 	}
 
-	@Override
+	/*@Override
 	public List<CustomerInvoice> updateCustomerPayment(List<CustomerInvoice> customerinvoices) {
 		
 		List<CustomerInvoice> listCustomer = new ArrayList<CustomerInvoice>();
@@ -98,7 +99,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		}
 		
 		return listCustomer;
-	}
+	}*/
 
 	@Override
 	public List<CustomerInvoice> updateCustPaymentFromCusPayment(
@@ -108,7 +109,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		for(long invoiceid:customerPaymentUpdateInCustomerInvoice.getInvoiceid()) {	
 			
 			CustomerInvoice customerIvoice = customerInvoiceRepository.findByCustomerinvoiceid(invoiceid);
-			customerIvoice.setPaymentid(customerPaymentUpdateInCustomerInvoice.getPaymentid());
+			customerIvoice.setCustomerpaymentid(customerPaymentUpdateInCustomerInvoice.getPaymentid());
 			CustomerInvoice ustomerinvoiceres = customerInvoiceRepository.save(customerIvoice);
 			customerinvoice.add(ustomerinvoiceres);
 			

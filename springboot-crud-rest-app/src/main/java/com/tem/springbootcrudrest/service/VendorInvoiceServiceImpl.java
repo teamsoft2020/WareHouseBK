@@ -20,6 +20,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 	@Override
 	public VendorInvoice createVendorInvoice(VendorInvoice vendorInvoice) {
 		vendorInvoice.setPaymentstatus("Pending");
+		vendorInvoice.setVendpaymentid(0);
 		return vendorInvoiceRepository.save(vendorInvoice);
 
 	}
@@ -55,7 +56,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 		return vendorInvoiceRepository.findInvoiceBetweenDateList(fromdate, todate, vendorname);
 	}
 
-	@Override
+	/*@Override
 	public List<VendorInvoice> updateVendorPayment(List<VendorInvoice> vendorInvoice) {
 
 		List<VendorInvoice> listVendor = new ArrayList<VendorInvoice>();
@@ -63,7 +64,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 		for (VendorInvoice vendorInvoices : vendorInvoice) {
 
 			VendorInvoice vendorinvoice = vendorInvoiceRepository
-					.findByvendorinvoiceid(vendorInvoices.getVendorinvoiceid());
+					.findByVendorInvoiceId(vendorInvoices.getVendorinvoiceid());
 
 			vendorinvoice.setAmount(vendorInvoices.getAmount());
 
@@ -82,7 +83,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 		}
 
 		return listVendor;
-	}
+	}*/
 
 	@Override
 	public List<VendorInvoice> updateVendPaymentFromCusPayment(
@@ -92,13 +93,12 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 		for (long vendorinvoiceid : vendorPaymentUpdateInCustomerInvoice.getInvoiceid()) {
 			VendorInvoice vendinvoice = new VendorInvoice();
 
-			System.out.println("invoiceid "+vendorinvoiceid + "up "+vendorPaymentUpdateInCustomerInvoice.getPaymentid());
-			
 			VendorInvoice vendInvoice =new VendorInvoice();
-			 vendInvoice = vendorInvoiceRepository.findByvendorinvoiceid(vendorinvoiceid);
-			System.out.println("invoiceid "+vendInvoice.getVendorinvoiceid() + "up "+vendorPaymentUpdateInCustomerInvoice.getPaymentid());
-
+			
+			vendInvoice = vendorInvoiceRepository.findByVendorInvoiceId(vendorinvoiceid);
+			
 			vendInvoice.setVendpaymentid(vendorPaymentUpdateInCustomerInvoice.getPaymentid());
+			
 			vendinvoice = vendorInvoiceRepository.save(vendInvoice);
 			venlist.add(vendinvoice);
 		}

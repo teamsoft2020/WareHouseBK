@@ -23,5 +23,10 @@ public interface VendorInvoiceRepository extends JpaRepository<VendorInvoice, Lo
 	//public VendorInvoice findByvendorinvoiceid(long vendorinvoiceid);
 	
 	 @Query(value="SELECT v FROM VendorInvoice v WHERE v.vendorinvoiceid=:vendorinvoiceid") 
-	 public VendorInvoice findByvendorinvoiceid(@Param("vendorinvoiceid") long vendorinvoiceid);
+	 public VendorInvoice findByVendorInvoiceId(@Param("vendorinvoiceid") long vendorinvoiceid);
+	 
+	 
+
+	/* @Query(value="SELECT t FROM TripSheet t WHERE t.loadno=:loadno") 
+	 public TripSheet findByLoadNO(@Param("loadno") String loadno);*/
 }
