@@ -33,7 +33,7 @@ public class Customerpayment implements Serializable {
 	private String paymenttype;
 
 	@Column(name = "amount")
-	private String amount;
+	private double amount;
 
 	@Column(name = "instrumentno")
 	private String instrumentno;
@@ -46,6 +46,9 @@ public class Customerpayment implements Serializable {
 	
 	@Column(name = "balanceamount")
 	private String balanceamount;
+	
+	@Column(name = "customername")
+	private String customername;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -68,11 +71,11 @@ public class Customerpayment implements Serializable {
 		this.paymenttype = paymenttype;
 	}
 
-	public String getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
@@ -114,5 +117,13 @@ public class Customerpayment implements Serializable {
 
 	public void setBalanceamount(String balanceamount) {
 		this.balanceamount = balanceamount;
+	}
+
+	public String getCustomername() {
+		return customername;
+	}
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
 	}
 }

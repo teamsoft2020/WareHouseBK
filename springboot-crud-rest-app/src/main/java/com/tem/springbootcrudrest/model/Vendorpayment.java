@@ -39,10 +39,10 @@ public class Vendorpayment implements Serializable {
 	private String paymenttype;
 
 	@Column(name = "amount")
-	private String amount;
+	private double amount;
 
 	@Column(name = "vendorreceiptdate")
-	private String vendorreceiptdate;
+	private String vendorreceiptdate; 
 
 	@Column(name = "instrumentno")
 	private String instrumentno;
@@ -56,6 +56,9 @@ public class Vendorpayment implements Serializable {
 	
 	@Column(name = "balanceamount")
 	private String balanceamount;
+	
+	@Column(name = "vendorname")
+	private String vendorname;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -94,11 +97,11 @@ public class Vendorpayment implements Serializable {
 		this.paymenttype = paymenttype;
 	}
 
-	public String getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
@@ -149,4 +152,13 @@ public class Vendorpayment implements Serializable {
 	public void setVendorPaymentParent(VendorPaymentParent vendorPaymentParent) {
 		this.vendorPaymentParent = vendorPaymentParent;
 	}
+
+	public String getVendorname() {
+		return vendorname;
+	}
+
+	public void setVendorname(String vendorname) {
+		this.vendorname = vendorname;
+	}
+	
 }

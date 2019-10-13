@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.Customerpayment;
@@ -35,5 +36,13 @@ public class VendorPaymentCrudRestApi {
 		VendorPaymentParent vendorPaymentParentresponse = vendorPaymentService.createVendorPayment(vendorPaymentParent);
 		
 		return vendorPaymentParentresponse;
+	}
+	
+	@RequestMapping(path = "/vendorpaymentbystatusamount", method = RequestMethod.GET)
+	public List<Vendorpayment> getVendorPaymentByStatusBalAmnt() {
+
+		List<Vendorpayment> customerList = vendorPaymentService.getVendorPaymentByStatusBalAmount();
+
+		return customerList;
 	}
 }

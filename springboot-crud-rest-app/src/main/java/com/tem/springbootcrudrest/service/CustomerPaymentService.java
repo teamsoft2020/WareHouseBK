@@ -11,5 +11,7 @@ import com.tem.springbootcrudrest.model.Customerpayment;
 public interface CustomerPaymentService {
 	
 	public CustomerPaymentParent createCustomerPayment(CustomerPaymentParent customerpayment);
+	
+	public List<Customerpayment> getCustomerPaymentByStatusBalAmount();
 
 }

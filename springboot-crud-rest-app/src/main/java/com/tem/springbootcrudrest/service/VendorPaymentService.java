@@ -11,4 +11,6 @@ import com.tem.springbootcrudrest.model.Vendorpayment;
 public interface VendorPaymentService {
 
 	public VendorPaymentParent createVendorPayment(VendorPaymentParent vendorPaymentParent);
+	
+	public List<Vendorpayment> getVendorPaymentByStatusBalAmount();
 }

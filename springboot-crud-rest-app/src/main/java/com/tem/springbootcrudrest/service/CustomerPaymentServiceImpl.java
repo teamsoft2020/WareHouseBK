@@ -21,6 +21,9 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 	@Autowired
 	CustomerPaymentParentRepository customerPaymentParentRepository;
 	
+	@Autowired
+	CustomerPaymentRepository customerPaymentRepository;
+	
 
 	@Override
 	public CustomerPaymentParent createCustomerPayment(CustomerPaymentParent customerpaymentlist) {
@@ -40,6 +43,14 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 		}*/
 	
 		return customerpaymentresponse;
+		
+	}
+
+
+	@Override
+	public List<Customerpayment> getCustomerPaymentByStatusBalAmount() {
+	
+		return customerPaymentRepository.findCustomerPaymentByStatusBalAmount();
 		
 	}
 
