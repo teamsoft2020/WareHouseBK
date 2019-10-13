@@ -5,12 +5,17 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "vendorpayment")
@@ -44,6 +49,18 @@ public class Vendorpayment implements Serializable {
 
 	@Column(name = "instrumentdate")
 	private String instrumentdate;
+	
+	
+	@Column(name = "status")
+	private String status;
+	
+	@Column(name = "balanceamount")
+	private String balanceamount;
+
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "vendpaymentid")
+	private VendorPaymentParent vendorPaymentParent;
 
 	public long getVendorpaymentid() {
 		return vendorpaymentid;
@@ -107,5 +124,29 @@ public class Vendorpayment implements Serializable {
 
 	public void setInstrumentdate(String instrumentdate) {
 		this.instrumentdate = instrumentdate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getBalanceamount() {
+		return balanceamount;
+	}
+
+	public void setBalanceamount(String balanceamount) {
+		this.balanceamount = balanceamount;
+	}
+
+	public VendorPaymentParent getVendorPaymentParent() {
+		return vendorPaymentParent;
+	}
+
+	public void setVendorPaymentParent(VendorPaymentParent vendorPaymentParent) {
+		this.vendorPaymentParent = vendorPaymentParent;
 	}
 }

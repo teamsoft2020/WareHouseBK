@@ -40,6 +40,12 @@ public class Customerpayment implements Serializable {
 
 	@Column(name = "instrumentdate")
 	private String instrumentdate;
+	
+	@Column(name = "status")
+	private String status;
+	
+	@Column(name = "balanceamount")
+	private String balanceamount;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -92,5 +98,21 @@ public class Customerpayment implements Serializable {
 
 	public void setCustomerPaymentParent(CustomerPaymentParent customerPaymentParent) {
 		this.customerPaymentParent = customerPaymentParent;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getBalanceamount() {
+		return balanceamount;
+	}
+
+	public void setBalanceamount(String balanceamount) {
+		this.balanceamount = balanceamount;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.Customerpayment;
+import com.tem.springbootcrudrest.model.VendorPaymentParent;
 import com.tem.springbootcrudrest.model.Vendorpayment;
 import com.tem.springbootcrudrest.service.CustomerPaymentService;
 import com.tem.springbootcrudrest.service.VendorPaymentService;
@@ -23,17 +24,16 @@ public class VendorPaymentCrudRestApi {
 	
 	
 	@PostMapping("/createvendorpayment")
-	public List<Vendorpayment> createVendorPayment(@RequestBody List<Vendorpayment> vendorpaymentlist) {
+	public VendorPaymentParent createVendorPayment(@RequestBody VendorPaymentParent vendorPaymentParent) {
 		
 		String datetime = UTCDateTime.getCurentTimeAndDate();
 		
-		for(Vendorpayment vendorpayment:vendorpaymentlist) {
-			vendorpayment.setCreateddate(datetime);
 		
-		}
+		vendorPaymentParent.setCreateddate(datetime);
+		
 
-		List<Vendorpayment> vendorPaymentresponse = vendorPaymentService.createVendorPayment(vendorpaymentlist);
+		VendorPaymentParent vendorPaymentParentresponse = vendorPaymentService.createVendorPayment(vendorPaymentParent);
 		
-		return vendorPaymentresponse;
+		return vendorPaymentParentresponse;
 	}
 }

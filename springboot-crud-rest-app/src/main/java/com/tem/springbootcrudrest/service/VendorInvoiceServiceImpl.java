@@ -98,6 +98,7 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 			vendInvoice = vendorInvoiceRepository.findByVendorInvoiceId(vendorinvoiceid);
 			
 			vendInvoice.setVendpaymentid(vendorPaymentUpdateInCustomerInvoice.getPaymentid());
+			vendInvoice.setPaymentstatus("Completed");
 			
 			vendinvoice = vendorInvoiceRepository.save(vendInvoice);
 			venlist.add(vendinvoice);

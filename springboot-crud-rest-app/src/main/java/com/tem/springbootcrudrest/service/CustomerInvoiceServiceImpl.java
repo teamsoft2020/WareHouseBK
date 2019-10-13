@@ -110,6 +110,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 			
 			CustomerInvoice customerIvoice = customerInvoiceRepository.findByCustomerinvoiceid(invoiceid);
 			customerIvoice.setCustomerpaymentid(customerPaymentUpdateInCustomerInvoice.getPaymentid());
+			customerIvoice.setPaymentstatus("Completed");
 			CustomerInvoice ustomerinvoiceres = customerInvoiceRepository.save(customerIvoice);
 			customerinvoice.add(ustomerinvoiceres);
 			
