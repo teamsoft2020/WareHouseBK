@@ -31,7 +31,13 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 	@Override
 	public List<Vendorpayment> getVendorPaymentByStatusBalAmount() {
 		
-		return vendorPaymentRepository.findVendorPaymentByStatusBalAmount();
+		return vendorPaymentRepository.findVendorPaymentByStatusAmount();
 	}
-
+	
+	@Override
+	public List<Vendorpayment> getVendorPaymentByStatus() {
+		
+		return vendorPaymentRepository.findVendorPaymentByStatus();
+	}
+	
 }

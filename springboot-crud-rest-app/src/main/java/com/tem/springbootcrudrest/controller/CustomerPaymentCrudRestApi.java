@@ -2,7 +2,6 @@ package com.tem.springbootcrudrest.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,20 +22,20 @@ public class CustomerPaymentCrudRestApi {
 
 	@Autowired
 	CustomerPaymentService customerPaymentService;
-	
-	
+
 	@PostMapping("/createcustomerpayment")
 	public CustomerPaymentParent createCustomerPayment(@RequestBody CustomerPaymentParent customerpaymentlist) {
-		
+
 		String datetime = UTCDateTime.getCurentTimeAndDate();
-		
+
 		customerpaymentlist.setCreateddate(datetime);
-		
-		CustomerPaymentParent customerPaymentresponse = customerPaymentService.createCustomerPayment(customerpaymentlist);
-		
+
+		CustomerPaymentParent customerPaymentresponse = customerPaymentService
+				.createCustomerPayment(customerpaymentlist);
+
 		return customerPaymentresponse;
 	}
-	
+
 	@RequestMapping(path = "/customerpaymentbystatusamount", method = RequestMethod.GET)
 	public List<Customerpayment> getCustomerPaymentByStatusBalAmnt() {
 
@@ -44,5 +43,12 @@ public class CustomerPaymentCrudRestApi {
 
 		return customerList;
 	}
-	
+
+	@RequestMapping(path = "/customerpaymentbystatus", method = RequestMethod.GET)
+	public List<Customerpayment> getCustomerPaymentByStatus() {
+
+		List<Customerpayment> customerList = customerPaymentService.getCustomerPaymentByStatus();
+
+		return customerList;
+	}
 }

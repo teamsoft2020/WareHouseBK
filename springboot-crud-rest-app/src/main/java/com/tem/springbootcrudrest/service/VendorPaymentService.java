@@ -13,4 +13,6 @@ public interface VendorPaymentService {
 	public VendorPaymentParent createVendorPayment(VendorPaymentParent vendorPaymentParent);
 	
 	public List<Vendorpayment> getVendorPaymentByStatusBalAmount();
+	
+	public List<Vendorpayment> getVendorPaymentByStatus();
 }

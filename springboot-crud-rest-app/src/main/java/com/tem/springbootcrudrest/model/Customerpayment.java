@@ -45,10 +45,10 @@ public class Customerpayment implements Serializable {
 	private String status;
 	
 	@Column(name = "balanceamount")
-	private String balanceamount;
+	private double balanceamount;
 	
 	@Column(name = "customername")
-	private String customername;
+	private String customername; 
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -111,11 +111,11 @@ public class Customerpayment implements Serializable {
 		this.status = status;
 	}
 
-	public String getBalanceamount() {
+	public double getBalanceamount() {
 		return balanceamount;
 	}
 
-	public void setBalanceamount(String balanceamount) {
+	public void setBalanceamount(double balanceamount) {
 		this.balanceamount = balanceamount;
 	}
 

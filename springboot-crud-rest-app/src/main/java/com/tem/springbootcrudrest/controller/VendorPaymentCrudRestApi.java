@@ -22,26 +22,31 @@ public class VendorPaymentCrudRestApi {
 
 	@Autowired
 	VendorPaymentService vendorPaymentService;
-	
-	
+
 	@PostMapping("/createvendorpayment")
 	public VendorPaymentParent createVendorPayment(@RequestBody VendorPaymentParent vendorPaymentParent) {
-		
+
 		String datetime = UTCDateTime.getCurentTimeAndDate();
-		
-		
+
 		vendorPaymentParent.setCreateddate(datetime);
-		
 
 		VendorPaymentParent vendorPaymentParentresponse = vendorPaymentService.createVendorPayment(vendorPaymentParent);
-		
+
 		return vendorPaymentParentresponse;
 	}
-	
+
 	@RequestMapping(path = "/vendorpaymentbystatusamount", method = RequestMethod.GET)
 	public List<Vendorpayment> getVendorPaymentByStatusBalAmnt() {
 
 		List<Vendorpayment> customerList = vendorPaymentService.getVendorPaymentByStatusBalAmount();
+
+		return customerList;
+	}
+
+	@RequestMapping(path = "/vendorpaymentbystatus", method = RequestMethod.GET)
+	public List<Vendorpayment> getVendorPaymentByStatus() {
+
+		List<Vendorpayment> customerList = vendorPaymentService.getVendorPaymentByStatus();
 
 		return customerList;
 	}

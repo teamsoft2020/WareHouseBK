@@ -53,5 +53,12 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 		return customerPaymentRepository.findCustomerPaymentByStatusBalAmount();
 		
 	}
+	
+	@Override
+	public List<Customerpayment> getCustomerPaymentByStatus() {
+	
+		return customerPaymentRepository.findCustomerPaymentByStatus();
+		
+	}
 
 }
