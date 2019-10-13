@@ -2669,15 +2669,32 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
  	$scope.calculatepaymentTotal =function(){
  		$scope.commoncustList={custreceiptDate:"",totalamount:0};
  		$scope.paymentJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
+ 		$scope.existCustomerName=$scope.checkedcustPaymentValue[0].customername;
  		angular.forEach($scope.checkedcustPaymentValue, function(value, key) {
- 			$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
+ 			if($scope.existCustomerName == value.customername){
+ 				$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;
+ 			}else{
+ 				toastr.warning('Please check same customer');
+ 				$scope.commoncustList.totalamount =0;
+ 				$scope.existCustomerName="";
+ 				return;
+ 			}
+ 			
 		});
  	}
  	$scope.calculatevenpaymentTotal =function(){
  		$scope.commonvenList={venreceiptDate:"",totalamount:0};
  		$scope.paymentvenJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
+ 		$scope.existVendorName=$scope.checkedvenPaymentValue[0].vendorname;
  		angular.forEach($scope.checkedvenPaymentValue, function(value, key) {
- 			$scope.commonvenList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
+ 			if($scope.existVendorName == value.vendorname){
+ 				$scope.commonvenList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;
+ 			}else{
+ 				toastr.warning('Please check same vendor');
+ 				$scope.commonvenList.totalamount =0;
+ 				$scope.existVendorName ="";
+ 				return;
+ 			}
 		});
  	}
  $scope.checkcustPayInArray =function(index){
@@ -2765,7 +2782,13 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			if(value.paymenttype =="Credit"){
 				$scope.checkCredit=true;
 			}
-			//value.customerreceiptdate =$scope.commoncustList.custreceiptDate;
+			if($scope.existCustomerName){
+				value.customername =$scope.existCustomerName;
+			}else{
+				toastr.warning('Please check same customer');
+				return;
+			}
+			
 			$scope.checkamt +=parseInt(value.amount)?parseInt(value.amount):0;
  			//$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
 		});
@@ -2866,6 +2889,12 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			if(value.paymenttype =="Credit"){
 				$scope.checkvenCredit=true;
 			}
+			if($scope.existVendorName){
+				value.vendorname =$scope.existVendorName;
+			}else{
+				toastr.warning('Please check same vendor');
+				return;
+			}
 			$scope.checkvenamt +=parseInt(value.amount)?parseInt(value.amount):0;
 		});
 		if($scope.commonvenList.totalamount == 0){
@@ -2888,7 +2917,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 				        'Content-Type' : 'application/json'
 				        }
 				        }).then(function (response) {
-				            $scope.venPaymentcallBackdata.paymentid=response.data.venpaymentid;
+				            $scope.venPaymentcallBackdata.paymentid=response.data.vendpaymentid;
 				        	angular.forEach($scope.checkedvenPaymentValue, function(list, key) {
 				        		$scope.venPaymentcallBackdata.invoiceid.push(list.vendorinvoiceid);
 				        	});

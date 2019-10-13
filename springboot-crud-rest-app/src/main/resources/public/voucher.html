@@ -58,7 +58,94 @@
  </div>
 </div>
 
-
+<div class="row" style="margin-top: 1%;">
+ <div class="col-6">
+ <table  id="manage-custCredit-table"  datatable="ng" dt-options="cc.dtOptions" dt-instance="cc.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+									<th width="15%">InstrumentType</th>
+									<th width="28%" >Date</th>
+									<th width="15%">Amount</th>
+									<th width="15%">InstrumentNo</th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="pay in  track by $index">
+										<td>
+									            <select data-placeholder="Your Product"  class="form-control" tabindex="8" ng-model="pay.paymentType">
+									              <option value="">Select Inst_Type</option>
+									              <option value="Credit">Credit</option>
+									              <option value="Cheque">Cheque</option>
+									              <option value="Cash">Cash</option>
+									              <option value="NetBanking">Net Banking</option>
+									              <option value="NEFT">NEFT</option>
+									              <option value="RTGS">RTGS</option>
+									            </select>
+										</td>
+										<td >
+										<div class="input-group date" id="datetimepicker_veninstDate" data-target-input="nearest" ng-show="pay.paymentType != 'Credit' && pay.paymentType != 'Cash'">
+						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_veninstDate" ng-model="pay.instrumentDate" placeholder="Instrument Date"/>
+						                  <div class="input-group-append" data-target="#datetimepicker_veninstDate" data-toggle="datetimepicker">
+						                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						                  </div>
+						              </div>
+										</td>
+										<td><input type="number"  id="amt" ng-model="pay.amount" class="form-control " ></td>
+										<td><input type="number" id="inst_no" class="form-control " ng-model="pay.instrumentNo"></td>
+										<td> 
+									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
+									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deletepaymentIndex($index);"></i>
+									
+								</td>
+								</tr>
+							</tbody>
+  </table>
+  </div> 
+  <div class="col-6">
+  <table  id="manage-custDedit-table"  datatable="ng" dt-options="cd.dtOptions" dt-instance="cd.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+									<th width="15%">InstrumentType</th>
+									<th width="28%" >Date</th>
+									<th width="15%">Amount</th>
+									<th width="15%">InstrumentNo</th>
+									<th width="15%">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="pay in  track by $index">
+										<td>
+									            <select data-placeholder="Your Product"  class="form-control" tabindex="8" ng-model="pay.paymentType">
+									              <option value="">Select Inst_Type</option>
+									              <option value="Credit">Credit</option>
+									              <option value="Cheque">Cheque</option>
+									              <option value="Cash">Cash</option>
+									              <option value="NetBanking">Net Banking</option>
+									              <option value="NEFT">NEFT</option>
+									              <option value="RTGS">RTGS</option>
+									            </select>
+										</td>
+										<td >
+										<div class="input-group date" id="datetimepicker_veninstDate" data-target-input="nearest" ng-show="pay.paymentType != 'Credit' && pay.paymentType != 'Cash'">
+						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_veninstDate" ng-model="pay.instrumentDate" placeholder="Instrument Date"/>
+						                  <div class="input-group-append" data-target="#datetimepicker_veninstDate" data-toggle="datetimepicker">
+						                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						                  </div>
+						              </div>
+										</td>
+										<td><input type="number"  id="amt" ng-model="pay.amount" class="form-control " ></td>
+										<td><input type="number" id="inst_no" class="form-control " ng-model="pay.instrumentNo"></td>
+										<td> 
+									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
+									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deletepaymentIndex($index);"></i>
+									
+								</td>
+								</tr>
+							</tbody>
+  </table> 
+  </div>
+ </div>
 
 
 
