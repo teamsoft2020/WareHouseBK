@@ -19,6 +19,11 @@ public interface CustomerPaymentRepository extends JpaRepository<Customerpayment
 	@Query(value="SELECT c FROM Customerpayment c WHERE c.status='Paid' or c.status='Realized' and c.balanceamount>0")
 	List<Customerpayment> findCustomerPaymentByStatus();
 	
+	//public Customerpayment findByChildCustomerPaymentId(long childcustomerpaymentid);
+	
+	 @Query(value="SELECT c FROM Customerpayment c WHERE c.childcustomerpaymentid=:childcustomerpaymentid") 
+	 public Customerpayment findByChildCustomerPaymentId(@Param("childcustomerpaymentid") long childcustomerpaymentid);
+	
 	/*@Query(value="SELECT t FROM TripSheet t WHERE t.loadno=:loadno") 
 	 public TripSheet findByLoadNO(@Param("loadno") String loadno);*/
 }

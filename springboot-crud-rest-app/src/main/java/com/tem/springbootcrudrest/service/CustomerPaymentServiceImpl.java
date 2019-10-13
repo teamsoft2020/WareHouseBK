@@ -1,5 +1,6 @@
 package com.tem.springbootcrudrest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,28 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 	
 		return customerPaymentRepository.findCustomerPaymentByStatus();
 		
+	}
+
+	//findByChildCustomerPaymentId
+
+	@Override
+	public List<Customerpayment> updateCustomerPayment(List<Customerpayment> customerpaymentlist) {
+		
+		List<Customerpayment>customerpaylist = new ArrayList<Customerpayment>();
+		
+		for(Customerpayment customerpay : customerpaymentlist) {
+			Customerpayment customerpayment = customerPaymentRepository.findByChildCustomerPaymentId(customerpay.getChildcustomerpaymentid());
+			
+			customerpayment.setBalanceamount(customerpay.getBalanceamount());
+			customerpayment.setStatus(customerpay.getStatus());
+			
+			Customerpayment customerpaymentobject = customerPaymentRepository.save(customerpayment);
+			
+			customerpaylist.add(customerpaymentobject);
+
+		}
+		
+		return customerpaylist;
 	}
 
 }

@@ -15,5 +15,7 @@ public interface CustomerPaymentService {
 	public List<Customerpayment> getCustomerPaymentByStatusBalAmount();
 	
 	public List<Customerpayment> getCustomerPaymentByStatus();
+	
+	public List<Customerpayment> updateCustomerPayment(List<Customerpayment> customerpaymentlist);
 
 }

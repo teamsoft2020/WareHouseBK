@@ -1,5 +1,6 @@
 package com.tem.springbootcrudrest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,20 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 	public List<Vendorpayment> getVendorPaymentByStatus() {
 		
 		return vendorPaymentRepository.findVendorPaymentByStatus();
+	}
+
+
+	@Override
+	public List<Vendorpayment> updateVendorPaymentChild(List<Vendorpayment> vendorPaymentChild) {
+		List<Vendorpayment> vendorPaymentlist = new ArrayList<Vendorpayment>();
+		for(Vendorpayment vendpay:vendorPaymentChild) {
+			Vendorpayment vendorpayment=vendorPaymentRepository.findByVendorPaymentId(vendpay.getVendorpaymentid());
+			vendorpayment.setBalanceamount(vendpay.getBalanceamount());
+			vendorpayment.setStatus(vendpay.getStatus());
+			Vendorpayment vendorpaymentobject = vendorPaymentRepository.save(vendorpayment);
+			vendorPaymentlist.add(vendorpaymentobject);
+		}
+		return vendorPaymentlist;
 	}
 	
 }

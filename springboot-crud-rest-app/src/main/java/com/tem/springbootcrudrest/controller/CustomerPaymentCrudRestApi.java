@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tem.springbootcrudrest.model.CustomerInvoice;
 import com.tem.springbootcrudrest.model.CustomerPaymentParent;
 import com.tem.springbootcrudrest.model.Customerpayment;
+import com.tem.springbootcrudrest.model.VendorInvoice;
+import com.tem.springbootcrudrest.model.VendorPaymentUpdateInCustomerInvoice;
+import com.tem.springbootcrudrest.model.Vendorpayment;
 import com.tem.springbootcrudrest.service.CustomerPaymentService;
 import com.tem.util.UTCDateTime;
 
@@ -51,4 +53,15 @@ public class CustomerPaymentCrudRestApi {
 
 		return customerList;
 	}
+	
+	@PutMapping("/updatecustomerpaymentchild")
+	public List<Customerpayment> updateCustomerPaymentChild(@RequestBody List<Customerpayment> customerpaymentchild) {
+
+		List<Customerpayment> customerPaymentchild = customerPaymentService.updateCustomerPayment(customerpaymentchild);
+		
+
+		return customerPaymentchild;
+
+	}
+	
 }
