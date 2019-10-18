@@ -38,7 +38,14 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 	@Override
 	public List<Vendorpayment> getVendorPaymentByStatus() {
 		
-		return vendorPaymentRepository.findVendorPaymentByStatus();
+		List<Vendorpayment>alllists =new ArrayList<Vendorpayment>();
+		
+		List<Vendorpayment>list = vendorPaymentRepository.findVendorPaymentByRemainingStatus();
+		
+		List<Vendorpayment>secondlist = vendorPaymentRepository.findVendorPaymentByRemainingSecondStatus();
+		alllists.addAll(list);
+		alllists.addAll(secondlist);
+		return alllists;
 	}
 
 
@@ -53,6 +60,13 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 			vendorPaymentlist.add(vendorpaymentobject);
 		}
 		return vendorPaymentlist;
+	}
+
+
+	@Override
+	public List<Vendorpayment> getVendorListByName(String name) {
+		
+		return vendorPaymentRepository.findByVendorName(name);
 	}
 	
 }

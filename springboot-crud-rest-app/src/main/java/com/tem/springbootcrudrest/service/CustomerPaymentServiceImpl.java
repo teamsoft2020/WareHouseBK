@@ -91,4 +91,10 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 		return customerpaylist;
 	}
 
+
+	@Override
+	public List<Customerpayment> getCustomerListByName(String customername) {
+		return customerPaymentRepository.findByCustomerName(customername);
+	}
+
 }

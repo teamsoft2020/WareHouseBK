@@ -3,6 +3,7 @@ package com.tem.springbootcrudrest.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,6 +63,15 @@ public class CustomerPaymentCrudRestApi {
 
 		return customerPaymentchild;
 
+	}
+	
+	@RequestMapping(path = "/findcustomer/{name}", method = RequestMethod.GET)
+	public List<Customerpayment> getCustomerListByName(@PathVariable(value = "name") String name) {
+
+		System.out.println("name "+name);
+		List<Customerpayment> customerList = customerPaymentService.getCustomerListByName(name);
+
+		return customerList;
 	}
 	
 }
