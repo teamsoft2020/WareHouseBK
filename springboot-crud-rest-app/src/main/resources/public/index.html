@@ -333,7 +333,7 @@ height: calc(100vh - 42px);
 height: -webkit-calc(100vh - 42px);
 height: -moz-calc(100vh - 42px);
 }*/
-.tab-content>.active {
+.tab-content>.tab-pane {
     overflow: auto;
     height: calc(100vh - 80px);
     height: -webkit-calc(100vh - 80px);
@@ -2697,11 +2697,11 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
  			}
 		});
  	}
- $scope.checkcustPayInArray =function(index){
-	 if($scope.customerpaymentList[index].checked) {
-	      $scope.checkedcustPaymentValue.push($scope.customerpaymentList[index]);
+ $scope.checkcustPayInArray =function(item){
+	 if(item.checked) {
+	      $scope.checkedcustPaymentValue.push(item);
 	    } else {
-	       var newIndex = $scope.checkedcustPaymentValue.map(function(e) { return e.customerinvoiceid; }).indexOf($scope.customerpaymentList[index].customerinvoiceid);
+	       var newIndex = $scope.checkedcustPaymentValue.map(function(e) { return e.customerinvoiceid; }).indexOf(item.customerinvoiceid);
 	       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
 	       // and $scope.customerInvoiceJson[index].uniqueField
 	       if(newIndex !== -1)
@@ -2709,11 +2709,11 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	    }
  }
  
- $scope.checkvenPayInArray =function(index){
-	 if($scope.vendorpaymentList[index].checked) {
-	      $scope.checkedvenPaymentValue.push($scope.vendorpaymentList[index]);
+ $scope.checkvenPayInArray =function(item){
+	 if(item.checked) {
+	      $scope.checkedvenPaymentValue.push(item);
 	    } else {
-	       var newIndex = $scope.checkedvenPaymentValue.map(function(e) { return e.vendorinvoiceid; }).indexOf($scope.vendorpaymentList[index].vendorinvoiceid);
+	       var newIndex = $scope.checkedvenPaymentValue.map(function(e) { return e.vendorinvoiceid; }).indexOf(item.vendorinvoiceid);
 	       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
 	       // and $scope.customerInvoiceJson[index].uniqueField
 	       if(newIndex !== -1)
@@ -2868,7 +2868,6 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	            //$scope.listCustomerJson = response.data;
 	            toastr.success('Payment registered successfully');
 	            $scope.initcustPayment();
-	            
 	        }, function error(response) {
 	        	toastr.error('Payment not registered');
 	          console.log(response.status);
@@ -2970,6 +2969,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	        }
 	        }).then(function (response) {
 	            toastr.success('Payment registered successfully');
+	            $scope.initvenPayment();
 	        }, function error(response) {
 	        	toastr.error('Payment not registered');
 	          console.log(response.status);
@@ -3083,9 +3083,15 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	scope=$scope;
 });
 
-app.controller('VoucherController', function ($scope) {
-	
-	
+app.controller('VoucherController', function ($scope,$timeout,$http,toastr,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+	$scope.custCreditList=[];
+	$scope.custCreditStatusList=[];
+	 $scope.checkedcustvoucher=[];
+	 $scope.checkedcustvoucherstatus=[];
+	 $scope.venCreditList=[];
+		$scope.venCreditStatusList=[];
+		 $scope.checkedvenvoucher=[];
+		 $scope.checkedvenvoucherstatus=[];
 	$scope.navVoucherRedirect =function(event){
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
@@ -3095,11 +3101,15 @@ app.controller('VoucherController', function ($scope) {
 			  $('#vendorCredit').hide();
 			  $('#customerCheque').hide();
 			   $('#vendorCheque').hide();
+			   $scope.init_custCredit();
+				$scope.init_custCreditStatus();
 		  }else if(currEvent =="vendorCredit"){
 			  $('#customerCredit').hide();
 			  $('#vendorCredit').show();
 			  $('#customerCheque').hide();
 			   $('#vendorCheque').hide();
+			   $scope.init_venCredit();
+				$scope.init_venCreditStatus();
 		  }else if(currEvent =="customerCheque"){
 			  $('#customerCredit').hide();
 			  $('#vendorCredit').hide();
@@ -3112,6 +3122,209 @@ app.controller('VoucherController', function ($scope) {
 			   $('#vendorCheque').show();
 		  }
 	}
+	
+	
+	 $scope.checkcustVoucherInArray =function(index,item){
+		 
+		 angular.forEach($scope.custCreditList,function(list){
+		        if(list != item){
+		            list.checked = false;
+		        }
+		    })
+		 
+		 if(item.checked) {
+		      $scope.checkedcustvoucher.push(item);
+		    } else {
+		       var newIndex = $scope.checkedcustvoucher.map(function(e) { return e.childcustomerpaymentid; }).indexOf(item.childcustomerpaymentid);
+		       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
+		       // and $scope.customerInvoiceJson[index].uniqueField
+		       if(newIndex !== -1)
+		          $scope.checkedcustvoucher.splice(newIndex,1);
+		    }
+	 }
+	 
+	 
+$scope.checkvenVoucherInArray =function(index,item){
+		 
+		 angular.forEach($scope.venCreditList,function(list){
+		        if(list != item){
+		            list.checked = false;
+		        }
+		    })
+		 
+		 if(item.checked) {
+		      $scope.checkedvenvoucher.push(item);
+		    } else {
+		       var newIndex = $scope.checkedvenvoucher.map(function(e) { return e.vendorpaymentid; }).indexOf(item.vendorpaymentid);
+		       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
+		       // and $scope.customerInvoiceJson[index].uniqueField
+		       if(newIndex !== -1)
+		          $scope.checkedvenvoucher.splice(newIndex,1);
+		    }
+	 }
+	
+	 /* $scope.checkcustVoucherStatusInArray =function(index){
+		 if($scope.custCreditStatusList[index].checked) {
+		      $scope.checkedcustvoucherstatus.push($scope.custCreditStatusList[index]);
+		    } else {
+		       var newIndex = $scope.checkedcustvoucherstatus.map(function(e) { return e.childcustomerpaymentid; }).indexOf($scope.custCreditStatusList[index].childcustomerpaymentid);
+		       if(newIndex !== -1)
+		          $scope.checkedcustvoucherstatus.splice(newIndex,1);
+		    }
+	 } */
+	
+	 $scope.makecustMatches =function(){
+		 $scope.totaltempamount=0;
+		 $scope.totaltempId=[];
+	 		$scope.commoncustMatches={totalcreditamount:0,totalotheramount:0};
+	 	var keepGoing = true;
+	 		angular.forEach($scope.checkedcustvoucher, function(value, key) {
+	 			if(value.checked){
+	 				$scope.commoncustMatches.totalcreditamount +=parseInt(value.balanceamount)?parseInt(value.balanceamount):0;
+	 			}
+			});
+	 		
+	 		angular.forEach($scope.custCreditStatusList, function(value, key) {
+	 			if(keepGoing) {
+	 				$scope.totaltempamount +=parseInt(value.balanceamount)?parseInt(value.balanceamount):0;
+	 				$scope.totaltempId.push(value.childcustomerpaymentid);
+	 			if($scope.commoncustMatches.totalcreditamount <= $scope.totaltempamount){
+	 				$scope.commoncustMatches.totalotheramount =$scope.totaltempamount;
+	 				
+ 				keepGoing = false;
+	 			}
+	 			}
+		});
+	 		
+	 	}
+	 
+	 $scope.makevenMatches =function(){
+		 $scope.totalventempamount=0;
+		 $scope.totalventempId=[];
+	 		$scope.commonvenMatches={totalcreditamount:0,totalotheramount:0};
+	 	var keepGoingven = true;
+	 		angular.forEach($scope.checkedvenvoucher, function(value, key) {
+	 			if(value.checked){
+	 				$scope.commonvenMatches.totalcreditamount +=parseInt(value.balanceamount)?parseInt(value.balanceamount):0;
+	 			}
+			});
+	 		
+	 		angular.forEach($scope.venCreditStatusList, function(value, key) {
+	 			if(keepGoingven) {
+	 				$scope.totalventempamount +=parseInt(value.balanceamount)?parseInt(value.balanceamount):0;
+	 				$scope.totalventempId.push(value.vendorpaymentid);
+	 			if($scope.commonvenMatches.totalcreditamount <= $scope.totalventempamount){
+	 				$scope.commonvenMatches.totalotheramount =$scope.totalventempamount;
+	 				
+ 				keepGoingven = false;
+	 			}
+	 			}
+		});
+	 		
+	 	}
+	 
+	 $scope.checkandSave =function(){
+		 $scope.debitBalance=($scope.commoncustMatches.totalotheramount)-($scope.commoncustMatches.totalcreditamount);
+		 if($scope.commoncustMatches.totalcreditamount <= $scope.commoncustMatches.totalotheramount && $scope.commoncustMatches.totalcreditamount ){
+			 angular.forEach($scope.checkedcustvoucher, function(value, key) {
+	 			if(value.checked){
+	 				value.balanceamount=0;	
+	 			}
+			});
+	 		angular.forEach($scope.custCreditStatusList, function(value, key) {
+	 			angular.forEach($scope.totaltempId, function(item, i,array) {
+	 				console.log(item +""+i+""+array.length - 1);
+	 				 if(value.childcustomerpaymentid == item){
+	 					value.balanceamount=0;
+			 			}
+	 				 if(value.childcustomerpaymentid == array[array.length-1]){
+	 					value.balanceamount=$scope.debitBalance;
+		 			}
+	 			});
+		});
+		 }else{
+			toastr.warning("Credit and Debit Balance not matching");
+		 }
+	 }
+	 
+	 
+	 $scope.checkandSavevendor =function(){
+		 $scope.debitvenBalance=($scope.commonvenMatches.totalotheramount)-($scope.commonvenMatches.totalcreditamount);
+		 if($scope.commonvenMatches.totalcreditamount <= $scope.commonvenMatches.totalotheramount && $scope.commonvenMatches.totalcreditamount ){
+			 angular.forEach($scope.checkedvenvoucher, function(value, key) {
+	 			if(value.checked){
+	 				value.balanceamount=0;	
+	 			}
+			});
+	 		angular.forEach($scope.venCreditStatusList, function(value, key) {
+	 			angular.forEach($scope.totalventempId, function(item, i,array) {
+	 				console.log(item +""+i+""+array.length - 1);
+	 				 if(value.vendorpaymentid == item){
+	 					value.balanceamount=0;
+			 			}
+	 				 if(value.vendorpaymentid == array[array.length-1]){
+	 					value.balanceamount=$scope.debitvenBalance;
+		 			}
+	 			});
+		});
+		 }else{
+			toastr.warning("Credit and Debit Balance not matching");
+		 }
+	 }
+	 
+	$scope.init_custCredit =function(){
+		 $scope.custCreditList =[];
+			var url=location.origin +"/api/v1/customerpaymentbystatusamount";
+			 $http({
+				    method : 'GET',
+				    url : url
+				   }).then(function successCallback(response) {
+				   $scope.custCreditList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		};
+	$scope.init_custCreditStatus =function(){
+		 $scope.custCreditStatusList =[];
+			var url=location.origin +"/api/v1/customerpaymentbystatus";
+			 $http({
+				    method : 'GET',
+				    url : url
+				   }).then(function successCallback(response) {
+				   $scope.custCreditStatusList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		};
+		
+		
+		$scope.init_venCredit =function(){
+			 $scope.venCreditList =[];
+				var url=location.origin +"/api/v1/vendorpaymentbystatusamount";
+				 $http({
+					    method : 'GET',
+					    url : url
+					   }).then(function successCallback(response) {
+					   $scope.venCreditList = response.data;
+					   }, function errorCallback(response) {
+					    console.log(response.statusText);
+					   });
+			};
+		$scope.init_venCreditStatus =function(){
+			 $scope.venCreditStatusList =[];
+				var url=location.origin +"/api/v1/vendorpaymentbystatus";
+				 $http({
+					    method : 'GET',
+					    url : url
+					   }).then(function successCallback(response) {
+					   $scope.venCreditStatusList = response.data;
+					   }, function errorCallback(response) {
+					    console.log(response.statusText);
+					   });
+			};
+	$scope.init_custCredit();
+	$scope.init_custCreditStatus();
+	scope=$scope;
 });
 
 app.controller('LedgerController', function ($scope) {
