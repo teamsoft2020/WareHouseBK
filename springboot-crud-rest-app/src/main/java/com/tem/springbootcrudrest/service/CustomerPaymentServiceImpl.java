@@ -57,8 +57,15 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 	
 	@Override
 	public List<Customerpayment> getCustomerPaymentByStatus() {
-	
-		return customerPaymentRepository.findCustomerPaymentByStatus();
+		List<Customerpayment> twolist = new ArrayList<Customerpayment>();
+		
+		List<Customerpayment> list1 = customerPaymentRepository.findCustomerPaymentByRemainingAmountStatus();
+		List<Customerpayment> list2 = customerPaymentRepository.findCustomerPaymentByRemainingAmountSecondStatus();
+
+		twolist.addAll(list1);
+		twolist.addAll(list2);
+
+		return twolist;
 		
 	}
 

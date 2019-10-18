@@ -13,11 +13,14 @@ import com.tem.springbootcrudrest.model.Vendorpayment;
 @Repository
 public interface CustomerPaymentRepository extends JpaRepository<Customerpayment, Long> {
 
-	@Query(value="SELECT c FROM Customerpayment c WHERE c.paymenttype='Credit' and c.amount>0")
+	@Query(value="SELECT c FROM Customerpayment c WHERE c.paymenttype='Credit' and c.balanceamount>0")
 	List<Customerpayment> findCustomerPaymentByStatusBalAmount();
 	
-	@Query(value="SELECT c FROM Customerpayment c WHERE c.status='Paid' or c.status='Realized' and c.balanceamount>0")
-	List<Customerpayment> findCustomerPaymentByStatus();
+	@Query(value="SELECT c FROM Customerpayment c WHERE c.status='Paid' and c.balanceamount>0")
+	List<Customerpayment> findCustomerPaymentByRemainingAmountStatus();
+	
+	@Query(value="SELECT c FROM Customerpayment c WHERE c.status='Realized' and c.balanceamount>0")
+	List<Customerpayment> findCustomerPaymentByRemainingAmountSecondStatus();
 	
 	//public Customerpayment findByChildCustomerPaymentId(long childcustomerpaymentid);
 	

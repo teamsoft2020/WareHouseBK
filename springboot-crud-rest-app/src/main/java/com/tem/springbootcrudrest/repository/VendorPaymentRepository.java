@@ -13,7 +13,7 @@ import com.tem.springbootcrudrest.model.Vendorpayment;
 @Repository
 public interface VendorPaymentRepository extends JpaRepository<Vendorpayment, Long>{
 
-	@Query(value="SELECT v FROM Vendorpayment v WHERE v.paymenttype='Credit' and v.amount>0")
+	@Query(value="SELECT v FROM Vendorpayment v WHERE v.paymenttype='Credit' and v.balanceamount>0")
 	List<Vendorpayment> findVendorPaymentByStatusAmount();
 	
 	@Query(value="SELECT v FROM Vendorpayment v WHERE v.status='Paid' or v.status='Realized' and v.balanceamount>0")
