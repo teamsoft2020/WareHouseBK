@@ -22,7 +22,7 @@ public interface TripSheetService {
 	
 	public List<TripSheet> getVendoInvoiceList();
 	
-	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate,String todate,String truckno);
+	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate,String todate);
 	
 	public List<TripSheet> findVendorInvoiceBetweenDate(String fromdate,String todate,String truckno);
 	

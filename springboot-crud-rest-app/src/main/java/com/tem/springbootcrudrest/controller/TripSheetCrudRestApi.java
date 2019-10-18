@@ -134,10 +134,9 @@ public class TripSheetCrudRestApi {
 	 */
 	@RequestMapping(path = "/customerinvoicelist", method = RequestMethod.GET)
 
-	public List<TripSheet> getCustomerInvoiceList(@RequestParam String fromdate, @RequestParam String todate,
-			@RequestParam String truckno) {
+	public List<TripSheet> getCustomerInvoiceList(@RequestParam String fromdate, @RequestParam String todate) {
 
-		List<TripSheet> tripSheetList = tripSheetService.findCustomerInvoiceBetweenDate(fromdate, todate, truckno);
+		List<TripSheet> tripSheetList = tripSheetService.findCustomerInvoiceBetweenDate(fromdate, todate);
 
 		return tripSheetList;
 	}

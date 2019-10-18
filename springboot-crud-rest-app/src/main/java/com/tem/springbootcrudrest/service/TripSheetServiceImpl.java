@@ -83,9 +83,9 @@ public class TripSheetServiceImpl implements TripSheetService {
 	}
 
 	@Override
-	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate, String todate, String truckno) {
+	public List<TripSheet> findCustomerInvoiceBetweenDate(String fromdate, String todate) {
 
-		return tripRepository.findCustomerInvoiceBetweenDateList(fromdate, todate, truckno);
+		return tripRepository.findCustomerInvoiceBetweenDateList(fromdate, todate);
 	}
 
 	@Override

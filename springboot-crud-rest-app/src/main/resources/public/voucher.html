@@ -1,10 +1,10 @@
 <div class="col-md-12">
 <ul class="nav nav-tabs" role="tablist">
 	<li class="nav-item">
-		<a class="nav-link active" data-toggle="tab"  bind-attr="customerCredit" role="tab" ng-click="navVoucherRedirect($event)">Customer Payment</a>
+		<a class="nav-link active" data-toggle="tab"  bind-attr="customerCredit" role="tab" ng-click="navVoucherRedirect($event)">Customer Credit</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" data-toggle="tab"  bind-attr="vendorCredit" role="tab" ng-click="navVoucherRedirect($event)">Vendor Payment</a>
+		<a class="nav-link" data-toggle="tab"  bind-attr="vendorCredit" role="tab" ng-click="navVoucherRedirect($event)">Vendor Credit</a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" data-toggle="tab"  bind-attr="customerCheque" role="tab" ng-click="navVoucherRedirect($event)">Customer Cheque</a>
@@ -19,9 +19,9 @@
 <div style="background-color: #005D84;padding: 10px;">
 <h4 style="color: white;font-weight: bold;font-style: normal;text-align: center;">Customer Credit</h4></div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-<!-- <div class="filterDiv">
+ <div class="filterDiv">
 <div class="row" style="margin-top: 1%;">
- <div class="col-3">
+ <!-- <div class="col-3">
 <label class="col-12"><b>FROM </b></label>
   
   <div class="input-group date" id="datetimepicker_customerfromcredit" data-target-input="nearest">
@@ -42,21 +42,21 @@
         </div>
     </div>
 
-  </div>
+  </div> -->
    <div class="col-2">
 		<label class="col-12"><b>CUSTOMER </b></label>
-	 	<select ng-model="customerPayment.customername"  class="form-control" style="display: block;margin: 2% auto;">
+	 	<select ng-model="customerVoucher.customername"  class="form-control" style="display: block;margin: 2% auto;">
 		<option value="" selected>Select Customer</option>
-		<option ng-repeat="custView in customerpaymentList | unique:'customername'" value="{{custView.customername}}">{{custView.customername}}</option>
+		<option ng-repeat="custView in customerVoucherList | unique:'customername'" value="{{custView.customername}}">{{custView.customername}}</option>
 	  </select> 
 	 
 	 </div> 
 	
      <div class="col-2">
-		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustCreditItem()" style="margin-top:15%">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustCreditItem(customerVoucher.customername)" style="margin-top:15%">
 	 </div> 
  </div>
-</div> -->
+</div> 
 
 <div class="row" style="margin-top: 1%;">
  <div class="col-6">
@@ -73,7 +73,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="pay in custCreditList track by $index">
+								<tr ng-repeat="pay in custCreditList | filter: greaterThan">
 								<td><input  type="checkbox" value="" ng-model="pay.checked"  ng-click="checkcustVoucherInArray($index,pay)"></td>
 										<td>
 									            <label>{{pay.paymenttype}}</label>
@@ -113,7 +113,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="pay in custCreditStatusList track by $index">
+								<tr ng-repeat="pay in custCreditList | filter: nonCredit">
 								<!-- <td><input  type="checkbox" value="" ng-model="pay.checked"  ng-click="checkcustVoucherStatusInArray($index)"></td> -->
 										
 										<td >
@@ -170,7 +170,22 @@
 <h4 style="color: white;font-weight: bold;font-style: normal;text-align: center;">Vendor Credit</h4></div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
+<div class="filterDiv">
+<div class="row" style="margin-top: 1%;">
+   <div class="col-2">
+		<label class="col-12"><b>VENDOR </b></label>
+	 	<select ng-model="vendorVoucher.vendorname"  class="form-control" style="display: block;margin: 2% auto;">
+		<option value="" selected>Select Vendorname</option>
+		<option ng-repeat="custView in vendorVoucherList | unique:'vendorname'" value="{{custView.vendorname}}">{{custView.vendorname}}</option>
+	  </select> 
+	 
+	 </div> 
+	
+     <div class="col-2">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchvenCreditItem(vendorVoucher.vendorname)" style="margin-top:15%">
+	 </div> 
+ </div>
+</div>
 <div class="row" style="margin-top: 1%;">
  <div class="col-6">
  <table  id="manage-venCredit-table"  datatable="ng" dt-options="vc.dtOptions" dt-instance="vc.dtInstance"  class="table table-bordered row-border hover" >
@@ -186,13 +201,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="pay in venCreditList track by $index">
-								<td><input  type="checkbox" value="" ng-model="pay.checked"  ng-click="checkvenVoucherInArray($index,pay)"></td>
+								<tr ng-repeat="ven in venCreditList | filter: greaterThan">
+								<td><input  type="checkbox" value="" ng-model="ven.checked"  ng-click="checkvenVoucherInArray($index,ven)"></td>
 										<td>
-									            <label>{{pay.paymenttype}}</label>
+									            <label>{{ven.paymenttype}}</label>
 										</td>
 										<td >
-										 <label>{{pay.instrumentdate}}</label>
+										 <label>{{ven.instrumentdate}}</label>
 										<!-- <div class="input-group date" id="datetimepicker_custCreditDate" data-target-input="nearest" >
 						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custCreditDate" ng-model="pay.instrumentdate" placeholder="Instrument Date"/>
 						                  <div class="input-group-append" data-target="#datetimepicker_custCreditDate" data-toggle="datetimepicker">
@@ -200,9 +215,9 @@
 						                  </div>
 						              </div> -->
 										</td>
-										<td> <label>{{pay.amount}}</label></td>
-										<td> <label>{{pay.balanceamount}}</label></td>
-										<td> <label>{{pay.instrumentno}}</label></td>
+										<td> <label>{{ven.amount}}</label></td>
+										<td> <label>{{ven.balanceamount}}</label></td>
+										<td> <label>{{ven.instrumentno}}</label></td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': pay.status == 'Pending','badge-success': pay.status == 'Completed'}">{{pay.status}}</label></td> -->
 										<!-- <td> 
 									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
@@ -226,11 +241,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="pay in venCreditStatusList track by $index">
+								<tr ng-repeat="ven in venCreditList | filter: nonCredit">
 								<!-- <td><input  type="checkbox" value="" ng-model="pay.checked"  ng-click="checkcustVoucherStatusInArray($index)"></td> -->
 										
 										<td >
-										 <label>{{pay.instrumentdate}}</label>
+										 <label>{{ven.instrumentdate}}</label>
 										<!-- <div class="input-group date" id="datetimepicker_custCreditDate" data-target-input="nearest" >
 						                  <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_custCreditDate" ng-model="pay.instrumentdate" placeholder="Instrument Date"/>
 						                  <div class="input-group-append" data-target="#datetimepicker_custCreditDate" data-toggle="datetimepicker">
@@ -239,11 +254,11 @@
 						              </div> -->
 										</td>
 										<td>
-									            <label>{{pay.paymenttype}}</label>
+									            <label>{{ven.paymenttype}}</label>
 										</td>
-										<td> <label>{{pay.amount}}</label></td>
-										<td> <label>{{pay.balanceamount}}</label></td>
-										<td> <label>{{pay.instrumentno}}</label></td>
+										<td> <label>{{ven.amount}}</label></td>
+										<td> <label>{{ven.balanceamount}}</label></td>
+										<td> <label>{{ven.instrumentno}}</label></td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': pay.status == 'Pending','badge-success': pay.status == 'Completed'}">{{pay.status}}</label></td> -->
 										<!-- <td> 
 									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
@@ -281,9 +296,89 @@
 </div>
 
 <div class="tab-pane"  id="customerCheque" role="tabpanel">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div style="background-color: #005D84;padding: 10px;">
+<h4 style="color: white;font-weight: bold;font-style: normal;text-align: center;">Customer Cheque</h4></div>
+<div class="row" style="margin-top: 1%;">
+ <table  id="manage-custCheque-table"  datatable="ng" dt-options="ccq.dtOptions" dt-instance="ccq.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+								<th width="15%"></th>
+									<th width="15%">InstrumentType</th>
+									<th width="28%" >Instrument Date</th>
+									<th width="15%">Amount</th>
+									<th width="15%">InstrumentNo</th>
+									<th width="15%">Status</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="custcheque in custChequeList | filter: custChequeFilter">
+								<td><input  type="checkbox" value="" ng-model="custcheque.checked"  ng-click="checkcustChequeInArray($index,custcheque)"></td>
+										<td>
+									            <label>{{custcheque.paymenttype}}</label>
+										</td>
+										<td >
+										 <label>{{custcheque.instrumentdate}}</label>
+										</td>
+										<td> <label>{{custcheque.amount}}</label></td>
+										
+										<td> <label>{{custcheque.instrumentno}}</label></td>
+										<td> <label>{{custcheque.paymentstatus}}</label></td>
+										<!-- <td><label class="badge" ng-class="{'badge-danger': pay.status == 'Pending','badge-success': pay.status == 'Completed'}">{{pay.status}}</label></td> -->
+										<!-- <td> 
+									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
+									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deletepaymentIndex($index);"></i>
+									</td> -->
+								</tr>
+							</tbody>
+  </table>
+  </div> 
+</div>
 </div>
 
 <div class="tab-pane"  id="vendorCheque" role="tabpanel">
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div style="background-color: #005D84;padding: 10px;">
+<h4 style="color: white;font-weight: bold;font-style: normal;text-align: center;">Vendor Cheque</h4></div>
+<div class="row" style="margin-top: 1%;">
+ <table  id="manage-venCheque-table"  datatable="ng" dt-options="vcq.dtOptions" dt-instance="vcq.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+								<th width="15%"></th>
+									<th width="15%">InstrumentType</th>
+									<th width="28%" >Instrument Date</th>
+									<th width="15%">Amount</th>
+									<th width="15%">InstrumentNo</th>
+									<th width="15%">Status</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="custcheque in venChequeList | filter: custChequeFilter">
+								<td><input  type="checkbox" value="" ng-model="custcheque.checked"  ng-click="checkvenChequeInArray($index,custcheque)"></td>
+										<td>
+									            <label>{{custcheque.paymenttype}}</label>
+										</td>
+										<td >
+										 <label>{{custcheque.instrumentdate}}</label>
+										</td>
+										<td> <label>{{custcheque.amount}}</label></td>
+										
+										<td> <label>{{custcheque.instrumentno}}</label></td>
+										<td> <label>{{custcheque.paymentstatus}}</label></td>
+										<!-- <td><label class="badge" ng-class="{'badge-danger': pay.status == 'Pending','badge-success': pay.status == 'Completed'}">{{pay.status}}</label></td> -->
+										<!-- <td> 
+									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
+									 <i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deletepaymentIndex($index);"></i>
+									</td> -->
+								</tr>
+							</tbody>
+  </table>
+  </div> 
+</div>
+
 </div>
 
 </div>

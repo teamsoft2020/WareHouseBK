@@ -456,6 +456,16 @@ legend {
       margin: 0 auto;
       overflow:auto;
   }
+  #manage-custCheque-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
+  #manage-venCheque-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
  .mandatory{
  color:red;
  font-weight: bold;
@@ -2254,9 +2264,6 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		}else if($scope.customerInvoice.todate==""){
 			 toastr.error('Please enter To date');
 			return;
-		}else if($scope.customerInvoice.truckno==""){
-			 toastr.error('Please enter Truck No');
-			return;
 		}else{
 			var url=location.origin +"/api/v1/customerinvoicelist";
 			 $http({
@@ -2436,15 +2443,15 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			$scope.grandTotalList.totaldiscount +=parseInt(value.discount)? parseInt(value.discount):0;
 		});
 		$scope.grandTotalList.totaltrip=$scope.checkedValue.length;
-		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.totalkmpercharge) ?parseInt($scope.grandTotalList.totalkmpercharge) :0) + (parseInt($scope.grandTotalList.totalfreightamt)?parseInt($scope.grandTotalList.totalfreightamt):0);
+		$scope.grandTotalList.netTempamount =(parseInt($scope.grandTotalList.totalkmpercharge) ?parseInt($scope.grandTotalList.totalkmpercharge) :0) + (parseInt($scope.grandTotalList.totalfreightamt)?parseInt($scope.grandTotalList.totalfreightamt):0);
 		var adCount =(parseInt($scope.grandTotalList.totaldiscount) ? parseInt($scope.grandTotalList.totaldiscount): 0) +(parseInt($scope.grandTotalList.totaladvance) ? parseInt($scope.grandTotalList.totaladvance): 0);
-		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netamount) ? parseInt($scope.grandTotalList.netamount): 0) - (parseInt(adCount) ? parseInt(adCount):0);
+		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netTempamount) ? parseInt($scope.grandTotalList.netTempamount): 0) - (parseInt(adCount) ? parseInt(adCount):0);
 		console.log($scope.grandTotalList);
 	};
 	
 	$scope.addLeakTotal =function(leak){
 		$scope.grandTotalList.leakage=parseInt(leak) ? parseInt(leak): 0;
-		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netamount) ? parseInt($scope.grandTotalList.netamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
+		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netTempamount) ? parseInt($scope.grandTotalList.netTempamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
 	}
 	
 	$scope.calculateVendorTotal =function(){
@@ -2462,19 +2469,18 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			$scope.grandTotalVendorList.totaldiscount +=parseInt(value.discount)? parseInt(value.discount):0;
 		});
 		$scope.grandTotalVendorList.totaltrip=$scope.checkedVendorValue.length;
-		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.totalkmpercharge) ?parseInt($scope.grandTotalVendorList.totalkmpercharge) :0) + (parseInt($scope.grandTotalVendorList.totalfreightamt)?parseInt($scope.grandTotalVendorList.totalfreightamt):0);
+		$scope.grandTotalVendorList.netTempamount =(parseInt($scope.grandTotalVendorList.totalkmpercharge) ?parseInt($scope.grandTotalVendorList.totalkmpercharge) :0) + (parseInt($scope.grandTotalVendorList.totalfreightamt)?parseInt($scope.grandTotalVendorList.totalfreightamt):0);
 		var adVenCount =(parseInt($scope.grandTotalVendorList.totaldiscount) ? parseInt($scope.grandTotalVendorList.totaldiscount): 0) +(parseInt($scope.grandTotalVendorList.totaladvance) ? parseInt($scope.grandTotalVendorList.totaladvance): 0);
-		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) - (parseInt(adVenCount) ? parseInt(adVenCount):0);
+		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netTempamount) ? parseInt($scope.grandTotalVendorList.netTempamount): 0) - (parseInt(adVenCount) ? parseInt(adVenCount):0);
 		console.log($scope.grandTotalVendorList);
-		
 	} 
 	
 	$scope.addVendorLeakTotal =function(leak){
 		$scope.grandTotalVendorList.leakage=parseInt(leak) ? parseInt(leak): 0;
-		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netamount) ? parseInt($scope.grandTotalVendorList.netamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
+		$scope.grandTotalVendorList.netamount =(parseInt($scope.grandTotalVendorList.netTempamount) ? parseInt($scope.grandTotalVendorList.netTempamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
 	}
 	$scope.resetCustomerInvoice =function(){
-		$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
+		$scope.customerInvoice={fromdate:"",todate:""};
 		$scope.customerInvoiceJson =[];
 		$scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 	}
@@ -3101,20 +3107,23 @@ app.controller('VoucherController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#vendorCredit').hide();
 			  $('#customerCheque').hide();
 			   $('#vendorCheque').hide();
-			   $scope.init_custCredit();
-				$scope.init_custCreditStatus();
+			   $scope.initcustList();
+			  // $scope.init_custCredit();
+				//$scope.init_custCreditStatus();
 		  }else if(currEvent =="vendorCredit"){
 			  $('#customerCredit').hide();
 			  $('#vendorCredit').show();
 			  $('#customerCheque').hide();
 			   $('#vendorCheque').hide();
-			   $scope.init_venCredit();
-				$scope.init_venCreditStatus();
+			   $scope.initvenList();
+			  // $scope.init_venCredit();
+				//$scope.init_venCreditStatus();
 		  }else if(currEvent =="customerCheque"){
 			  $('#customerCredit').hide();
 			  $('#vendorCredit').hide();
 			  $('#customerCheque').show();
 			   $('#vendorCheque').hide();
+			   $scope.init_custCreditStatus();
 		  }else if(currEvent =="vendorCheque"){
 			  $('#customerCredit').hide();
 			  $('#vendorCredit').hide();
@@ -3123,6 +3132,70 @@ app.controller('VoucherController', function ($scope,$timeout,$http,toastr,DTOpt
 		  }
 	}
 	
+	 $scope.searchcustCreditItem =function(custName){
+		 $scope.commoncustMatches={totalcreditamount:0,totalotheramount:0};
+			if(custName !="" || custName != undefined){
+				var url=location.origin +"/api/v1/findcustomer/"+custName;
+				 $http({
+					    method : 'GET',
+					    url : url/* ,
+					    params: {name: custName} */
+					   }).then(function successCallback(response) {
+					   $scope.custCreditList = response.data;
+					   }, function errorCallback(response) {
+					    console.log(response.statusText);
+					   });
+			}else{
+				toastr.success('Please Select Customer Name..');
+			}
+			
+		};
+		
+		/* $scope.greaterThan = function(prop, val){
+		    return function(pay){
+		      if (pay[prop] > val) return true;
+		    }
+		  } */
+		  $scope.nonCredit = function (pay) {
+			  if(pay.paymenttype !="Credit"){
+				  if(pay.status =="Paid" || pay.status =="Realized"){
+					  return (pay.balanceamount > 0);
+				  }
+			  }
+			    
+			}
+		$scope.greaterThan = function (pay) {
+			if(pay.paymenttype =="Credit"){
+				return (pay.balanceamount > 0);
+			}
+		    
+		}
+		$scope.custChequeFilter= function (custcheque) {
+			if(custcheque.paymenttype =="Cheque" || custcheque.paymenttype =="DD"){
+				if(custcheque.status =="Pending" || custcheque.status =="Presentated"){
+					return true;
+				}
+				
+			}
+		}
+		
+		$scope.searchvenCreditItem =function(venName){
+			 $scope.commonvenMatches={totalcreditamount:0,totalotheramount:0};
+			if(venName !="" || venName != undefined){
+				var url=location.origin +"/api/v1/vendorname/"+venName;
+				 $http({
+					    method : 'GET',
+					    url : url
+					   }).then(function successCallback(response) {
+					   $scope.venCreditList = response.data;
+					   }, function errorCallback(response) {
+					    console.log(response.statusText);
+					   });
+			}else{
+				toastr.success('Please Select Vendor Name..');
+			}
+			
+		};
 	
 	 $scope.checkcustVoucherInArray =function(index,item){
 		 
@@ -3184,7 +3257,8 @@ $scope.checkvenVoucherInArray =function(index,item){
 	 			}
 			});
 	 		
-	 		angular.forEach($scope.custCreditStatusList, function(value, key) {
+	 		angular.forEach($scope.custCreditList, function(value, key) {
+	 			if(value.paymenttype !="Credit"){
 	 			if(keepGoing) {
 	 				$scope.totaltempamount +=parseInt(value.balanceamount)?parseInt(value.balanceamount):0;
 	 				$scope.totaltempId.push(value.childcustomerpaymentid);
@@ -3192,6 +3266,7 @@ $scope.checkvenVoucherInArray =function(index,item){
 	 				$scope.commoncustMatches.totalotheramount =$scope.totaltempamount;
 	 				
  				keepGoing = false;
+	 			}
 	 			}
 	 			}
 		});
@@ -3209,7 +3284,8 @@ $scope.checkvenVoucherInArray =function(index,item){
 	 			}
 			});
 	 		
-	 		angular.forEach($scope.venCreditStatusList, function(value, key) {
+	 		angular.forEach($scope.venCreditList, function(value, key) {
+	 			if(value.paymenttype !="Credit"){
 	 			if(keepGoingven) {
 	 				$scope.totalventempamount +=parseInt(value.balanceamount)?parseInt(value.balanceamount):0;
 	 				$scope.totalventempId.push(value.vendorpaymentid);
@@ -3219,29 +3295,55 @@ $scope.checkvenVoucherInArray =function(index,item){
  				keepGoingven = false;
 	 			}
 	 			}
+	 			}
 		});
 	 		
 	 	}
 	 
 	 $scope.checkandSave =function(){
+		 $scope.updatecustVoucher=[];
 		 $scope.debitBalance=($scope.commoncustMatches.totalotheramount)-($scope.commoncustMatches.totalcreditamount);
 		 if($scope.commoncustMatches.totalcreditamount <= $scope.commoncustMatches.totalotheramount && $scope.commoncustMatches.totalcreditamount ){
-			 angular.forEach($scope.checkedcustvoucher, function(value, key) {
-	 			if(value.checked){
-	 				value.balanceamount=0;	
-	 			}
-			});
-	 		angular.forEach($scope.custCreditStatusList, function(value, key) {
+	 		angular.forEach($scope.custCreditList, function(value, key) {
+	 			if(value.paymenttype !="Credit"){
 	 			angular.forEach($scope.totaltempId, function(item, i,array) {
-	 				console.log(item +""+i+""+array.length - 1);
+	 				//console.log(item +""+i+""+array.length - 1);
 	 				 if(value.childcustomerpaymentid == item){
 	 					value.balanceamount=0;
+	 					$scope.updatecustVoucher.push(value);
 			 			}
 	 				 if(value.childcustomerpaymentid == array[array.length-1]){
 	 					value.balanceamount=$scope.debitBalance;
 		 			}
 	 			});
-		});
+	 			}
+			});
+	 		angular.forEach($scope.checkedcustvoucher, function(value, key) {
+	 			//value.instrumentno=angular.$$stringify($scope.totaltempId);
+	 			value.instrumentno=$scope.totaltempId.map(function(obj){return obj;}).join(','); 
+	 			if(value.checked){
+	 				value.balanceamount=0;	
+	 			}
+	 			$scope.updatecustVoucher.push(value);
+			});
+	 		
+	 		//$scope.updatecustVoucher.push($scope.checkedcustvoucher);
+	 		var url = location.origin +"/api/v1/updatecustomerpaymentchild";
+		    $http({
+		        method : 'PUT',
+		        url : url,
+		        data : angular.toJson($scope.updatecustVoucher),
+		        headers : {
+		        'Content-Type' : 'application/json'
+		        }
+		        }).then(function (response) {
+		            toastr.success("Updated successfully");
+		            $scope.searchcustCreditItem($scope.customerVoucher.customername);
+		        }, function error(response) {
+		        	toastr.error('Error while Updating..');
+		          console.log(response.status);
+		        });
+	 		
 		 }else{
 			toastr.warning("Credit and Debit Balance not matching");
 		 }
@@ -3249,17 +3351,15 @@ $scope.checkvenVoucherInArray =function(index,item){
 	 
 	 
 	 $scope.checkandSavevendor =function(){
+		 $scope.updatevenVoucher=[];
 		 $scope.debitvenBalance=($scope.commonvenMatches.totalotheramount)-($scope.commonvenMatches.totalcreditamount);
 		 if($scope.commonvenMatches.totalcreditamount <= $scope.commonvenMatches.totalotheramount && $scope.commonvenMatches.totalcreditamount ){
-			 angular.forEach($scope.checkedvenvoucher, function(value, key) {
-	 			if(value.checked){
-	 				value.balanceamount=0;	
-	 			}
-			});
-	 		angular.forEach($scope.venCreditStatusList, function(value, key) {
+			 
+	 		angular.forEach($scope.venCreditList, function(value, key) {
 	 			angular.forEach($scope.totalventempId, function(item, i,array) {
 	 				console.log(item +""+i+""+array.length - 1);
 	 				 if(value.vendorpaymentid == item){
+	 					$scope.updatevenVoucher.push(value);
 	 					value.balanceamount=0;
 			 			}
 	 				 if(value.vendorpaymentid == array[array.length-1]){
@@ -3267,6 +3367,32 @@ $scope.checkvenVoucherInArray =function(index,item){
 		 			}
 	 			});
 		});
+	 		
+	 		angular.forEach($scope.checkedvenvoucher, function(value, key) {
+				// value.instrumentno=$scope.totalventempId;
+				 value.instrumentno=$scope.totalventempId.map(function(obj){return obj;}).join(','); 
+	 			if(value.checked){
+	 				value.balanceamount=0;	
+	 			}
+	 			$scope.updatevenVoucher.push(value);
+			});
+	 		
+	 		
+	 		var url = location.origin +"/api/v1/updatevendorpaymentchild";
+		    $http({
+		        method : 'PUT',
+		        url : url,
+		        data : angular.toJson($scope.updatevenVoucher),
+		        headers : {
+		        'Content-Type' : 'application/json'
+		        }
+		        }).then(function (response) {
+		            toastr.success("Updated successfully");
+		            $scope.searchvenCreditItem($scope.vendorVoucher.vendorname);
+		        }, function error(response) {
+		        	toastr.error('Error while Updating..');
+		          console.log(response.status);
+		        });
 		 }else{
 			toastr.warning("Credit and Debit Balance not matching");
 		 }
@@ -3291,7 +3417,7 @@ $scope.checkvenVoucherInArray =function(index,item){
 				    method : 'GET',
 				    url : url
 				   }).then(function successCallback(response) {
-				   $scope.custCreditStatusList = response.data;
+				   $scope.custChequeList = response.data;
 				   }, function errorCallback(response) {
 				    console.log(response.statusText);
 				   });
@@ -3322,8 +3448,32 @@ $scope.checkvenVoucherInArray =function(index,item){
 					    console.log(response.statusText);
 					   });
 			};
-	$scope.init_custCredit();
-	$scope.init_custCreditStatus();
+		 $scope.initcustList =function(){
+			 
+			 var url=location.origin +"/api/v1/customerlist";
+			 $http({
+				    method : 'GET',
+				    url : url,
+				   }).then(function successCallback(response) {
+				   $scope.customerVoucherList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		 }
+		 $scope.initvenList =function(){
+			 var url=location.origin +"/api/v1/vendorlist";
+			 $http({
+				    method : 'GET',
+				    url : url,
+				   }).then(function successCallback(response) {
+				   $scope.vendorVoucherList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		}
+	 $scope.initcustList();
+	//$scope.init_custCredit();
+	//$scope.init_custCreditStatus();
 	scope=$scope;
 });
 

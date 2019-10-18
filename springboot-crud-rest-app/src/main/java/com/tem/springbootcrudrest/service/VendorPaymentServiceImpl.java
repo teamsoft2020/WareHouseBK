@@ -56,6 +56,7 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 			Vendorpayment vendorpayment=vendorPaymentRepository.findByVendorPaymentId(vendpay.getVendorpaymentid());
 			vendorpayment.setBalanceamount(vendpay.getBalanceamount());
 			vendorpayment.setStatus(vendpay.getStatus());
+			vendorpayment.setInstrumentno(vendpay.getInstrumentno());
 			Vendorpayment vendorpaymentobject = vendorPaymentRepository.save(vendorpayment);
 			vendorPaymentlist.add(vendorpaymentobject);
 		}

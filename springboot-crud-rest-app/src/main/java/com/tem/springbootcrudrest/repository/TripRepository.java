@@ -27,9 +27,9 @@ public interface TripRepository extends JpaRepository<TripSheet, Long> {
 	@Query(value = "SELECT * FROM TripSheet WHERE perkmchargevendor='6.5'", nativeQuery = true)
 	public List<TripSheet> findAllVendorInvoiceDetsails();
 
-	@Query(value = "select t From TripSheet t where t.customerinvoicestatus='NO'and t.truckno=:truckno and t.datetime between :fromdate and :todate")
+	@Query(value = "select t From TripSheet t where t.customerinvoicestatus='NO'and  t.datetime between :fromdate and :todate")
 	public List<TripSheet> findCustomerInvoiceBetweenDateList(@Param("fromdate") String fromdate,
-			@Param("todate") String todate,@Param("truckno") String truckno);
+			@Param("todate") String todate);
 	
 	
 	@Query(value = "select t From TripSheet t where t.vendorinvoicestatus='NO'and t.truckno=:truckno and t.datetime between :fromdate and :todate")
