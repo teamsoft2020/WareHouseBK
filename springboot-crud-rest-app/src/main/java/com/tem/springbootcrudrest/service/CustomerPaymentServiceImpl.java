@@ -14,6 +14,7 @@ import com.tem.springbootcrudrest.model.Vendorpayment;
 import com.tem.springbootcrudrest.repository.CustomerInvoiceRepository;
 import com.tem.springbootcrudrest.repository.CustomerPaymentParentRepository;
 import com.tem.springbootcrudrest.repository.CustomerPaymentRepository;
+import com.tem.util.UTCDateTime;
 
 @Component
 public class CustomerPaymentServiceImpl implements CustomerPaymentService {
@@ -107,15 +108,31 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 
 		List<Customerpayment> customerchequeist = new ArrayList<Customerpayment>();
 
-		for (Customerpayment customercheque : customerchequelist) {
-			Customerpayment customerpayment = customerPaymentRepository
-					.findByChildCustomerPaymentId(customercheque.getChildcustomerpaymentid());
+		for (Customerpayment customercheques : customerchequelist) {
+			
+			Customerpayment customercheque = customerPaymentRepository
+					.findByChildCustomerPaymentId(customercheques.getChildcustomerpaymentid());
+			
+			
+			Customerpayment customerpaymentchequeobj = new Customerpayment();
+			if(customercheques.getStatus().equals("Bounced")) {
+				customerpaymentchequeobj.setAmount(customercheque.getAmount());
+				customerpaymentchequeobj.setBalanceamount(customercheque.getBalanceamount());
+				customerpaymentchequeobj.setInstrumentno(customercheque.getInstrumentno());
+				customerpaymentchequeobj.setPaymenttype(customercheque.getPaymenttype());
+				customerpaymentchequeobj.setStatus("Pending");
+				customerpaymentchequeobj.setCustomername(customercheque.getCustomername());
+				customerpaymentchequeobj.setCustomerPaymentParent(customercheque.getCustomerPaymentParent());
+				customerPaymentRepository.save(customerpaymentchequeobj);
+				
+			}
+			
 
 			// customerpayment.setBalanceamount(customercheque.getBalanceamount());
-			customerpayment.setStatus(customercheque.getStatus());
+			customercheques.setStatus(customercheque.getStatus());
 			// customerpayment.setInstrumentno(customercheque.getInstrumentno());
 
-			Customerpayment customerchequetobject = customerPaymentRepository.save(customerpayment);
+			Customerpayment customerchequetobject = customerPaymentRepository.save(customercheques);
 
 			customerchequeist.add(customerchequetobject);
 

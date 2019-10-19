@@ -10,6 +10,7 @@ import com.tem.springbootcrudrest.model.VendorPaymentParent;
 import com.tem.springbootcrudrest.model.Vendorpayment;
 import com.tem.springbootcrudrest.repository.VendorPaymentParentRepository;
 import com.tem.springbootcrudrest.repository.VendorPaymentRepository;
+import com.tem.util.UTCDateTime;
 
 @Component
 public class VendorPaymentServiceImpl implements VendorPaymentService{
@@ -22,6 +23,7 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 
 	@Override
 	public VendorPaymentParent createVendorPayment(VendorPaymentParent vendorpaymentparent) {
+		vendorpaymentparent.setCreateddate(UTCDateTime.getCurentTimeAndDate());
 		VendorPaymentParent vendoerpaymentesponse = vendorPaymentParentRepository.save(vendorpaymentparent);
 		
 		return vendoerpaymentesponse;
@@ -81,11 +83,25 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 		
 		List<Vendorpayment> vendorChequelist = new ArrayList<Vendorpayment>();
 		for(Vendorpayment vendcheque:vendorChequeList) {
-			Vendorpayment vendorpayment=vendorPaymentRepository.findByVendorPaymentId(vendcheque.getVendorpaymentid());
+			Vendorpayment vendorcheque=vendorPaymentRepository.findByVendorPaymentId(vendcheque.getVendorpaymentid());
+			Vendorpayment vendorpaymentchequeobj = new Vendorpayment();
+			if(vendcheque.getStatus().equals("Bounced")) {
+				vendorpaymentchequeobj.setAmount(vendorcheque.getAmount());
+				vendorpaymentchequeobj.setBalanceamount(vendorcheque.getBalanceamount());
+				vendorpaymentchequeobj.setInstrumentno(vendorcheque.getInstrumentno());
+				vendorpaymentchequeobj.setPaymenttype(vendorcheque.getPaymenttype());
+				vendorpaymentchequeobj.setStatus("Pending");
+				vendorpaymentchequeobj.setVendorreceiptdate(vendorcheque.getVendorreceiptdate());
+				vendorpaymentchequeobj.setModifieddate(UTCDateTime.getCurentTimeAndDate());
+				vendorpaymentchequeobj.setVendorname(vendorcheque.getVendorname());
+				vendorpaymentchequeobj.setVendorPaymentParent(vendorcheque.getVendorPaymentParent());
+				vendorPaymentRepository.save(vendorpaymentchequeobj);
+				
+			}
 			//vendorpayment.setBalanceamount(vendcheque.getBalanceamount());
-			vendorpayment.setStatus(vendcheque.getStatus());
+			vendorcheque.setStatus(vendcheque.getStatus());
 			//vendorpayment.setInstrumentno(vendcheque.getInstrumentno());
-			Vendorpayment vendorpaymentobject = vendorPaymentRepository.save(vendorpayment);
+			Vendorpayment vendorpaymentobject = vendorPaymentRepository.save(vendorcheque);
 			vendorChequelist.add(vendorpaymentobject);
 		}
 		return vendorChequelist;
