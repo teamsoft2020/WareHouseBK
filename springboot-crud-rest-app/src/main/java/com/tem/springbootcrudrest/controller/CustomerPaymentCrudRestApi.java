@@ -74,4 +74,24 @@ public class CustomerPaymentCrudRestApi {
 		return customerList;
 	}
 	
+	
+	@RequestMapping(path = "/customerchequelist", method = RequestMethod.GET)
+	public List<Customerpayment> getCustomerChecqueManagement() {
+
+		List<Customerpayment> customerList = customerPaymentService.getCustomerChequeManagementList();
+
+		return customerList;
+	}
+	
+	
+	@PutMapping("/updatecutomercheques")
+	public List<Customerpayment> updateCustomerChequeManagement(@RequestBody List<Customerpayment> customerpaymentchild) {
+
+		List<Customerpayment> customerPaymentchild = customerPaymentService.updateCustomerChequeManagement(customerpaymentchild);
+		
+
+		return customerPaymentchild;
+
+	}
+	
 }

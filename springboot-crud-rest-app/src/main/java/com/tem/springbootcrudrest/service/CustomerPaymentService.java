@@ -19,5 +19,9 @@ public interface CustomerPaymentService {
 	public List<Customerpayment> updateCustomerPayment(List<Customerpayment> customerpaymentlist);
 	
 	public List<Customerpayment> getCustomerListByName(String customername);
+	
+	public List<Customerpayment> getCustomerChequeManagementList();
+	
+	public List<Customerpayment> updateCustomerChequeManagement(List<Customerpayment> customerchequelist);
 
 }

@@ -69,5 +69,26 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 		
 		return vendorPaymentRepository.findByVendorName(name);
 	}
+
+
+	@Override
+	public List<Vendorpayment> getVendorChequeList() {
+		return vendorPaymentRepository.findAll();
+	}
+	
+	@Override
+	public List<Vendorpayment> updateVendorCheque(List<Vendorpayment> vendorChequeList) {
+		
+		List<Vendorpayment> vendorChequelist = new ArrayList<Vendorpayment>();
+		for(Vendorpayment vendcheque:vendorChequeList) {
+			Vendorpayment vendorpayment=vendorPaymentRepository.findByVendorPaymentId(vendcheque.getVendorpaymentid());
+			//vendorpayment.setBalanceamount(vendcheque.getBalanceamount());
+			vendorpayment.setStatus(vendcheque.getStatus());
+			//vendorpayment.setInstrumentno(vendcheque.getInstrumentno());
+			Vendorpayment vendorpaymentobject = vendorPaymentRepository.save(vendorpayment);
+			vendorChequelist.add(vendorpaymentobject);
+		}
+		return vendorChequelist;
+	}
 	
 }

@@ -71,4 +71,24 @@ public class VendorPaymentCrudRestApi {
 		return vendorList;
 	}
 	
+	@RequestMapping(path = "/vendorchequelist", method = RequestMethod.GET)
+	public List<Vendorpayment> getVendorChequeList() {
+
+		List<Vendorpayment> customerList = vendorPaymentService.getVendorChequeList();
+
+		return customerList;
+	}
+	
+	//updateVendorCheque
+	
+	@PutMapping("/updatevendorchequelist")
+	public List<Vendorpayment> updateVendorCheque(@RequestBody List<Vendorpayment> vendorpaymentchild) {
+
+		List<Vendorpayment> vendorChequeList = vendorPaymentService.updateVendorCheque(vendorpaymentchild);
+		
+
+		return vendorChequeList;
+
+	}
+	
 }

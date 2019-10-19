@@ -16,49 +16,48 @@ import com.tem.springbootcrudrest.repository.CustomerPaymentParentRepository;
 import com.tem.springbootcrudrest.repository.CustomerPaymentRepository;
 
 @Component
-public class CustomerPaymentServiceImpl implements CustomerPaymentService{
-	
-	
+public class CustomerPaymentServiceImpl implements CustomerPaymentService {
+
 	@Autowired
 	CustomerPaymentParentRepository customerPaymentParentRepository;
-	
+
 	@Autowired
 	CustomerPaymentRepository customerPaymentRepository;
-	
 
 	@Override
 	public CustomerPaymentParent createCustomerPayment(CustomerPaymentParent customerpaymentlist) {
-		
-		
-		CustomerPaymentParent customerpaymentresponse=customerPaymentParentRepository.save(customerpaymentlist);
-		
-	/*	for(Customerpayment customerpayment:customerpaymentresponse) {
-			CustomerInvoice customerinvoice = new CustomerInvoice();
-			customerinvoice = customerInvoiceRepository.findByCustomerinvoiceid(customerpayment.getCustomerinvoiceid());
-			
-			customerinvoice.setPaymentstatus(customerpayment.getPaymentstatus());
-			customerinvoice.setCustomerinvoiceid(customerpayment.getCustomerpaymentid());
-			
-			customerInvoiceRepository.save(customerinvoice);
-			
-		}*/
-	
-		return customerpaymentresponse;
-		
-	}
 
+		CustomerPaymentParent customerpaymentresponse = customerPaymentParentRepository.save(customerpaymentlist);
+
+		/*
+		 * for(Customerpayment customerpayment:customerpaymentresponse) {
+		 * CustomerInvoice customerinvoice = new CustomerInvoice(); customerinvoice =
+		 * customerInvoiceRepository.findByCustomerinvoiceid(customerpayment.
+		 * getCustomerinvoiceid());
+		 * 
+		 * customerinvoice.setPaymentstatus(customerpayment.getPaymentstatus());
+		 * customerinvoice.setCustomerinvoiceid(customerpayment.getCustomerpaymentid());
+		 * 
+		 * customerInvoiceRepository.save(customerinvoice);
+		 * 
+		 * }
+		 */
+
+		return customerpaymentresponse;
+
+	}
 
 	@Override
 	public List<Customerpayment> getCustomerPaymentByStatusBalAmount() {
-	
+
 		return customerPaymentRepository.findCustomerPaymentByStatusBalAmount();
-		
+
 	}
-	
+
 	@Override
 	public List<Customerpayment> getCustomerPaymentByStatus() {
 		List<Customerpayment> twolist = new ArrayList<Customerpayment>();
-		
+
 		List<Customerpayment> list1 = customerPaymentRepository.findCustomerPaymentByRemainingAmountStatus();
 		List<Customerpayment> list2 = customerPaymentRepository.findCustomerPaymentByRemainingAmountSecondStatus();
 
@@ -66,36 +65,63 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService{
 		twolist.addAll(list2);
 
 		return twolist;
-		
+
 	}
 
-	//findByChildCustomerPaymentId
+	// findByChildCustomerPaymentId
 
 	@Override
 	public List<Customerpayment> updateCustomerPayment(List<Customerpayment> customerpaymentlist) {
-		
-		List<Customerpayment>customerpaylist = new ArrayList<Customerpayment>();
-		
-		for(Customerpayment customerpay : customerpaymentlist) {
-			Customerpayment customerpayment = customerPaymentRepository.findByChildCustomerPaymentId(customerpay.getChildcustomerpaymentid());
-			
+
+		List<Customerpayment> customerpaylist = new ArrayList<Customerpayment>();
+
+		for (Customerpayment customerpay : customerpaymentlist) {
+			Customerpayment customerpayment = customerPaymentRepository
+					.findByChildCustomerPaymentId(customerpay.getChildcustomerpaymentid());
+
 			customerpayment.setBalanceamount(customerpay.getBalanceamount());
 			customerpayment.setStatus(customerpay.getStatus());
 			customerpayment.setInstrumentno(customerpay.getInstrumentno());
-			
+
 			Customerpayment customerpaymentobject = customerPaymentRepository.save(customerpayment);
-			
+
 			customerpaylist.add(customerpaymentobject);
 
 		}
-		
+
 		return customerpaylist;
 	}
-
 
 	@Override
 	public List<Customerpayment> getCustomerListByName(String customername) {
 		return customerPaymentRepository.findByCustomerName(customername);
+	}
+
+	@Override
+	public List<Customerpayment> getCustomerChequeManagementList() {
+		return customerPaymentRepository.findAll();
+	}
+
+	@Override
+	public List<Customerpayment> updateCustomerChequeManagement(List<Customerpayment> customerchequelist) {
+
+		List<Customerpayment> customerchequeist = new ArrayList<Customerpayment>();
+
+		for (Customerpayment customercheque : customerchequelist) {
+			Customerpayment customerpayment = customerPaymentRepository
+					.findByChildCustomerPaymentId(customercheque.getChildcustomerpaymentid());
+
+			// customerpayment.setBalanceamount(customercheque.getBalanceamount());
+			customerpayment.setStatus(customercheque.getStatus());
+			// customerpayment.setInstrumentno(customercheque.getInstrumentno());
+
+			Customerpayment customerchequetobject = customerPaymentRepository.save(customerpayment);
+
+			customerchequeist.add(customerchequetobject);
+
+			
+		}
+		return customerchequeist;
 	}
 
 }
