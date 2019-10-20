@@ -31,6 +31,11 @@ public interface CustomerPaymentRepository extends JpaRepository<Customerpayment
 	 @Query(value="SELECT c FROM Customerpayment c WHERE c.customername=:customername") 
 	 public List<Customerpayment> findByCustomerName(@Param("customername") String customername);
 	 
+	 @Query(value="select * from customerpayment where (paymenttype='DD' and (status='Presented' or status='Pending')) or (paymenttype='Cheque' and (status='Presented' or status='Pending'));",nativeQuery=true) 
+	 public List<Customerpayment> findAllCustomerCheque();
+	 
+	 //select * from customerpayment where (paymenttype='DD' and status='Presented' or status='Pending') or (paymenttype='Cheque' and status='Presented' or status='Pending')
+	 
 	 
 	/*@Query(value="SELECT t FROM TripSheet t WHERE t.loadno=:loadno") 
 	 public TripSheet findByLoadNO(@Param("loadno") String loadno);*/

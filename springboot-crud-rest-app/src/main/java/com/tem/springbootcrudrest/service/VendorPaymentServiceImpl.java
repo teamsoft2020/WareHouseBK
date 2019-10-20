@@ -75,7 +75,7 @@ public class VendorPaymentServiceImpl implements VendorPaymentService{
 
 	@Override
 	public List<Vendorpayment> getVendorChequeList() {
-		return vendorPaymentRepository.findAll();
+		return vendorPaymentRepository.findAllVendorCheque();
 	}
 	
 	@Override

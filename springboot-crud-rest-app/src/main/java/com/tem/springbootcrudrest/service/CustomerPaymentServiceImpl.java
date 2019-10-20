@@ -100,7 +100,7 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 
 	@Override
 	public List<Customerpayment> getCustomerChequeManagementList() {
-		return customerPaymentRepository.findAll();
+		return customerPaymentRepository.findAllCustomerCheque();
 	}
 
 	@Override

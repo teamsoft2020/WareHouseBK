@@ -30,5 +30,8 @@ public interface VendorPaymentRepository extends JpaRepository<Vendorpayment, Lo
 	 
 	 @Query(value="SELECT c FROM Vendorpayment c WHERE c.vendorname=:vendorname") 
 	 public List<Vendorpayment> findByVendorName(@Param("vendorname") String vendorname);
+	 
+	 @Query(value="select * from vendorpayment where (paymenttype='DD' and (status='Presented' or status='Pending')) or (paymenttype='Cheque' and (status='Presented' or status='Pending'))",nativeQuery=true) 
+	 public List<Vendorpayment> findAllVendorCheque();	 
 
 }
