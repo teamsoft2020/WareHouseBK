@@ -129,7 +129,7 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 			
 
 			// customerpayment.setBalanceamount(customercheque.getBalanceamount());
-			customercheques.setStatus(customercheque.getStatus());
+			customercheque.setStatus(customercheques.getStatus());
 			// customerpayment.setInstrumentno(customercheque.getInstrumentno());
 
 			Customerpayment customerchequetobject = customerPaymentRepository.save(customercheques);
