@@ -312,8 +312,8 @@
 									
 								</tr>
 							</thead>
-							<tbody>
-								<tr ng-repeat="custcheque in custChequeList | filter: custChequeFilter">
+							<tbody><!-- | filter: custChequeFilter -->
+								<tr ng-repeat="custcheque in custChequeList  track by $index">
 								<td><input  type="checkbox" value="" ng-model="custcheque.checked"  ng-click="checkcustChequeInArray($index,custcheque)"></td>
 										<td>
 									            <label>{{custcheque.paymenttype}}</label>
@@ -324,7 +324,19 @@
 										<td> <label>{{custcheque.amount}}</label></td>
 										
 										<td> <label>{{custcheque.instrumentno}}</label></td>
-										<td> <label>{{custcheque.paymentstatus}}</label></td>
+										<td>  <!-- <label>{{custcheque.status}}</label>  -->
+										
+										 <select ng-model="custcheque.status"  class="form-control" style="display: block;margin: 2% auto;color: white;outline: 0;box-shadow: none;border: 0 !important;background: #2c3e50; background-image: none;">
+											<option value="">Select Customer</option>
+											<option  ng-repeat="value in statusCheque" 
+							                      value="{{value}}">{{value}}     
+							              </option>
+											<!-- <option value="Pending">Pending</option>
+											<option value="Paid">Paid</option>
+											<option value="Realized">Realized</option>
+											<option value="Presentated">Presentated</option> -->
+										  </select>
+										</td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': pay.status == 'Pending','badge-success': pay.status == 'Completed'}">{{pay.status}}</label></td> -->
 										<!-- <td> 
 									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
@@ -334,6 +346,11 @@
 							</tbody>
   </table>
   </div> 
+  
+ <div class="row" style="margin-top: 1%;">
+ <div style="margin: 0 auto;">
+<input name="" type="button" class="btn btn-dark" id="" value="Submit" ng-click="submitcustCheque()"></div>
+</div>
 </div>
 </div>
 
@@ -356,18 +373,23 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="custcheque in venChequeList | filter: custChequeFilter">
-								<td><input  type="checkbox" value="" ng-model="custcheque.checked"  ng-click="checkvenChequeInArray($index,custcheque)"></td>
+								<tr ng-repeat="vencheque in venChequeList  track by $index">
+								<td><input  type="checkbox" value="" ng-model="vencheque.checked"  ng-click="checkvenChequeInArray($index,vencheque)"></td>
 										<td>
-									            <label>{{custcheque.paymenttype}}</label>
+									            <label>{{vencheque.paymenttype}}</label>
 										</td>
 										<td >
-										 <label>{{custcheque.instrumentdate}}</label>
+										 <label>{{vencheque.instrumentdate}}</label>
 										</td>
-										<td> <label>{{custcheque.amount}}</label></td>
+										<td> <label>{{vencheque.amount}}</label></td>
 										
-										<td> <label>{{custcheque.instrumentno}}</label></td>
-										<td> <label>{{custcheque.paymentstatus}}</label></td>
+										<td> <label>{{vencheque.instrumentno}}</label></td>
+										<td> 
+										<select ng-model="vencheque.status"  class="form-control" style="display: block;margin: 2% auto;color: white;outline: 0;box-shadow: none;border: 0 !important;background: #2c3e50; background-image: none;">
+											<option value="">Select Customer</option>
+											<option ng-selected="{{value ==vencheque.status}}" ng-repeat="value in statusCheque"  value="{{value}}">{{value}}</option>
+										  </select>
+										</td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': pay.status == 'Pending','badge-success': pay.status == 'Completed'}">{{pay.status}}</label></td> -->
 										<!-- <td> 
 									 <i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addNewpayment()"></i> 
@@ -377,6 +399,10 @@
 							</tbody>
   </table>
   </div> 
+  <div class="row" style="margin-top: 1%;">
+ <div style="margin:0 auto;">
+<input name="" type="button" class="btn btn-dark" id="" value="Submit" ng-click="submitvenCheque()"></div>
+</div>
 </div>
 
 </div>

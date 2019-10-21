@@ -3093,11 +3093,14 @@ app.controller('VoucherController', function ($scope,$timeout,$http,toastr,DTOpt
 	$scope.custCreditList=[];
 	$scope.custCreditStatusList=[];
 	 $scope.checkedcustvoucher=[];
-	 $scope.checkedcustvoucherstatus=[];
+	 //$scope.checkedcustvoucherstatus=[];
 	 $scope.venCreditList=[];
-		$scope.venCreditStatusList=[];
-		 $scope.checkedvenvoucher=[];
-		 $scope.checkedvenvoucherstatus=[];
+	 $scope.venCreditStatusList=[];
+	 $scope.checkedvenvoucher=[];
+	// $scope.checkedvenvoucherstatus=[];
+	 $scope.statusCheque = ["Pending","Realized","Presented","Bounced","Returned"];
+	 $scope.checkedcustcheque=[];
+	 $scope.checkedvencheque=[];
 	$scope.navVoucherRedirect =function(event){
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
@@ -3123,12 +3126,13 @@ app.controller('VoucherController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#vendorCredit').hide();
 			  $('#customerCheque').show();
 			   $('#vendorCheque').hide();
-			   $scope.init_custCreditStatus();
+			   $scope.init_custChequeStatus();
 		  }else if(currEvent =="vendorCheque"){
 			  $('#customerCredit').hide();
 			  $('#vendorCredit').hide();
 			  $('#customerCheque').hide();
 			   $('#vendorCheque').show();
+			   $scope.init_venChequeStatus();
 		  }
 	}
 	
@@ -3170,14 +3174,23 @@ app.controller('VoucherController', function ($scope,$timeout,$http,toastr,DTOpt
 			}
 		    
 		}
-		$scope.custChequeFilter= function (custcheque) {
+		 $scope.custChequeFilter= function (custcheque) {
 			if(custcheque.paymenttype =="Cheque" || custcheque.paymenttype =="DD"){
 				if(custcheque.status =="Pending" || custcheque.status =="Presentated"){
 					return true;
 				}
 				
 			}
-		}
+		} 
+		 
+		 $scope.venChequeFilter= function (vencheque) {
+				if(vencheque.paymenttype =="Cheque" || vencheque.paymenttype =="DD"){
+					if(vencheque.status =="Pending" || vencheque.status =="Presentated"){
+						return true;
+					}
+					
+				}
+			} 
 		
 		$scope.searchvenCreditItem =function(venName){
 			 $scope.commonvenMatches={totalcreditamount:0,totalotheramount:0};
@@ -3236,15 +3249,25 @@ $scope.checkvenVoucherInArray =function(index,item){
 		    }
 	 }
 	
-	 /* $scope.checkcustVoucherStatusInArray =function(index){
-		 if($scope.custCreditStatusList[index].checked) {
-		      $scope.checkedcustvoucherstatus.push($scope.custCreditStatusList[index]);
+	  $scope.checkcustChequeInArray =function(index,item){
+		 if(item.checked) {
+		      $scope.checkedcustcheque.push(item);
 		    } else {
-		       var newIndex = $scope.checkedcustvoucherstatus.map(function(e) { return e.childcustomerpaymentid; }).indexOf($scope.custCreditStatusList[index].childcustomerpaymentid);
+		       var newIndex = $scope.checkedcustcheque.map(function(e) { return e.childcustomerpaymentid; }).indexOf(item.childcustomerpaymentid);
 		       if(newIndex !== -1)
-		          $scope.checkedcustvoucherstatus.splice(newIndex,1);
+		          $scope.checkedcustcheque.splice(newIndex,1);
 		    }
-	 } */
+	 } 
+	  
+	  $scope.checkvenChequeInArray =function(index,item){
+			 if(item.checked) {
+			      $scope.checkedvencheque.push(item);
+			    } else {
+			       var newIndex = $scope.checkedvencheque.map(function(e) { return e.vendorpaymentid; }).indexOf(item.vendorpaymentid);
+			       if(newIndex !== -1)
+			          $scope.checkedvencheque.splice(newIndex,1);
+			    }
+		 } 
 	
 	 $scope.makecustMatches =function(){
 		 $scope.totaltempamount=0;
@@ -3398,33 +3421,67 @@ $scope.checkvenVoucherInArray =function(index,item){
 		 }
 	 }
 	 
-	$scope.init_custCredit =function(){
-		 $scope.custCreditList =[];
-			var url=location.origin +"/api/v1/customerpaymentbystatusamount";
+	 
+	 
+	 $scope.submitcustCheque =function(){
+		 if($scope.checkedcustcheque.length != 0){
+			 var url=location.origin +"/api/v1/updatecutomercheques";
 			 $http({
-				    method : 'GET',
-				    url : url
+				    method : 'PUT',
+				    url : url,
+				    data : angular.toJson($scope.checkedcustcheque),
+			        headers : {
+			        'Content-Type' : 'application/json'
+			        }
 				   }).then(function successCallback(response) {
-				   $scope.custCreditList = response.data;
+				  // $scope.custCreditList = response.data;
+				  toastr.success("Update Successfully");
+					$scope.init_custChequeStatus();
 				   }, function errorCallback(response) {
 				    console.log(response.statusText);
 				   });
+		 }else{
+			 toastr.error("Please Check and Proceed");
+		 }
 		};
-	$scope.init_custCreditStatus =function(){
-		 $scope.custCreditStatusList =[];
-			var url=location.origin +"/api/v1/customerpaymentbystatus";
+		
+		$scope.submitvenCheque =function(){
+			 if($scope.checkedvencheque.length != 0){
+				 var url=location.origin +"/api/v1/updatevendorchequelist";
+				 $http({
+					    method : 'PUT',
+					    url : url,
+					    data : angular.toJson($scope.checkedvencheque),
+				        headers : {
+				        'Content-Type' : 'application/json'
+				        }
+					   }).then(function successCallback(response) {
+					  // $scope.custCreditList = response.data;
+					   toastr.success("Update Successfully");
+						   $scope.init_venChequeStatus();
+					   }, function errorCallback(response) {
+					    console.log(response.statusText);
+					   });
+			 }else{
+				 toastr.error("Please Check and Proceed");
+			 }
+			};
+	$scope.init_custChequeStatus =function(){
+		 $scope.custChequeList =[];
+			var url=location.origin +"/api/v1/customerchequelist";
 			 $http({
 				    method : 'GET',
 				    url : url
 				   }).then(function successCallback(response) {
 				   $scope.custChequeList = response.data;
+				   $scope.checkedcustcheque=[];
 				   }, function errorCallback(response) {
 				    console.log(response.statusText);
 				   });
 		};
 		
 		
-		$scope.init_venCredit =function(){
+		/* $scope.init_venCredit =function(){
 			 $scope.venCreditList =[];
 				var url=location.origin +"/api/v1/vendorpaymentbystatusamount";
 				 $http({
@@ -3435,15 +3492,16 @@ $scope.checkvenVoucherInArray =function(index,item){
 					   }, function errorCallback(response) {
 					    console.log(response.statusText);
 					   });
-			};
-		$scope.init_venCreditStatus =function(){
-			 $scope.venCreditStatusList =[];
-				var url=location.origin +"/api/v1/vendorpaymentbystatus";
+			}; */
+		$scope.init_venChequeStatus =function(){
+			 $scope.venChequeList =[];
+				var url=location.origin +"/api/v1/vendorchequelist";
 				 $http({
 					    method : 'GET',
 					    url : url
 					   }).then(function successCallback(response) {
-					   $scope.venCreditStatusList = response.data;
+					   $scope.venChequeList = response.data;
+					   $scope.checkedvencheque=[];
 					   }, function errorCallback(response) {
 					    console.log(response.statusText);
 					   });
@@ -3456,6 +3514,7 @@ $scope.checkvenVoucherInArray =function(index,item){
 				    url : url,
 				   }).then(function successCallback(response) {
 				   $scope.customerVoucherList = response.data;
+				   $scope.checkedcustvoucher=[];
 				   }, function errorCallback(response) {
 				    console.log(response.statusText);
 				   });
@@ -3467,6 +3526,7 @@ $scope.checkvenVoucherInArray =function(index,item){
 				    url : url,
 				   }).then(function successCallback(response) {
 				   $scope.vendorVoucherList = response.data;
+				   $scope.checkedvenvoucher=[];
 				   }, function errorCallback(response) {
 				    console.log(response.statusText);
 				   });
