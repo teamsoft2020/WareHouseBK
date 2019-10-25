@@ -1,11 +1,16 @@
 package com.tem.springbootcrudrest.controller;
 
+import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,6 +86,31 @@ public class CustomerInvoiceCrudRestApi {
 		return customerPaymentUpdateInCustomerInvoice;
 
 	}
+	
+	@PostMapping("/generatepdfforcustomerinvoicecalculated")
+	public ResponseEntity<Map<String, String>> generatePdfForCustomerInvoiceCalculated(@RequestBody List<CustomerInvoice> pdfCustomerInvoice) throws FileNotFoundException {
+
+		String response = customerInvoiceService.generatePdfForCustomerInvoiceCalculated(pdfCustomerInvoice);
+		
+		Map<String, String> responsemap = new HashMap<String, String>();
+		responsemap.put("status", response);
+
+		return ResponseEntity.ok(responsemap);
+
+	}
+	
+	/*
+	public ResponseEntity<Map<String, String>> updateVendorInvoice(
+			@PathVariable(value = "vindorinvoiceid") long vindorinvoiceid) {
+
+		String response = vendorInvoiceService.updateVendorInvoice(vindorinvoiceid);
+
+		Map<String, String> responsemap = new HashMap<String, String>();
+		responsemap.put("status", response);
+
+		return ResponseEntity.ok(responsemap);
+
+	}*/
 
 
 }

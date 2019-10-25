@@ -1,5 +1,6 @@
 package com.tem.springbootcrudrest.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -25,4 +26,7 @@ public interface CustomerInvoiceService {
 //	public List<CustomerInvoice> updateCustomerPayment(List<CustomerInvoice> customerinvoice);
 	
 	public List<CustomerInvoice> updateCustPaymentFromCusPayment(CustomerPaymentUpdateInCustomerInvoice customerPaymentUpdateInCustomerInvoice);
+	
+	public String  generatePdfForCustomerInvoiceCalculated(List<CustomerInvoice> customerinvoicepdf) throws FileNotFoundException;
+	
 }

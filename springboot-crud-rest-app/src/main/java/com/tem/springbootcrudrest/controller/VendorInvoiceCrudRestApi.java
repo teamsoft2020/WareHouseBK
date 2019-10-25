@@ -1,5 +1,6 @@
 package com.tem.springbootcrudrest.controller;
 
+import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -96,5 +97,19 @@ public class VendorInvoiceCrudRestApi {
 		return vendorPaymentUpdateInCustomerInvoice;
 
 	}
+	
+	
+	@PostMapping("/generatepdfforvendorinvoicecalculated")
+	public ResponseEntity<Map<String, String>> generatePdfForCustomerInvoiceCalculated(@RequestBody List<VendorInvoice> pdfVendorInvoice) throws FileNotFoundException {
+
+		String response = vendorInvoiceService.generatePdfForVendorInvoiceCalculated(pdfVendorInvoice);
+		
+		Map<String, String> responsemap = new HashMap<String, String>();
+		responsemap.put("status", response);
+
+		return ResponseEntity.ok(responsemap);
+
+	}
+	
 
 }

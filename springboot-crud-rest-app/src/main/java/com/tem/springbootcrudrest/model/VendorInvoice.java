@@ -86,6 +86,9 @@ public class VendorInvoice implements Serializable {
 	
 	@Column(name = "paymentmodifieddate")
 	private String paymentmodifieddate;	
+	
+	@Column(name = "leakage")
+	private String leakage;
 
 	public long getVendorinvoiceid() {
 		return vendorinvoiceid;
@@ -262,4 +265,14 @@ public class VendorInvoice implements Serializable {
 	public void setPaymentmodifieddate(String paymentmodifieddate) {
 		this.paymentmodifieddate = paymentmodifieddate;
 	}
+
+	public String getLeakage() {
+		return leakage;
+	}
+
+	public void setLeakage(String leakage) {
+		this.leakage = leakage;
+	}
+	
+	
 }

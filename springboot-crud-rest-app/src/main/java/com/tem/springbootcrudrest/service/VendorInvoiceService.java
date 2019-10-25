@@ -24,5 +24,6 @@ public interface VendorInvoiceService {
 	
 	public List<VendorInvoice> updateVendPaymentFromCusPayment(VendorPaymentUpdateInCustomerInvoice vendorPaymentUpdateInCustomerInvoice);
 	
+	String generatePdfForVendorInvoiceCalculated(List<VendorInvoice> vendorinvoicepdf);
 	
 }
