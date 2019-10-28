@@ -2052,7 +2052,7 @@ app.controller('UserAccessController', function ($scope,DTOptionsBuilder, DTColu
 });
 app.controller('BillingController',function ($compile,$scope, $window,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,$http,$resource,$location, $q,$timeout,toastr,multipartForm) {
 	$scope.file = {};
-	$scope.customerInvoice={fromdate:"",todate:"",truckno:""};
+	$scope.customerInvoice={fromdate:"",todate:""};
 	$scope.vendorInvoice={fromdate:"",todate:"",truckno:""};
 	$scope.customerView={fromdate:"",todate:"",customername:""};
 	$scope.vendorView={fromdate:"",todate:"",vendorname:""};
@@ -2372,33 +2372,18 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
 			var myWindow = $window.open('', '', 'width=2000,height=1000');
-			  $(myWindow.document.head).append("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>");
-			  var scriptjquery = document.createElement( 'script' );
-			  scriptjquery.type = 'text/javascript';
-			  scriptjquery.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js';
-			  $(myWindow.document.head).append( scriptjquery );
-			  var scriptbootstrap = document.createElement( 'script' );
-			  scriptbootstrap.type = 'text/javascript';
-			  scriptbootstrap.src = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js';
-			  $(myWindow.document.head).append( scriptbootstrap );
-			  
-			myWindow.document.write("<body style='font: bold; font-size: xxx-small; line-height: 0.5cm;'><img src=\"img/sse.png height='42px' width='42px'\"><h1 align='center'>SSE LOGISTICS PRIVATE LIMITED</h1> ");
-							//+ "<h4  align='center'>484, Pantheon Plaza, Pantheon Road, Egmore, Chennai - 600 008. INDIA</h4>"
-							//+ "<h4  align='center'>Ph:+91-44-1111 4444, 2222 3333  FAX:+91-44-5559-5555</h4>");
-			
-			//$(myWindow.document.body).append("<div class='container'><div class='row'><div class='col-xs-5'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Company Details</h3></div><div class='panel-body'><dl class='dl-horizontal'><dt>Name</dt><dd><strong>Acme Corporation</strong></dd><dt>Industry</dt><dd>Software Development</dd><dt>Address</dt><dd>Field 3, Moon</dd><dt>Phone</dt><dd>123.4456.4567</dd><dt>Email</dt><dd>mainl@acme.com</dd><dt>Tax NO</dt><dd class='mono'>123456789</dd><dt>Tax Office</dt><dd>A' Moon</dd></div></div></div><div class='col-xs-7'><div class='panel panel-default'><div class='panel-heading'><h3 class='panel-title'>Customer Details</h3></div><div class='panel-body'><dl class='dl-horizontal'><dt>Name</dt><dd>Microsoft Corporation</dd><dt>Industry</dt><dd>Software Development</dd><dt>Address</dt><dd>One Microsoft Way Redmond, WA 98052-7329, USA</dd><dt>Phone</dt><dd>(425) 882-8080</dd><dt>Email</dt><dd>contact@microsoft.com</dd><dt>Tax NO</dt><dd class='mono'>123456789</dd><dt>&nbsp;</dt><dd>&nbsp;</dd></div></div></div></div></div>");
-			$(myWindow.document.body).append("<table border='1'; cellpadding=0.1; cellspacing=5; align='center' >"
-							+ "<tr><td><b>FROM</b></td><td><b>TO</b></td>"
-							+ "<td>DATE</td><td>VEHICLETYPE</td><td>VEHICLENO </td><td>DRIVERNAME</td>" + "</tr><tr><td><b> " +  $scope.trip.from
-							+ "   </b></td><td><b>" + $scope.trip.to + "</b></td>" + "<td>" + $scope.trip.date
-							+ "</td><td>" + $scope.trip.vehicleType + "</td><td>" + $scope.trip.vehicleNo + " </td><td>"+$scope.trip.driverName+"</td>"
-							+ "</tr></table>");
-			$(myWindow.document.body).append("");
-			
-			$(myWindow.document).close();
-			$(myWindow).focus();
-			$(myWindow).print();
-			$(myWindow).close();
+			myWindow.document.write('<html><head><title>Invoice</title><link rel="stylesheet" type="text/css" href="css/pdfstyle.css"></head><body>');
+			$(myWindow.document.body).append($("table[id=custpdfInvoice]").clone(true));
+			myWindow.document.write('</body></html>');
+			//$(myWindow.document).close();
+			//myWindow.document.close();
+			setTimeout(function(){ 
+			$(myWindow)[0].focus();
+			$(myWindow)[0].print();
+			$(myWindow)[0].close();
+			 }, 1000);
+			//myWindow.print();
+			//myWindow.close();
 		} else {// code for IE6, IE5
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
@@ -2410,6 +2395,10 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		
 		xmlhttp.send();
 	}
+	
+	/* $scope.redirectToTab = function(){
+        $window.open('billing.html', '', 'width=2000,height=1000');
+    }; */
 	$scope.addKmsandFixedVendor =function(kms,fix){
 		angular.forEach($scope.vendorInvoiceJson, function(value, key) {
 		  value.forKms=kms;
@@ -2451,7 +2440,12 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	
 	$scope.addLeakTotal =function(leak){
 		$scope.grandTotalList.leakage=parseInt(leak) ? parseInt(leak): 0;
-		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netTempamount) ? parseInt($scope.grandTotalList.netTempamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
+		$scope.grandTotalList.netTempamount =(parseInt($scope.grandTotalList.totalkmpercharge) ?parseInt($scope.grandTotalList.totalkmpercharge) :0) + (parseInt($scope.grandTotalList.totalfreightamt)?parseInt($scope.grandTotalList.totalfreightamt):0);
+		var adCount =(parseInt($scope.grandTotalList.totaldiscount) ? parseInt($scope.grandTotalList.totaldiscount): 0) +(parseInt($scope.grandTotalList.totaladvance) ? parseInt($scope.grandTotalList.totaladvance): 0);
+		var leakamt = (parseInt(adCount) ? parseInt(adCount):0) +(parseInt($scope.grandTotalList.leakage) ? parseInt($scope.grandTotalList.leakage):0)
+		$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netTempamount) ? parseInt($scope.grandTotalList.netTempamount): 0) - (parseInt(leakamt) ? parseInt(leakamt):0);
+		
+		//$scope.grandTotalList.netamount =(parseInt($scope.grandTotalList.netTempamount) ? parseInt($scope.grandTotalList.netTempamount): 0) - (parseInt(leak) ? parseInt(leak): 0);
 	}
 	
 	$scope.calculateVendorTotal =function(){
@@ -2490,6 +2484,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 	}
 	$scope.saveCustomerInvoice =function(){
+		$scope.custPrintData={};
 		$scope.custcallBackdata={invoiceid:"",loadnnumber:[]};
 		var url = location.origin +"/api/v1/createcustomerinvoice";
 		    $http({
@@ -2504,6 +2499,10 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		        	angular.forEach($scope.checkedValue, function(list, key) {
 		        		$scope.custcallBackdata.loadnnumber.push(list.loadno);
 		        	});
+		        	$scope.custPrintData=response.data;
+		        	$scope.custPrintData.tripRate =(parseInt($scope.custPrintData.totalkmpercharge) ? parseInt($scope.custPrintData.totalkmpercharge): 0) + (parseInt($scope.custPrintData.totalfreightamt) ? parseInt($scope.custPrintData.totalfreightamt): 0);
+		        	$scope.custPrintData.advLeak =(parseInt($scope.custPrintData.totaladvance) ? parseInt($scope.custPrintData.totaladvance): 0) + (parseInt($scope.custPrintData.leakage) ? parseInt($scope.custPrintData.leakage): 0);
+		        	$scope.custPrintData.totalAmountInWords = inWords(parseInt($scope.custPrintData.netamount));
 		        	$scope.updateBilledTrip($scope.custcallBackdata);
 		            //toastr.success('Data added successfully');
 		        }, function error(response) {
@@ -2525,8 +2524,9 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	        	if(response.data.status=="Updated Successfully"){
 	        		$scope.customerInvoiceJson = [];
 					$scope.checkedValue=[];
-					$scope.grandTotalVendorList={truckNo:"",truckType:"",totalKM:0,totalCase:0,totalPerKMCharge:0,totalfreightAmt:0,totalAdvance:0,totalDiscount:0,NetAmount:0};
+					$scope.grandTotalList={truckNo:"",truckType:"",totalKM:0,totalCase:0,totalPerKMCharge:0,totalfreightAmt:0,totalAdvance:0,totalDiscount:0,NetAmount:0};
 					toastr.success('Billed successfully');
+					$scope.custInvoicePrint();
 	        	}
 	        }, function error(response) {
 	        	toastr.error('Not able to Bill');
@@ -3560,6 +3560,22 @@ $(document).ready(function(){
     }); */
 
 });
+
+var a = ['','One ','Two ','Three ','Four ', 'Five ','Six ','Seven ','Eight ','Nine ','Ten ','Eleven ','Twelve ','Thirteen ','Fourteen ','Fifteen ','Sixteen ','Seventeen ','Eighteen ','Nineteen '];
+var b = ['', '', 'Twenty','Thirty','Forty','Fifty', 'Sixty','Seventy','Eighty','Ninety'];
+
+function inWords (num) {
+    if ((num = num.toString()).length > 9) return 'overflow';
+    n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+    if (!n) return; var str = '';
+    str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'crore ' : '';
+    str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'lakh ' : '';
+    str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'thousand ' : '';
+    str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'hundred ' : '';
+    str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
+    return str;
+}
+
 app.directive("panRegex", function() {
 
     var regexp;
@@ -3597,8 +3613,6 @@ app.directive("numericRegex", function() {
     }
 
 });
-
-
 
 app.directive('initialDate', function () {
     return {
