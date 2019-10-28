@@ -2375,15 +2375,11 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			myWindow.document.write('<html><head><title>Invoice</title><link rel="stylesheet" type="text/css" href="css/pdfstyle.css"></head><body>');
 			$(myWindow.document.body).append($("table[id=custpdfInvoice]").clone(true));
 			myWindow.document.write('</body></html>');
-			//$(myWindow.document).close();
-			//myWindow.document.close();
 			setTimeout(function(){ 
 			$(myWindow)[0].focus();
 			$(myWindow)[0].print();
 			$(myWindow)[0].close();
 			 }, 1000);
-			//myWindow.print();
-			//myWindow.close();
 		} else {// code for IE6, IE5
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
@@ -2396,6 +2392,30 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		xmlhttp.send();
 	}
 	
+	$scope.venInvoicePrint=function() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+			var myWindows = $window.open('', '', 'width=2000,height=1000');
+			myWindows.document.write('<html><head><title>Invoice</title><link rel="stylesheet" type="text/css" href="css/pdfstyle.css"></head><body>');
+			$(myWindows.document.body).append($("table[id=venpdfInvoice]").clone(true));
+			myWindows.document.write('</body></html>');
+			setTimeout(function(){ 
+			$(myWindows)[0].focus();
+			$(myWindows)[0].print();
+			$(myWindows)[0].close();
+			 }, 1000);
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("myvenDiv").innerHTML = xmlhttp.responseText;
+			}
+		}
+		
+		xmlhttp.send();
+	}
 	/* $scope.redirectToTab = function(){
         $window.open('billing.html', '', 'width=2000,height=1000');
     }; */
@@ -2534,7 +2554,8 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	        });
 	}
 $scope.saveVendorInvoice =function(){
-		
+	$scope.venPrintData={};
+	$scope.vencallBackdata={invoiceid:"",loadnnumber:[]};
 		var url = location.origin +"/api/v1/createvendorinvoice";
 		    $http({
 		        method : 'POST',
@@ -2544,12 +2565,44 @@ $scope.saveVendorInvoice =function(){
 		        'Content-Type' : 'application/json'
 		        }
 		        }).then(function (response) {
-		            toastr.success('Data added successfully');
+		        	$scope.vencallBackdata.invoiceid=response.data.vendorinvoiceid;
+		        	angular.forEach($scope.checkedVendorValue, function(list, key) {
+		        		$scope.vencallBackdata.loadnnumber.push(list.loadno);
+		        	});
+		        	$scope.venPrintData=response.data;
+		        	$scope.venPrintData.tripRate =(parseInt($scope.venPrintData.totalkmpercharge) ? parseInt($scope.venPrintData.totalkmpercharge): 0) + (parseInt($scope.venPrintData.totalfreightamt) ? parseInt($scope.venPrintData.totalfreightamt): 0);
+		        	$scope.venPrintData.advLeak =(parseInt($scope.venPrintData.totaladvance) ? parseInt($scope.venPrintData.totaladvance): 0) + (parseInt($scope.venPrintData.leakage) ? parseInt($scope.venPrintData.leakage): 0);
+		        	$scope.venPrintData.totalAmountInWords = inWords(parseInt($scope.venPrintData.netamount));
+		        	$scope.updateVenBilledTrip($scope.vencallBackdata);
+		            //toastr.success('Data added successfully');
 		        }, function error(response) {
 		        	toastr.success('Data not added');
 		          console.log(response.status);
 		        });
 	}
+	
+$scope.updateVenBilledTrip =function(data){
+	var url = location.origin +"/api/v1/updatevendorinvoice";
+	$http({
+        method : 'PUT',
+        url : url,
+        data : angular.toJson(data),
+        headers : {
+        'Content-Type' : 'application/json'
+        }
+        }).then(function (response) {
+        	if(response.data.status=="Updated Successfully"){
+        		$scope.vendorInvoiceJson = [];
+				$scope.checkedVendorValue=[];
+				$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+				toastr.success('Billed successfully');
+				$scope.venInvoicePrint();
+        	}
+        }, function error(response) {
+        	toastr.error('Not able to Bill');
+          console.log(response.status);
+        });
+}
 	
 	$scope.removevendorInvoice  =function(index){
 		$scope.vendorInvoiceJson.splice(index,1);
