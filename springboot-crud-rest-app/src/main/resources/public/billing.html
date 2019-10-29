@@ -485,7 +485,8 @@
 										<td><label>{{view.totaltrip}}</label></td>
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
-										<td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td>
+										<td><input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="custViewModal(view)" ></td>
+										<!-- <td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td> -->
 										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
 								</tr>
 							</tbody>
@@ -561,12 +562,13 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="view in  vendorViewList track by $index">
-										<td><label>{{view.vindorinvoiceid}}</label></td>
+										<td><label>{{view.vendorinvoiceid}}</label></td>
 										<td><label>{{view.vendorname}}</label></td>
 										<td><label>{{view.totaltrip}}</label></td>
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
-										<td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td>
+										<td><input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="venViewModal(view)" ></td>
+										<!-- <td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td> -->
 										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
 								</tr>
 							</tbody>
@@ -589,3 +591,124 @@
 
 
 </div>
+
+
+ <!-- The Customer View Modal -->
+  <div class="modal" id="custviewModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Invoice</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row col-12" >
+					<table  class="table table-bordered" id="custViewInvoice" style="margin-top: 1%;">
+					
+					<tr><th colspan="2" class="textCenter"><h2>S.SARAVANAN ENTERPRISES</h2>
+					<h5>47,Bajanai Koil Street,Paruthapattu,Avadi, Chennai - 600 071. Tamilnadu</h5>
+					<h5><b>Email:</b>ssenterprises4358@gmail.com  <b>Ph:</b>+91-44-5559-5555</h5></th>
+					<th colspan="1" ><img src='img/sse.png' style="width: 40%;height: 30%;margin: 3% 0% 0% 20%;"></th>
+					</tr>
+					
+					<tbody>
+					<tr><td colspan="2"><label><b>InvoiceNo:</b></label><label>{{custviewData.customerinvoiceid}}</label></td><td colspan="1"><label><b>Date:</b></label><label>{{custviewData.createddate}}</label></td></tr>
+					<tr><td colspan="2"><label><b>Bill To:</b></label>
+					<br></td>
+					<td colspan="1"><label><b>Place of supply:</b></label>
+					<br>
+					</td>
+					</tr>
+					<tr><th colspan="1"><label >Description</label></th><th colspan="1"><label>HSN Code</label></th><th colspan="1"><label>Amount</label></th></tr>
+					<tr><td colspan="1"><label>Trip Rate/Spot Rate Freight charge</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custviewData.tripRate}}</label></td></tr>
+					<tr><td colspan="1"><label>Sub Total</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custviewData.tripRate}}</label></td></tr>
+					<tr><td colspan="1"><label>Discount</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custviewData.totaldiscount}}</label></td></tr>
+					<tr><td colspan="1"><label>Advance/Leakage</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custviewData.advLeak}}</label></td></tr>
+					<tr><td colspan="1"><label>Sub Total(Rs)</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custviewData.netamount}}</label></td></tr>
+					<tr><td colspan="1"><label>CGST</label></td><td colspan="1"><label></label></td><td colspan="1"><label>0</label></td></tr>
+					<tr><td colspan="1"><label>SGST</label></td><td colspan="1"><label></label></td><td colspan="1"><label>0</label></td></tr>
+					<tr><th colspan="1"><label>Total Amount(Rs)</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custviewData.netamount}}</label></td></tr>
+					<tr><td colspan="3"><label><b>Note:- </b> Forward charges Mechanism(if GST Charged by Transporter)</label></td></tr>
+					<tr><th colspan="2">Amount(Rs.)In Words</th><td colspan="1"> <label>{{custviewData.totalAmountInWords}}</label><label>Only</label></td></tr>
+					<tr><td colspan="3"><label><b>Note:- </b>Under Reserve Charges Mechanism,GST is Payable by the Consignot/Service Receiver</label></td></tr>
+					<tr></tr>
+					</tbody>
+					</table>
+					
+					</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-info" ng-click="custViewPrint()" >Print</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- The Vendor View Modal -->
+  <div class="modal" id="venviewModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Invoice</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row col-12" >
+					<table  class="table table-bordered" id="venViewInvoice" style="margin-top: 1%;">
+					
+					<tr><th colspan="2" class="textCenter"><h2>S.SARAVANAN ENTERPRISES</h2>
+					<h5>47,Bajanai Koil Street,Paruthapattu,Avadi, Chennai - 600 071. Tamilnadu</h5>
+					<h5><b>Email:</b>ssenterprises4358@gmail.com  <b>Ph:</b>+91-44-5559-5555</h5></th>
+					<th colspan="1" ><img src='img/sse.png' style="width: 40%;height: 30%;margin: 3% 0% 0% 20%;"></th>
+					</tr>
+					
+					<tbody>
+					<tr><td colspan="2"><label><b>InvoiceNo:</b></label><label>{{venviewData.vendorinvoiceid}}</label></td><td colspan="1"><label><b>Date:</b></label><label>{{venviewData.createddate}}</label></td></tr>
+					<tr><td colspan="2"><label><b>Bill To:</b></label>
+					<br></td>
+					<td colspan="1"><label><b>Place of supply:</b></label>
+					<br>
+					</td>
+					</tr>
+					<tr><th colspan="1"><label >Description</label></th><th colspan="1"><label>HSN Code</label></th><th colspan="1"><label>Amount</label></th></tr>
+					<tr><td colspan="1"><label>Trip Rate/Spot Rate Freight charge</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{venviewData.tripRate}}</label></td></tr>
+					<tr><td colspan="1"><label>Sub Total</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{venviewData.tripRate}}</label></td></tr>
+					<tr><td colspan="1"><label>Discount</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{venviewData.totaldiscount}}</label></td></tr>
+					<tr><td colspan="1"><label>Advance/Leakage</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{venviewData.advLeak}}</label></td></tr>
+					<tr><td colspan="1"><label>Sub Total(Rs)</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{venviewData.netamount}}</label></td></tr>
+					<tr><td colspan="1"><label>CGST</label></td><td colspan="1"><label></label></td><td colspan="1"><label>0</label></td></tr>
+					<tr><td colspan="1"><label>SGST</label></td><td colspan="1"><label></label></td><td colspan="1"><label>0</label></td></tr>
+					<tr><th colspan="1"><label>Total Amount(Rs)</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{venviewData.netamount}}</label></td></tr>
+					<tr><td colspan="3"><label><b>Note:- </b> Forward charges Mechanism(if GST Charged by Transporter)</label></td></tr>
+					<tr><th colspan="2">Amount(Rs.)In Words</th><td colspan="1"> <label>{{venviewData.totalAmountInWords}}</label><label>Only</label></td></tr>
+					<tr><td colspan="3"><label><b>Note:- </b>Under Reserve Charges Mechanism,GST is Payable by the Consignot/Service Receiver</label></td></tr>
+					<tr></tr>
+					</tbody>
+					</table>
+					
+					</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-info" ng-click="venViewPrint()" >Print</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

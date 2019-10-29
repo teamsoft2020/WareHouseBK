@@ -2416,6 +2416,56 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		
 		xmlhttp.send();
 	}
+	
+	$scope.custViewPrint=function() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+			var custViewWindows = $window.open('', '', 'width=2000,height=1000');
+			custViewWindows.document.write('<html><head><title>Invoice</title><link rel="stylesheet" type="text/css" href="css/pdfstyle.css"></head><body>');
+			$(custViewWindows.document.body).append($("table[id=custViewInvoice]").clone(true));
+			custViewWindows.document.write('</body></html>');
+			setTimeout(function(){ 
+			$(custViewWindows)[0].focus();
+			$(custViewWindows)[0].print();
+			$(custViewWindows)[0].close();
+			 }, 1000);
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("mycustviewDiv").innerHTML = xmlhttp.responseText;
+			}
+		}
+		
+		xmlhttp.send();
+	}
+	
+	$scope.venViewPrint=function() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+			var venViewWindows = $window.open('', '', 'width=2000,height=1000');
+			venViewWindows.document.write('<html><head><title>Invoice</title><link rel="stylesheet" type="text/css" href="css/pdfstyle.css"></head><body>');
+			$(venViewWindows.document.body).append($("table[id=venViewInvoice]").clone(true));
+			venViewWindows.document.write('</body></html>');
+			setTimeout(function(){ 
+			$(venViewWindows)[0].focus();
+			$(venViewWindows)[0].print();
+			$(venViewWindows)[0].close();
+			 }, 1000);
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("myvenviewDiv").innerHTML = xmlhttp.responseText;
+			}
+		}
+		
+		xmlhttp.send();
+	}
 	/* $scope.redirectToTab = function(){
         $window.open('billing.html', '', 'width=2000,height=1000');
     }; */
@@ -2603,6 +2653,21 @@ $scope.updateVenBilledTrip =function(data){
           console.log(response.status);
         });
 }
+	$scope.custViewModal =function(data){
+		$scope.custviewData =data;
+		$scope.custviewData.tripRate =(parseInt($scope.custviewData.totalkmpercharge) ? parseInt($scope.custviewData.totalkmpercharge): 0) + (parseInt($scope.custviewData.totalfreightamt) ? parseInt($scope.custviewData.totalfreightamt): 0);
+    	$scope.custviewData.advLeak =(parseInt($scope.custviewData.totaladvance) ? parseInt($scope.custviewData.totaladvance): 0) + (parseInt($scope.custviewData.leakage) ? parseInt($scope.custviewData.leakage): 0);
+		$scope.custviewData.totalAmountInWords = inWords(parseInt($scope.custviewData.netamount));
+		$("#custviewModal").modal("show");
+	}
+	
+	$scope.venViewModal =function(data){
+		$scope.venviewData =data;
+		$scope.venviewData.tripRate =(parseInt($scope.venviewData.totalkmpercharge) ? parseInt($scope.venviewData.totalkmpercharge): 0) + (parseInt($scope.venviewData.totalfreightamt) ? parseInt($scope.venviewData.totalfreightamt): 0);
+    	$scope.venviewData.advLeak =(parseInt($scope.venviewData.totaladvance) ? parseInt($scope.venviewData.totaladvance): 0) + (parseInt($scope.venviewData.leakage) ? parseInt($scope.venviewData.leakage): 0);
+		$scope.venviewData.totalAmountInWords = inWords(parseInt($scope.venviewData.netamount));
+		$("#venviewModal").modal("show");
+	}
 	
 	$scope.removevendorInvoice  =function(index){
 		$scope.vendorInvoiceJson.splice(index,1);
