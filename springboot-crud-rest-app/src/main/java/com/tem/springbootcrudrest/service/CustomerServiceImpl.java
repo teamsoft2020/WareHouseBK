@@ -50,26 +50,12 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Object findCustomerVendorByName(String name) {
-		//try {
-			int customercount = customerRepository.findCustomerNamesCount(name);
-			int vendorcount = customerRepository.findVendorNamesCount(name);
+	public List<Customer> findCustomerByName(String name) {
+		
 			
-			
-			if (customercount != 0) {
-			return	customerRepository.findCustomerVendorByNames(name);
+		
+			return	customerRepository.findCustomerByNames(name);
 				
-			}
-
-			if (vendorcount != 0) {
-			return	customerRepository.findCustomerVendorNames(name);
-			}
-
-		/*} catch (Exception ex) {
-			System.out.println("exception handle");
-		}*/
-
-		return "Object Not Available";
 	}
 
 }

@@ -18,4 +18,6 @@ public interface VendorService {
 	public List<Vendor> getVendorList();
 	
 	public List<String> getVendorListByName();
+	
+	public List<Vendor> findVendorByName(String name);
 }

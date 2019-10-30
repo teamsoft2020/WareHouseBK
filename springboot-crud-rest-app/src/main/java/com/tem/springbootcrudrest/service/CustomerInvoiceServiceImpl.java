@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -161,8 +162,12 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		
 		try {
 			
+			PdfPTable table = null;
 			
 			
+			Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+			Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+			PdfPCell pdfWordCell = new PdfPCell();
 			
 			 Paragraph paragraph = new Paragraph();
 			
@@ -173,7 +178,12 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 		            Font.NORMAL, BaseColor.RED);
 			
 			Font normalFontaddress = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
-			Font normalinvoice = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL);
+			Font normalinvoice = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
+			Font toaddress = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+
+			
+			
+			
 			
 			document.add(new Paragraph("S.SARAVANAN ENTERPRISES",redFont));
 			 addEmptyLine(paragraph, 1);
@@ -181,17 +191,40 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 			 document.add(new Paragraph("E.mail : ssenterprises4358@gmail.com",normalFontaddress));
 			 addEmptyLine(paragraph, 2);
 			 
-			 document.add(new Paragraph("Tax Invoice",normalinvoice));
+			 
+			 table = new PdfPTable(2);
+				table.setWidthPercentage(105f);
+				table.setSpacingBefore(11f);
+				table.setSpacingAfter(11f);
+				float[] colWidths = { 2f, 2f };
+				table.setWidths(colWidths);
+			 
+			 
+				Phrase customerNameLables = new Phrase("Coca Cola ENTERPRISES,No 47, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 071,Tamilnadu.", toaddress);
+				pdfWordCell = new PdfPCell();
+				pdfWordCell.addElement(customerNameLables);
+				table.addCell(pdfWordCell);
+				
+				pdfWordCell = new PdfPCell();
+				Phrase customerNameValues= new Phrase("TO :S Technologies,No 50, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 089,Tamilnadu.", toaddress);
+				pdfWordCell.addElement(customerNameValues);
+				table.addCell(pdfWordCell);
+				document.add(table);
+			 
+			 
+				Paragraph preface = new Paragraph("Tax Invoice",normalinvoice); 
+				preface.setAlignment(Element.ALIGN_CENTER);
+
+
+			 document.add(preface);
 			 
 			 
 
 			List<CustomerInvoice> dataObjList = new ArrayList<CustomerInvoice>();
 
-			PdfPTable table = null;
+			
 
-			Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
-			Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
-			PdfPCell pdfWordCell = new PdfPCell();
+			
 			for (CustomerInvoice customerInvoice : customerinvoicepdf) {
 
 				table = new PdfPTable(2);
@@ -299,7 +332,7 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 				table.addCell(pdfWordCell);
 				
 				pdfWordCell = new PdfPCell();
-				Phrase totalFreightAmtValue = new Phrase(String.valueOf(customerInvoice.getTotalfreightamt()), normalFont);
+				Phrase totalFreightAmtValue = new Phrase(customerInvoice.getTotalkmpercharge() != null ? customerInvoice.getTotalkmpercharge() : "", normalFont);
 				pdfWordCell.addElement(totalFreightAmtValue);
 				table.addCell(pdfWordCell);
 				

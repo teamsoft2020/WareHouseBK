@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.model.Vehicle;
 import com.tem.springbootcrudrest.model.Vendor;
 import com.tem.springbootcrudrest.service.VendorService;
@@ -72,5 +75,15 @@ public class VendorCrudRestApi {
 		return ResponseEntity.ok(responsemap);
 
 	}
+	
+	@RequestMapping(path = "/vendoristbyvendname", method = RequestMethod.GET)
+
+	public List<Vendor> getVendorList(@RequestParam String name) {
+
+		List<Vendor> vendorlist = vendorService.findVendorByName(name);
+
+		return vendorlist;
+	}
+
 
 }

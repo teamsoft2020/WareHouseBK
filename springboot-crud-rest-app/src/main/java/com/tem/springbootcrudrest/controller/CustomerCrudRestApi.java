@@ -79,11 +79,11 @@ public class CustomerCrudRestApi {
 
 	}
 
-	@RequestMapping(path = "/customervendorobject", method = RequestMethod.GET)
+	@RequestMapping(path = "/customerlistbycusname", method = RequestMethod.GET)
 
-	public Object getCustomerVendorList(@RequestParam String name) {
+	public List<Customer> getCustomerList(@RequestParam String name) {
 
-		Object tripSheetList = customerService.findCustomerVendorByName(name);
+		List<Customer> tripSheetList = customerService.findCustomerByName(name);
 
 		return tripSheetList;
 	}

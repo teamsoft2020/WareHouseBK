@@ -42,4 +42,9 @@ public class VendorServiceImpl implements VendorService {
 		return vendorRepository.getVendorListByNames();
 	}
 
+	@Override
+	public List<Vendor> findVendorByName(String name) {
+		return vendorRepository.findVendorNames(name);
+	}
+
 }
