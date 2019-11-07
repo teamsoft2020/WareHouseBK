@@ -120,8 +120,7 @@ public class TripSheetServiceImpl implements TripSheetService {
 		}
 
 		for (TripSheet t : tripsheetList) {
-			System.out.println("tripsheetList,... " + t.getOrigin() + " " + t.getDiffKM() + " " + t.getDestination()
-					+ " " + t.getTripNo());
+			System.out.println("tripsheetList,... " + t.getLoadno() + " "+t.getTripNo());
 		}
 		return tripsheetList;
 	}

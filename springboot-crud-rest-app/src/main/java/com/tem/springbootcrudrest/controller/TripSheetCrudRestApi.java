@@ -56,10 +56,11 @@ public class TripSheetCrudRestApi {
 	}
 
 	@PutMapping("/updatecustomerinvoice")
-	public ResponseEntity<Map<String,String>> updateCustomerInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
+	public ResponseEntity<Map<String, String>> updateCustomerInvoiceNo(
+			@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
 
 		String customerInvoiceNoRes = tripSheetService.updateCustomerInvoiceNo(customerInvoiceNo);
-		Map<String,String>responsemap=new HashMap<String,String>();
+		Map<String, String> responsemap = new HashMap<String, String>();
 		responsemap.put("status", customerInvoiceNoRes);
 
 		return ResponseEntity.ok(responsemap);
@@ -67,9 +68,10 @@ public class TripSheetCrudRestApi {
 	}
 
 	@PutMapping("/updatevendorinvoice")
-	public ResponseEntity<Map<String,String>> updateVendorInvoiceNo(@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
+	public ResponseEntity<Map<String, String>> updateVendorInvoiceNo(
+			@RequestBody CustomerVendorInvoiceNo customerInvoiceNo) {
 		String vendorInvoiceNoRes = tripSheetService.updateVendorInvoiceNo(customerInvoiceNo);
-		Map<String,String>responsemap=new HashMap<String,String>();
+		Map<String, String> responsemap = new HashMap<String, String>();
 		responsemap.put("status", vendorInvoiceNoRes);
 
 		return ResponseEntity.ok(responsemap);
@@ -141,7 +143,6 @@ public class TripSheetCrudRestApi {
 		return tripSheetList;
 	}
 
-	
 	@RequestMapping(path = "/vendorinvoicelistintripsheet", method = RequestMethod.GET)
 
 	public List<TripSheet> getVendorInvoiceList(@RequestParam String fromdate, @RequestParam String todate,
@@ -151,7 +152,7 @@ public class TripSheetCrudRestApi {
 
 		return tripSheetList;
 	}
-	
+
 	@GetMapping("/vendorinvoicelist")
 	public List<TripSheet> getVendorInvoiceList() {
 		List<TripSheet> tripSheetList = tripSheetService.getTripSheetList();
@@ -187,54 +188,102 @@ public class TripSheetCrudRestApi {
 			sheet = workbook.getSheetAt(k);
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-				Row firstrow=sheet.getRow(0);
+				Row firstrow = sheet.getRow(0);
 				TripSheet trip = new TripSheet();
 				row = sheet.getRow(i);
 				try {
-					
-					if(String.valueOf(firstrow.getCell(28)).equals("Load ID")) {
-						if (row.getCell(28) != null) {
-							//student.setEmail(row.getCell(1).toString());
-							trip.setLoadno(row.getCell(28).toString());
+
+					if (String.valueOf(firstrow.getCell(0)).equals("Scheduled Date/Time(MM/DD/YYYY HH:MM)")) {
+						if (row.getCell(0) != null) {
+							trip.setDatetime(row.getCell(0).toString());
 						}
 					}
+
+					if (String.valueOf(firstrow.getCell(1)).equals("Load ID")) {
+						if (row.getCell(1) != null) {
+							trip.setLoadno(row.getCell(1).toString());
+						}
+					}
+
+					if (String.valueOf(firstrow.getCell(2)).equals("Trip ID")) {
+						if (row.getCell(1) != null) {
+							trip.setTripNo(row.getCell(2).toString());
+						}
+					}
+
+					if (String.valueOf(firstrow.getCell(4)).equals("Gross Rated Amount(INR)")) {
+						if (row.getCell(4) != null) {
+							trip.setFreightAmtCust(row.getCell(4).toString());
+						}
+					}
+
+					if (String.valueOf(firstrow.getCell(7)).equals("Tractor Number")) {
+						if (row.getCell(7) != null) {
+							trip.setTruckno(row.getCell(7).toString());
+						}
+					}
+
+					if (String.valueOf(firstrow.getCell(8)).equals("Flexible Quantity 2")) {
+						if (row.getCell(8) != null) {
+							trip.setNoOfCase(row.getCell(8).toString());
+						}
+					}
+
+					if (String.valueOf(firstrow.getCell(10)).equals("Trailer Equipment Type")) {
+						if (row.getCell(10) != null) {
+							trip.setTrailerequipmenttype(row.getCell(10).toString());
+						}
+					}
+
+					if (String.valueOf(firstrow.getCell(11)).equals("Origin Location ID")) {
+						if (row.getCell(11) != null) {
+							trip.setOriginlocationid(row.getCell(11).toString());
+						}
+					}
+
+					if (String.valueOf(firstrow.getCell(12)).equals("Destination Location ID")) {
+						if (row.getCell(12) != null) {
+							trip.setDestinationlocationid(row.getCell(12).toString());
+						}
+
+					}
 					
-					/*if (row.getCell(2) != null) {
-						// trip.setLoadno(row.getCell(1).toString());
-						trip.setLoadno(row.getCell(2).toString());
-					}*/
+					if (String.valueOf(firstrow.getCell(13)).equals("Total Distance(KM)")) {
+						if (row.getCell(13) != null) {
+							trip.setDiffKM(row.getCell(13).toString());
+						}
+
+					}
+					
+					
 					
 
-					if (row.getCell(3) != null) { // trip.setName(row.getCell(1).toString());
+					/*if (row.getCell(3) != null) { // trip.setName(row.getCell(1).toString());
 						trip.setTripNo(row.getCell(3).toString());
 
 					}
-					
-					
-					if(String.valueOf(firstrow.getCell(26)).equals("Origin Address")) {
+
+					if (String.valueOf(firstrow.getCell(26)).equals("Origin Address")) {
 						if (row.getCell(26) != null) {
 							trip.setOrigin(row.getCell(10).toString());
 						}
-					}
-
-					/*if (row.getCell(10) != null) {
-						// trip.setOrigin(row.getCell(5).toString());
-						trip.setOrigin(row.getCell(10).toString());
 					}*/
 
-					if (row.getCell(6) != null) {
+					/*
+					 * if (row.getCell(10) != null) { // trip.setOrigin(row.getCell(5).toString());
+					 * trip.setOrigin(row.getCell(10).toString()); }
+					 */
+
+					/*if (row.getCell(6) != null) {
 						// trip.setOrigin(row.getCell(5).toString());
 						trip.setTruckno(row.getCell(6).toString());
 					}
-					
-					
-					
-					if(String.valueOf(firstrow.getCell(27)).equals("Destination Address")) {
+
+					if (String.valueOf(firstrow.getCell(27)).equals("Destination Address")) {
 						if (row.getCell(27) != null) {
 							trip.setOrigin(row.getCell(27).toString());
 						}
 					}
-					
 
 					if (row.getCell(11) != null) {
 						trip.setDestination(row.getCell(11).toString());
@@ -242,7 +291,7 @@ public class TripSheetCrudRestApi {
 
 					if (row.getCell(12) != null) {
 						trip.setDiffKM(row.getCell(12).toString());
-					}
+					}*/
 					triplist.add(trip);
 
 				} catch (NullPointerException e) {

@@ -126,6 +126,16 @@ public class TripSheet implements Serializable {
 	@Column(name = "discount")
 	private String discount;
 	
+	@Column(name = "originlocationid")
+	private String originlocationid;
+	
+	@Column(name = "destinationlocationid")
+	private String destinationlocationid;
+	
+	@Column(name = "trailerequipmenttype")
+	private String trailerequipmenttype;
+	
+		
 	public String getDiscount() {
 		return discount;
 	}
@@ -396,5 +406,29 @@ public class TripSheet implements Serializable {
 
 	public void setPaymentreceivedornot(String paymentreceivedornot) {
 		this.paymentreceivedornot = paymentreceivedornot;
+	}
+
+	public String getOriginlocationid() {
+		return originlocationid;
+	}
+
+	public void setOriginlocationid(String originlocationid) {
+		this.originlocationid = originlocationid;
+	}
+
+	public String getDestinationlocationid() {
+		return destinationlocationid;
+	}
+
+	public void setDestinationlocationid(String destinationlocationid) {
+		this.destinationlocationid = destinationlocationid;
+	}
+
+	public String getTrailerequipmenttype() {
+		return trailerequipmenttype;
+	}
+
+	public void setTrailerequipmenttype(String trailerequipmenttype) {
+		this.trailerequipmenttype = trailerequipmenttype;
 	}
 }
