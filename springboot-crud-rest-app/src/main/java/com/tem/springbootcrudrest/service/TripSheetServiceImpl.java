@@ -102,14 +102,77 @@ public class TripSheetServiceImpl implements TripSheetService {
 		try {
 
 			for (TripSheet tripsheet : list) {
-				// TripSheet loadno = tripRepository.findByloadno(sheet.getLoadno());
+				
 				TripSheet triploadid = tripRepository.findByLoadNO(tripsheet.getLoadno());
 
 				if (triploadid == null) {
 					count++;
 					tripsheetList.add(tripsheet);
-					// tripRepository.save(student);
 				}
+				
+				TripSheet missdatetime = tripRepository.findByLoadNOAndDatetime(tripsheet.getLoadno(),tripsheet.getDatetime());
+
+				if (missdatetime == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}
+				
+				/*TripSheet misstripid = tripRepository.findByLoadNOtripnos(tripsheet.getLoadno(),tripsheet.getTripNo());
+
+				if (misstripid == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}*/
+				
+				
+				TripSheet missfraitcustomeramnt = tripRepository.findByLoadNOAndFraitcustomeramnt(tripsheet.getLoadno(),tripsheet.getPerkmchargecustomer());
+
+				if (missfraitcustomeramnt == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}
+				
+				
+				TripSheet misstruckno = tripRepository.findByLoadNOAndTruckNo(tripsheet.getLoadno(),tripsheet.getTruckno());
+
+				if (misstruckno == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}
+				
+				
+				TripSheet misstraillerequipmenttype = tripRepository.findByLoadNOAndEquipmentType(tripsheet.getLoadno(),tripsheet.getTrailerequipmenttype());
+
+				if (misstraillerequipmenttype == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}
+				
+				
+				TripSheet missoriginlocationid = tripRepository.findByLoadNOAndOriginlocationid(tripsheet.getLoadno(),tripsheet.getOriginlocationid());
+
+				if (missoriginlocationid == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}
+				
+				
+				TripSheet missdestinationlocationid = tripRepository.findByLoadNOAnddestinationlocationid(tripsheet.getLoadno(),tripsheet.getDestinationlocationid());
+
+				if (missdestinationlocationid == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}
+				
+				
+				TripSheet missdiffkm = tripRepository.findByLoadNOAnDdiffKM(tripsheet.getLoadno(),tripsheet.getDiffKM());
+
+				if (missdiffkm == null) {
+					count++;
+					tripsheetList.add(tripsheet);
+				}
+				
+				
 
 			}
 		} catch (NullPointerException e) {
@@ -118,10 +181,10 @@ public class TripSheetServiceImpl implements TripSheetService {
 		if (count == 0) {
 			return tripsheetList;
 		}
-
+/*
 		for (TripSheet t : tripsheetList) {
 			System.out.println("tripsheetList,... " + t.getLoadno() + " "+t.getTripNo());
-		}
+		}*/
 		return tripsheetList;
 	}
 
