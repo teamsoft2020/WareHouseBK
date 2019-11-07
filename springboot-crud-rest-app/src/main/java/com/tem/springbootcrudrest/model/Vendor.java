@@ -34,6 +34,9 @@ public class Vendor {
 	@Column(name = "vendorid", nullable = false)
 	private long vendorid;
 	
+	@Column(name = "vendorcode", nullable = false)
+	private String vendorcode;
+	
 	@Column(name = "vendorname", nullable = false)
 	private String vendorname;
 	
@@ -103,6 +106,14 @@ public class Vendor {
 		this.id = id;
 	}
 
+	public String getVendorcode() {
+		return vendorcode;
+	}
+
+	public void setVendorcode(String vendorcode) {
+		this.vendorcode = vendorcode;
+	}
+	
 	public long getVendorid() {
 		return vendorid;
 	}

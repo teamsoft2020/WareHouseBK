@@ -393,8 +393,7 @@
 								<label class="col-12"><b>Open KMs </b><span
 									class="mandatory">*</span></label> <input type="text" min="0"
 									ng-model="trip.opkm" class="form-control col-12"
-									placeholder="Open KMs"
-									ng-blur="calculateKm(trip.opkm,trip.clskm)" />
+									placeholder="Open KMs" />
 							</div>
 							<div class='col-md-3'>
 								<label class="col-12"><b>Close KMs </b><span
@@ -435,6 +434,48 @@
 						<div class="row">
 
 
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Gate In </b></label> 
+								<div class="input-group date" id="datetimepicker_gateIn" data-target-input="nearest">
+									<input type="text" id="startdate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateIn" ng-model="trip.gatein" placeholder="Gate In" />
+									<div id="gatedate" class="input-group-append" data-target="#datetimepicker_gateIn" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+								</div>
+							</div>
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Gate Out</b></label> 
+								<div class="input-group date" id="datetimepicker_gateOut" data-target-input="nearest">
+									<input type="text" id="enddate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateOut" ng-model="trip.gateout" placeholder="Gate Out"  ng-change="calculateDate(trip.gatein,trip.gateout)"/>
+									<div class="input-group-append" data-target="#datetimepicker_gateOut" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+								</div>
+							</div>
+							<div class='col-md-3'>
+								<label class="col-12"><b>Halted Time </b><span
+									class="mandatory">*</span></label> <input type="text" min="0"
+									ng-model="trip.haltedTime" class="form-control col-12"
+									placeholder="Halted Time" /><!-- ng-blur="addAmtoFrieght()"  -->
+							</div> 
+
+							<div class='col-md-3'>
+								<label class="col-12"><b>Customer Halt</b></label> 
+								<input type="text"  min="0" ng-model="trip.customerhalt" class="form-control col-12" placeholder="Customer Halt" disabled />
+							</div>
+							
+							
+						</div>
+						
+						
+						<div class="row">
+							<div class='col-md-3'>
+								<label class="col-12"><b>Vendor Halt </b></label> 
+								<input type="text" min="0" ng-model="trip.vendorhalt" class="form-control col-12" placeholder="Vendor Halt" disabled/>
+							</div>
+
 							<div class='col-md-3'>
 								<label class="col-12"><b>TollBill</b><span
 									class="mandatory">*</span></label> <input type="text" min="0"
@@ -448,19 +489,13 @@
 									placeholder="Police Bill Charge" ng-blur="addAmtoFrieght()" />
 							</div>
 							<div class='col-md-3'>
-								<label class="col-12"><b>Halting Charges </b><span
-									class="mandatory">*</span></label> <input type="text" min="0"
-									ng-model="trip.haltingCharge" class="form-control col-12"
-									placeholder="Halting Charge" ng-blur="addAmtoFrieght()" />
-							</div>
-							<div class='col-md-3'>
 								<label class="col-12"><b>Discount </b><span
 									class="mandatory">*</span></label> <input type="text" min="0"
 									ng-model="trip.discount" class="form-control col-12"
 									placeholder="Discount" />
 							</div>
 						</div>
-
+						
 						<div class="row">
 
 

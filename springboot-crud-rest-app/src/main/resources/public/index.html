@@ -790,7 +790,7 @@ $(".custId").css("display","");
 $(".addCust").css("display","block");
 $(".updateCust").css("display","none");
 
-$scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
+$scope.item = {customercode:"",customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
 $scope.item.customerDetails = [{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
 }
 
@@ -804,7 +804,10 @@ $scope.deleteCustomerDetails = function(index){
 
 }
 $scope.addItem = function(item) {
-	if(item.customername==""){
+	if(item.customercode==""){
+		 toastr.error('Please enter CustomerCode');
+		return;
+	}else if(item.customername==""){
 		 toastr.error('Please enter CustomerName');
 		return;
 	}else if(item.pan==""){
@@ -856,7 +859,7 @@ $scope.addItem = function(item) {
 	        	toastr.success('Data not added');
 	          console.log(response.status);
 	        });
-	    $scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
+	    $scope.item = {customercode:"",customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
 	    $scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
 	}
 	   
@@ -938,7 +941,7 @@ app.controller('VendorController', function ($scope ,$http,$location,DTOptionsBu
 	                        {vendorid: "3333",vendorName: "ABC",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"ICICI",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,abc street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]},
 	                        {vendorid: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"AXIS",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,sri street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]}];	 */ 		
 	
-    $scope.item = {vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
+    $scope.item = {vendorcode:"",vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
     $scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
     $scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
                         
@@ -973,7 +976,7 @@ $("#venModal").modal('show');
 $(".venId").css("display","");
 $(".addVen").css("display","block");
 $(".updateVen").css("display","none");
-$scope.item = {vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
+$scope.item = {vendorcode:"",vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
 $scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
 $scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
 }
@@ -995,8 +998,11 @@ $scope.deleteVendorDetails = function(index){
 
 }
 $scope.addItem = function(item) {
-	if(item.vendorname==""){
-		 toastr.error('Please enter CustomerName');
+	if(item.vendorcode==""){
+		 toastr.error('Please enter VendorCode');
+		return;
+	}else if(item.vendorname==""){
+		 toastr.error('Please enter VendorName');
 		return;
 	}else if(item.pan==""){
 		 toastr.error('Please enter PAN');
@@ -1047,7 +1053,7 @@ $scope.addItem = function(item) {
 			        	toastr.success('Data not added');
 			          console.log(response.status);
 			        });
-	    $scope.item = {vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
+	    $scope.item = {vendorcode:"",vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
 		$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
 		$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
 	}
@@ -1402,7 +1408,7 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 					{loadNo: "1111",tripNo: "2222",origin: "NEEMAM",destination: "EGMORE",invoiceNO: "234322",dateTime: "23/4/2019",truckType: "CAN2",truckNo: "TN2323200",driverName: "Siva",noOfCase: "3",OPKM: "2",CLSKM: "5",diffKM: "4",advance: "500",perKMchargeCustomer: "6.5",perKMchargeVendor: "7.6",profit: "400",tollBill: "654787",policeBill: "57890",freightAmt: "700",haltingCharge: "700",remarks: "good"}];
 							  
 	*/	
-	$scope.trip = {loadNo: "",tripNo: "",origin: "",destination: "",invoiceNO: "",dateTime: "",truckType: "",truckno: "",driverName: "",noOfCase: "",opkm: "0",clskm: "0",diffKM: "0",advance: "0",perkmchargecustomer: "0",perkmchargevendor: "0",profit: "0",tollBill: "",policeBill: "",freightAmtCust: "0",freightAmtVen:"0",haltingCharge: "0",discount:"0",remarks: ""};
+	$scope.trip = {loadNo: "",tripNo: "",origin: "",destination: "",invoiceNO: "",dateTime: "",truckType: "",truckno: "",driverName: "",noOfCase: "",opkm: "0",clskm: "0",diffKM: "0",advance: "0",perkmchargecustomer: "0",perkmchargevendor: "0",gatein:"",gateout:"",haltedTime:"",customerhalt:"0",vendorhalt:"0",profit: "0",tollBill: "",policeBill: "",freightAmtCust: "0",freightAmtVen:"0",haltingCharge: "0",discount:"0",remarks: ""};
 	scope=$scope;
 	$scope.vehm = {};
 	$scope.vehm.dtVehicle = DTOptionsBuilder.newOptions()
@@ -1559,7 +1565,37 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 		}
 		
 	}
-	
+	$scope.calculateDate=function(startDate,endDate){
+			/* startDate =new Date(startDate)
+			endDate = new Date(endDate)
+		if(startDate <= endDate){ */	
+		 var diff = endDate.getTime() - startDate.getTime();
+	        var days = Math.floor(diff / (60 * 60 * 24 * 1000));
+	        var hours = Math.floor(diff / (60 * 60 * 1000)) - (days * 24);
+	        var minutes = Math.floor(diff / (60 * 1000)) - ((days * 24 * 60) + (hours * 60));
+	        var seconds = Math.floor(diff / 1000) - ((days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60));
+	        scope.trip.haltedTime = days +" Days "+ hours +" Hr " +minutes+" Min";
+	        var dayminus =days;
+	        dayminus =dayminus?dayminus:0;
+	        if(scope.trip.truckType !="" && scope.trip.truckType =="EICHER"){
+	        	scope.trip.customerhalt=(parseInt(dayminus)? parseInt(dayminus):0)*800;
+	        	scope.trip.vendorhalt=(parseInt(dayminus)? parseInt(dayminus):0)*500;
+	        }else if(scope.trip.truckType !="" && scope.trip.truckType =="HCV9"){
+	        	scope.trip.customerhalt=(parseInt(dayminus)? parseInt(dayminus):0)*1000;
+	        	scope.trip.vendorhalt=(parseInt(dayminus)? parseInt(dayminus):0)*900;
+	        }else if(scope.trip.truckType !="" && scope.trip.truckType =="TARUS"){
+	        	scope.trip.customerhalt=(parseInt(dayminus)? parseInt(dayminus):0)*1500;
+	        	scope.trip.vendorhalt=(parseInt(dayminus)? parseInt(dayminus):0)*1200;
+	        }
+	        
+	        //return { day: days, hour: hours, minute: minutes, second: seconds };
+		/* }else{
+			toastr.error('Please select the date and time correctly');
+			scope.trip.gatein ="";
+			scope.trip.gateout ="";
+			angular.element('#gatedate').triggerHandler('click');
+		} */
+	}
 	$scope.addAmtoFrieght =function(){
 		
 		if(typeof($scope.trip.freightAmtCust)=="undefined"){
@@ -1577,8 +1613,8 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 		if(typeof($scope.trip.haltingCharge)=="undefined"){
 			$scope.trip.haltingCharge='0';
 		}
-		$scope.trip.freightAmtCust=eval($scope.trip.policeBill)+eval($scope.trip.tollBill)+eval($scope.tempfreightAmtCust)+eval($scope.trip.haltingCharge)+eval($scope.trip.perkmchargecustomer);
-		$scope.trip.freightAmtVen=eval($scope.trip.tollBill)+eval($scope.trip.policeBill)+eval($scope.tempfreightAmtVen)+eval($scope.trip.perkmchargevendor);
+		$scope.trip.freightAmtCust=(parseInt($scope.trip.policeBill)? parseInt($scope.trip.policeBill):0)+(parseInt($scope.trip.tollBill)? parseInt($scope.trip.tollBill):0)+(parseInt($scope.tempfreightAmtCust)? parseInt($scope.tempfreightAmtCust):0)+(parseInt($scope.trip.customerhalt)? parseInt($scope.trip.customerhalt):0)+(parseInt($scope.trip.perkmchargecustomer)? parseInt($scope.trip.perkmchargecustomer):0);
+		$scope.trip.freightAmtVen=(parseInt($scope.trip.policeBill)? parseInt($scope.trip.policeBill):0)+(parseInt($scope.trip.tollBill)? parseInt($scope.trip.tollBill):0)+(parseInt($scope.tempfreightAmtVen)? parseInt($scope.tempfreightAmtVen):0)+(parseInt($scope.trip.perkmchargevendor)? parseInt($scope.trip.perkmchargevendor):0)+(parseInt($scope.trip.vendorhalt)? parseInt($scope.trip.vendorhalt):0);
 		
 		$scope.trip.profit=(parseInt($scope.trip.freightAmtCust)? parseInt($scope.trip.freightAmtCust):0) - (parseInt($scope.trip.freightAmtVen)? parseInt($scope.trip.freightAmtVen):0);
 	}
@@ -1608,7 +1644,8 @@ $scope.createTrip = function() {
 $('#tripModal').modal('show');
 $(".addVeh").css("display","block");
 $(".updateVeh").css("display","none");
-$scope.trip={};
+//$scope.trip={};
+$scope.trip = {loadNo: "",tripNo: "",origin: "",destination: "",invoiceNO: "",dateTime: "",truckType: "",truckno: "",driverName: "",noOfCase: "",opkm: "0",clskm: "0",diffKM: "0",advance: "0",perkmchargecustomer: "0",perkmchargevendor: "0",gatein:"",gateout:"",haltedTime:"",customerhalt:"0",vendorhalt:"0",profit: "0",tollBill: "",policeBill: "",freightAmtCust: "0",freightAmtVen:"0",haltingCharge: "0",discount:"0",remarks: ""};
 }
 $scope.addItem = function(item) {
 	
@@ -1816,6 +1853,20 @@ $scope.initVeh =function(){
 	 $('#datetimepicker5').datetimepicker(/* {
 	        format: 'DD/MM/YYYY'
 	    } */);
+	 
+	 /* $("#startdate").datetimepicker({
+	        todayBtn:  1,
+	        autoclose: true,
+	    }).on('changeDate', function (selected) {
+	        var minDate = new Date(selected.date.valueOf());
+	        $('#enddate').datepicker('setStartDate', minDate);
+	    }); */
+	 /* $('#datetimepicker_gateIn').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+	 $('#datetimepicker_gateOut').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    }); */
 	 var url=location.origin +"/api/v1/triplist";
 	 $http({
 		    method : 'GET',
@@ -2573,12 +2624,46 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		        	$scope.custPrintData.tripRate =(parseInt($scope.custPrintData.totalkmpercharge) ? parseInt($scope.custPrintData.totalkmpercharge): 0) + (parseInt($scope.custPrintData.totalfreightamt) ? parseInt($scope.custPrintData.totalfreightamt): 0);
 		        	$scope.custPrintData.advLeak =(parseInt($scope.custPrintData.totaladvance) ? parseInt($scope.custPrintData.totaladvance): 0) + (parseInt($scope.custPrintData.leakage) ? parseInt($scope.custPrintData.leakage): 0);
 		        	$scope.custPrintData.totalAmountInWords = inWords(parseInt($scope.custPrintData.netamount));
-		        	$scope.updateBilledTrip($scope.custcallBackdata);
-		            //toastr.success('Data added successfully');
+		        	$scope.getCustDetails($scope.custPrintData.customername);
+		        	
 		        }, function error(response) {
 		        	toastr.success('Data not added');
 		          console.log(response.status);
 		        });
+	}
+	
+	$scope.getCustDetails =function(data){
+		
+	 	//$scope.custDetailResp=[];
+		var url=location.origin +"/api/v1/customerlistbycusname?name="+data;
+		 $http({
+			    method : 'GET',
+			    url : url
+			    //params: data,
+			   }).then(function successCallback(response) {
+			  // $scope.custDetailResp = response.data[0];
+			  $scope.custPrintData.custAddr = response.data[0].customerDetails[0].customerAddr ?  response.data[0].customerDetails[0].customerAddr :"";
+			   $scope.updateBilledTrip($scope.custcallBackdata);
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   }); 
+	}
+	
+	$scope.getVenDetails =function(data){
+		
+	 	//$scope.custDetailResp=[];
+		var url=location.origin +"/api/v1/vendoristbyvendname?name="+data;
+		 $http({
+			    method : 'GET',
+			    url : url
+			    //params: data,
+			   }).then(function successCallback(response) {
+			  // $scope.custDetailResp = response.data[0];
+			  $scope.venPrintData.venAddr = response.data[0].vendorAddress[0].vendoraddr ?  response.data[0].vendorAddress[0].vendoraddr :"";
+			   $scope.updateVenBilledTrip($scope.vencallBackdata);
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   }); 
 	}
 	
 	$scope.updateBilledTrip =function(data){
@@ -2623,7 +2708,8 @@ $scope.saveVendorInvoice =function(){
 		        	$scope.venPrintData.tripRate =(parseInt($scope.venPrintData.totalkmpercharge) ? parseInt($scope.venPrintData.totalkmpercharge): 0) + (parseInt($scope.venPrintData.totalfreightamt) ? parseInt($scope.venPrintData.totalfreightamt): 0);
 		        	$scope.venPrintData.advLeak =(parseInt($scope.venPrintData.totaladvance) ? parseInt($scope.venPrintData.totaladvance): 0) + (parseInt($scope.venPrintData.leakage) ? parseInt($scope.venPrintData.leakage): 0);
 		        	$scope.venPrintData.totalAmountInWords = inWords(parseInt($scope.venPrintData.netamount));
-		        	$scope.updateVenBilledTrip($scope.vencallBackdata);
+		        	$scope.getVenDetails($scope.venPrintData.vendorname);
+		        	//$scope.updateVenBilledTrip($scope.vencallBackdata);
 		            //toastr.success('Data added successfully');
 		        }, function error(response) {
 		        	toastr.success('Data not added');
@@ -3672,6 +3758,8 @@ $(document).ready(function(){
         e.preventDefault();
         $("#wrapper").toggleClass("active");
 	});
+	
+	
 	
 	/* $('#datetimepicker4').datetimepicker({
         format: 'DD/MM/YYYY'

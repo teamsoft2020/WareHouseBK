@@ -28,6 +28,10 @@ public class Customer {
 	@Column(name = "Customer_Id")
 	private long customerId;
 
+	
+	@Column(name = "customercode")
+	private String customercode;
+	
 	@Column(name = "customername")
 	private String customername;
 
@@ -229,6 +233,14 @@ public class Customer {
 
 	public void setCustomername(String customername) {
 		this.customername = customername;
+	}
+	
+	public String getCustomercode() {
+		return customercode;
+	}
+
+	public void setCustomercode(String customercode) {
+		this.customercode = customercode;
 	}
 	
 	public String getCreateddate() {

@@ -198,9 +198,9 @@
 					<tbody>
 					<tr><td colspan="2"><label><b>InvoiceNo:</b></label><label>{{custPrintData.customerinvoiceid}}</label></td><td colspan="1"><label><b>Date:</b></label><label>{{custPrintData.createddate}}</label></td></tr>
 					<tr><td colspan="2"><label><b>Bill To:</b></label>
-					<br></td>
+					<br><label>{{custPrintData.custAddr}}</label></td>
 					<td colspan="1"><label><b>Place of supply:</b></label>
-					<br>
+					<br><label>{{custPrintData.custAddr}}</label>
 					</td>
 					</tr>
 					<tr><th colspan="1"><label >Description</label></th><th colspan="1"><label>HSN Code</label></th><th colspan="1"><label>Amount</label></th></tr>
@@ -393,9 +393,9 @@
 					<tbody>
 					<tr><td colspan="2"><label><b>InvoiceNo:</b></label><label>{{venPrintData.vendorinvoiceid}}</label></td><td colspan="1"><label><b>Date:</b></label><label>{{venPrintData.createddate}}</label></td></tr>
 					<tr><td colspan="2"><label><b>Bill To:</b></label>
-					<br></td>
+					<br><label>{{venPrintData.venAddr}}</label></td>
 					<td colspan="1"><label><b>Place of supply:</b></label>
-					<br>
+					<br><label>{{venPrintData.venAddr}}</label>
 					</td>
 					</tr>
 					<tr><th colspan="1"><label >Description</label></th><th colspan="1"><label>HSN Code</label></th><th colspan="1"><label>Amount</label></th></tr>
@@ -485,7 +485,10 @@
 										<td><label>{{view.totaltrip}}</label></td>
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
-										<td><input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="custViewModal(view)" ></td>
+										<td>
+										<input name="" type="button" class="btn btn-info" id="" value="View"  >
+										<input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="custViewModal(view)" >
+										</td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td> -->
 										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
 								</tr>
@@ -567,7 +570,9 @@
 										<td><label>{{view.totaltrip}}</label></td>
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
-										<td><input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="venViewModal(view)" ></td>
+										<td>
+										<input name="" type="button" class="btn btn-info" id="" value="View"  >
+										<input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="venViewModal(view)" ></td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td> -->
 										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
 								</tr>
