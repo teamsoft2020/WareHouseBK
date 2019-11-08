@@ -23,7 +23,7 @@
 				<!-- method="POST" action="/api/v1/upload" id="#" class="ng-pristine ng-valid" enctype="multipart/form-data" -->
 					<form>
 						<div class="form-group files">
-							<input type="file" class="form-control" file-model="file" accept=".xls,.xlsx"  >
+							<input type="file" class="form-control" id="tripfile" file-model="file" accept=".xls,.xlsx" >
 							<!-- onchange="angular.element(this).scope().setFiles(this)" -->
 						</div>
 						<div class="row">
@@ -559,18 +559,46 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Pending Entry</h4>
+          <h3 class="modal-title">Pending Entry</h3>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-          
+          <table id="manage-tripPending-table" class="custTable table table-bordered table-striped table-responsive" style="width: 100%;max-height: 400px;">
+			 <thead>
+						<tr>
+							<th scope="col"><h5>Load ID</h5></th>
+							<th scope="col" ><h5>Trip ID</h5></th>
+							<th scope="col"><h5>Tractor Number</h5></th>
+							<th scope="col"><h5>Trailer Equipment Type</h5></th>
+							<th scope="col" ><h5>Origin Location Id</h5></th>
+							<th scope="col"><h5>Destination Location Id</h5></th>
+							<th scope="col"><h5>Total Distance(KM)</h5></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="list in tripListPending track by $index">
+							 
+							<td>{{list.loadno}}</td>
+							<td>{{list.tripNo}}</td>
+							<td>{{list.truckno}}</td>
+							<td>{{list.trailerequipmenttype}}</td>
+							<td>{{list.originlocationid}}</td>
+							<td>{{list.destinationlocationid}}</td>
+							<td>{{list.diffKM}}</td>
+								<!-- <td style="width: 13%;"> 
+									<i class="fa fa-edit" aria-hidden="true" ng-click="editVehicle(list,$event)"></i>
+								<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeItem(list)" ></i>
+								</td> -->
+							</tr>
+					</tbody> 
+					</table>
         </div>
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
         </div>
         
       </div>

@@ -1446,7 +1446,7 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 	$scope.getCommonDetails =function(item){
 		
 		if(item){
-		var url=location.origin +"/api/v1/customervendorobject";
+		var url=location.origin +"/api/v1/customervendorobjectfromtripsheet";
 		 $http({
 			    method : 'GET',
 			    url : url,
@@ -1732,6 +1732,7 @@ $scope.openUpload =function(){
 	$("#uploadDiv").css("display","block");
 };
 $scope.submitFileUpload =function(){
+	 $scope.tripListPending=[];
 	var uploadUrl = '/api/v1/upload';
     multipartForm.post(uploadUrl, $scope.file);
 };
@@ -2792,6 +2793,29 @@ $scope.updateVenBilledTrip =function(data){
 		var amt =$scope.customerInvoiceJson.amount * $scope.customerInvoiceJson.quantity;
 		$scope.customerInvoiceJson.totalAmount =amt + amt * data;
 	}
+	
+	$scope.getTotalTruckNo =function(){
+		 $scope.trucknoJson = []; 
+		 var url=location.origin +"/api/v1/vehiclelist";
+		 $http({
+			    method : 'GET',
+			    url : url,
+			   }).then(function successCallback(response) {
+			   //$scope.listCustJson = response.data;
+			   
+	           /*  var values = [ 
+	            {name: 'Binary Search'}, 
+	            {name: 'Linear Search'}, 
+	            {name: 'Interpolation Search'} 
+	            ];   
+	            angular.forEach(values, function (value, key) { 
+	                $scope.names.push(value.name); 
+	            }); */ 
+			   $scope.trucknoJson=response.data;
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
 	$scope.navRedirect =function(event){
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
@@ -2807,6 +2831,7 @@ $scope.updateVenBilledTrip =function(data){
 			  $('#VendorInvoice').show();
 			  $('#customerView').hide();
 			  $('#VendorInvoice').addClass("active");
+			  $scope.getTotalTruckNo();
 			  var vm = $scope;
 				vm.dtInstanceCallback = function(instance) {
 				 	vm.dtInstance = instance;
@@ -3858,7 +3883,7 @@ app.directive('fileModel', ['$parse', function($parse){
     }
 }]);
 
-app.service('multipartForm', ['$http', function($http){
+app.service('multipartForm', ['$http', function($http,$scope){
     this.post = function(uploadUrl, data) {
 	    	var formData = new FormData();
 	    	formData.append("file", data);
@@ -3870,7 +3895,11 @@ app.service('multipartForm', ['$http', function($http){
 	    	    processData: false,
 	    	    method: 'POST',
 	    	    success: function(data){
-	    	        alert(data);
+	    	       scope.tripListPending=data;
+	    	       $("#tripfile").val("");
+	    	       $("#myuploadModal").modal("show");
+	    	       scope.closeUpload();
+	    	       scope.$digest();
 	    	    }
 	    	});
         }
