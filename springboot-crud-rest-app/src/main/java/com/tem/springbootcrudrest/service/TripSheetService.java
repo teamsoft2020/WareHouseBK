@@ -1,6 +1,7 @@
 package com.tem.springbootcrudrest.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public interface TripSheetService {
 	
 	public List<String> getTrucknoList();
 	
-	public List<TripSheet> createTripSheetByExcel(List<TripSheet> list);
+	public Set<TripSheet> createTripSheetByExcel(List<TripSheet> list);
 	
 	public String updateCustomerInvoiceNo(CustomerVendorInvoiceNo customerInvoiceNo);
 	

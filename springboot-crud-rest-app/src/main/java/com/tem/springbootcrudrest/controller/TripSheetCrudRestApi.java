@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -161,10 +163,10 @@ public class TripSheetCrudRestApi {
 	}
 
 	@PostMapping("/upload") // //new annotation since 4.3
-	public List<TripSheet> singleFileUpload(@RequestParam("file") MultipartFile file)
+	public Set<TripSheet> singleFileUpload(@RequestParam("file") MultipartFile file)
 			throws EncryptedDocumentException, IOException, InvalidFormatException {
 
-		System.out.println("Wel....");
+		//System.out.println("Wel....");
 		List<TripSheet> triplist = new ArrayList<TripSheet>();
 		// List<Student> studentlist = new ArrayList<Student>();
 
@@ -186,6 +188,7 @@ public class TripSheetCrudRestApi {
 
 		for (int k = 0; k <= sheetcount - 1; k++) {
 			sheet = workbook.getSheetAt(k);
+			
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 				Row firstrow = sheet.getRow(0);
@@ -201,13 +204,18 @@ public class TripSheetCrudRestApi {
 
 					if (String.valueOf(firstrow.getCell(1)).equals("Load ID")) {
 						if (row.getCell(1) != null) {
-							trip.setLoadno(row.getCell(1).toString());
+							//trip.setLoadno(row.getCell(1).toString());
+							trip.setLoadno(new DataFormatter().formatCellValue(row.getCell(1)));
+							//System.out.println("destinatio "+row.getCell(1).toString());
+
+							
 						}
 					}
 
 					if (String.valueOf(firstrow.getCell(2)).equals("Trip ID")) {
-						if (row.getCell(1) != null) {
+						if (row.getCell(2) != null) {
 							trip.setTripNo(row.getCell(2).toString());
+						//	System.out.println("orgin "+row.getCell(2).toString());
 						}
 					}
 
@@ -232,18 +240,22 @@ public class TripSheetCrudRestApi {
 					if (String.valueOf(firstrow.getCell(10)).equals("Trailer Equipment Type")) {
 						if (row.getCell(10) != null) {
 							trip.setTrailerequipmenttype(row.getCell(10).toString());
+							//System.out.println("destinatio "+row.getCell(10).toString());
 						}
 					}
 
 					if (String.valueOf(firstrow.getCell(11)).equals("Origin Location ID")) {
 						if (row.getCell(11) != null) {
 							trip.setOriginlocationid(row.getCell(11).toString());
+							//System.out.println("orgin "+row.getCell(11).toString());
 						}
 					}
 
 					if (String.valueOf(firstrow.getCell(12)).equals("Destination Location ID")) {
 						if (row.getCell(12) != null) {
 							trip.setDestinationlocationid(row.getCell(12).toString());
+							//System.out.println("destinatio "+row.getCell(12).toString());
+
 						}
 
 					}
@@ -254,44 +266,6 @@ public class TripSheetCrudRestApi {
 						}
 
 					}
-					
-					
-					
-
-					/*if (row.getCell(3) != null) { // trip.setName(row.getCell(1).toString());
-						trip.setTripNo(row.getCell(3).toString());
-
-					}
-
-					if (String.valueOf(firstrow.getCell(26)).equals("Origin Address")) {
-						if (row.getCell(26) != null) {
-							trip.setOrigin(row.getCell(10).toString());
-						}
-					}*/
-
-					/*
-					 * if (row.getCell(10) != null) { // trip.setOrigin(row.getCell(5).toString());
-					 * trip.setOrigin(row.getCell(10).toString()); }
-					 */
-
-					/*if (row.getCell(6) != null) {
-						// trip.setOrigin(row.getCell(5).toString());
-						trip.setTruckno(row.getCell(6).toString());
-					}
-
-					if (String.valueOf(firstrow.getCell(27)).equals("Destination Address")) {
-						if (row.getCell(27) != null) {
-							trip.setOrigin(row.getCell(27).toString());
-						}
-					}
-
-					if (row.getCell(11) != null) {
-						trip.setDestination(row.getCell(11).toString());
-					}
-
-					if (row.getCell(12) != null) {
-						trip.setDiffKM(row.getCell(12).toString());
-					}*/
 					triplist.add(trip);
 
 				} catch (NullPointerException e) {
@@ -303,32 +277,9 @@ public class TripSheetCrudRestApi {
 
 		}
 
-		/*
-		 * for(int k=0;k<=sheetcount-1;k++) { sheet=workbook.getSheetAt(k); for (int i =
-		 * 1; i <= sheet.getLastRowNum(); i++) { Student student = new Student(); row =
-		 * sheet.getRow(i); try { if (row.getCell(1) != null) {
-		 * student.setEmail(row.getCell(1).toString()); }
-		 * 
-		 * if (row.getCell(0) != null) { // trip.setName(row.getCell(1).toString());
-		 * student.setName(row.getCell(0).toString()); }
-		 * 
-		 * if (row.getCell(2) != null) { student.setSubject(row.getCell(2).toString());
-		 * }
-		 * 
-		 * if (row.getCell(3) != null) { student.setTotal(row.getCell(3).toString()); }
-		 * 
-		 * studentlist.add(student);
-		 * 
-		 * } catch (NullPointerException e) { // System.out.println("Null caught.."); }
-		 * // System.out.println(trip.getDestination() + " " + trip.getLoadNo()+" //
-		 * "+trip.getInvoiceNO());
-		 * 
-		 * } }
-		 */
-
 		workbook.close();
 
-		List<TripSheet> response = tripSheetService.createTripSheetByExcel(triplist);
+		Set<TripSheet> response = tripSheetService.createTripSheetByExcel(triplist);
 
 		return response;
 

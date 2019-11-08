@@ -431,4 +431,18 @@ public class TripSheet implements Serializable {
 	public void setTrailerequipmenttype(String trailerequipmenttype) {
 		this.trailerequipmenttype = trailerequipmenttype;
 	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof TripSheet) {
+			return ((TripSheet) obj).loadno == loadno;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Integer.valueOf(this.loadno);
+	}
 }
