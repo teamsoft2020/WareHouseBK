@@ -34,5 +34,7 @@ public interface TripSheetService {
 	public String updateCustomerInvoiceNo(CustomerVendorInvoiceNo customerInvoiceNo);
 	
 	public String updateVendorInvoiceNo(CustomerVendorInvoiceNo vendorInvoiceNo);
+	
+	public List<Object> findCustomerVendorObject(String name);
 
 }

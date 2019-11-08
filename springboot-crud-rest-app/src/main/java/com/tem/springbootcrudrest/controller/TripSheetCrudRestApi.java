@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.service.TripSheetService;
@@ -123,6 +124,20 @@ public class TripSheetCrudRestApi {
 
 		return tripSheetList;
 	}
+	
+	
+	@RequestMapping(path = "/customervendorobjectfromtripsheet", method = RequestMethod.GET)
+
+	public List<Object> getCustomerList(@RequestParam String name) {
+
+		List<Object> tripSheetList = tripSheetService.findCustomerVendorObject(name);
+
+		return tripSheetList;
+	}
+
+	
+	
+	
 
 	@GetMapping("/test")
 	public String getMap() {

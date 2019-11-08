@@ -9,15 +9,24 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.model.CustomerVendorInvoiceNo;
 import com.tem.springbootcrudrest.model.TripSheet;
+import com.tem.springbootcrudrest.repository.CustomerRepository;
 import com.tem.springbootcrudrest.repository.TripRepository;
+import com.tem.springbootcrudrest.repository.VendorRepository;
 
 @Component
 public class TripSheetServiceImpl implements TripSheetService {
 
 	@Autowired
 	TripRepository tripRepository;
+	
+	@Autowired
+	CustomerRepository customerRepository;
+	
+	@Autowired
+	VendorRepository vendorRepository;
 
 	@Override
 	public TripSheet createTripSheet(TripSheet tripSheet) {
@@ -239,5 +248,29 @@ public class TripSheetServiceImpl implements TripSheetService {
 	@Override
 	public List<TripSheet> findVendorInvoiceBetweenDate(String fromdate, String todate, String truckno) {
 		return tripRepository.findVendorInvoiceBetweenDateList(fromdate, todate, truckno);
+	}
+
+	@Override
+	public List<Object> findCustomerVendorObject(String name) {
+		
+		List<Object> customervendorobject=null;
+		try {
+
+			customervendorobject = customerRepository.findCustomerByNameObject(name);
+			Customer customer =null;
+			for(Object obj : customervendorobject) {
+				 customer = (Customer) obj;
+			}
+			
+			
+			if(customer==null) {
+				customervendorobject = vendorRepository.findVendorNameObject(name);
+				
+			}
+			
+		} catch (NullPointerException e) {
+
+		}
+		return customervendorobject;
 	}
 }
