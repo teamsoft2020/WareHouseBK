@@ -1389,7 +1389,7 @@ $scope.initProduct = function(){
 }
 $scope.initProduct();
 });
-app.controller('VehicleController', function ($scope, $window ,$filter,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr,multipartForm) {
+app.controller('VehicleController', function ($scope, $timeout,$window ,$filter,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr,multipartForm) {
 	$scope.listVehicleJson ={};
 	 //$scope.listCustJson=[];
 	 //$scope.listVenJson=[];
@@ -1399,6 +1399,7 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 	 $scope.tempfreightAmtCust="0";
 	 $scope.tempfreightAmtVen="0";
 	 $scope.getTempCustVen={};
+	
 	 //$scope.vehlistdataJson=[];
 	/* $scope.listVehicleJson =[{codeId: "1111",truckNo: "3455", rcno: "4566", fcDate: "23/4/2019", truckType: "Transport truck"},
 							  {codeId: "1223",truckNo: "56767", rcno: "3456", fcDate: "23/4/2019", truckType: "Dump truck"},
@@ -1511,28 +1512,34 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 				 var tempcustVen =$scope.getTempCustVen;
 				 if($scope.getTempCustVen.customername){
 					   if($scope.trip.truckType=="LCV2"){
+						   $scope.checkDisabled =false;
 						   //$scope.trip.perkmchargecustomer=tempcustVen.perkmlc2;
 						   //$scope.trip.freightAmtCust=tempcustVen.fixedamtlc2;
 						   $scope.tempfreightAmtCust=tempcustVen.fixedamtlc2;
 						   $scope.tempperkmchargecustomer=tempcustVen.perkmlc2;
 					   }else if($scope.trip.truckType=="LCV4"){
+						   $scope.checkDisabled =false;
 						  // $scope.trip.perkmchargecustomer=tempcustVen.perkmlc4;
 						   $scope.tempperkmchargecustomer=tempcustVen.perkmlc4;
 						   $scope.tempfreightAmtCust=tempcustVen.fixedamtlc4;
 							
 					   }else if($scope.trip.truckType=="CAN6"){
+						   $scope.checkDisabled =false;
 						   //$scope.trip.perkmchargecustomer=tempcustVen.perkmcan6;
 						   $scope.tempperkmchargecustomer=tempcustVen.perkmcan6;
 						   $scope.tempfreightAmtCust=tempcustVen.fixedamtcan6;
 					   }else if($scope.trip.truckType=="HCV9"){
+						   $scope.checkDisabled =true;
 						  // $scope.trip.perkmchargecustomer=tempcustVen.perkmhcv9;
 						   $scope.tempperkmchargecustomer=tempcustVen.perkmhcv9;
 						   $scope.tempfreightAmtCust=tempcustVen.fixedamthcv9;
 					   }else if($scope.trip.truckType=="TARUS"){
+						   $scope.checkDisabled =true;
 						  // $scope.trip.perkmchargecustomer=tempcustVen.perkmtrs;
 						   $scope.tempperkmchargecustomer=tempcustVen.perkmtrs;
 						   $scope.tempfreightAmtCust=tempcustVen.fixedamttrs;
 					   }else if($scope.trip.truckType=="TRALIER"){
+						   $scope.checkDisabled =true;
 						   //$scope.trip.perkmchargecustomer=tempcustVen.perkmtrailer;
 						   $scope.tempperkmchargecustomer=tempcustVen.perkmtrailer;
 						   $scope.tempfreightAmtCust=tempcustVen.fixedamttrailer;
@@ -1565,6 +1572,7 @@ app.controller('VehicleController', function ($scope, $window ,$filter,$http,$lo
 		}
 		
 	}
+	 
 	$scope.calculateDate=function(startDate,endDate){
 			/* startDate =new Date(startDate)
 			endDate = new Date(endDate)
@@ -1641,6 +1649,7 @@ $(".updateVeh").css("display","none");
 
 }
 $scope.createTrip = function() {
+$scope.checkDisabled =false;
 $('#tripModal').modal('show');
 $(".addVeh").css("display","block");
 $(".updateVeh").css("display","none");
@@ -1648,7 +1657,16 @@ $(".updateVeh").css("display","none");
 $scope.trip = {loadNo: "",tripNo: "",origin: "",destination: "",invoiceNO: "",dateTime: "",truckType: "",truckno: "",driverName: "",noOfCase: "",opkm: "0",clskm: "0",diffKM: "0",advance: "0",perkmchargecustomer: "0",perkmchargevendor: "0",gatein:"",gateout:"",haltedTime:"",customerhalt:"0",vendorhalt:"0",profit: "0",tollBill: "",policeBill: "",freightAmtCust: "0",freightAmtVen:"0",haltingCharge: "0",discount:"0",remarks: ""};
 }
 $scope.addItem = function(item) {
-	
+	  
+	 if(!$scope.checkDisabled){
+		 if(item.opkm==""){
+			 toastr.error('Please enter opKm');
+				return;
+		}else if(item.clskm==""){
+			 toastr.error('Please enter Clskm');
+				return;
+		}
+	 }
 	if(item.loadno==""){
 		 toastr.error('Please enter Load Number');
 		return;
@@ -1679,12 +1697,6 @@ $scope.addItem = function(item) {
 			return;
 	}else if(item.noOfCase==""){
 		 toastr.error('Please enter No Of Case');
-			return;
-	}else if(item.opkm==""){
-		 toastr.error('Please enter opKm');
-			return;
-	}else if(item.clskm==""){
-		 toastr.error('Please enter Clskm');
 			return;
 	}else if(item.advance==""){
 		 toastr.error('Please enter Advance');
@@ -1854,7 +1866,7 @@ $scope.initVeh =function(){
 	 $('#datetimepicker5').datetimepicker(/* {
 	        format: 'DD/MM/YYYY'
 	    } */);
-	 
+	
 	 /* $("#startdate").datetimepicker({
 	        todayBtn:  1,
 	        autoclose: true,
@@ -1920,6 +1932,17 @@ $scope.getTruckNo = function(selectedType) {
     //return filteredBank[0].vehicleNo;
     
 };
+$scope.initializeDate = function() {
+	 $timeout(function() { 
+		 
+		 $('#startdate').datetimepicker();
+		 $('#datetimepicker_gateIn').datetimepicker();
+		 $('#datetimepicker_gateOut').datetimepicker();
+		 
+		 }, 200);
+};
+
+$scope.initializeDate();	 
 $scope.initVeh();
 $scope.getCustVenList();
 $scope.getTruckList();
@@ -3768,7 +3791,6 @@ $scope.checkvenVoucherInArray =function(index,item){
 
 app.controller('LedgerController', function ($scope) {
 	
-	
 	$scope.navLedgerRedirect =function(event){
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
@@ -3783,12 +3805,18 @@ $(document).ready(function(){
         e.preventDefault();
         $("#wrapper").toggleClass("active");
 	});
+	// $('#datetimepicker_gateIn').datetimepicker();
+	/* $('#datetimepicker_gateIn').on('dp.change', function (e) {
+        $('#datetimepicker_gateOut').data("DateTimePicker").minDate(e.date);
+    });  */
+    /*   $("#startdate").datetimepicker({
+    todayBtn:  1,
+    autoclose: true,
+}).on('changeDate', function (selected) {
+    var minDate = new Date(selected.date.valueOf());
+    $('#enddate').datepicker('setStartDate', minDate);
+});  */ 
 	
-	
-	
-	/* $('#datetimepicker4').datetimepicker({
-        format: 'DD/MM/YYYY'
-    }); */
 
 });
 

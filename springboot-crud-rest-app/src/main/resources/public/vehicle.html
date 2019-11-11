@@ -391,16 +391,15 @@
 							</div>
 							<div class='col-md-3'>
 								<label class="col-12"><b>Open KMs </b><span
-									class="mandatory">*</span></label> <input type="text" min="0"
-									ng-model="trip.opkm" class="form-control col-12"
-									placeholder="Open KMs" />
+									class="mandatory">*</span></label> 
+									<input type="text" min="0" ng-model="trip.opkm" class="form-control col-12" 
+									placeholder="Open KMs" ng-disabled="checkDisabled"/>
 							</div>
 							<div class='col-md-3'>
 								<label class="col-12"><b>Close KMs </b><span
-									class="mandatory">*</span></label> <input type="text" min="0"
-									ng-model="trip.clskm" class="form-control col-12"
-									placeholder="Close KMs"
-									ng-blur="calculateKm(trip.opkm,trip.clskm)" />
+									class="mandatory">*</span></label> 
+									<input type="text" min="0" ng-model="trip.clskm" class="form-control col-12"
+									placeholder="Close KMs"  ng-disabled="checkDisabled" ng-blur="calculateKm(trip.opkm,trip.clskm)" />
 							</div>
 
 						</div>
@@ -438,7 +437,7 @@
 							<div class='col-md-3'>
 								<label class="col-12"><b>Gate In </b></label> 
 								<div class="input-group date" id="datetimepicker_gateIn" data-target-input="nearest">
-									<input type="text" id="startdate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateIn" ng-model="trip.gatein" placeholder="Gate In" />
+									<input type="text" id="startdate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateIn" ng-model="trip.gatein" placeholder="Gate In"/>
 									<div id="gatedate" class="input-group-append" data-target="#datetimepicker_gateIn" data-toggle="datetimepicker">
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>
@@ -448,7 +447,7 @@
 							<div class='col-md-3'>
 								<label class="col-12"><b>Gate Out</b></label> 
 								<div class="input-group date" id="datetimepicker_gateOut" data-target-input="nearest">
-									<input type="text" id="enddate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateOut" ng-model="trip.gateout" placeholder="Gate Out"  ng-change="calculateDate(trip.gatein,trip.gateout)"/>
+									<input type="text" id="enddate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateOut" ng-model="trip.gateout" placeholder="Gate Out"  />
 									<div class="input-group-append" data-target="#datetimepicker_gateOut" data-toggle="datetimepicker">
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>

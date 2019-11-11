@@ -257,8 +257,9 @@
   <div class="col-2">
 		<label class="col-12"><b>TRUCK NO </b></label>
 		<input type="text" list="dataList" ng-model="vendorInvoice.truckno" class="form-control col-12" placeholder="Vehicle Number" />  
-		<!-- <datalist id="dataList" >
-		<option ng-options="b.vehicleNo in trucknoJson" value="{{b.vehicleNo}}"></option></datalist> -->
+		 <datalist id="dataList" >
+		<option ng-repeat="b in trucknoJson" value="{{b.vehicleNo}}"></option>
+		</datalist> 
 	 </div>
      <div class="col-2">
 
