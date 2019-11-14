@@ -471,6 +471,27 @@ legend {
  font-weight: bold;
  font-size: large;
  }
+ .borderDiv{
+ -webkit-box-shadow:  0 9px 7px -6px #777;
+ -moz-box-shadow:  0 9px 7px -6px #777;
+  box-shadow: 0 9px 7px -6px #777;
+background: #f1eded;
+padding-bottom: 1%;
+border-radius:20px;
+ }
+ .border-rad{
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;
+}
+.inputbox{
+border-radius: 5px;
+    width: 34%;
+    height: 32px;
+}
+.pad1{
+    margin-top: 1%;
+}
+
 </style>
 <body >
 
@@ -2829,6 +2850,19 @@ $scope.updateVenBilledTrip =function(data){
 			    console.log(response.statusText);
 			   });
 	}
+	
+	$scope.getCustVenList =function(){
+		 var url=location.origin +"/api/v1/combinenameslist";
+		 $http({
+			    method : 'GET',
+			    url : url,
+			   }).then(function successCallback(response) {
+			   //$scope.listCustJson = response.data;
+			   $scope.custlistJson=response.data;
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
 	$scope.navRedirect =function(event){
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
@@ -2864,6 +2898,14 @@ $scope.updateVenBilledTrip =function(data){
 			  $('#CustomerInvoice').addClass("active");
 			  $('#VendorInvoice').hide();
 			  $('#customerView').hide();
+			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
+		  }else if(currEvent =="manPowerBilling"){
+			  $('#manPowerBilling').show();
+			  $('#manPowerBilling').addClass("active");
+			  $('#CustomerInvoice').hide();
+			  $('#VendorInvoice').hide();
+			  $('#customerView').hide();
+			  $scope.getCustVenList();
 			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		  }else{
 			  $('#vendorView').show();
