@@ -1574,9 +1574,9 @@ app.controller('VehicleController', function ($scope, $timeout,$window ,$filter,
 	}
 	 
 	$scope.calculateDate=function(startDate,endDate){
-			/* startDate =new Date(startDate)
+			 startDate =new Date(startDate)
 			endDate = new Date(endDate)
-		if(startDate <= endDate){ */	
+		if(startDate <= endDate){ 	
 		 var diff = endDate.getTime() - startDate.getTime();
 	        var days = Math.floor(diff / (60 * 60 * 24 * 1000));
 	        var hours = Math.floor(diff / (60 * 60 * 1000)) - (days * 24);
@@ -1597,12 +1597,12 @@ app.controller('VehicleController', function ($scope, $timeout,$window ,$filter,
 	        }
 	        
 	        //return { day: days, hour: hours, minute: minutes, second: seconds };
-		/* }else{
+		 }else{
 			toastr.error('Please select the date and time correctly');
 			scope.trip.gatein ="";
 			scope.trip.gateout ="";
 			angular.element('#gatedate').triggerHandler('click');
-		} */
+		} 
 	}
 	$scope.addAmtoFrieght =function(){
 		
@@ -1932,17 +1932,7 @@ $scope.getTruckNo = function(selectedType) {
     //return filteredBank[0].vehicleNo;
     
 };
-$scope.initializeDate = function() {
-	 $timeout(function() { 
-		 
-		 $('#startdate').datetimepicker();
-		 $('#datetimepicker_gateIn').datetimepicker();
-		 $('#datetimepicker_gateOut').datetimepicker();
-		 
-		 }, 200);
-};
-
-$scope.initializeDate();	 
+ 
 $scope.initVeh();
 $scope.getCustVenList();
 $scope.getTruckList();
@@ -3806,9 +3796,9 @@ $(document).ready(function(){
         $("#wrapper").toggleClass("active");
 	});
 	// $('#datetimepicker_gateIn').datetimepicker();
-	/* $('#datetimepicker_gateIn').on('dp.change', function (e) {
+	/*  $('#datetimepicker_gateIn').on('dp.change', function (e) {
         $('#datetimepicker_gateOut').data("DateTimePicker").minDate(e.date);
-    });  */
+    }); */  
     /*   $("#startdate").datetimepicker({
     todayBtn:  1,
     autoclose: true,
@@ -3834,6 +3824,53 @@ function inWords (num) {
     str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
     return str;
 }
+
+app.directive('startdatetimepicker', function () {
+    /* return {
+        restrict: 'A',
+        require : 'ngModel',
+        link : function (scope, element, attrs, ngModelCtrl) {
+
+            element.datetimepicker({
+                change:function (date) {
+
+                    // Triggers a digest to update your model
+                    scope.$apply(function () {
+                        ngModelCtrl.$setViewValue(date);
+                    });
+
+                }
+            });
+        }
+    }  */
+	return {
+	      restrict: 'A',
+	      link: postLink,
+	      require: 'ngModel'
+	    };
+	    function postLink(scope, element, attr, ngModel) {
+	        var ignoreChangeEvent = false;
+	        element.datetimepicker();
+	        element.on('dp.change', function(event) {
+	            console.log("dp.change",event.date);
+	            console.log(event);
+	            if (ignoreChangeEvent) {
+	              ignoreChangeEvent = false;
+	              return;
+	            }
+	            //console.dir(date);
+	            scope.$apply(function() {
+	              ngModel.$setViewValue(event.date);
+	            });
+	        });
+	        ngModel.$formatters.push(function (date) {
+	            console.log("format", date);
+	            ignoreChangeEvent = true;
+	           // element.data("DateTimePicker").setStartDate(date);
+	            $("#datetimepicker_gateIn").datetimepicker('setStartDate', date);
+	        });
+	      }
+});
 
 app.directive("panRegex", function() {
 

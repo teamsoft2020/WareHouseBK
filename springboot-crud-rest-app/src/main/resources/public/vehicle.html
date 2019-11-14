@@ -436,9 +436,9 @@
 
 							<div class='col-md-3'>
 								<label class="col-12"><b>Gate In </b></label> 
-								<div class="input-group date" id="datetimepicker_gateIn" data-target-input="nearest">
-									<input type="text" id="startdate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateIn" ng-model="trip.gatein" placeholder="Gate In"/>
-									<div id="gatedate" class="input-group-append" data-target="#datetimepicker_gateIn" data-toggle="datetimepicker">
+								<div class="input-group date"  id="datetimepicker_gateIn" data-target-input="nearest"  >
+									<input type="text"  id="startdate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateIn"  ng-model="trip.gatein"  placeholder="Gate In"/>
+									<div id="gatedate" class="input-group-append" data-target="#datetimepicker_gateIn" data-toggle="datetimepicker" >
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>
 								</div>
@@ -447,7 +447,7 @@
 							<div class='col-md-3'>
 								<label class="col-12"><b>Gate Out</b></label> 
 								<div class="input-group date" id="datetimepicker_gateOut" data-target-input="nearest">
-									<input type="text" id="enddate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateOut" ng-model="trip.gateout" placeholder="Gate Out"  />
+									<input type="text" id="enddate" class="form-control datetimepicker-input" data-target="#datetimepicker_gateOut" ng-model="trip.gateout" placeholder="Gate Out"  ng-blur="calculateDate(trip.gatein,trip.gateout)" />
 									<div class="input-group-append" data-target="#datetimepicker_gateOut" data-toggle="datetimepicker">
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 									</div>
