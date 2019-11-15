@@ -1,5 +1,6 @@
 package com.tem.springbootcrudrest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +8,16 @@ import org.springframework.stereotype.Component;
 
 import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.repository.CustomerRepository;
+import com.tem.springbootcrudrest.repository.VendorRepository;
 
 @Component
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	@Autowired
+	VendorRepository vendorRepository;
 
 	@Override
 	public Customer createCustomer(Customer customer) {
@@ -44,9 +49,38 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public List<String> getListOfCombineName() {
+	public List<Object> getListOfCombineName() {
 
-		return customerRepository.getListOfCombineNames();
+		List<Object> allobjects = new ArrayList<Object>();
+		
+		try {
+
+		List<String>commonnamelist =	customerRepository.getListOfCombineNames();
+			
+		
+		for(String commanname : commonnamelist) {
+			List<Object> customervendorobject=null;
+			customervendorobject = customerRepository.findCustomerByNameObject(commanname);
+			Customer customer =null;
+			for(Object obj : customervendorobject) {
+				 customer = (Customer) obj;
+			}
+			
+			
+			if(customer==null) {
+				customervendorobject = vendorRepository.findVendorNameObject(commanname);
+				
+			}
+			allobjects.addAll(customervendorobject);
+		}
+			
+		} catch (NullPointerException e) {
+
+		}
+		return allobjects;
+		
+		
+		
 	}
 
 	@Override
