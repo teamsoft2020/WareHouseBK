@@ -492,7 +492,7 @@
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
 										<td>
-										<input name="" type="button" class="btn btn-info" id="" value="View"  >
+										<input name="" type="button" class="btn btn-info" id="" value="View"  ng-click="showCustDetails(view.customername,view.customerinvoiceid,view.netamount,view.createddate)"  >
 										<input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="custViewModal(view)" >
 										</td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td> -->
@@ -577,7 +577,7 @@
 										<td><label>{{view.netamount}}</label></td>
 										<td><label>{{view.createddate}}</label></td>
 										<td>
-										<input name="" type="button" class="btn btn-info" id="" value="View"  >
+										<input name="" type="button" class="btn btn-info" id="" value="View" ng-click="showVenDetails(view.vendorname,view.vendorinvoiceid,view.netamount,view.createddate)" >
 										<input name="" type="button" class="btn btn-info" id="" value="Print" ng-click="venViewModal(view)" ></td>
 										<!-- <td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td> -->
 										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
@@ -701,7 +701,7 @@
 	<div class="row" style="margin-top: 1%;">
 	<div class="col-8"></div>
 					<label class="col-2"><b>Grand Total</b></label>
-					<input type="text" class="form-control col-2" ng-model="grandTotal"  disabled/>
+					<input type="text" class="form-control col-2" ng-model="manpowerBilling.grandTotal"  disabled/>
 					</div>
 	<div class="pull-right" style="margin-top: 2%;">
 					<!-- <input name="" type="button" class="btn btn-primary" id="" value="Print"  ng-click="venInvoicePrint()" style="margin-left: -20%;"> -->
@@ -843,3 +843,139 @@
       </div>
     </div>
   </div>
+  
+  
+  
+  <div class="modal" id="custViewDetailModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Trip Details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <div class="row " style="margin-top: 1%;">
+        <div class="col-4"><label class="col-4"><b>Name :</b></label><label class="col-8">{{custviewdetail.custname}}</label></div>
+        <div class="col-4"><label class="col-4"><b>Amount:</b></label><label class="col-8">{{custviewdetail.custviewAmt}}</label></div>
+        <div class="col-4"><label class="col-4"><b>Date :</b></label><label class="col-8">{{custviewdetail.custviewDateAmt}}</label></div>	
+		</div>  
+          <div class="row col-12" >
+          
+					<table  id="manage-cvd-table"  class="table table-bordered table-striped" >
+ <thead>
+								<tr>
+								
+									<th width="15%">Customer</th> 
+									<th width="20%">Invoice Date</th> 
+									<th width="15%">TruckType</th>
+									<th width="15%">No of case</th>
+									<th width="15%">Total kms</th>
+									<th width="15%">Per kms Total</th>
+									<th width="15%">Advance</th>
+									<th width="15%">Discount</th>
+									<th width="15%">Total Freight Amt</th>
+								</tr>
+							</thead>
+ 
+  							<tbody>
+								<tr ng-repeat="cus in customerViewDetails track by $index">
+								<td><label>{{cus.origin}}</label></td>
+									<td><label>{{cus.datetime}}</label></td>
+									<td><label>{{cus.truckType}}</label></td>
+									<td><label>{{cus.noOfCase}}</label></td>
+									<td><label>{{cus.diffKM}}</label>	</td>
+									<td><label>{{cus.perkmchargecustomer}}</label></td>
+									<td><label>{{cus.advance}}</label></td>
+									<td><label>{{cus.discount}}</label></td>
+									<td><label>{{cus.freightAmtCust}}</label></td>
+								</tr>
+							</tbody> 
+ </table> 
+					
+			</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-info" ng-click="venViewPrint()" >Print</button> -->
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="modal" id="venViewDetailModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Trip Details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+        <div class="row " style="margin-top: 1%;">
+        <div class="col-4"><label class="col-4"><b>Name :</b></label><label class="col-8">{{venviewdetail.venname}}</label></div>
+        <div class="col-4"><label class="col-4"><b>Amount:</b></label><label class="col-8">{{venviewdetail.venviewAmt}}</label></div>
+        <div class="col-4"><label class="col-4"><b>Date :</b></label><label class="col-8">{{venviewdetail.venviewDateAmt}}</label></div>	
+		</div>  
+          <div class="row col-12" >
+          
+					<table  id="manage-cvd-table"  class="table table-bordered table-striped" >
+ <thead>
+								<tr>
+								
+									<th width="15%">Customer</th> 
+									<th width="20%">Invoice Date</th> 
+									<th width="15%">TruckType</th>
+									<th width="15%">No of case</th>
+									<th width="15%">Total kms</th>
+									<th width="15%">Per kms Total</th>
+									<th width="15%">Advance</th>
+									<th width="15%">Discount</th>
+									<th width="15%">Total Freight Amt</th>
+									
+								
+								</tr>
+							</thead>
+ 
+  							<tbody>
+								<tr ng-repeat="cus in vendorViewDetails track by $index">
+								<td><label>{{cus.origin}}</label></td>
+									<td><label>{{cus.datetime}}</label></td>
+									<td><label>{{cus.truckType}}</label></td>
+									<td><label>{{cus.noOfCase}}</label></td>
+									<td><label>{{cus.diffKM}}</label>	</td>
+									<td><label>{{cus.perkmchargecustomer}}</label></td>
+									<td><label>{{cus.advance}}</label></td>
+									<td><label>{{cus.discount}}</label></td>
+									<td><label>{{cus.freightAmtCust}}</label></td>
+								</tr>
+							</tbody> 
+ </table> 
+					
+			</div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-info" ng-click="venViewPrint()" >Print</button> -->
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  

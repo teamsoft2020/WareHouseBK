@@ -137,7 +137,20 @@ public class TripSheetCrudRestApi {
 
 	
 	
+	@RequestMapping(path = "/findtriprecordbycustomerinvoiceid", method = RequestMethod.GET)
+
+	public List<TripSheet> getCustomerInvoiceNo(@RequestParam long customerinvoiceid) {
+
+		return tripSheetService.findTripRecordByCustomerInvoiceId(customerinvoiceid);
+	}
 	
+	
+	@RequestMapping(path = "/findtriprecordbyvendorinvoiceid", method = RequestMethod.GET)
+
+	public List<TripSheet> getVendorInvoiceNo(@RequestParam long vendorinvoiceid) {
+
+		return tripSheetService.findTripRecordByVendorInvoiceId(vendorinvoiceid);
+	}	
 
 	@GetMapping("/test")
 	public String getMap() {

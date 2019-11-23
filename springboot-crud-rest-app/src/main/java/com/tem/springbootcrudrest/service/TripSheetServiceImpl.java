@@ -273,4 +273,17 @@ public class TripSheetServiceImpl implements TripSheetService {
 		}
 		return customervendorobject;
 	}
+
+	@Override
+	public List<TripSheet> findTripRecordByCustomerInvoiceId(long customerinvoiceid) {
+		
+		return tripRepository.findByCustomerInvoiceId(customerinvoiceid);
+	}
+
+	@Override
+	public List<TripSheet> findTripRecordByVendorInvoiceId(long vendorinvoiceid) {
+		
+		return tripRepository.findVendorInvoiceId(vendorinvoiceid);
+		
+	}
 }

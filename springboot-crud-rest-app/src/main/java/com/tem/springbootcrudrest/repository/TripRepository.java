@@ -74,7 +74,11 @@ public interface TripRepository extends JpaRepository<TripSheet, Long> {
 	 
 	//end query for comparisions
 	 
+	 @Query(value="SELECT t FROM TripSheet t WHERE t.customerinvoiceno=:customerinvoiceno") 
+	 public List<TripSheet> findByCustomerInvoiceId(@Param("customerinvoiceno") long customerinvoiceno);
 	 
+	 @Query(value="SELECT t FROM TripSheet t WHERE t.vendorinvoiceno=:vendorinvoiceno") 
+	 public List<TripSheet> findVendorInvoiceId(@Param("vendorinvoiceno") long vendorinvoiceno);
 	 
 	 
 

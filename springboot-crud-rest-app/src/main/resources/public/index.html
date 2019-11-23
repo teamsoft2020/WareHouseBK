@@ -466,6 +466,16 @@ legend {
       margin: 0 auto;
       overflow:auto;
   }
+  
+  #manage-manpowerpay-table th,
+  #manage-manpowerpay-table td {
+      white-space: nowrap;
+  }
+  #manage-manpowerpay-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
  .mandatory{
  color:red;
  font-weight: bold;
@@ -2817,7 +2827,42 @@ $scope.updateVenBilledTrip =function(data){
 		$scope.custviewData.totalAmountInWords = inWords(parseInt($scope.custviewData.netamount));
 		$("#custviewModal").modal("show");
 	}
+	$scope.showCustDetails =function(customer,data,amt,date){
+		 $scope.custviewdetail={custviewAmt:"",custviewDateAmt:"",custname:""};
+		 $scope.customerViewDetails=[];
+		var url=location.origin +"/api/v1/findtriprecordbycustomerinvoiceid?customerinvoiceid="+data;
+		 $http({
+			    method : 'GET',
+			    url : url
+			   }).then(function successCallback(response) {
+			   $scope.customerViewDetails=response.data;
+			   $scope.custviewdetail.custviewAmt=amt;
+			   $scope.custviewdetail.custviewDateAmt=date;
+			   $scope.custviewdetail.custname=customer;
+			   $("#custViewDetailModal").modal("show");
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
 	
+	
+	$scope.showVenDetails =function(customer,data,amt,date){
+		 $scope.venviewdetail={venviewAmt:"",venviewDateAmt:"",venname:""};
+		 $scope.vendorViewDetails=[];
+		var url=location.origin +"/api/v1/findtriprecordbyvendorinvoiceid?vendorinvoiceid="+data;
+		 $http({
+			    method : 'GET',
+			    url : url
+			   }).then(function successCallback(response) {
+			   $scope.vendorViewDetails=response.data;
+			   $scope.venviewdetail.venviewAmt=amt;
+			   $scope.venviewdetail.venviewDateAmt=date;
+			   $scope.venviewdetail.venname=customer;
+			   $("#venViewDetailModal").modal("show");
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
 	$scope.venViewModal =function(data){
 		$scope.venviewData =data;
 		$scope.venviewData.tripRate =(parseInt($scope.venviewData.totalkmpercharge) ? parseInt($scope.venviewData.totalkmpercharge): 0) + (parseInt($scope.venviewData.totalfreightamt) ? parseInt($scope.venviewData.totalfreightamt): 0);
@@ -2887,20 +2932,7 @@ $scope.updateVenBilledTrip =function(data){
 			   });
 	}
 	
-	$scope.getItem =function(){
-		$scope.grandTotal=0;
-		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
-		 $scope.itemJson = []; 
-		 var url=location.origin +"/api/v1/manpowerinvoicestaticfeild";
-		 $http({
-			    method : 'GET',
-			    url : url,
-			   }).then(function successCallback(response) {
-			   $scope.itemJson=response.data;
-			   }, function errorCallback(response) {
-			    console.log(response.statusText);
-			   });
-	}
+	
 	$scope.maptoDescription =function(data){
 		//$scope.manpower.description=data;
 		data.description=data.item;
@@ -2931,7 +2963,22 @@ $scope.updateVenBilledTrip =function(data){
 		}
 		}) 
 	}
-	
+	$scope.getItem =function(){
+		$scope.manpowerBilling={customername:"",customerbranch:"",customerstate:"",grandTotal:0};
+		$scope.savempItem={itemDetails:{}};
+		$scope.grandTotal=0;
+		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
+		 $scope.itemJson = []; 
+		 var url=location.origin +"/api/v1/manpowerinvoicestaticfeild";
+		 $http({
+			    method : 'GET',
+			    url : url,
+			   }).then(function successCallback(response) {
+			   $scope.itemJson=response.data;
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
 	$scope.getCustVenListmanPower =function(){
 		//$scope.custlistJson=[{name:"",branch:""}];
 		$scope.custlistJson=[];
@@ -2972,15 +3019,15 @@ $scope.updateVenBilledTrip =function(data){
 		manpower.sgst= (parseInt(manpower.igst)?parseInt(manpower.igst):0) /2;
 		manpower.total= (parseInt(manpower.withoutTax)?parseInt(manpower.withoutTax):0) +(parseInt(manpower.igst)?parseInt(manpower.igst):0);
 		//$scope.grandItem();
-		if(manpowerBilling.customerstate=="Tamil Nadu"){
+		if($scope.manpowerBilling.customerstate=="Tamil Nadu"){
 			manpower.igst=0;
 		}else{
 			manpower.cgst=0;
 			manpower.sgst=0;
 		}
-		$scope.grandTotal=0;
+		$scope.manpowerBilling.grandTotal=0;
 		 angular.forEach($scope.manpower,function(value,index){
-				$scope.grandTotal +=(parseInt(value.total)?parseInt(value.total):0);
+				$scope.manpowerBilling.grandTotal +=(parseInt(value.total)?parseInt(value.total):0);
 			 });
 	}
 	
@@ -2989,12 +3036,34 @@ $scope.updateVenBilledTrip =function(data){
 	} */
 	
 	 $scope.savemanPowerItem =function(){
-		
+		$scope.savempItem=$scope.manpowerBilling;
+		$scope.savempItem.itemDetails=$scope.manpower;
+		//$scope.savempItem.grandTotal=$scope.grandTotal;
+		  var url=location.origin +"/api/v1/manpowercreate";
+		   $http({
+		        method : 'POST',
+		        url : url,
+		        data : angular.toJson($scope.savempItem),
+		        headers : {
+		        'Content-Type' : 'application/json'
+		        }
+		        }).then(function (response) {
+		        	
+		        console.log(response);
+		           /*  $scope.custPaymentcallBackdata.paymentid=response.data.cuspaymentid;
+		        	angular.forEach($scope.checkedcustPaymentValue, function(list, key) {
+		        		$scope.custPaymentcallBackdata.invoiceid.push(list.customerinvoiceid);
+		        	});
+		        	$scope.updatecustomerInvoice(); */
+		        }, function error(response) {
+		        	toastr.error('Error while Payment process');
+		          console.log(response.status);
+		        }); 
 	}
 	$scope.resetItem=function(){
 		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
 		$scope.grandTotal=0;
-		$scope.manpowerBilling={customername:"",customerbranch:""};
+		$scope.manpowerBilling={customername:"",customerbranch:"",grandTotal:""};
 	}
 	$scope.addRowItem = function(data){
 		$scope.manpower.push({item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0});
@@ -3433,7 +3502,18 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		 $('#datetimepicker_venreceiptDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 		    });
-		 
+		 $('#datetimepicker_custfrompaymp').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_custtopaymp').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_mpreceiptDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_mpinstDate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
 		 $scope.initcustPayment();
 	}
 	
@@ -3449,6 +3529,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	    $scope.initcustPayment =function(){
 	    	$scope.paymentJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
 	    	$scope.customerpaymentList =[];
+	    	$scope.customerpayList =[];
 	    	$scope.customerPayment={fromdate:"",todate:"",customername:""};
 	    	$scope.checkedcustPaymentValue=[];
 	    	$scope.commoncustList={custreceiptDate:"",totalamount:0};
@@ -3458,7 +3539,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 				    method : 'GET',
 				    url : url
 				   }).then(function successCallback(response) {
-				   $scope.customerpaymentList = response.data;
+				   $scope.customerpayList = response.data;
 				   }, function errorCallback(response) {
 				    console.log(response.statusText);
 				   });
@@ -3476,11 +3557,61 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 					    method : 'GET',
 					    url : url
 					   }).then(function successCallback(response) {
-					   $scope.vendorpaymentList = response.data;
+					   $scope.vendorpayList = response.data;
 					   }, function errorCallback(response) {
 					    console.log(response.statusText);
 					   });
 			};
+			
+	$scope.getPayItem =function(){
+		$scope.customermanpowerPay={fromdate:"",todate:"",customername:""};
+    	$scope.checkedmanpowerPaymentValue=[];
+    	$scope.commonmpList={custreceiptDate:"",totalamount:0};
+		 $scope.customervendorpayList=[];
+		 var url=location.origin +"/api/v1/combinenameslist";
+		 $http({
+			    method : 'GET',
+			    url : url,
+			   }).then(function successCallback(response) {
+			   //$scope.listCustJson = response.data;
+			   angular.forEach(response.data,function(value,index){
+				   if(value.customername || value.vendorname){
+					   $scope.customervendorpayList.push(value.customername ? value.customername : value.vendorname);  
+				   }
+				   
+			   });
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
+	
+	$scope.checkmanpowerPayInArray =function(item){
+		 if(item.checked) {
+		      $scope.checkedmanpowerPaymentValue.push(item);
+		    } else {
+		       var newIndex = $scope.checkedmanpowerPaymentValue.map(function(e) { return e.customerinvoiceid; }).indexOf(item.customerinvoiceid);
+		       // for compare instead of "loadNo" you should use that field is unique. ie: e.uniqueField
+		       // and $scope.customerInvoiceJson[index].uniqueField
+		       if(newIndex !== -1)
+		          $scope.checkedmanpowerPaymentValue.splice(newIndex,1);
+		    }
+	 }
+	$scope.calculatemanpowerpaymentTotal =function(){
+ 		$scope.commonmpList={custreceiptDate:"",totalamount:0};
+ 		$scope.mppaymentJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
+ 		$scope.existCustomerName=$scope.checkedmanpowerPaymentValue[0].customername;
+ 		angular.forEach($scope.checkedmanpowerPaymentValue, function(value, key) {
+ 			if($scope.existCustomerName == value.customername){
+ 				$scope.commonmpList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;
+ 			}else{
+ 				toastr.warning('Please check same customer');
+ 				$scope.commonmpList.totalamount =0;
+ 				$scope.existCustomerName="";
+ 				return;
+ 			}
+ 			
+		});
+ 	}
 	$scope.navRedirect =function(event){
 		
 		 $(".nav").find(".active").removeClass("active");
@@ -3490,16 +3621,26 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#Payment').hide();
 			  $('#Receipt').hide();
 			  $('#view').show();
+			  $('#manpowerReceipt').hide();
 		  }else if(currEvent =="vendorPayment"){
 			  $('#Payment').hide();
 			  $('#Receipt').show();
 			  $('#view').hide();
+			  $('#manpowerReceipt').hide();
 			  $scope.initvenPayment();
+		  }else if(currEvent =="manpowerReceipt"){
+			  $('#Payment').hide();
+			  $('#Receipt').hide();
+			  $('#view').hide();
+			  $('#manpowerReceipt').show();
+			  $scope.getPayItem();
+			  //$scope.getCustVenListmanPowerpay();
 		  }else{
 			  $('#Payment').show();
 			  $('#Receipt').hide();
 			  $('#view').hide();
-			  $scope.initcustPayment();
+			  $('#manpowerReceipt').hide();
+			  //$scope.initcustPayment();
 		  }
 	}
 	$scope.init_Inst();
