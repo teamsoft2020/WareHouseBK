@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.tem.springbootcrudrest.model.State;
 import com.tem.springbootcrudrest.staticdata.model.ManpowerInvoiceStaticFeild;
 import com.tem.springbootcrudrest.staticdata.model.TruckRate;
 
@@ -13,5 +14,7 @@ public interface StaticObjectService {
 	public List<ManpowerInvoiceStaticFeild> findManpowerInvoiceStaticData();
 	
 	public List<TruckRate> findTruckRateStaticData();
+	
+	public List<State> findStateStaticData();
 	
 }

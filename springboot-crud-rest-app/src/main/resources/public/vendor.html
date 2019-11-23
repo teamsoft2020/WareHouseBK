@@ -82,6 +82,7 @@
             </tr> -->
              <tr>
              <!--  <td colspan="1" class="venId"><span class="labelfont">Id</span></td> -->
+             <td colspan="1" ><span class="labelfont">VendorCode</span><span class="mandatory">*</span></td>
           	  <td colspan="1" ><span class="labelfont">VendorName</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">TAN</span></td>
 	          <td colspan="1"><span class="labelfont">KYC</span></td>
@@ -141,6 +142,7 @@
             
             <tr>
 	          <td colspan="1"><span class="labelfont">Address</span><span class="mandatory">*</span></td>
+	          <td colspan="1"><span class="labelfont">State</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">MobileNo</span><span class="mandatory">*</span></td>
 	          <td colspan="1"><span class="labelfont">PhoneNo</span></td>
 	          <td colspan="1"><span class="labelfont">GSTIN</span><span class="mandatory">*</span></td>
@@ -151,6 +153,12 @@
               </td>
               <td colspan="1">
 				<textarea rows = "1" cols = "22" name = "description" ng-model="vendorDetail.vendoraddr" placeholder="Enter your Addr"> </textarea>
+              </td>
+              <td colspan="1">
+                <input type='text' list="datavendorstate" ng-model="vendorDetail.state" placeholder="State" />
+                <datalist id="datavendorstate" >
+				  <option ng-repeat="state in listvenStateJson" value="{{state.statename}}">{{state.statename}}</option> 
+				</datalist>
               </td>
               <td colspan="1">
                 <input type='text' ng-model="vendorDetail.mobileno" placeholder="MobileNo" numeric-regex/>

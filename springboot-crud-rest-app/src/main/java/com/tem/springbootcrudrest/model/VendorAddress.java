@@ -27,6 +27,9 @@ public class VendorAddress {
 	@Column(name = "vendoraddr")
 	private String vendoraddr;
 	
+	@Column(name = "state")
+	private String state;
+
 	@Column(name = "mobileno")
 	private String mobileno;
 	
@@ -65,7 +68,13 @@ public class VendorAddress {
 	public void setMobileno(String mobileno) {
 		this.mobileno = mobileno;
 	}
+	public String getState() {
+		return state;
+	}
 
+	public void setState(String state) {
+		this.state = state;
+	}
 	public String getPhoneno() {
 		return phoneno;
 	}

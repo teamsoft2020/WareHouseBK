@@ -599,43 +599,51 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 <div class="borderDiv">
 <div class="div_DD col-12 border-rad" style="/* width:50%; *//* height: 52%; */border-bottom: 1px solid #dee2e6;background: #283f51;" id="Div51" name="Div51" ondragstart="dragIn(event)" onclick="selectComponent(event)">
-<h2 style="/* margin: 0 auto; */font-size: 14px;color: white;text-align: center;/* font-weight: bold; */text-transform: uppercase;/* font-family: Times New Romen; *//* margin-top: 1%; */">Man Power Billing</h2>
+<h2 style="/* margin: 0 auto; */font-size: 14px;color: white;text-align: center;/* font-weight: bold; */text-transform: uppercase;padding-top: 6px;">Man Power Billing</h2>
 </div>
 <div class="row pad1">
-<div class="col-6">
+<div class="col-4">
 <label class="col-6"><b>Customer Name</b></label>
-<input type="text" list="datacustList" ng-model="manpowerBilling.customername" class="inputbox" placeholder="Select CustomerName" />  
+<input type="text" list="datacustList" ng-model="manpowerBilling.customername" class="inputbox" ng-change="loadbindData(manpowerBilling.customername)" placeholder="Select CustomerName" />  
  <datalist id="datacustList" >
- <option ng-repeat="b in custlistJson" value="{{b}}">{{b}}</option> 
+ <option ng-repeat="b in custlistJson" value="{{b.name}}">{{b.name}}</option> 
 </datalist>
 </div>
-<div class="col-6">
+<div class="col-4">
 <label class="col-6"><b>Customer Branch</b> </label>
-<input type="text" list="dataList" ng-model="manpowerBilling.customerbranch" class="inputbox " placeholder="Select Customer Branch" />  
- <datalist id="dataList" >
+<input type="text" list="dataListbranch" ng-model="manpowerBilling.customerbranch" class="inputbox " ng-change="loadbindStateData(manpowerBilling.customerbranch)" placeholder="Select Customer Branch" />  
+ <datalist id="dataListbranch" >
+  <option ng-repeat="b in custAddr" value="{{b.customerAddr}}">{{b.customerAddr}}</option> 
+<!-- <option ng-repeat="b in trucknoJson" value="{{b.vehicleNo}}"></option> -->
+</datalist>
+
+</div>
+<div class="col-4">
+<label class="col-6"><b>State</b> </label>
+<input type="text" list="dataListstate" ng-model="manpowerBilling.customerstate" class="inputbox "  disabled/>  
+ <datalist id="dataListstate" >
+  <option ng-repeat="b in custAddr" value="{{b.state}}" >{{b.state}}</option> 
 <!-- <option ng-repeat="b in trucknoJson" value="{{b.vehicleNo}}"></option> -->
 </datalist>
 
 </div>
 </div>
-<div class="row pad1">
+<!--<div class="row pad1">
 <div class="col-6">
 <label class="col-6"><b>Item</b></label>
 <input type="text" list="dataList" ng-model="manpowerBilling.item" class="inputbox" placeholder="Select Item" />  
  <datalist id="dataList" >
-<!-- <option ng-repeat="b in trucknoJson" value="{{b.vehicleNo}}"></option> -->
 </datalist>
 </div>
 <div class="col-6">
 <label class="col-6"><b>Tax</b> </label>
 <input type="text" list="dataList" ng-model="manpowerBilling.tax" class="inputbox" placeholder="Select Tax" />  
  <datalist id="dataList" >
-<!-- <option ng-repeat="b in trucknoJson" value="{{b.vehicleNo}}"></option> -->
 </datalist>
 
 </div>
 </div>
-<div class="row pad1">
+ <div class="row pad1">
 <div class="col-6">
 <label class="col-6"><b>Amount</b></label>
 <input type="text" ng-model="manpowerBilling.amount" class="inputbox" placeholder="Select Amount" />  
@@ -644,7 +652,7 @@
 <label class="col-6"><b>Qty</b> </label>
 <input type="number" ng-model="manpowerBilling.qty" class="inputbox" placeholder="Select Qty" />  
 </div>
-</div>
+</div> 
 
 <div class="row pad1">
 <div class="col-6">
@@ -652,13 +660,53 @@
 <input type="text" ng-model="manpowerBilling.totaltaxable" class="inputbox" placeholder="Select Total" />  
 </div>
 
-</div>
+</div>-->
 	</div>	
-	
+	<div class="pad1">
+	<table  id="manage-manpower-table"  class="table table-bordered table-striped" >
+ <thead>
+								<tr>
+									<th width="15%">Item</th>
+									<th width="15%">Description</th>
+									<th width="15%">HSN Code</th>
+									<th width="12%">QTY</th>
+									<th width="12%">Unit Price</th>
+									<th width="12%">Tax Percentage</th>
+									<th width="12%">Total</th>
+									<th width="15%"></th>
+								</tr>
+							</thead>
+ 
+  							<tbody>
+								<tr  ng-repeat="manpowerItem in manpower track by $index">
+										<td><input type="text" class="form-control" list="dataitemList" ng-model="manpowerItem.item" placeholder="Select Tax" ng-change="maptoDescription(manpowerItem)"/>  
+											<datalist id="dataitemList">
+											<option ng-repeat="item in itemJson" value="{{item.itemname}}">{{item.itemname}}</option>
+											</datalist>
+										</td>
+										<td><textarea class="form-control" ng-model="manpowerItem.description" rows="2"></textarea></td>
+										<td><input type="text" class="form-control"ng-model="manpowerItem.hsn" placeholder="Select Hsn" disabled/> </td>
+										<td><input type="number" class="form-control"ng-model="manpowerItem.quantity" placeholder="Enter Qty"  ng-blur="getTotalItem(manpowerItem)" /></td>
+										<td><input type="number" class="form-control"ng-model="manpowerItem.unitprice"  ng-blur="getTotalItem(manpowerItem)" /></td>
+										<td><input type="text" class="form-control"ng-model="manpowerItem.taxpercentage"  disabled/></td>
+										<td><input type="number" class="form-control"ng-model="manpowerItem.total"  disabled/></td>
+										<td >
+										<i class="fa fa-plus-circle fa-lg" aria-hidden="true" ng-click="addRowItem(manpowerItem);"></i>
+										<i class="fa fa-trash fa-lg" aria-hidden="true" ng-show="$index > 0" ng-click="deleteRowItem($index);"></i>
+										</td>
+										</tr>
+							</tbody> 
+ </table> 
+	</div>
+	<div class="row" style="margin-top: 1%;">
+	<div class="col-8"></div>
+					<label class="col-2"><b>Grand Total</b></label>
+					<input type="text" class="form-control col-2" ng-model="grandTotal"  disabled/>
+					</div>
 	<div class="pull-right" style="margin-top: 2%;">
 					<!-- <input name="" type="button" class="btn btn-primary" id="" value="Print"  ng-click="venInvoicePrint()" style="margin-left: -20%;"> -->
-					<input name="" type="button" class="btn btn-primary" id="" value="Save &amp; Print" >
-					<input name="" type="button" class="btn btn-primary" id="" value="Reset"  style="margin-left: 0%;">
+					<input name="" type="button" class="btn btn-primary" id="" ng-click="savemanPowerItem();"  value="Save &amp; Print" >
+					<input name="" type="button" class="btn btn-primary" id="" value="Reset" ng-click="resetItem();" style="margin-left: 0%;">
 					</div>      			
 </div>
 					

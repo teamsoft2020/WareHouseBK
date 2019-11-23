@@ -30,6 +30,8 @@ public class CustomerDetails {
 		private long customerDetailId;
 		@Column(name = "Customer_Addr", nullable = false)
 		private String customerAddr;
+		@Column(name = "State", nullable = false)
+		private String state;
 		@Column(name = "MobileNo", nullable = false)
 		private String mobileNo;
 		@Column(name = "phoneNo", nullable = false)
@@ -70,7 +72,12 @@ public class CustomerDetails {
 		public void setCustomerAddr(String customerAddr) {
 			this.customerAddr = customerAddr;
 		}
-		
+		public String getState() {
+			return state;
+		}
+		public void setState(String state) {
+			this.state = state;
+		}
 		public String getMobileNo() {
 			return mobileNo;
 		}

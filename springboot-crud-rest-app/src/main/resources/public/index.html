@@ -812,11 +812,11 @@ $(".addCust").css("display","block");
 $(".updateCust").css("display","none");
 
 $scope.item = {customercode:"",customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
-$scope.item.customerDetails = [{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
+$scope.item.customerDetails = [{customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""}];
 }
 
 $scope.addCustomerDetails = function(data){
-	$scope.item.customerDetails.push({customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""});
+	$scope.item.customerDetails.push({customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""});
 
 }
 
@@ -855,6 +855,9 @@ $scope.addItem = function(item) {
 	}else if(item.customerDetails[0].customerAddr==""){
 		 toastr.error('Please enter Address');
 			return;
+	}else if(item.customerDetails[0].state==""){
+		 toastr.error('Please enter State');
+			return;
 	}else if(item.customerDetails[0].mobileNo==""){
 		 toastr.error('Please enter Mobile No');
 			return;
@@ -881,7 +884,7 @@ $scope.addItem = function(item) {
 	          console.log(response.status);
 	        });
 	    $scope.item = {customercode:"",customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
-	    $scope.item.customerDetails=[{customerAddr: "",mobileNo: "",phoneNo: "",gstin: ""}];
+	    $scope.item.customerDetails=[{customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""}];
 	}
 	   
 }
@@ -953,7 +956,20 @@ for(i in $scope.listCustomerJson) {
 		    console.log(response.statusText);
 		   });
  }
+$scope.initcustState =function(){
+	 
+	 var url=location.origin +"/api/v1/statestaticdata";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listStateJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
+ }
  $scope.initcust();
+ $scope.initcustState();
 });
 app.controller('VendorController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
 	$scope.listVendorJson=[];
@@ -963,7 +979,7 @@ app.controller('VendorController', function ($scope ,$http,$location,DTOptionsBu
 	                        {vendorid: "4444",vendorName: "QWERT",pan: "12354EWRWE",tan: "12354DFGDD",kyc: "123544UGDSCF" ,iec: "12354UUFFA",bankName:"AXIS",branch:"Chennai",accountNo:"232434",ifsc:"ICIC0003",contactPerson:"Dinesh",contactNo:"868755487",vendorVehicle:[{drivername: "Siva",mobileno: "234234",vehicleno: "555",vehicleType: "CAN3",FC: "4455",insurance: "555",RCno: "888",roadTax: "33",pollutioncert: "4324",goodPermit: "23423",statePermit: "2342"}], vendorAddress:[{ vendoraddr: "3,sri street,mumbai", mobileno: "123544", phoneno: "123544",gstin: "12354RTUGF"}]}];	 */ 		
 	
     $scope.item = {vendorcode:"",vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
-    $scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+    $scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",state:"",mobileno: "",phoneno: "",gstin: ""}];
     $scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
                         
 	$scope.vm = {};
@@ -998,12 +1014,12 @@ $(".venId").css("display","");
 $(".addVen").css("display","block");
 $(".updateVen").css("display","none");
 $scope.item = {vendorcode:"",vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
-$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",state:"",mobileno: "",phoneno: "",gstin: ""}];
 $scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
 }
 
 $scope.addVendorDetails = function(data){
-	$scope.item.vendorAddress.push({vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""});
+	$scope.item.vendorAddress.push({vendoraddrid:"",vendoraddr: "",state:"",mobileno: "",phoneno: "",gstin: ""});
 
 }
 $scope.addVendorVehDetails = function(data){
@@ -1049,6 +1065,9 @@ $scope.addItem = function(item) {
 	}else if(item.vendorAddress[0].customerAddr==""){
 		 toastr.error('Please enter Address');
 			return;
+	}else if(item.vendorAddress[0].state==""){
+		 toastr.error('Please enter State');
+			return;
 	}else if(item.vendorAddress[0].mobileno==""){
 		 toastr.error('Please enter Mobile No');
 			return;
@@ -1075,7 +1094,7 @@ $scope.addItem = function(item) {
 			          console.log(response.status);
 			        });
 	    $scope.item = {vendorcode:"",vendorname:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:""};
-		$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",mobileno: "",phoneno: "",gstin: ""}];
+		$scope.item.vendorAddress=[{vendoraddrid:"",vendoraddr: "",state:"",mobileno: "",phoneno: "",gstin: ""}];
 		$scope.item.vendorvehicle = [{driverName: "",mobileNo: "",vehicleNo: "",vehicleType: "",fc: "",insurance: "",rCNo: "",roadTax: "",pollutioncert: "",goodPermit: "",statePermit: "",fcdate:"",insurancedate:"",fixedamt:"",perkmamt:""}];
 	}
 	
@@ -1145,9 +1164,21 @@ $scope.initven =function(){
 		    console.log(response.statusText);
 		   });
 }
-
+$scope.initvenState =function(){
+	 
+	 var url=location.origin +"/api/v1/statestaticdata";
+	 $http({
+		    method : 'GET',
+		    url : url,
+		   }).then(function successCallback(response) {
+		   $scope.listvenStateJson = response.data;
+		   }, function errorCallback(response) {
+		    console.log(response.statusText);
+		   });
+}
 
 $scope.initven();
+$scope.initvenState();
 
 });
 app.controller('EmployeeController', function ($scope ,$http,$location,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder,toastr) {
@@ -1597,7 +1628,7 @@ app.controller('VehicleController', function ($scope, $timeout,$window ,$filter,
 	$scope.calculateDate=function(startDate,endDate){
 			 startDate =new Date(startDate)
 			endDate = new Date(endDate)
-		if(startDate <= endDate){ 	
+		if(startDate < endDate){ 	
 		 var diff = endDate.getTime() - startDate.getTime();
 	        var days = Math.floor(diff / (60 * 60 * 24 * 1000));
 	        var hours = Math.floor(diff / (60 * 60 * 1000)) - (days * 24);
@@ -1918,7 +1949,12 @@ $scope.getCustVenList =function(){
 		    url : url,
 		   }).then(function successCallback(response) {
 		   //$scope.listCustJson = response.data;
-		   $scope.listdataJson=response.data;
+		   angular.forEach(response.data,function(value,index){
+			   if(value.customername || value.vendorname){
+				   $scope.listdataJson.push(value.customername ? value.customername : value.vendorname);  
+			   }
+			   
+		   });
 		   }, function errorCallback(response) {
 		    console.log(response.statusText);
 		   });
@@ -2851,17 +2887,120 @@ $scope.updateVenBilledTrip =function(data){
 			   });
 	}
 	
-	$scope.getCustVenList =function(){
+	$scope.getItem =function(){
+		$scope.grandTotal=0;
+		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
+		 $scope.itemJson = []; 
+		 var url=location.origin +"/api/v1/manpowerinvoicestaticfeild";
+		 $http({
+			    method : 'GET',
+			    url : url,
+			   }).then(function successCallback(response) {
+			   $scope.itemJson=response.data;
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
+	$scope.maptoDescription =function(data){
+		//$scope.manpower.description=data;
+		data.description=data.item;
+		//angular.forEach($scope.manpower,function(item,i){
+			angular.forEach($scope.itemJson,function(value,index){
+				 if(value.itemname==data.item){
+					 data.hsn =value.hsncode;
+					 data.taxpercentage=value.taxpercentage;
+				 }
+			 });
+		$scope.getTotalItem(data);
+		 
+	}
+	$scope.loadbindData =function(data){
+		$scope.manpowerBilling.customerbranch="";
+		 angular.forEach($scope.custlistJson,function(value,index){
+		if(data==value.name){
+			$scope.custAddr=value.address;
+		}
+		}) 
+		//$scope.manpowerBilling.customerstate="";
+	}
+	$scope.loadbindStateData =function(data){
+		//$scope.manpowerBilling.customerbranch="";
+		 angular.forEach($scope.custAddr,function(value,index){
+		if(data==value.customerAddr){
+			$scope.manpowerBilling.customerstate=value.state;
+		}
+		}) 
+	}
+	
+	$scope.getCustVenListmanPower =function(){
+		//$scope.custlistJson=[{name:"",branch:""}];
+		$scope.custlistJson=[];
+		 $scope.users={name:"",address:""};
 		 var url=location.origin +"/api/v1/combinenameslist";
 		 $http({
 			    method : 'GET',
 			    url : url,
 			   }).then(function successCallback(response) {
 			   //$scope.listCustJson = response.data;
-			   $scope.custlistJson=response.data;
+			   angular.forEach(response.data,function(value,index){
+				   if(value.customername || value.vendorname){
+					   $scope.users.name=value.customername ? value.customername : value.vendorname;
+					   
+					   if(value.customerDetails==undefined){
+						   $scope.users.address=value.vendorAddress;
+						  // $scope.users.state=value.vendorAddress[0].state ? value.vendorAddress[0].state : "";
+					   }else if(value.vendorAddress==undefined){
+						   $scope.users.address=value.customerDetails;
+						   //$scope.users.state=value.customerDetails[0].state ? value.customerDetails[0].state : "";
+					   }
+					   
+					   $scope.custlistJson.push(angular.copy($scope.users));
+					   //$scope.custlistJson.push(value.customername ? value.customername : value.vendorname);  
+				   }
+				  
+			   });
+			
 			   }, function errorCallback(response) {
 			    console.log(response.statusText);
 			   });
+	}
+	$scope.getTotalItem =function(manpower){
+		
+		manpower.withoutTax =(parseInt(manpower.quantity)?parseInt(manpower.quantity):0) * (parseInt(manpower.unitprice)?parseInt(manpower.unitprice):0);
+		manpower.igst= (parseInt(manpower.withoutTax)?parseInt(manpower.withoutTax):0) * ((parseInt(manpower.taxpercentage)?parseInt(manpower.taxpercentage):0)/100);
+		manpower.cgst= (parseInt(manpower.igst)?parseInt(manpower.igst):0) /2;
+		manpower.sgst= (parseInt(manpower.igst)?parseInt(manpower.igst):0) /2;
+		manpower.total= (parseInt(manpower.withoutTax)?parseInt(manpower.withoutTax):0) +(parseInt(manpower.igst)?parseInt(manpower.igst):0);
+		//$scope.grandItem();
+		if(manpowerBilling.customerstate=="Tamil Nadu"){
+			manpower.igst=0;
+		}else{
+			manpower.cgst=0;
+			manpower.sgst=0;
+		}
+		$scope.grandTotal=0;
+		 angular.forEach($scope.manpower,function(value,index){
+				$scope.grandTotal +=(parseInt(value.total)?parseInt(value.total):0);
+			 });
+	}
+	
+	/* $scope.grandItem =function(){
+		
+	} */
+	
+	 $scope.savemanPowerItem =function(){
+		
+	}
+	$scope.resetItem=function(){
+		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
+		$scope.grandTotal=0;
+		$scope.manpowerBilling={customername:"",customerbranch:""};
+	}
+	$scope.addRowItem = function(data){
+		$scope.manpower.push({item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0});
+	}
+	$scope.deleteRowItem = function(index){
+		$scope.manpower.splice(index,1);
 	}
 	$scope.navRedirect =function(event){
 		 $(".nav").find(".active").removeClass("active");
@@ -2878,6 +3017,7 @@ $scope.updateVenBilledTrip =function(data){
 			  $('#VendorInvoice').show();
 			  $('#customerView').hide();
 			  $('#VendorInvoice').addClass("active");
+			  $('#vendorView').hide();
 			  $scope.getTotalTruckNo();
 			  var vm = $scope;
 				vm.dtInstanceCallback = function(instance) {
@@ -2898,6 +3038,7 @@ $scope.updateVenBilledTrip =function(data){
 			  $('#CustomerInvoice').addClass("active");
 			  $('#VendorInvoice').hide();
 			  $('#customerView').hide();
+			  $('#vendorView').hide();
 			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		  }else if(currEvent =="manPowerBilling"){
 			  $('#manPowerBilling').show();
@@ -2905,7 +3046,9 @@ $scope.updateVenBilledTrip =function(data){
 			  $('#CustomerInvoice').hide();
 			  $('#VendorInvoice').hide();
 			  $('#customerView').hide();
-			  $scope.getCustVenList();
+			  $('#vendorView').hide();
+			  $scope.getCustVenListmanPower();
+			  $scope.getItem();
 			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:""};
 		  }else{
 			  $('#vendorView').show();

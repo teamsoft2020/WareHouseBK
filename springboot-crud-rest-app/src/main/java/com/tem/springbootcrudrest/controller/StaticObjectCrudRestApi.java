@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tem.springbootcrudrest.model.State;
 import com.tem.springbootcrudrest.service.StaticObjectService;
 import com.tem.springbootcrudrest.staticdata.model.ManpowerInvoiceStaticFeild;
 import com.tem.springbootcrudrest.staticdata.model.TruckRate;
@@ -28,6 +29,13 @@ public class StaticObjectCrudRestApi {
 	@GetMapping("/truckratestaticdata")
 	public List<TruckRate> findTruckRateStaticData() {
 		List<TruckRate> findTruckRateData = staticObjectService.findTruckRateStaticData();
+		
+		return findTruckRateData;
+	}
+	
+	@GetMapping("/statestaticdata")
+	public List<State> findStateStaticData() {
+		List<State> findTruckRateData = staticObjectService.findStateStaticData();
 		
 		return findTruckRateData;
 	}
