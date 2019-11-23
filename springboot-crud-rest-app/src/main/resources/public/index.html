@@ -2967,7 +2967,7 @@ $scope.updateVenBilledTrip =function(data){
 		}) 
 	}
 	$scope.getItem =function(){
-		$scope.manpowerBilling={customername:"",customerbranch:"",customerstate:"",grandTotal:0};
+		$scope.manpowerBilling={customername:"",customerbranch:"",customerstate:"",grandTotal:0,invoicedate:""};
 		$scope.savempItem={itemDetails:{}};
 		$scope.grandTotal=0;
 		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
@@ -3053,11 +3053,9 @@ $scope.updateVenBilledTrip =function(data){
 		        }).then(function (response) {
 		        	
 		        console.log(response);
-		           /*  $scope.custPaymentcallBackdata.paymentid=response.data.cuspaymentid;
-		        	angular.forEach($scope.checkedcustPaymentValue, function(list, key) {
-		        		$scope.custPaymentcallBackdata.invoiceid.push(list.customerinvoiceid);
-		        	});
-		        	$scope.updatecustomerInvoice(); */
+		        	if(response.status==200){
+		        		toastr.success('Added Successfully...');
+		        	}
 		        }, function error(response) {
 		        	toastr.error('Error while Payment process');
 		          console.log(response.status);

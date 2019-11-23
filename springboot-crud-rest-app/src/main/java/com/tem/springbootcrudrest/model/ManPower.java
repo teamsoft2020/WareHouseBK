@@ -35,6 +35,9 @@ public class ManPower {
 	@Column(name = "customerstate")
 	private String customerstate;
 	
+	@Column(name = "invoicedate")
+	private String invoicedate;
+	
 	@Column(name = "grandTotal")
 	private String grandTotal;
 	
@@ -73,7 +76,13 @@ public class ManPower {
 	public void setCustomerstate(String customerstate) {
 		this.customerstate = customerstate;
 	}
+	public String getInvoicedate() {
+		return invoicedate;
+	}
 
+	public void setInvoicedate(String invoicedate) {
+		this.invoicedate = invoicedate;
+	}
 	public String getGrandTotal() {
 		return grandTotal;
 	}
