@@ -33,4 +33,17 @@ public class ManPowerServiceImpl implements ManPowerService {
 		}
 	}
 
+	@Override
+	public List<ManPower> findCustomerByFromDateToDateCustNameFromManPowerCompleteStatus(String fromdate, String todate,
+			String customername) {
+		if (fromdate != null && todate != null && customername != null) {
+			return manPowerRepository.findManPowerCustomerByFromDateToDateAndCustomerNameCompletedStatus(customername, fromdate,
+					todate);
+		} else if (fromdate != null && todate != null) {
+			return manPowerRepository.findManPowerCustomerByFromDateToDateCompletedStatus(fromdate, todate);
+		} else {
+			return manPowerRepository.findManPowerCustomerByCustomerNameCompletedStatus(customername);
+		}
+	}
+
 }

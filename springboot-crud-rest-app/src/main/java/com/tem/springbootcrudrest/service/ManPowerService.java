@@ -12,4 +12,6 @@ public interface ManPowerService {
 	ManPower createManPower(ManPower manPower);
 	
 	List<ManPower> findCustomerByFromDateToDateCustNameFromManPower(String fromdate, String todate,String customername);
+	
+	List<ManPower> findCustomerByFromDateToDateCustNameFromManPowerCompleteStatus(String fromdate, String todate,String customername);
 }

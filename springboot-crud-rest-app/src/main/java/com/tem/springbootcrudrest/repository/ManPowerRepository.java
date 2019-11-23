@@ -16,15 +16,28 @@ import com.tem.springbootcrudrest.model.ManPower;
 public interface ManPowerRepository extends JpaRepository<ManPower, Long>{
 
 	
-	@Query(value = "select m From ManPower m where m.customername=:customername and m.invoicedate between :fromdate and :todate")
+	@Query(value = "select m From ManPower m where m.status='Pending' and m.customername=:customername and m.invoicedate between :fromdate and :todate")
 	public List<ManPower> findManPowerCustomerByFromDateToDateAndCustomerName(@Param("customername") String customername,@Param("fromdate") String fromdate,
 			@Param("todate") String todate);
 	
-	@Query(value = "select m From ManPower m where m.invoicedate between :fromdate and :todate")
+	@Query(value = "select m From ManPower m where m.status='Pending' and m.invoicedate between :fromdate and :todate")
 	public List<ManPower> findManPowerCustomerByFromDateToDate(@Param("fromdate") String fromdate,
 			@Param("todate") String todate);
 	
 	
-	@Query(value = "select m From ManPower m where m.customername=:customername")
+	@Query(value = "select m From ManPower m where m.status='Pending'and m.customername=:customername")
 	public List<ManPower> findManPowerCustomerByCustomerName(@Param("customername") String customername);
+	
+	
+	@Query(value = "select m From ManPower m where m.status='Completed' and m.customername=:customername and m.invoicedate between :fromdate and :todate")
+	public List<ManPower> findManPowerCustomerByFromDateToDateAndCustomerNameCompletedStatus(@Param("customername") String customername,@Param("fromdate") String fromdate,
+			@Param("todate") String todate);
+	
+	@Query(value = "select m From ManPower m where m.status='Completed' and m.invoicedate between :fromdate and :todate")
+	public List<ManPower> findManPowerCustomerByFromDateToDateCompletedStatus(@Param("fromdate") String fromdate,
+			@Param("todate") String todate);
+	
+	
+	@Query(value = "select m From ManPower m where m.status='Completed' and m.customername=:customername")
+	public List<ManPower> findManPowerCustomerByCustomerNameCompletedStatus(@Param("customername") String customername);
 }

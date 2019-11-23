@@ -31,10 +31,18 @@ public class ManPowerCrudRestApi {
 	}
 	
 	@RequestMapping(path = "/listcustomerbydatename", method = RequestMethod.GET)
-
 	public List<ManPower> findCustomerByFromDateToDateCustNameFromManPower(@RequestParam(required = false) String fromdate, @RequestParam(required = false) String todate,@RequestParam(required = false) String customername) {
 
 		List<ManPower> tripSheetList = manPowerService.findCustomerByFromDateToDateCustNameFromManPower(fromdate, todate,customername);
+
+		return tripSheetList;
+	}
+	
+	
+	@RequestMapping(path = "/listcustomerbydatenamecompletestatus", method = RequestMethod.GET)
+	public List<ManPower> findCustomerByFromDateToDateCustNameFromManPowerCompleteStatus(@RequestParam(required = false) String fromdate, @RequestParam(required = false) String todate,@RequestParam(required = false) String customername) {
+
+		List<ManPower> tripSheetList = manPowerService.findCustomerByFromDateToDateCustNameFromManPowerCompleteStatus(fromdate, todate,customername);
 
 		return tripSheetList;
 	}

@@ -41,6 +41,9 @@ public class ManPower {
 	@Column(name = "grandTotal")
 	private String grandTotal;
 	
+	@Column(name = "status")
+	private String status;
+	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "customerstateDetails", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ManPowerItems> itemDetails;
