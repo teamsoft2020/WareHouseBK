@@ -2363,6 +2363,9 @@ app.controller('BillingController',function ($compile,$scope, $window,DTOptionsB
 			$('#datetimepicker_veninvoicedate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 			});
+			$('#datetimepicker_mpinvoicedate').datetimepicker({
+		        format: 'DD/MM/YYYY'
+			});
 			var bm = $scope;
 			bm.dtInstanceCallback = function(instance) {
 			 	bm.dtInstance = instance;

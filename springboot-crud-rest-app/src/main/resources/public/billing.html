@@ -667,12 +667,13 @@
  <thead>
 								<tr>
 									<th width="15%">Item</th>
-									<th width="15%">Description</th>
-									<th width="15%">HSN Code</th>
-									<th width="12%">QTY</th>
-									<th width="12%">Unit Price</th>
-									<th width="12%">Tax Percentage</th>
-									<th width="12%">Total</th>
+									<th width="15%">Date</th>
+									<th width="12%">Description</th>
+									<th width="10%">HSN Code</th>
+									<th width="10%">QTY</th>
+									<th width="10%">Unit Price</th>
+									<th width="10%">Tax Percentage</th>
+									<th width="10%">Total</th>
 									<th width="15%"></th>
 								</tr>
 							</thead>
@@ -683,6 +684,14 @@
 											<datalist id="dataitemList">
 											<option ng-repeat="item in itemJson" value="{{item.itemname}}">{{item.itemname}}</option>
 											</datalist>
+										</td>
+										<td>
+										<div class="input-group date" id="datetimepicker_mpinvoicedate" data-target-input="nearest">
+								           <input type="text"  ng-model="manpowerItem.invoicedate" class="form-control datetimepicker-input" data-target="#datetimepicker_mpinvoicedate" placeholder="Bill Date">
+								           <div class="input-group-append" data-target="#datetimepicker_mpinvoicedate" data-toggle="datetimepicker">
+								               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+								           </div>
+								       </div>
 										</td>
 										<td><textarea class="form-control" ng-model="manpowerItem.description" rows="2"></textarea></td>
 										<td><input type="text" class="form-control"ng-model="manpowerItem.hsn" placeholder="Select Hsn" disabled/> </td>
