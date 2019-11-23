@@ -44,6 +44,9 @@ public class ManPower {
 	@Column(name = "status")
 	private String status;
 	
+	@Column(name = "customervendorpaymentid")
+	private long customervendorpaymentid;
+	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "customerstateDetails", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ManPowerItems> itemDetails;
@@ -100,5 +103,21 @@ public class ManPower {
 
 	public void setItemDetails(List<ManPowerItems> itemDetails) {
 		this.itemDetails = itemDetails;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public long getCustomervendorpaymentid() {
+		return customervendorpaymentid;
+	}
+
+	public void setCustomervendorpaymentid(long customervendorpaymentid) {
+		this.customervendorpaymentid = customervendorpaymentid;
 	}
 }

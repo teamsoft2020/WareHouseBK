@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tem.springbootcrudrest.model.ManPower;
+import com.tem.springbootcrudrest.model.ManPowerPaymentUpdateInManPowerInvoice;
 
 @Service
 public interface ManPowerService {
@@ -14,4 +15,6 @@ public interface ManPowerService {
 	List<ManPower> findCustomerByFromDateToDateCustNameFromManPower(String fromdate, String todate,String customername);
 	
 	List<ManPower> findCustomerByFromDateToDateCustNameFromManPowerCompleteStatus(String fromdate, String todate,String customername);
+	
+	List<ManPower> updateCustPaymentFromCusPayment(ManPowerPaymentUpdateInManPowerInvoice manPowerPaymentUpdateInManPowerInvoice);
 }

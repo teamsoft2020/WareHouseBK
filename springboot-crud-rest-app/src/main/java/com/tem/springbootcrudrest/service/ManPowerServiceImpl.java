@@ -1,11 +1,13 @@
 package com.tem.springbootcrudrest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tem.springbootcrudrest.model.ManPower;
+import com.tem.springbootcrudrest.model.ManPowerPaymentUpdateInManPowerInvoice;
 import com.tem.springbootcrudrest.repository.ManPowerRepository;
 
 @Component
@@ -16,6 +18,7 @@ public class ManPowerServiceImpl implements ManPowerService {
 
 	@Override
 	public ManPower createManPower(ManPower manPower) {
+		manPower.setStatus("Pending");
 
 		return manPowerRepository.save(manPower);
 	}
@@ -44,6 +47,25 @@ public class ManPowerServiceImpl implements ManPowerService {
 		} else {
 			return manPowerRepository.findManPowerCustomerByCustomerNameCompletedStatus(customername);
 		}
+	}
+
+	@Override
+	public List<ManPower> updateCustPaymentFromCusPayment(
+			ManPowerPaymentUpdateInManPowerInvoice manPowerPaymentUpdateInManPowerInvoice) {
+		
+		List<ManPower> vendorcustomerinvoice = new ArrayList<ManPower>();
+
+		for (long invoiceid : manPowerPaymentUpdateInManPowerInvoice.getInvoiceid()) {
+
+			ManPower manpower = manPowerRepository.findBymanpowerid(invoiceid);
+			manpower.setCustomervendorpaymentid(manPowerPaymentUpdateInManPowerInvoice.getPaymentid());
+			manpower.setStatus("Completed");
+			ManPower manpowerinvoice = manPowerRepository.save(manpower);
+			vendorcustomerinvoice.add(manpowerinvoice);
+
+		}
+		return vendorcustomerinvoice;
+		
 	}
 
 }

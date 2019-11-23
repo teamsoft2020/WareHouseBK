@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.tem.springbootcrudrest.model.CustomerInvoice;
 import com.tem.springbootcrudrest.model.ManPower;
 
 
@@ -40,4 +42,6 @@ public interface ManPowerRepository extends JpaRepository<ManPower, Long>{
 	
 	@Query(value = "select m From ManPower m where m.status='Completed' and m.customername=:customername")
 	public List<ManPower> findManPowerCustomerByCustomerNameCompletedStatus(@Param("customername") String customername);
+	
+	public ManPower findBymanpowerid(long manpowerid);
 }
