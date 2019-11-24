@@ -729,41 +729,46 @@
 					
 </div>
 
-
-<div class="row col-12" >
-					<table  class="table table-bordered" id="manPowerInvoice" style="margin-top: 1%;">
+<div style="display:none;">
+ <div class="rowWidth" id="manPowerInvoice" >
+ 
+ 
+					<table  class="table table-bordered" width="100%;" style="margin-top: 1%;">
+					<tr><td colspan="4" class="textCenter">
 					
-					<tr><th colspan="2" class="textCenter"><h1><b>S.SARAVANAN ENTERPRISES</b></h1>
-					<h5>47,Bajanai Koil Street,Paruthapattu,Avadi, Chennai - 600 071. Tamilnadu</h5>
-					<div class="row">
-					<div class="col-6">
-					<label><b>EMAIL :</b></label>ssenterprises4358@gmail.com</div>
-					<div class="col-6">
-					<label><b>PH :</b></label>+91-44-5559-5555</div></div>
-					<div class="row">
-					<div class="col-6">
+					<div class="rowWidth">
+					<div class="wid50" style=" text-align: left;float: left;">
 					<label><b>GSTIN :</b></label>33EHBPS6834J1Z0</div>
-					<div class="col-6">
-					<label><b>PAN NO :</b></label>EHBPS6834J</div></div>
-					</th>
-					
-					<th colspan="1" ><img src='img/sse.png' style="width: 40%;height: 30%;margin: 3% 0% 0% 20%;"></th>
+					<div class="wid50" style="text-align: right;float: left;">
+                     <label><b>PH :</b></label>+91-44-5559-5555</div>
+                     </div>
+					<div class="rowWidth" style="">
+					<div class="wid50" style=" text-align: left;float: left;">
+					<label><b>PAN NO :</b></label>EHBPS6834J</div>
+					<div class="wid50" style="float: left;text-align: right;">
+					<label><b></b></label>+91-9790804358
+					</div></div>
+					<div class="rowWidth" style=" text-align: center;"><h1 class="removeheadermargin"><b>S.SARAVANAN ENTERPRISES</b></h1>
+<h5 class="removeheadermargin">No.47, Bajanai Koil Street, Paruthapattu, Avadi, Chennai - 600 071. Tamilnadu</h5>
+<h5 class="removeheadermargin">EMAIL :ssenterprises4358@gmail.com</h5>
+ </div>
+					</td>
+					<!-- <td colspan="1" ><img src='img/sse.png' style="width: 40%;height: 30%;margin: 3% 0% 0% 20%;"></td> -->
 					</tr>
-					
 					<tbody>
-					<tr><td colspan="2">
-					<div class="col-12"><label><b>CustomerCode:</b></label><label>{{savempItem.customercode?savempItem.customercode:""}}</label></div>
-					<div class="col-12"><label><b>CustomerName:</b></label><label>{{savempItem.customername}}</label></div>
-					<div class="col-12"><label><b>Address:</b></label><label>{{savempItem.customerbranch}}</label></div>
-					<div class="col-12"><label><b>State:</b></label><label>{{savempItem.customerstate}}</label></div>
+					<tr><td colspan="3">
+					<div class="rowWidth"><label><b>CustomerCode:</b></label><label>{{savempItem.customercode?savempItem.customercode:""}}</label></div>
+					<div class="rowWidth"><label><b>CustomerName:</b></label><label>{{savempItem.customername}}</label></div>
+					<div class="rowWidth"><label><b>Address:</b></label><label>{{savempItem.customerbranch}}</label></div>
+					<div class="rowWidth"><label><b>State:</b></label><label>{{savempItem.customerstate}}</label></div>
 					</td>
 					<td colspan="1">
-					<div class="col-12"><label><b>Date:</b></label><label>{{savempItem.invoicedate}}</label></div></td></tr>
+					<div class="rowWidth"><label><b>Invoice No:</b></label><label>{{savempItem.invoicedate}}</label></div>
+					<div class="rowWidth"><label><b>Date:</b></label><label>{{savempItem.invoicedate}}</label></div></td></tr>
 					</tbody>
 					</table>
-					
-					<div class="col-12"><h3 style="text-align: center;">Supply of Manpower for the month of Dec-2019</h3></div>
-					<table  class="table table-bordered"  style="margin-top: 1%;">
+					<div style="margin-left: 2%;"><h3 style="text-align: center;">Supply of Manpower for the month of Dec-2019</h3></div>
+					<table  class="table table-bordered" width="100%;" style="margin-top: 1%;">
 					<tr>
 					<th colspan="1"><label >Particulars</label></th>
 					<th colspan="1"><label>HSN Code</label></th>
@@ -785,50 +790,31 @@
 					<td colspan="1"><label>{{item.total}}</label></td>
 					</tr>
 					</table >
-					<div class="col-12"><label class="col-2"><b>Total</b></label><label class="col-4">{{savempItem.grandTotal}}</label></div>
-					<div class="col-12"><label class="col-2"><b>Amount In Rs</b></label><label class="col-4">{{grandTotalAmtInWords}}</label></div>
-					<table class="table table-bordered"  style="margin-top: 1%;">
+					<div class="rowWidth"><div class="wid50"><label ><b>Grand Total : </b></label><label >{{savempItem.grandTotal}}</label></div>
+					<div class="wid50"><label><b>Amount In Words : </b></label><label >{{grandTotalAmtInWords}}</label></div>
+					</div>
+					<div class="footer">
+					<table class="table table-bordered" width="100%;" style="margin-top: 1%;">
 					<tr>
-					<th colspan="2" >
-					<div class="col-12">Terms & Conditions</div>
-					<div class="col-12">The payment of bill should be made only by A/C Payee Cheque/DD/RTGS Detail</div>
-					<div class="col-12"><b>ALLAHABAD BANK:</b>A/C No.5012370345,</div>
-					<div class="col-12"><b>BENEFICIARY NAME:</b>S.SARAVANAN ENTERPRISES</div>
-					<div class="col-12"><b>BRANCH NAME:</b>SA ENGG.COLLEGE,TIRUVERKADU</div>
-					<div class="col-12"><b>IFSC CODE:</b>ALLA0212490</div>
+					<td colspan="2" >
+					<div class="rowWidth"><label class="wordunderline">Terms & Conditions</label></div>
+					<div class="rowWidth pad4">The payment of bill should be made only by A/C Payee Cheque/DD/RTGS Detail</div>
+					<div class="rowWidth pad4"><b>ALLAHABAD BANK:</b>A/C No.5012370345,</div>
+					<div class="rowWidth pad4"><b>BENEFICIARY NAME:</b>S.SARAVANAN ENTERPRISES</div>
+					<div class="rowWidth pad4"><b>BRANCH NAME:</b>SA ENGG.COLLEGE,TIRUVERKADU</div>
+					<div class="rowWidth pad4"><b>IFSC CODE:</b>ALLA0212490</div>
 					
-					</th>
-					<th colspan="1" ><label>Signature Only</label></th>
-					</tr>
-					</table>
-					<!-- <tr><td colspan="2"><label><b>Bill To:</b></label>
-					<br><label>{{custPrintData.custAddr}}</label></td>
-					<td colspan="1"><label><b>Place of supply:</b></label>
-					<br><label>{{custPrintData.custAddr}}</label>
 					</td>
+					<td colspan="1" ><div><label class="wordunderline">Signature Only</label></div></td>
 					</tr>
-					<tr><th colspan="1"><label >Description</label></th><th colspan="1"><label>HSN Code</label></th><th colspan="1"><label>Amount</label></th></tr>
-					<tr><td colspan="1"><label>Trip Rate/Spot Rate Freight charge</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custPrintData.tripRate}}</label></td></tr>
-					<tr><td colspan="1"><label>Sub Total</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custPrintData.tripRate}}</label></td></tr>
-					<tr><td colspan="1"><label>Discount</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custPrintData.totaldiscount}}</label></td></tr>
-					<tr><td colspan="1"><label>Advance/Leakage</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custPrintData.advLeak}}</label></td></tr>
-					<tr><td colspan="1"><label>Sub Total(Rs)</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custPrintData.netamount}}</label></td></tr>
-					<tr><td colspan="1"><label>CGST</label></td><td colspan="1"><label></label></td><td colspan="1"><label>0</label></td></tr>
-					<tr><td colspan="1"><label>SGST</label></td><td colspan="1"><label></label></td><td colspan="1"><label>0</label></td></tr>
-					<tr><th colspan="1"><label>Total Amount(Rs)</label></td><td colspan="1"><label></label></td><td colspan="1"><label>{{custPrintData.netamount}}</label></td></tr>
-					<tr><td colspan="3"><label><b>Note:- </b> Forward charges Mechanism(if GST Charged by Transporter)</label></td></tr>
-					<tr><th colspan="2">Amount(Rs.)In Words</th><td colspan="1"> <label>{{custPrintData.totalAmountInWords}}</label><label>Only</label></td></tr>
-					<tr><td colspan="3"><label><b>Note:- </b>Under Reserve Charges Mechanism,GST is Payable by the Consignot/Service Receiver</label></td></tr>
-					<tr></tr> -->
-					
+					</table></div>
+					</div> 
+				
 					
 					</div>
-
-
 	</div>
 </div>
 <!-- vendor -->
-
 
 </div>
 </div>
