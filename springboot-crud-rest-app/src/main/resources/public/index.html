@@ -2967,7 +2967,7 @@ $scope.updateVenBilledTrip =function(data){
 		}) 
 	}
 	$scope.getItem =function(){
-		$scope.manpowerBilling={customername:"",customerbranch:"",customerstate:"",grandTotal:0,invoicedate:""};
+		$scope.manpowerBilling={customercode:"",customername:"",customerbranch:"",customerstate:"",grandTotal:0,invoicedate:""};
 		$scope.savempItem={itemDetails:{}};
 		$scope.grandTotal=0;
 		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
@@ -2985,7 +2985,7 @@ $scope.updateVenBilledTrip =function(data){
 	$scope.getCustVenListmanPower =function(){
 		//$scope.custlistJson=[{name:"",branch:""}];
 		$scope.custlistJson=[];
-		 $scope.users={name:"",address:""};
+		 $scope.users={name:"",code:"",address:""};
 		 var url=location.origin +"/api/v1/combinenameslist";
 		 $http({
 			    method : 'GET',
@@ -2995,7 +2995,7 @@ $scope.updateVenBilledTrip =function(data){
 			   angular.forEach(response.data,function(value,index){
 				   if(value.customername || value.vendorname){
 					   $scope.users.name=value.customername ? value.customername : value.vendorname;
-					   
+					   $scope.users.code=value.customercode ? value.customercode : value.vendorcode;
 					   if(value.customerDetails==undefined){
 						   $scope.users.address=value.vendorAddress;
 						  // $scope.users.state=value.vendorAddress[0].state ? value.vendorAddress[0].state : "";
@@ -3055,6 +3055,11 @@ $scope.updateVenBilledTrip =function(data){
 		        console.log(response);
 		        	if(response.status==200){
 		        		toastr.success('Added Successfully...');
+		        		
+		        		$scope.grandTotalAmtInWords=inWords(parseInt($scope.savempItem.grandTotal))
+		        		 /* angular.forEach($scope.manpower,function(value,index){
+		     				$scope.manpowerBilling.grandTotal +=(parseInt(value.total)?parseInt(value.total):0);
+		     			 }); */
 		        	}
 		        }, function error(response) {
 		        	toastr.error('Error while Payment process');
@@ -3064,7 +3069,8 @@ $scope.updateVenBilledTrip =function(data){
 	$scope.resetItem=function(){
 		$scope.manpower=[{item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0}];
 		$scope.grandTotal=0;
-		$scope.manpowerBilling={customername:"",customerbranch:"",grandTotal:""};
+		$scope.manpowerBilling={customercode:"",customername:"",customerbranch:"",customerstate:"",grandTotal:"",invoicedate:""};
+		$scope.savempItem={itemDetails:{}};
 	}
 	$scope.addRowItem = function(data){
 		$scope.manpower.push({item:"",description:"",hsn:"",quantity:0,unitprice:0,taxpercentage:"",total:0,withoutTax:0,igst:0,cgst:0,sgst:0});
