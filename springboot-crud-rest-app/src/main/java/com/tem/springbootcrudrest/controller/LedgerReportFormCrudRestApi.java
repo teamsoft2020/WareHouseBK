@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.extramodel.CustomerInvoiceLedgerForm;
-import com.tem.springbootcrudrest.model.CustomerInvoice;
-import com.tem.springbootcrudrest.model.LedgerReportForm;
-import com.tem.springbootcrudrest.model.ManPower;
 import com.tem.springbootcrudrest.service.LedgerReportFormService;
 
 @RestController

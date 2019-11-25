@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tem.springbootcrudrest.extramodel.CustomerInvoiceLedgerForm;
-import com.tem.springbootcrudrest.model.CustomerInvoice;
-import com.tem.springbootcrudrest.model.LedgerReportForm;
 
 @Service
 public interface LedgerReportFormService {
