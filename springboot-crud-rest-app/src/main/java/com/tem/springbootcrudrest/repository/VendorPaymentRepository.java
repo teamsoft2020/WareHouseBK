@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.tem.springbootcrudrest.extramodel.CustomerInvoiceLedgerForm;
 import com.tem.springbootcrudrest.model.Customerpayment;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 import com.tem.springbootcrudrest.model.Vendorpayment;
@@ -33,5 +34,10 @@ public interface VendorPaymentRepository extends JpaRepository<Vendorpayment, Lo
 	 
 	 @Query(value="select * from vendorpayment where (paymenttype='DD' and (status='Presented' or status='Pending')) or (paymenttype='Cheque' and (status='Presented' or status='Pending'))",nativeQuery=true) 
 	 public List<Vendorpayment> findAllVendorCheque();	 
+	 
+	 
+	 @Query(value = "select v From Vendorpayment v where v.status='Pending' and v.vendorname=:vendorname and v.instrumentdate between :fromdate and :todate")
+		public List<Vendorpayment> findInvoiceBetweenDateForLedgerForm(@Param("fromdate") String fromdate,
+				@Param("todate") String todate,@Param("vendorname") String vendorname);
 
 }

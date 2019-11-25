@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tem.springbootcrudrest.model.CustomerInvoice;
+import com.tem.springbootcrudrest.model.Customerpayment;
 import com.tem.springbootcrudrest.model.ManPower;
 
 
@@ -44,4 +45,8 @@ public interface ManPowerRepository extends JpaRepository<ManPower, Long>{
 	public List<ManPower> findManPowerCustomerByCustomerNameCompletedStatus(@Param("customername") String customername);
 	
 	public ManPower findBymanpowerid(long manpowerid);
+	
+	 @Query(value = "select m From ManPower m where m.customername=:customername and m.invoicedate between :fromdate and :todate")
+		public List<ManPower> findInvoiceBetweenDateForLedgerForm(@Param("fromdate") String fromdate,
+				@Param("todate") String todate,@Param("customername") String customername);
 }

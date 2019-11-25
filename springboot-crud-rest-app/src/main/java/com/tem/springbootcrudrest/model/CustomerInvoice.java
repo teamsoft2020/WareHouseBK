@@ -92,6 +92,9 @@ public class CustomerInvoice implements Serializable {
 	
 	@Column(name = "paymentmodifieddate")
 	private String paymentmodifieddate;
+	
+	@Column(name = "cancatload")
+	private String cancatload;
 
 	public String getTotaltrip() {
 		return totaltrip;
@@ -103,6 +106,14 @@ public class CustomerInvoice implements Serializable {
 
 	public long getCustomerinvoiceid() {
 		return customerinvoiceid;
+	}
+
+	public String getCancatload() {
+		return cancatload;
+	}
+
+	public void setCancatload(String cancatload) {
+		this.cancatload = cancatload;
 	}
 
 	public void setCustomerinvoiceid(long customerinvoiceid) {

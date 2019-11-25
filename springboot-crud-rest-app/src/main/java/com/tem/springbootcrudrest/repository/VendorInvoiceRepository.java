@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.tem.springbootcrudrest.model.TripSheet;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 
 @Repository
@@ -24,6 +23,10 @@ public interface VendorInvoiceRepository extends JpaRepository<VendorInvoice, Lo
 	
 	 @Query(value="SELECT v FROM VendorInvoice v WHERE v.vendorinvoiceid=:vendorinvoiceid") 
 	 public VendorInvoice findByVendorInvoiceId(@Param("vendorinvoiceid") long vendorinvoiceid);
+	 
+	 @Query(value = "select v From VendorInvoice v where v.vendorname=:vendorname and v.paymentdate between :fromdate and :todate")
+		public List<VendorInvoice> findInvoiceBetweenDateForLedgerForm(@Param("fromdate") String fromdate,
+				@Param("todate") String todate,@Param("vendorname") String vendorname);
 	 
 	 
 

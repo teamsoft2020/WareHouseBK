@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.tem.springbootcrudrest.extramodel.CustomerInvoiceLedgerForm;
 import com.tem.springbootcrudrest.model.CustomerInvoice;
+import com.tem.springbootcrudrest.model.ManPower;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 
 public interface CustomerInvoiceRepository extends JpaRepository<CustomerInvoice, Long>{
@@ -16,6 +18,11 @@ public interface CustomerInvoiceRepository extends JpaRepository<CustomerInvoice
 			@Param("todate") String todate,@Param("customername") String customername);
 	
 	public CustomerInvoice findByCustomerinvoiceid(long customerinvoiceid);
+	
+	
+	@Query(value = "select t From CustomerInvoice t where t.customername=:customername and t.paymentdate between :fromdate and :todate")
+	public List<CustomerInvoice> findInvoiceBetweenDateForLedgerForm(@Param("fromdate") String fromdate,
+			@Param("todate") String todate,@Param("customername") String customername);
 	
 	
 	}

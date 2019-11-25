@@ -59,6 +59,9 @@ public class VendorInvoice implements Serializable {
 
 	@Column(name = "vendorname")
 	private String vendorname;
+	
+	@Column(name = "cancatload")
+	private String cancatload;
 
 	@Column(name = "totalkm")
 	private String totalkm;
@@ -128,6 +131,14 @@ public class VendorInvoice implements Serializable {
 
 	public void setTotalcase(String totalcase) {
 		this.totalcase = totalcase;
+	}
+
+	public String getCancatload() {
+		return cancatload;
+	}
+
+	public void setCancatload(String cancatload) {
+		this.cancatload = cancatload;
 	}
 
 	public String getTotalkmpercharge() {

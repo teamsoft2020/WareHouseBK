@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tem.springbootcrudrest.model.Customerpayment;
-import com.tem.springbootcrudrest.model.Vendorpayment;
 
 @Repository
 public interface CustomerPaymentRepository extends JpaRepository<Customerpayment, Long> {
@@ -33,6 +32,11 @@ public interface CustomerPaymentRepository extends JpaRepository<Customerpayment
 	 
 	 @Query(value="select * from customerpayment where (paymenttype='DD' and (status='Presented' or status='Pending')) or (paymenttype='Cheque' and (status='Presented' or status='Pending'));",nativeQuery=true) 
 	 public List<Customerpayment> findAllCustomerCheque();
+	 
+	 
+	   @Query(value = "select c From Customerpayment c where c.status='Pending' and c.customername=:customername and c.instrumentdate between :fromdate and :todate")
+		public List<Customerpayment> findInvoiceBetweenDateForLedgerForm(@Param("fromdate") String fromdate,
+				@Param("todate") String todate,@Param("customername") String customername);
 	 
 	 //select * from customerpayment where (paymenttype='DD' and status='Presented' or status='Pending') or (paymenttype='Cheque' and status='Presented' or status='Pending')
 	 
