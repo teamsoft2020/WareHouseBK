@@ -3357,7 +3357,31 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			}
 			
 		};
-	
+		 $scope.searchmanpowerviewDetails =function(){
+			 $scope.mppaymentViewList=[];
+				/* if($scope.manpowerview.fromdate=="" || $scope.manpowerview.fromdate== undefined){
+					 toastr.error('Please enter From date');
+					return;
+				}else if($scope.manpowerview.todate=="" || $scope.manpowerview.todate==undefined){
+					 toastr.error('Please enter To date');
+					return;
+				}else if($scope.manpowerview.customername=="" || $scope.manpowerview.customername== undefined){
+					 toastr.error('Please enter CustomerName');
+					return;
+				}else{ */
+					var url=location.origin +"/api/v1/listcustomerbydatenamecompletestatus";
+					 $http({
+						    method : 'GET',
+						    url : url,
+						    params: $scope.manpowerview,
+						   }).then(function successCallback(response) {
+						   $scope.mppaymentViewList = response.data;
+						   }, function errorCallback(response) {
+						    console.log(response.statusText);
+						   });
+				//}
+				
+			};
 	$scope.saveCustPayment =function(){
 		$scope.custPaymentcallBackdata={paymentid:"",invoiceid:[]};
 		$scope.custPaymentsubmitData={customerreceiptdate:$scope.commoncustList.custreceiptDate,customerpayment:[]};
@@ -3709,64 +3733,63 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 	$scope.calculatemanpowerpaymentTotal =function(){
  		$scope.commonmpList={custreceiptDate:"",totalamount:0};
  		$scope.mppaymentJson =[{paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}];
- 		$scope.existCustomerName=$scope.checkedmanpowerPaymentValue[0].customername;
+ 		$scope.existmpCustomerName=$scope.checkedmanpowerPaymentValue[0].customername;
  		angular.forEach($scope.checkedmanpowerPaymentValue, function(value, key) {
- 			if($scope.existCustomerName == value.customername){
+ 			if($scope.existmpCustomerName == value.customername){
  				$scope.commonmpList.totalamount +=parseInt(value.grandTotal)?parseInt(value.grandTotal):0;
  			}else{
  				toastr.warning('Please tick same customer');
  				$scope.commonmpList.totalamount =0;
- 				$scope.existCustomerName="";
+ 				$scope.existmpCustomerName="";
  				return;
  			}
  			
 		});
  	}
 	
-	
 	$scope.savempPayment =function(){
-		$scope.custPaymentcallBackdata={paymentid:"",invoiceid:[]};
-		$scope.custPaymentsubmitData={customerreceiptdate:$scope.commoncustList.custreceiptDate,customerpayment:[]};
-		$scope.custPaymentsubmitData.customerpayment=$scope.paymentJson;
+		$scope.mpPaymentcallBackdata={paymentid:"",invoiceid:[]};
+		$scope.mpPaymentsubmitData={customerreceiptdate:$scope.commonmpList.custreceiptDate,customerpayment:[]};
+		$scope.mpPaymentsubmitData.customerpayment=$scope.mppaymentJson;
 		var url = location.origin +"/api/v1/createcustomerpayment";
 		$scope.checkCredit=false;
-		$scope.checkamt=0;
-		angular.forEach($scope.paymentJson, function(value, key) {
+		$scope.checkmpamt=0;
+		angular.forEach($scope.mppaymentJson, function(value, key) {
 			if(value.paymenttype =="Credit"){
 				$scope.checkCredit=true;
 			}
-			if($scope.existCustomerName){
-				value.customername =$scope.existCustomerName;
+			if($scope.existmpCustomerName){
+				value.customername =$scope.existmpCustomerName;
 			}else{
-				toastr.warning('Please check same customer');
+				toastr.warning('Please tick same customer');
 				return;
 			}
 			
-			$scope.checkamt +=parseInt(value.amount)?parseInt(value.amount):0;
+			$scope.checkmpamt +=parseInt(value.amount)?parseInt(value.amount):0;
  			//$scope.commoncustList.totalamount +=parseInt(value.netamount)?parseInt(value.netamount):0;;
 		});
 		
-		if($scope.commoncustList.totalamount == 0){
+		if($scope.commonmpList.totalamount == 0){
 		toastr.warning('No data');
 		return;	
 		}
-		if($scope.commonvenList.custreceiptDate ==""){
+		if($scope.commonmpList.custreceiptDate ==""){
 			toastr.warning('Please select Receipt Date..');
 			return;	
 		}
 		if($scope.checkCredit){
-			if($scope.commoncustList.totalamount ==$scope.checkamt){
+			if($scope.commonmpList.totalamount ==$scope.checkmpamt){
 				//toastr.success('matched');
 				
 				    $http({
 				        method : 'POST',
 				        url : url,
-				        data : angular.toJson($scope.custPaymentsubmitData),
+				        data : angular.toJson($scope.mpPaymentsubmitData),
 				        headers : {
 				        'Content-Type' : 'application/json'
 				        }
 				        }).then(function (response) {
-				            $scope.custPaymentcallBackdata.paymentid=response.data.cuspaymentid;
+				            $scope.mpPaymentcallBackdata.paymentid=response.data.cuspaymentid;
 				        	angular.forEach($scope.checkedcustPaymentValue, function(list, key) {
 				        		$scope.custPaymentcallBackdata.invoiceid.push(list.customerinvoiceid);
 				        	});
@@ -3807,7 +3830,15 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			
 		}
 	}
-	
+	$scope.getmpInitialize=function(){
+		 $('#datetimepicker_custfromviewdetails').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_custtoviewdetails').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $scope.getPayItem();
+	}
 	$scope.navRedirect =function(event){
 		
 		 $(".nav").find(".active").removeClass("active");
@@ -3819,18 +3850,21 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#view').show();
 			  $('#manpowerReceipt').hide();
 			  $('#vendorview').hide();
+			  $('#manpowerview').hide();
 		  }else if(currEvent =="vendorview"){
 			  $('#Payment').hide();
 			  $('#Receipt').hide();
 			  $('#view').hide();
 			  $('#vendorview').show();
 			  $('#manpowerReceipt').hide();
+			  $('#manpowerview').hide();
 		  }else if(currEvent =="vendorPayment"){
 			  $('#Payment').hide();
 			  $('#Receipt').show();
 			  $('#view').hide();
 			  $('#manpowerReceipt').hide();
 			  $('#vendorview').hide();
+			  $('#manpowerview').hide();
 			  $scope.initvenPayment();
 		  }else if(currEvent =="manpowerReceipt"){
 			  $('#Payment').hide();
@@ -3838,7 +3872,17 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#view').hide();
 			  $('#manpowerReceipt').show();
 			  $('#vendorview').hide();
+			  $('#manpowerview').hide();
 			  $scope.getPayItem();
+			  //$scope.getCustVenListmanPowerpay();
+		  }else if(currEvent =="manpowerview"){
+			  $('#Payment').hide();
+			  $('#Receipt').hide();
+			  $('#view').hide();
+			  $('#manpowerReceipt').hide();
+			  $('#manpowerview').show();
+			  $('#vendorview').hide();
+			  $scope.getmpInitialize();
 			  //$scope.getCustVenListmanPowerpay();
 		  }else{
 			  $('#Payment').show();
@@ -3846,6 +3890,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#view').hide();
 			  $('#vendorview').hide();
 			  $('#manpowerReceipt').hide();
+			  $('#manpowerview').hide();
 			  //$scope.initcustPayment();
 		  }
 	}

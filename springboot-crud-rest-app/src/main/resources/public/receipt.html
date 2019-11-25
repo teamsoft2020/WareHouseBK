@@ -16,6 +16,9 @@
 	<li class="nav-item">
 		<a class="nav-link" data-toggle="tab"  bind-attr="manpowerReceipt" role="tab" ng-click="navRedirect($event)">Manpower Receipt</a>
 	</li>
+	<li class="nav-item">
+		<a class="nav-link" data-toggle="tab"  bind-attr="manpowerview" role="tab" ng-click="navRedirect($event)">Manpower Receipt View</a>
+	</li>
 </ul><!-- Tab panes -->
 <div class="tab-content">
 <div class="tab-pane active" id="Payment" role="tabpanel">
@@ -415,7 +418,7 @@
 		<label class="col-12"><b>CUSTOMER </b></label>
 	 	<select ng-model="customerPayment.customername" class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="display: block;margin: 2% auto;">
 		<option value="" selected="selected">Select Customer</option>
-		<!-- ngRepeat: custView in customerpayList | unique:'customername' --><option ng-repeat="custView in customerpayList | unique:'customername'" value="COLA" class="ng-binding ng-scope" style="">COLA</option><!-- end ngRepeat: custView in customerpayList | unique:'customername' --><option ng-repeat="custView in customerpayList | unique:'customername'" value="Manivannan" class="ng-binding ng-scope">Manivannan</option><!-- end ngRepeat: custView in customerpayList | unique:'customername' --><option ng-repeat="custView in customerpayList | unique:'customername'" value="" class="ng-binding ng-scope"></option><!-- end ngRepeat: custView in customerpayList | unique:'customername' -->
+		<option ng-repeat="custView in customerpayList | unique:'customername'" value="COLA" class="ng-binding ng-scope" style=""></option>
 	  </select> 
 	 </div>
      <div class="col-2">
@@ -489,10 +492,6 @@
   </div>
   <div class="col-2">
 		<label class="col-12"><b>CUSTOMER </b></label>
-	 	<!-- <select ng-model="customermanpowerPay.customername"  class="form-control" style="display: block;margin: 2% auto;">
-		<option value="" selected>Select Customer</option>
-		<option ng-repeat="v in customervendorpayList" value="{{v}}"> {{v}}</option>
-	  </select> --> 
 	 <input type="text" ng-model="customermanpowerPay.customername" class="form-control" placeholder="Customer" list="datacustvenList"/>
 		<datalist id="datacustvenList">
 			<option ng-repeat="v in customervendorpayList" value="{{v}}"><!-- Name {{v}} --></option>
@@ -540,7 +539,7 @@
  <div class="row">
  <label class="col-6" style="font-weight: bold;"> Receipt Date</label>
 <div class="col-6 input-group date" id="datetimepicker_mpreceiptDate" data-target-input="nearest">
-    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_mpreceiptDate" ng-model="commonmpList.venreceiptDate" placeholder="Receipt Date"/>
+    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_mpreceiptDate" ng-model="commonmpList.custreceiptDate" placeholder="Receipt Date"/>
     <div class="input-group-append" data-target="#datetimepicker_mpreceiptDate" data-toggle="datetimepicker">
         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
     </div>
@@ -603,6 +602,82 @@
 
 
 </div>
+</div>
+
+
+<div class="tab-pane"  id="manpowerview" role="tabpanel">
+<div >
+<h4>Manpower View Details</h4>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="filterDiv">
+<div class="row" style="margin-top: 1%;">
+ <div class="col-3">
+<label class="col-12"><b>FROM </b></label>
+  
+  <div class="input-group date" id="datetimepicker_custfromviewdetails" data-target-input="nearest">
+     <input type="text" class="form-control datetimepicker-input ng-pristine ng-untouched ng-valid ng-empty" data-target="#datetimepicker_custfromviewdetails" ng-model="manpowerview.fromdate" placeholder="From Date">
+        <div class="input-group-append" data-target="#datetimepicker_custfromviewdetails" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+		</div>
+		</div>
+	</div>
+	 <div class="col-3">
+	  <label class="col-12"><b>TO </b></label>
+	  <div class="input-group date" id="datetimepicker_custtoviewdetails" data-target-input="nearest">
+        <input type="text" class="form-control datetimepicker-input ng-pristine ng-untouched ng-valid ng-empty" data-target="#datetimepicker_custtoviewdetails" ng-model="manpowerview.todate" placeholder="To Date">
+        <div class="input-group-append" data-target="#datetimepicker_custtoviewdetails" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+        </div>
+    </div>
+  </div>
+  
+	 <div class="col-2">
+		<label class="col-12"><b>CUSTOMER </b></label>
+	 <input type="text" ng-model="manpowerview.customername" class="form-control" placeholder="Customer" list="datampviewList"/>
+		<datalist id="datampviewList">
+			<option ng-repeat="custView in customervendorpayList" value="{{custView}}"><!-- {{custView}} --></option>
+		</datalist>
+	 </div>
+     <div class="col-2">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchmanpowerviewDetails()" style="margin-top:15%">
+	 </div> 
+ </div>
+</div>
+
+<div class="row" style="margin-top: 1%;">
+ <table  id="manage-custPayment-table"  datatable="ng" dt-options="pm.dtOptions" dt-instance="pm.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+								    <!--  <th scope="col"></th>   -->
+									<th width="15%">InvoiceNo</th>
+									<th width="15%">CustomerName</th>
+									<th width="15%">Amount</th>
+									 <th width="15%">Date</th> 
+									<th width="15%">Status</th>
+								</tr>
+							</thead>
+ 
+  							<tbody>
+								<tr ng-repeat="view in filtered = (mppaymentViewList | filter : {status : 'Completed'})">
+										<!-- <td><input  type="checkbox" value="" ng-model="view.checked"  ng-click="checkcustPayInArray(view)"></td> -->
+										<td><label>{{view.manpowerid}}</label></td>
+										<td><label>{{view.customername}}</label></td>
+										<td><label>{{view.grandTotal}}</label></td>
+										<td><label>{{view.invoicedate}}</label></td>
+										<td><label class="badge" ng-class="{'badge-danger': view.status == 'Pending','badge-success': view.status == 'Completed'}">{{view.status}}</label></td>
+										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
+								</tr>
+							</tbody> 
+ </table> 
+ </div>
+		      		</div>
+		      		<div class="pull-right">
+					<input name="" type="button" class="btn btn-primary" id="" value="Print" style="margin-left: 20%;">
+					</div>
+					
+</div>
+
+
 </div>
 </div>
 </div>
