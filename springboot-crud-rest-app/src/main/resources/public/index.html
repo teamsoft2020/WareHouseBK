@@ -3932,6 +3932,12 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		    });
 		 $scope.getPayItem();
 	}
+	$scope.initcustPaymentView()=function(){
+		$scope.customerPaymentView={fromdate:"",todate:"",customername:""};
+	 }
+ 	$scope.initvenPaymentView()=function(){
+ 		$scope.vendorPaymentView={fromdate:"",todate:"",vendorname:""};
+	 }
 	$scope.navRedirect =function(event){
 		
 		 $(".nav").find(".active").removeClass("active");
@@ -3944,6 +3950,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#manpowerReceipt').hide();
 			  $('#vendorview').hide();
 			  $('#manpowerview').hide();
+			  $scope.initcustPaymentView();
 		  }else if(currEvent =="vendorview"){
 			  $('#Payment').hide();
 			  $('#Receipt').hide();
@@ -3951,6 +3958,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#vendorview').show();
 			  $('#manpowerReceipt').hide();
 			  $('#manpowerview').hide();
+			  $scope.initvenPaymentView();
 		  }else if(currEvent =="vendorPayment"){
 			  $('#Payment').hide();
 			  $('#Receipt').show();
