@@ -24,9 +24,9 @@
  <div class="col-3">
 <label class="col-12"><b>FROM </b></label>
   
-  <div class="input-group date" id="datetimepicker_customerfromcredit" data-target-input="nearest">
-     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_customerfromcredit" ng-model="customerPayment.fromdate" placeholder="From Date"/>
-        <div class="input-group-append" data-target="#datetimepicker_customerfromcredit" data-toggle="datetimepicker">
+  <div class="input-group date" id="datetimepicker_customerfromledge" data-target-input="nearest">
+     <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_customerfromledge" ng-model="ledger.fromdate" placeholder="From Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_customerfromledge" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
 		</div>
 		</div>
@@ -35,9 +35,9 @@
 
 	 <div class="col-3">
 	  <label class="col-12"><b>TO </b></label>
-	  <div class="input-group date" id="datetimepicker_customertocredit" data-target-input="nearest">
-        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_customertocredit" ng-model="customerPayment.todate" placeholder="To Date"/>
-        <div class="input-group-append" data-target="#datetimepicker_customertocredit" data-toggle="datetimepicker">
+	  <div class="input-group date" id="datetimepicker_customertoledge" data-target-input="nearest">
+        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker_customertoledge" ng-model="ledger.todate" placeholder="To Date"/>
+        <div class="input-group-append" data-target="#datetimepicker_customertoledge" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
         </div>
     </div>
@@ -45,20 +45,47 @@
   </div>
   <div class="col-2">
 		<label class="col-12"><b>CUSTOMER </b></label>
-	 	<select ng-model="customerPayment.customername"  class="form-control" style="display: block;margin: 2% auto;">
+	 	<select ng-model="ledger.custvendorname"  class="form-control" style="display: block;margin: 2% auto;">
 		<option value="" selected>Select Customer</option>
-		<option ng-repeat="custView in customerpaymentList | unique:'customername'" value="{{custView.customername}}">{{custView.customername}}</option>
+		<option ng-repeat="custView in ledgerListitem" value="{{custView}}">{{custView}}</option>
 	  </select> 
 	 
 	 </div> 
 	
      <div class="col-2">
-		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchcustCreditItem()" style="margin-top:15%">
+		<input name="" type="button" class="btn btn-dark" id="" value="Search" ng-click="searchLedgerItem()" style="margin-top:15%">
 	 </div> 
  </div>
 </div>
 
-
+<div class="row" style="margin-top: 1%;">
+ <table  id="manage-ledger-table"  datatable="ng" dt-options="lr.dtOptions" dt-instance="lr.dtInstance"  class="table table-bordered row-border hover" >
+ <thead>
+								<tr>
+								     <th scope="col"></th>  
+									<th width="15%">InvoiceNo</th>
+									<th width="15%">CustomerName</th>
+									<th width="15%">Total Trip</th>
+									<th width="15%">Amount</th>
+									 <th width="15%">Date</th> 
+									<th width="15%">Status</th>
+								</tr>
+							</thead>
+ 
+  							<tbody>
+								<tr ng-repeat="view in ledgerList track by $index">
+										<td><input  type="checkbox" value="" ng-model="view.checked"  ng-click="checkcustPayInArray(view)"></td>
+										<td><label>{{view.customerinvoiceid}}</label></td>
+										<td><label>{{view.customername}}</label></td>
+										<td><label>{{view.totaltrip}}</label></td>
+										<td><label>{{view.netamount}}</label></td>
+										<td><label>{{view.createddate}}</label></td>
+										<td><label class="badge" ng-class="{'badge-danger': view.paymentstatus == 'Pending','badge-success': view.paymentstatus == 'Completed'}">{{view.paymentstatus}}</label></td>
+										<!-- <td><i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="removeInvoice($index)"></i> </td> -->
+								</tr>
+							</tbody> 
+ </table> 
+ </div>
 
 
 
