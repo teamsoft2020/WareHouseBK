@@ -40,4 +40,6 @@ public interface VendorPaymentRepository extends JpaRepository<Vendorpayment, Lo
 		public List<Vendorpayment> findInvoiceBetweenDateForLedgerForm(@Param("fromdate") String fromdate,
 				@Param("todate") String todate,@Param("vendorname") String vendorname);
 
+	 @Query(value="SELECT c FROM Vendorpayment c WHERE c.vendorname=:vendorname") 
+	 public Vendorpayment findByVendorNameForManPower(@Param("vendorname") String vendorname);
 }

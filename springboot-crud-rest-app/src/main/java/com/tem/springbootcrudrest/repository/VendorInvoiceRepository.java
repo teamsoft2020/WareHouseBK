@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.tem.springbootcrudrest.model.CustomerInvoice;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 
 @Repository
@@ -32,4 +33,18 @@ public interface VendorInvoiceRepository extends JpaRepository<VendorInvoice, Lo
 
 	/* @Query(value="SELECT t FROM TripSheet t WHERE t.loadno=:loadno") 
 	 public TripSheet findByLoadNO(@Param("loadno") String loadno);*/
+	 
+	 //vendorinvoice datetimevendorname
+	 
+	 @Query(value = "select v From VendorInvoice v where  v.vendorname=:vendorname and v.paymentdate between :fromdate and :todate")
+		public List<VendorInvoice> findVendorInvoiceByVenddatename(@Param("vendorname") String vendorname,@Param("fromdate") String fromdate,
+				@Param("todate") String todate);
+		
+		@Query(value = "select v From VendorInvoice v where  v.paymentdate between :fromdate and :todate")
+		public List<VendorInvoice> findVendInvoiceByFromDateToDate(@Param("fromdate") String fromdate,
+				@Param("todate") String todate);
+		
+		
+		@Query(value = "select v From VendorInvoice v where v.vendorname=:vendorname")
+		public List<VendorInvoice> findCustInvoiceByVendorName(@Param("vendorname") String vendorname);
 }

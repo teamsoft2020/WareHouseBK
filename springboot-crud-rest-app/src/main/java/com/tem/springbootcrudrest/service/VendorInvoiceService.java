@@ -26,4 +26,6 @@ public interface VendorInvoiceService {
 	
 	String generatePdfForVendorInvoiceCalculated(List<VendorInvoice> vendorinvoicepdf);
 	
+	List<VendorInvoice> findVendorInvoiceByCustdatename(String fromdate,String todate,String vendorname);
+	
 }

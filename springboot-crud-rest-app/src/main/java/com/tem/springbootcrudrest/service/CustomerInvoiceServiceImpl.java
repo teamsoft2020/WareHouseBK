@@ -147,84 +147,75 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 	}
 
 	private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
-        }
-    }
-	
+		for (int i = 0; i < number; i++) {
+			paragraph.add(new Paragraph(" "));
+		}
+	}
+
 	@Override
-	public String generatePdfForCustomerInvoiceCalculated(List<CustomerInvoice> customerinvoicepdf) throws FileNotFoundException {
+	public String generatePdfForCustomerInvoiceCalculated(List<CustomerInvoice> customerinvoicepdf)
+			throws FileNotFoundException {
 
 		Document document = new Document();
 
 		String message = null;
-		
-		
+
 		try {
-			
+
 			PdfPTable table = null;
-			
-			
+
 			Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
 			Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 			PdfPCell pdfWordCell = new PdfPCell();
-			
-			 Paragraph paragraph = new Paragraph();
-			
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\\\samplepdffile/customerinvoice.pdf"));
+
+			Paragraph paragraph = new Paragraph();
+
+			PdfWriter writer = PdfWriter.getInstance(document,
+					new FileOutputStream("C:\\\\samplepdffile/customerinvoice.pdf"));
 			document.open();
 			Font boldFont2 = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
-			Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 20,
-		            Font.NORMAL, BaseColor.RED);
-			
+			Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.NORMAL, BaseColor.RED);
+
 			Font normalFontaddress = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 			Font normalinvoice = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
 			Font toaddress = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
-			
-			
-			
-			
-			document.add(new Paragraph("S.SARAVANAN ENTERPRISES",redFont));
-			 addEmptyLine(paragraph, 1);
-			 document.add(new Paragraph("No 47, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 071. Tamilnadu",normalFontaddress));
-			 document.add(new Paragraph("E.mail : ssenterprises4358@gmail.com",normalFontaddress));
-			 addEmptyLine(paragraph, 2);
-			 
-			 
-			 table = new PdfPTable(2);
-				table.setWidthPercentage(105f);
-				table.setSpacingBefore(11f);
-				table.setSpacingAfter(11f);
-				float[] colWidths = { 2f, 2f };
-				table.setWidths(colWidths);
-			 
-			 
-				Phrase customerNameLables = new Phrase("Coca Cola ENTERPRISES,No 47, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 071,Tamilnadu.", toaddress);
-				pdfWordCell = new PdfPCell();
-				pdfWordCell.addElement(customerNameLables);
-				table.addCell(pdfWordCell);
-				
-				pdfWordCell = new PdfPCell();
-				Phrase customerNameValues= new Phrase("TO :S Technologies,No 50, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 089,Tamilnadu.", toaddress);
-				pdfWordCell.addElement(customerNameValues);
-				table.addCell(pdfWordCell);
-				document.add(table);
-			 
-			 
-				Paragraph preface = new Paragraph("Tax Invoice",normalinvoice); 
-				preface.setAlignment(Element.ALIGN_CENTER);
+			document.add(new Paragraph("S.SARAVANAN ENTERPRISES", redFont));
+			addEmptyLine(paragraph, 1);
+			document.add(new Paragraph("No 47, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 071. Tamilnadu",
+					normalFontaddress));
+			document.add(new Paragraph("E.mail : ssenterprises4358@gmail.com", normalFontaddress));
+			addEmptyLine(paragraph, 2);
 
+			table = new PdfPTable(2);
+			table.setWidthPercentage(105f);
+			table.setSpacingBefore(11f);
+			table.setSpacingAfter(11f);
+			float[] colWidths = { 2f, 2f };
+			table.setWidths(colWidths);
 
-			 document.add(preface);
-			 
-			 
+			Phrase customerNameLables = new Phrase(
+					"Coca Cola ENTERPRISES,No 47, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 071,Tamilnadu.",
+					toaddress);
+			pdfWordCell = new PdfPCell();
+			pdfWordCell.addElement(customerNameLables);
+			table.addCell(pdfWordCell);
+
+			pdfWordCell = new PdfPCell();
+			Phrase customerNameValues = new Phrase(
+					"TO :S Technologies,No 50, Bajanai Koil Street, Paruthapattu, Avadi Chennai - 600 089,Tamilnadu.",
+					toaddress);
+			pdfWordCell.addElement(customerNameValues);
+			table.addCell(pdfWordCell);
+			document.add(table);
+
+			Paragraph preface = new Paragraph("Tax Invoice", normalinvoice);
+			preface.setAlignment(Element.ALIGN_CENTER);
+
+			document.add(preface);
 
 			List<CustomerInvoice> dataObjList = new ArrayList<CustomerInvoice>();
 
-			
-
-			
 			for (CustomerInvoice customerInvoice : customerinvoicepdf) {
 
 				table = new PdfPTable(2);
@@ -234,196 +225,171 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 				float[] colWidth = { 2f, 2f };
 				table.setWidths(colWidth);
 
-				/*Phrase invoiceNoLable = new Phrase("InvoiceNo", boldFont);
-				pdfWordCell = new PdfPCell();
-				pdfWordCell.addElement(invoiceNoLable);
-				table.addCell(pdfWordCell);
-				
-				pdfWordCell = new PdfPCell();
-				Phrase invoiceNoValue = new Phrase(String.valueOf(customerInvoice.getCustomerinvoiceid()), normalFont);
-				pdfWordCell.addElement(invoiceNoValue);
-				table.addCell(pdfWordCell);*/
-				
-				
+				/*
+				 * Phrase invoiceNoLable = new Phrase("InvoiceNo", boldFont); pdfWordCell = new
+				 * PdfPCell(); pdfWordCell.addElement(invoiceNoLable);
+				 * table.addCell(pdfWordCell);
+				 * 
+				 * pdfWordCell = new PdfPCell(); Phrase invoiceNoValue = new
+				 * Phrase(String.valueOf(customerInvoice.getCustomerinvoiceid()), normalFont);
+				 * pdfWordCell.addElement(invoiceNoValue); table.addCell(pdfWordCell);
+				 */
 
 				Phrase customerNameLable = new Phrase("Customer Name", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(customerNameLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase customerNameValue = new Phrase(customerInvoice.getCustomername(), normalFont);
 				pdfWordCell.addElement(customerNameValue);
 				table.addCell(pdfWordCell);
-				
-				
+
 				Phrase totalTripLable = new Phrase("Total Trip", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(totalTripLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase totalTripValue = new Phrase(customerInvoice.getTotaltrip(), normalFont);
 				pdfWordCell.addElement(totalTripValue);
 				table.addCell(pdfWordCell);
-				
-				
+
 				Phrase dateLable = new Phrase("Date", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(dateLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase dateValue = new Phrase(customerInvoice.getCreateddate(), normalFont);
 				pdfWordCell.addElement(dateValue);
 				table.addCell(pdfWordCell);
-				
-				
-				
+
 				Phrase truckTypeLable = new Phrase("Truck Type", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(truckTypeLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase truckTypeValue = new Phrase(customerInvoice.getTrucktype(), normalFont);
 				pdfWordCell.addElement(truckTypeValue);
 				table.addCell(pdfWordCell);
-				
-				
+
 				Phrase noOfCaseLable = new Phrase("No of case", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(noOfCaseLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase noOfCaseValue = new Phrase(customerInvoice.getTotalcase(), normalFont);
 				pdfWordCell.addElement(noOfCaseValue);
 				table.addCell(pdfWordCell);
-				
-				//vendorInvoice.getTotalkmpercharge() != null ? vendorInvoice.getTotalkmpercharge() : ""
-				
+
+				// vendorInvoice.getTotalkmpercharge() != null ?
+				// vendorInvoice.getTotalkmpercharge() : ""
+
 				Phrase totalkmsLable = new Phrase("Total kms", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(totalkmsLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase totalkmsValue = new Phrase(customerInvoice.getTotalkm(), normalFont);
 				pdfWordCell.addElement(totalkmsValue);
 				table.addCell(pdfWordCell);
-				
-				
+
 				Phrase perKmsTotalLable = new Phrase("Total Per Kms", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(perKmsTotalLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
-				Phrase perKmsTotalValue = new Phrase(customerInvoice.getTotalkmpercharge() != null ? customerInvoice.getTotalkmpercharge() : "", normalFont);
+				Phrase perKmsTotalValue = new Phrase(
+						customerInvoice.getTotalkmpercharge() != null ? customerInvoice.getTotalkmpercharge() : "",
+						normalFont);
 				pdfWordCell.addElement(perKmsTotalValue);
 				table.addCell(pdfWordCell);
-				
-				
-				
+
 				Phrase totalFreightAmtLable = new Phrase("Total Freight Amt", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(totalFreightAmtLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
-				Phrase totalFreightAmtValue = new Phrase(customerInvoice.getTotalkmpercharge() != null ? customerInvoice.getTotalkmpercharge() : "", normalFont);
+				Phrase totalFreightAmtValue = new Phrase(
+						customerInvoice.getTotalkmpercharge() != null ? customerInvoice.getTotalkmpercharge() : "",
+						normalFont);
 				pdfWordCell.addElement(totalFreightAmtValue);
 				table.addCell(pdfWordCell);
-				
-				
-				
+
 				Phrase advanceLable = new Phrase("Advance", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(advanceLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase advanceValue = new Phrase(customerInvoice.getTotaladvance(), normalFont);
 				pdfWordCell.addElement(advanceValue);
 				table.addCell(pdfWordCell);
-				
-				
 
 				Phrase discountLable = new Phrase("Discount", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(discountLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase discountValue = new Phrase(customerInvoice.getTotaldiscount(), normalFont);
 				pdfWordCell.addElement(discountValue);
 				table.addCell(pdfWordCell);
-				
-				
-				
+
 				Phrase breakageLable = new Phrase("Leakage/Breakage", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(breakageLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase breakageValue = new Phrase(customerInvoice.getLeakage(), normalFont);
 				pdfWordCell.addElement(breakageValue);
 				table.addCell(pdfWordCell);
-				
-				
-				
-				
+
 				Phrase grantTotalLable = new Phrase("Grant Total", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(grantTotalLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase amountValue = new Phrase(customerInvoice.getAmount(), normalFont);
 				pdfWordCell.addElement(amountValue);
 				table.addCell(pdfWordCell);
-				
-				
-				
-				
-				
 
 				Phrase statusLable = new Phrase("Status", boldFont);
 				pdfWordCell = new PdfPCell();
 				pdfWordCell.addElement(statusLable);
 				table.addCell(pdfWordCell);
-				
+
 				pdfWordCell = new PdfPCell();
 				Phrase statusValue = new Phrase(customerInvoice.getPaymentstatus(), normalFont);
 				pdfWordCell.addElement(statusValue);
 				table.addCell(pdfWordCell);
-				
 
-				
 				document.add(table);
 				document.newPage();
-				
-			}
 
-			
+			}
 
 			document.close();
 			writer.close();
 			message = "PDF Downloaded Successfully";
-			
-			
-			/*HttpServletRequest req = (HttpServletRequest)
-			HttpServletResponse resp = (HttpServletResponse)*/
-			/*try {
-				HttpServletRequest request = null; HttpServletResponse response=null;
-				response.ad
-				downloadPDF(response);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+
+			/*
+			 * HttpServletRequest req = (HttpServletRequest) HttpServletResponse resp =
+			 * (HttpServletResponse)
+			 */
+			/*
+			 * try { HttpServletRequest request = null; HttpServletResponse response=null;
+			 * response.ad downloadPDF(response); } catch (IOException e) { // TODO
+			 * Auto-generated catch block e.printStackTrace(); }
+			 */
 
 		} catch (DocumentException e) {
 			e.printStackTrace();
@@ -431,25 +397,19 @@ public class CustomerInvoiceServiceImpl implements CustomerInvoiceService {
 
 		return message;
 	}
-	
-	
-	/*public static void downloadPDF(HttpServletResponse response)
-		    throws IOException{
-		    response.setContentType("application/pdf");
-		    response.setHeader("Content-disposition","attachment;filename="+ "testPDF.pdf");
-		    try {
-		        File f = new File("C://New folder//itext_Test.pdf");
-		        FileInputStream fis = new FileInputStream(f);
-		        DataOutputStream os = new DataOutputStream(response.getOutputStream());
-		        response.setHeader("Content-Length",String.valueOf(f.length()));
-		        byte[] buffer = new byte[1024];
-		        int len = 0;
-		        while ((len = fis.read(buffer)) >= 0) {
-		            os.write(buffer, 0, len);
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
+
+	@Override
+	public List<CustomerInvoice> findCustomerInvoiceByCustdatename(String fromdate, String todate,
+			String customername) {
+
+		if (fromdate != null && todate != null && customername != null) {
+			return customerInvoiceRepository.findCustomerInvoiceByCustdatename(customername, fromdate,
+					todate);
+		} else if (fromdate != null && todate != null) {
+			return customerInvoiceRepository.findCustInvoiceByFromDateToDate(fromdate, todate);
+		} else {
+			return customerInvoiceRepository.findCustInvoiceByCustomerName(customername);
 		}
-*/
+	}
+	
 }

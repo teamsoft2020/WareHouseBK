@@ -29,4 +29,6 @@ public interface CustomerInvoiceService {
 	
 	public String  generatePdfForCustomerInvoiceCalculated(List<CustomerInvoice> customerinvoicepdf) throws FileNotFoundException;
 	
+	public List<CustomerInvoice> findCustomerInvoiceByCustdatename(String fromdate, String todate,String customername);
+	
 }

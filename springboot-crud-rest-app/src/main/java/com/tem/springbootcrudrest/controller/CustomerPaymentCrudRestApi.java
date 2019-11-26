@@ -1,8 +1,11 @@
 package com.tem.springbootcrudrest.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,9 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.CustomerPaymentParent;
 import com.tem.springbootcrudrest.model.Customerpayment;
-import com.tem.springbootcrudrest.model.VendorInvoice;
-import com.tem.springbootcrudrest.model.VendorPaymentUpdateInCustomerInvoice;
-import com.tem.springbootcrudrest.model.Vendorpayment;
 import com.tem.springbootcrudrest.service.CustomerPaymentService;
 import com.tem.util.UTCDateTime;
 
@@ -94,4 +94,24 @@ public class CustomerPaymentCrudRestApi {
 
 	}
 	
+	//create manpowerpayment on customer and vendor payment table
+	
+	@PostMapping("/createmanpowerpayment")
+	public ResponseEntity<Map<String, String>> createManpowerPayment(@RequestBody CustomerPaymentParent customerpaymentlist) {
+
+		String datetime = UTCDateTime.getCurentTimeAndDate();
+
+		customerpaymentlist.setCreateddate(datetime);
+
+		String customerPaymentresponse = customerPaymentService
+				.createManpowerPayment(customerpaymentlist);
+		
+		Map<String, String> responsemap = new HashMap<String, String>();
+		responsemap.put("status", customerPaymentresponse);
+
+		return ResponseEntity.ok(responsemap);
+	}
+	
+	
+
 }

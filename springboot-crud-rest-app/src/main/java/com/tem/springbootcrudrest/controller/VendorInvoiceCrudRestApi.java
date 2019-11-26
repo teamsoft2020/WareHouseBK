@@ -111,5 +111,13 @@ public class VendorInvoiceCrudRestApi {
 
 	}
 	
+	@RequestMapping(path = "/vendorinvoicebydatename", method = RequestMethod.GET)
+	public List<VendorInvoice> findVendorInvoiceByCustdatename(@RequestParam(required = false) String fromdate, @RequestParam(required = false) String todate,@RequestParam(required = false) String vendorname) {
+
+		List<VendorInvoice> vendorInvoice = vendorInvoiceService.findVendorInvoiceByCustdatename(fromdate, todate,vendorname);
+
+		return vendorInvoice;
+	}
+	
 
 }

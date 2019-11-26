@@ -354,4 +354,16 @@ public class VendorInvoiceServiceImpl implements VendorInvoiceService {
 		return message;
 	}
 
+	@Override
+	public List<VendorInvoice> findVendorInvoiceByCustdatename(String fromdate, String todate, String vendorname) {
+		if (fromdate != null && todate != null && vendorname != null) {
+			return vendorInvoiceRepository.findVendorInvoiceByVenddatename(vendorname, fromdate,
+					todate);
+		} else if (fromdate != null && todate != null) {
+			return vendorInvoiceRepository.findVendInvoiceByFromDateToDate(fromdate, todate);
+		} else {
+			return vendorInvoiceRepository.findCustInvoiceByVendorName(vendorname);
+		}
+	}
+
 }

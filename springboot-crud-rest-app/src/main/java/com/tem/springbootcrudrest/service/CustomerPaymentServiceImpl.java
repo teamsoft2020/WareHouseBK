@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tem.springbootcrudrest.model.CustomerInvoice;
 import com.tem.springbootcrudrest.model.CustomerPaymentParent;
 import com.tem.springbootcrudrest.model.Customerpayment;
-import com.tem.springbootcrudrest.model.VendorInvoice;
+import com.tem.springbootcrudrest.model.VendorPaymentParent;
 import com.tem.springbootcrudrest.model.Vendorpayment;
-import com.tem.springbootcrudrest.repository.CustomerInvoiceRepository;
 import com.tem.springbootcrudrest.repository.CustomerPaymentParentRepository;
 import com.tem.springbootcrudrest.repository.CustomerPaymentRepository;
+import com.tem.springbootcrudrest.repository.VendorPaymentParentRepository;
+import com.tem.springbootcrudrest.repository.VendorPaymentRepository;
 import com.tem.util.UTCDateTime;
 
 @Component
@@ -24,6 +24,12 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 
 	@Autowired
 	CustomerPaymentRepository customerPaymentRepository;
+
+	@Autowired
+	VendorPaymentParentRepository vendorPaymentParentRepository;
+
+	@Autowired
+	VendorPaymentRepository vendorPaymentRepository;
 
 	@Override
 	public CustomerPaymentParent createCustomerPayment(CustomerPaymentParent customerpaymentlist) {
@@ -109,13 +115,12 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 		List<Customerpayment> customerchequeist = new ArrayList<Customerpayment>();
 
 		for (Customerpayment customercheques : customerchequelist) {
-			
+
 			Customerpayment customercheque = customerPaymentRepository
 					.findByChildCustomerPaymentId(customercheques.getChildcustomerpaymentid());
-			
-			
+
 			Customerpayment customerpaymentchequeobj = new Customerpayment();
-			if(customercheques.getStatus().equals("Bounced")) {
+			if (customercheques.getStatus().equals("Bounced")) {
 				customerpaymentchequeobj.setAmount(customercheque.getAmount());
 				customerpaymentchequeobj.setBalanceamount(customercheque.getBalanceamount());
 				customerpaymentchequeobj.setInstrumentno(customercheque.getInstrumentno());
@@ -124,9 +129,8 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 				customerpaymentchequeobj.setCustomername(customercheque.getCustomername());
 				customerpaymentchequeobj.setCustomerPaymentParent(customercheque.getCustomerPaymentParent());
 				customerPaymentRepository.save(customerpaymentchequeobj);
-				
+
 			}
-			
 
 			// customerpayment.setBalanceamount(customercheque.getBalanceamount());
 			customercheque.setStatus(customercheques.getStatus());
@@ -136,9 +140,69 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 
 			customerchequeist.add(customerchequetobject);
 
-			
 		}
 		return customerchequeist;
+	}
+	
+
+	@Override
+	public String createManpowerPayment(CustomerPaymentParent customerpaymentlist) {
+
+		String datetime = UTCDateTime.getCurentTimeAndDate();
+
+		customerpaymentlist.setCreateddate(datetime);
+
+		String name = null;
+
+		for (Customerpayment customerpayment : customerpaymentlist.getCustomerpayment()) {
+			name = customerpayment.getCustomername();
+		}
+
+		Customerpayment customerpay = customerPaymentRepository.findByCustomerNameForManPower(name);
+
+		Vendorpayment vendorpay = vendorPaymentRepository.findByVendorNameForManPower(name);
+
+		if (customerpay != null) {
+
+			customerPaymentParentRepository.save(customerpaymentlist);
+
+			return "Customer Payment Created Successfully";
+		} else {
+
+			VendorPaymentParent vendorpaymentparent = new VendorPaymentParent();
+			Vendorpayment vendorpayment = null;
+			List<Vendorpayment> vendorpaymentlist = new ArrayList<Vendorpayment>();
+
+			// vendorpaymentparent
+
+			if (vendorpay != null) {
+				vendorpaymentparent.setCreateddate(customerpaymentlist.getCreateddate());
+				vendorpaymentparent.setVendorreceiptdate(customerpaymentlist.getCustomerreceiptdate());
+				vendorpaymentparent.setModifieddate(customerpaymentlist.getModifieddate());
+
+				for (Customerpayment customerpayment : customerpaymentlist.getCustomerpayment()) {
+
+					vendorpayment = new Vendorpayment();
+
+					// vendorpayment
+					vendorpayment.setAmount(customerpayment.getAmount());
+					vendorpayment.setBalanceamount(customerpayment.getBalanceamount());
+					vendorpayment.setInstrumentdate(customerpayment.getInstrumentdate());
+					vendorpayment.setInstrumentno(customerpayment.getInstrumentno());
+					vendorpayment.setPaymenttype(customerpayment.getPaymenttype());
+					vendorpayment.setStatus(customerpayment.getStatus());
+					vendorpayment.setVendorname(customerpayment.getCustomername());
+					vendorpaymentlist.add(vendorpayment);
+
+				}
+				vendorpaymentparent.setVendorpayment(vendorpaymentlist);
+
+			} 
+			vendorPaymentParentRepository.save(vendorpaymentparent);
+
+			return "Vendor Payment Created Successfully";
+		}
+
 	}
 
 }

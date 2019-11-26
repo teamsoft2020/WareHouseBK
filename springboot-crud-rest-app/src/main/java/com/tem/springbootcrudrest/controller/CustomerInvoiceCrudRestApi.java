@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tem.springbootcrudrest.model.CustomerInvoice;
 import com.tem.springbootcrudrest.model.CustomerPaymentUpdateInCustomerInvoice;
+import com.tem.springbootcrudrest.model.ManPower;
 import com.tem.springbootcrudrest.model.VendorInvoice;
 import com.tem.springbootcrudrest.service.CustomerInvoiceService;
 import com.tem.util.UTCDateTime;
@@ -97,6 +98,14 @@ public class CustomerInvoiceCrudRestApi {
 
 		return ResponseEntity.ok(responsemap);
 
+	}
+	
+	@RequestMapping(path = "/customerinvoicebydatename", method = RequestMethod.GET)
+	public List<CustomerInvoice> findCustomerInvoiceByCustdatename(@RequestParam(required = false) String fromdate, @RequestParam(required = false) String todate,@RequestParam(required = false) String customername) {
+
+		List<CustomerInvoice> manpower = customerInvoiceService.findCustomerInvoiceByCustdatename(fromdate, todate,customername);
+
+		return manpower;
 	}
 	
 	/*
