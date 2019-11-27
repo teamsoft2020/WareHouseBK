@@ -68,7 +68,6 @@ public class CustomerPaymentCrudRestApi {
 	@RequestMapping(path = "/findcustomer/{name}", method = RequestMethod.GET)
 	public List<Customerpayment> getCustomerListByName(@PathVariable(value = "name") String name) {
 
-		System.out.println("name "+name);
 		List<Customerpayment> customerList = customerPaymentService.getCustomerListByName(name);
 
 		return customerList;

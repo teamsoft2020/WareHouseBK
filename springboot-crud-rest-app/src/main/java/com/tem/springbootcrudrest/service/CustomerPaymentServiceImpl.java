@@ -6,14 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tem.springbootcrudrest.model.Customer;
 import com.tem.springbootcrudrest.model.CustomerPaymentParent;
 import com.tem.springbootcrudrest.model.Customerpayment;
+import com.tem.springbootcrudrest.model.Vendor;
 import com.tem.springbootcrudrest.model.VendorPaymentParent;
 import com.tem.springbootcrudrest.model.Vendorpayment;
 import com.tem.springbootcrudrest.repository.CustomerPaymentParentRepository;
 import com.tem.springbootcrudrest.repository.CustomerPaymentRepository;
+import com.tem.springbootcrudrest.repository.CustomerRepository;
 import com.tem.springbootcrudrest.repository.VendorPaymentParentRepository;
 import com.tem.springbootcrudrest.repository.VendorPaymentRepository;
+import com.tem.springbootcrudrest.repository.VendorRepository;
 import com.tem.util.UTCDateTime;
 
 @Component
@@ -30,6 +34,12 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 
 	@Autowired
 	VendorPaymentRepository vendorPaymentRepository;
+	
+	@Autowired
+	CustomerRepository customerRepository;
+	
+	@Autowired
+	VendorRepository vendorRepository;
 
 	@Override
 	public CustomerPaymentParent createCustomerPayment(CustomerPaymentParent customerpaymentlist) {
@@ -158,11 +168,18 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 			name = customerpayment.getCustomername();
 		}
 
-		Customerpayment customerpay = customerPaymentRepository.findByCustomerNameForManPower(name);
+		System.out.println("befor");
+		//List<Customerpayment> customerpay = customerPaymentRepository.findByCustomerNameForManPower(name);
+		
+		Customer customer = customerRepository.findCustomerByNamesforCustpaymentservice(name);
+		
+		System.out.println("vend");
 
-		Vendorpayment vendorpay = vendorPaymentRepository.findByVendorNameForManPower(name);
+		//List<Vendorpayment> vendorpay = vendorPaymentRepository.findByVendorNameForManPower(name);
+		
+		Vendor vendor = vendorRepository.findVendorNamesforCustPayService(name);
 
-		if (customerpay != null) {
+		if (customer != null) {
 
 			customerPaymentParentRepository.save(customerpaymentlist);
 
@@ -175,7 +192,7 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 
 			// vendorpaymentparent
 
-			if (vendorpay != null) {
+			if (vendor != null) {
 				vendorpaymentparent.setCreateddate(customerpaymentlist.getCreateddate());
 				vendorpaymentparent.setVendorreceiptdate(customerpaymentlist.getCustomerreceiptdate());
 				vendorpaymentparent.setModifieddate(customerpaymentlist.getModifieddate());

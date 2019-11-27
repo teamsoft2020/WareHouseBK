@@ -36,4 +36,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 	
 	@Query(value = "select COUNT(*) from Vendor v where v.vendorname=:name")
 	public int findVendorNamesCount(@Param("name") String name);
+	
+	@Query(value = "select t From Customer t where t.customername=:name")
+	public Customer findCustomerByNamesforCustpaymentservice(@Param("name") String name);
 }

@@ -39,7 +39,7 @@ public interface CustomerPaymentRepository extends JpaRepository<Customerpayment
 				@Param("todate") String todate,@Param("customername") String customername);
 	   
 	@Query(value = "SELECT c FROM Customerpayment c WHERE c.customername=:customername")
-	public Customerpayment findByCustomerNameForManPower(@Param("customername") String customername);
+	public List<Customerpayment> findByCustomerNameForManPower(@Param("customername") String customername);
 	 
 	 //select * from customerpayment where (paymenttype='DD' and status='Presented' or status='Pending') or (paymenttype='Cheque' and status='Presented' or status='Pending')
 	 
