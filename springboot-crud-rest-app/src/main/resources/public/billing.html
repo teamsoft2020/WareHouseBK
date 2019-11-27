@@ -613,7 +613,8 @@
 <label class="col-6"><b>Customer Branch</b> </label>
 <input type="text" list="dataListbranch" ng-model="manpowerBilling.customerbranch" class="form-control" ng-change="loadbindStateData(manpowerBilling.customerbranch)" placeholder="Select Customer Branch" />  
  <datalist id="dataListbranch" >
-  <option ng-repeat="b in custAddr" value="{{b.customerAddr}}">{{b.customerAddr}}</option> 
+  <option ng-repeat="b in custAddr" value="{{b.customerAddr}}" ng-if="b.customerAddr != undefined">{{b.customerAddr}}</option> 
+  <option ng-repeat="b in custAddr" value="{{b.vendoraddr}}" ng-if="b.vendoraddr != undefined">{{b.vendoraddr}}</option>
 <!-- <option ng-repeat="b in trucknoJson" value="{{b.vehicleNo}}"></option> -->
 </datalist>
 
@@ -622,6 +623,7 @@
 <label class="col-6"><b>State</b> </label>
 <input type="text" list="dataListstate" ng-model="manpowerBilling.customerstate" class="form-control"  disabled/>  
  <datalist id="dataListstate" >
+  <option ng-repeat="b in custAddr" value="{{b.state}}" >{{b.state}}</option> 
   <option ng-repeat="b in custAddr" value="{{b.state}}" >{{b.state}}</option> 
 <!-- <option ng-repeat="b in trucknoJson" value="{{b.vehicleNo}}"></option> -->
 </datalist>

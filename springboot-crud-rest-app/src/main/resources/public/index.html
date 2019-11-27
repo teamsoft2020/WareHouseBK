@@ -2657,7 +2657,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	};
 	
 	$scope.calculateTotal =function(){
-		$scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+		$scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 		angular.forEach($scope.checkedValue, function(value, key) {
 			$scope.grandTotalList.customername = value.origin;
 			$scope.grandTotalList.truckno = value.truckno;
@@ -2687,7 +2687,7 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	}
 	
 	$scope.calculateVendorTotal =function(){
-		$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+		$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 		angular.forEach($scope.checkedVendorValue, function(value, key) {
 			$scope.grandTotalVendorList.vendorname = value.destination;
 			$scope.grandTotalVendorList.truckno = value.truckno;
@@ -2714,12 +2714,12 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 	$scope.resetCustomerInvoice =function(){
 		$scope.customerInvoice={fromdate:"",todate:""};
 		$scope.customerInvoiceJson =[];
-		$scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+		$scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 	}
 	$scope.resetVendorInvoice =function(){
 		$scope.vendorInvoice={fromdate:"",todate:"",truckno:""};
 		$scope.vendorInvoiceJson =[];
-		$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+		$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 	}
 	$scope.saveCustomerInvoice =function(){
 		$scope.custPrintData={};
@@ -2728,9 +2728,9 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		angular.forEach($scope.checkedValue, function(list, key) {
     		$scope.custcallBackdata.loadnnumber.push(list.loadno);
     	});
-		$scope.grandTotalList.cancatload=$scope.custcallBackdata.loadnnumber;
-		
-		if($scope.grandTotalList.trucktype==""){
+		//$scope.grandTotalList.cancatload=$scope.custcallBackdata.loadnnumber;
+		$scope.grandTotalList.cancatload=$scope.custcallBackdata.loadnnumber.map(function(obj){return obj;}).join(','); 
+		if($scope.grandTotalList.truckType=="" && $scope.customerInvoiceJson ==""){
 			 toastr.error("Sorry,Can't save before complete calculation");
 			return;
 		}/* else if($scope.grandTotalList.customerbranch==""){
@@ -2743,7 +2743,9 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 			 toastr.error('Please fill the required fields');
 				return;
 		} */
-		else{
+		else if($scope.grandTotalList.custinvoicedate =="" || $scope.grandTotalList.custinvoicedate == undefined){
+			toastr.error('Invoice Date mandatory to proceed save');
+		}else{
 			var url = location.origin +"/api/v1/createcustomerinvoice";
 		    $http({
 		        method : 'POST',
@@ -2766,7 +2768,8 @@ angular.forEach($scope.customerInvoiceJson, function(value, key) {
 		          console.log(response.status);
 		        });
 		}
-	}
+		}
+	
 	
 	$scope.getCustDetails =function(data){
 		
@@ -2831,11 +2834,13 @@ $scope.saveVendorInvoice =function(){
 	angular.forEach($scope.checkedVendorValue, function(list, key) {
 		$scope.vencallBackdata.loadnnumber.push(list.loadno);
 	});
-	$scope.grandTotalVendorList.cancatload=$scope.vencallBackdata.loadnnumber;
-	
-	if($scope.grandTotalVendorList.trucktype==""){
+	//$scope.grandTotalVendorList.cancatload=$scope.vencallBackdata.loadnnumber;
+	$scope.grandTotalVendorList.cancatload=$scope.vencallBackdata.loadnnumber.map(function(obj){return obj;}).join(','); 
+	if($scope.grandTotalVendorList.truckType=="" && $scope.vendorInvoiceJson==''){
 		 toastr.error("Sorry,Can't save before complete calculation");
 		return;
+	}else if($scope.grandTotalVendorList.veninvoicedate =="" ||$scope.grandTotalVendorList.veninvoicedate ==undefined){
+		toastr.error('Invoice Date mandatory to proceed save');
 	}else{
 		var url = location.origin +"/api/v1/createvendorinvoice";
 		    $http({
@@ -2875,7 +2880,7 @@ $scope.updateVenBilledTrip =function(data){
         	if(response.data.status=="Updated Successfully"){
         		$scope.vendorInvoiceJson = [];
 				$scope.checkedVendorValue=[];
-				$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+				$scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 				toastr.success('Billed successfully');
 				$scope.venInvoicePrint();
         	}
@@ -3022,7 +3027,7 @@ $scope.updateVenBilledTrip =function(data){
 	$scope.loadbindStateData =function(data){
 		//$scope.manpowerBilling.customerbranch="";
 		 angular.forEach($scope.custAddr,function(value,index){
-		if(data==value.customerAddr){
+		if(data==value.customerAddr || data==value.vendoraddr){
 			$scope.manpowerBilling.customerstate=value.state;
 		}
 		}) 
@@ -3216,14 +3221,14 @@ $scope.updateVenBilledTrip =function(data){
 				            leftColumns: 1,
 				            rightColumns: 1
 				        }); 
-		   $scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+		   $scope.grandTotalVendorList={totaltrip:"",vendorname:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 		  }else if(currEvent =="CustomerInvoice"){
 			  $('#CustomerInvoice').show();
 			  $('#CustomerInvoice').addClass("active");
 			  $('#VendorInvoice').hide();
 			  $('#customerView').hide();
 			  $('#vendorView').hide();
-			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 		  }else if(currEvent =="manPowerBilling"){
 			  $('#manPowerBilling').show();
 			  $('#manPowerBilling').addClass("active");
@@ -3233,7 +3238,7 @@ $scope.updateVenBilledTrip =function(data){
 			  $('#vendorView').hide();
 			  $scope.getCustVenListmanPower();
 			  $scope.getItem();
-			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:[]};
+			 $scope.grandTotalList={totaltrip:"",customername:"",invoiceNo:"",truckno:"",trucktype:"",totalkm:0,totalcase:0,totalkmpercharge:0,totalfreightamt:0,totaladvance:0,totaldiscount:0,netamount:0,paymentstatus:"",receiptnumber:"",leakage:"",cancatload:""};
 		  }else{
 			  $('#vendorView').show();
 			  $('#vendorView').addClass("active");
@@ -3839,12 +3844,17 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
  			
 		});
  	}
-	
+	$scope.deleteMppaymentIndex =function(index){
+		$scope.mppaymentJson.splice(index,1);		
+	}
+ 	$scope.addNewMppayment =function(){
+ 		$scope.mppaymentJson.push({paymenttype: "",instrumentdate: "", amount: "", instrumentno:""}); 		
+ 	}
 	$scope.savempPayment =function(){
 		$scope.mpPaymentcallBackdata={paymentid:"",invoiceid:[]};
 		$scope.mpPaymentsubmitData={customerreceiptdate:$scope.commonmpList.custreceiptDate,customerpayment:[]};
 		$scope.mpPaymentsubmitData.customerpayment=$scope.mppaymentJson;
-		var url = location.origin +"/api/v1/createcustomerpayment";
+		var url = location.origin +"/api/v1/createmanpowerpayment";
 		$scope.checkCredit=false;
 		$scope.checkmpamt=0;
 		angular.forEach($scope.mppaymentJson, function(value, key) {
@@ -3882,11 +3892,11 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 				        'Content-Type' : 'application/json'
 				        }
 				        }).then(function (response) {
-				            $scope.mpPaymentcallBackdata.paymentid=response.data.cuspaymentid;
-				        	angular.forEach($scope.checkedcustPaymentValue, function(list, key) {
-				        		$scope.custPaymentcallBackdata.invoiceid.push(list.customerinvoiceid);
+				            $scope.mpPaymentcallBackdata.paymentid=response.data.status;
+				        	angular.forEach($scope.checkedmanpowerPaymentValue, function(list, key) {
+				        			$scope.mpPaymentcallBackdata.invoiceid.push(list.manpowerid);
 				        	});
-				        	$scope.updatecustomerInvoice();
+				        	$scope.updatempInvoice();
 				        }, function error(response) {
 				        	toastr.error('Error while Payment process');
 				          console.log(response.status);
@@ -3908,11 +3918,11 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			        }).then(function (response) {
 			            //$scope.listCustomerJson = response.data;
 			           // toastr.success('Data added successfully');
-			            $scope.custPaymentcallBackdata.paymentid=response.data.cuspaymentid;
-			        	angular.forEach($scope.checkedcustPaymentValue, function(list, key) {
-			        		$scope.custPaymentcallBackdata.invoiceid.push(list.customerinvoiceid);
+			            $scope.mpPaymentcallBackdata.paymentid=response.data.status;
+			        	angular.forEach($scope.checkedmanpowerPaymentValue, function(list, key) {
+			        		$scope.mpPaymentcallBackdata.invoiceid.push(list.manpowerid);
 			        	});
-			        	$scope.updatecustomerInvoice();
+			        	$scope.updatempInvoice();
 			        }, function error(response) {
 			        	toastr.error('Error while Payment process');
 			          console.log(response.status);
@@ -3923,6 +3933,24 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			
 		}
 	}
+	$scope.updatempInvoice=function(){
+		var url = location.origin +"/api/v1/updatemanpowerpaymentid";
+		$http({
+	        method : 'PUT',
+	        url : url,
+	        data : angular.toJson($scope.mpPaymentcallBackdata),
+	        headers : {
+	        'Content-Type' : 'application/json'
+	        }
+	        }).then(function (response) {
+	            //$scope.listCustomerJson = response.data;
+	            toastr.success('Payment registered successfully');
+	            $scope.getPayItem();
+	        }, function error(response) {
+	        	toastr.error('Payment not registered');
+	          console.log(response.status);
+	        });
+	}
 	$scope.getmpInitialize=function(){
 		 $('#datetimepicker_custfromviewdetails').datetimepicker({
 		        format: 'DD/MM/YYYY'
@@ -3932,10 +3960,10 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		    });
 		 $scope.getPayItem();
 	}
-	$scope.initcustPaymentView()=function(){
+	$scope.initcustPaymentView=function(){
 		$scope.customerPaymentView={fromdate:"",todate:"",customername:""};
 	 }
- 	$scope.initvenPaymentView()=function(){
+ 	$scope.initvenPaymentView=function(){
  		$scope.vendorPaymentView={fromdate:"",todate:"",vendorname:""};
 	 }
 	$scope.navRedirect =function(event){
