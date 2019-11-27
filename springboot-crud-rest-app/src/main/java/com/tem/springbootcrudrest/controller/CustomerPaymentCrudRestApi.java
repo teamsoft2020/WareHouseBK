@@ -96,16 +96,16 @@ public class CustomerPaymentCrudRestApi {
 	//create manpowerpayment on customer and vendor payment table
 	
 	@PostMapping("/createmanpowerpayment")
-	public ResponseEntity<Map<String, String>> createManpowerPayment(@RequestBody CustomerPaymentParent customerpaymentlist) {
+	public ResponseEntity<Map<String, Long>> createManpowerPayment(@RequestBody CustomerPaymentParent customerpaymentlist) {
 
 		String datetime = UTCDateTime.getCurentTimeAndDate();
 
 		customerpaymentlist.setCreateddate(datetime);
 
-		String customerPaymentresponse = customerPaymentService
+		long customerPaymentresponse = customerPaymentService
 				.createManpowerPayment(customerpaymentlist);
 		
-		Map<String, String> responsemap = new HashMap<String, String>();
+		Map<String, Long> responsemap = new HashMap<String, Long>();
 		responsemap.put("status", customerPaymentresponse);
 
 		return ResponseEntity.ok(responsemap);

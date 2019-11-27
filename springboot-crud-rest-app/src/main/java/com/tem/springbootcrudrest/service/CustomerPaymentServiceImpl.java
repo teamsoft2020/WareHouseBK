@@ -156,7 +156,7 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 	
 
 	@Override
-	public String createManpowerPayment(CustomerPaymentParent customerpaymentlist) {
+	public long createManpowerPayment(CustomerPaymentParent customerpaymentlist) {
 
 		String datetime = UTCDateTime.getCurentTimeAndDate();
 
@@ -168,22 +168,19 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 			name = customerpayment.getCustomername();
 		}
 
-		System.out.println("befor");
 		//List<Customerpayment> customerpay = customerPaymentRepository.findByCustomerNameForManPower(name);
 		
 		Customer customer = customerRepository.findCustomerByNamesforCustpaymentservice(name);
 		
-		System.out.println("vend");
-
 		//List<Vendorpayment> vendorpay = vendorPaymentRepository.findByVendorNameForManPower(name);
 		
 		Vendor vendor = vendorRepository.findVendorNamesforCustPayService(name);
 
 		if (customer != null) {
 
-			customerPaymentParentRepository.save(customerpaymentlist);
+			CustomerPaymentParent custpayparent = customerPaymentParentRepository.save(customerpaymentlist);
 
-			return "Customer Payment Created Successfully";
+			return custpayparent.getCuspaymentid();
 		} else {
 
 			VendorPaymentParent vendorpaymentparent = new VendorPaymentParent();
@@ -215,9 +212,9 @@ public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 				vendorpaymentparent.setVendorpayment(vendorpaymentlist);
 
 			} 
-			vendorPaymentParentRepository.save(vendorpaymentparent);
+		VendorPaymentParent vendpayparent =	vendorPaymentParentRepository.save(vendorpaymentparent);
 
-			return "Vendor Payment Created Successfully";
+			return vendpayparent.getVendpaymentid();
 		}
 
 	}
