@@ -476,6 +476,36 @@ legend {
       margin: 0 auto;
       overflow:auto;
   }
+   #manage-ledger-table th,
+  #manage-ledger-table td {
+      white-space: nowrap;
+  }
+  #manage-ledger-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
+  
+  #manage-custPaymentView-table th,
+  #manage-custPaymentView-table td {
+      white-space: nowrap;
+  }
+  #manage-custPaymentView-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
+  
+  #manage-venPaymentView-table th,
+  #manage-venPaymentView-table td {
+      white-space: nowrap;
+  }
+  #manage-venPaymentView-table_wrapper.dataTables_wrapper {
+      width: 90%;
+      margin: 0 auto;
+      overflow:auto;
+  }
+  
  .mandatory{
  color:red;
  font-weight: bold;
@@ -3357,6 +3387,56 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			}
 			
 		};
+		
+		 $scope.searchcustPaymentItemView =function(){
+				if($scope.customerPaymentView.fromdate=="" || $scope.customerPaymentView.fromdate== undefined){
+					 toastr.error('Please enter From date');
+					return;
+				}else if($scope.customerPaymentView.todate=="" || $scope.customerPaymentView.todate==undefined){
+					 toastr.error('Please enter To date');
+					return;
+				}else if($scope.customerPaymentView.customername=="" || $scope.customerPaymentView.customername== undefined){
+					 toastr.error('Please enter CustomerName');
+					return;
+				}else{
+					var url=location.origin +"/api/v1/customerinvoicebydatename";
+					 $http({
+						    method : 'GET',
+						    url : url,
+						    params: $scope.customerPaymentView,
+						   }).then(function successCallback(response) {
+						   $scope.customerpaymentListView = response.data;
+						   }, function errorCallback(response) {
+						    console.log(response.statusText);
+						   });
+				}
+				
+			};
+			
+			$scope.searchvenPaymentItemView =function(){
+				if($scope.vendorPaymentView.fromdate=="" || $scope.vendorPaymentView.fromdate== undefined){
+					 toastr.error('Please enter From date');
+					return;
+				}else if($scope.vendorPaymentView.todate=="" || $scope.vendorPaymentView.todate==undefined){
+					 toastr.error('Please enter To date');
+					return;
+				}else if($scope.vendorPaymentView.vendorname=="" || $scope.vendorPaymentView.vendorname== undefined){
+					 toastr.error('Please enter CustomerName');
+					return;
+				}else{
+					var url=location.origin +"/api/v1/vendorinvoicelistinvendor";
+					 $http({
+						    method : 'GET',
+						    url : url,
+						    params: $scope.vendorPaymentView,
+						   }).then(function successCallback(response) {
+						   $scope.vendorpaymentListView = response.data;
+						   }, function errorCallback(response) {
+						    console.log(response.statusText);
+						   });
+				}
+				
+			};
 		 $scope.searchmanpowerviewDetails =function(){
 			 $scope.mppaymentViewList=[];
 				/* if($scope.manpowerview.fromdate=="" || $scope.manpowerview.fromdate== undefined){
@@ -3623,6 +3703,19 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		 $('#datetimepicker_mpinstDate').datetimepicker({
 		        format: 'DD/MM/YYYY'
 		    });
+		 $('#datetimepicker_custfromcustpayview').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_custtocustpayview').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 
+		 $('#datetimepicker_custfromvenpayview').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_custtovenpayview').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
 		 $scope.initcustPayment();
 	}
 	
@@ -3839,6 +3932,12 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 		    });
 		 $scope.getPayItem();
 	}
+	$scope.initcustPaymentView()=function(){
+		$scope.customerPaymentView={fromdate:"",todate:"",customername:""};
+	 }
+ 	$scope.initvenPaymentView()=function(){
+ 		$scope.vendorPaymentView={fromdate:"",todate:"",vendorname:""};
+	 }
 	$scope.navRedirect =function(event){
 		
 		 $(".nav").find(".active").removeClass("active");
@@ -3851,6 +3950,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#manpowerReceipt').hide();
 			  $('#vendorview').hide();
 			  $('#manpowerview').hide();
+			  $scope.initcustPaymentView();
 		  }else if(currEvent =="vendorview"){
 			  $('#Payment').hide();
 			  $('#Receipt').hide();
@@ -3858,6 +3958,7 @@ app.controller('ReceiptController', function ($scope,$timeout,$http,toastr,DTOpt
 			  $('#vendorview').show();
 			  $('#manpowerReceipt').hide();
 			  $('#manpowerview').hide();
+			  $scope.initvenPaymentView();
 		  }else if(currEvent =="vendorPayment"){
 			  $('#Payment').hide();
 			  $('#Receipt').show();
@@ -4356,16 +4457,73 @@ $scope.checkvenVoucherInArray =function(index,item){
 	scope=$scope;
 });
 
-app.controller('LedgerController', function ($scope) {
-	
+app.controller('LedgerController', function ($scope,$timeout,$http,toastr,DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
+	 $scope.initLedger =function(){
+		 $('#datetimepicker_customerfromledge').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $('#datetimepicker_customertoledge').datetimepicker({
+		        format: 'DD/MM/YYYY'
+		    });
+		 $scope.getLedger();
+	 }
+	 
+	$scope.getLedger =function(){
+		//$scope.ledger={fromdate:"",todate:"",customername:""};
+    	$scope.ledgerListitem=[];
+    	//$scope.commonmpList={custreceiptDate:"",totalamount:0};
+		 //$scope.customervendorpayList=[];
+		 var url=location.origin +"/api/v1/combinenameslist";
+		 $http({
+			    method : 'GET',
+			    url : url,
+			   }).then(function successCallback(response) {
+			   //$scope.listCustJson = response.data;
+			   angular.forEach(response.data,function(value,index){
+				   if(value.customername || value.vendorname){
+					   $scope.ledgerListitem.push(value.customername ? value.customername : value.vendorname);  
+				   }
+				   
+			   });
+			   }, function errorCallback(response) {
+			    console.log(response.statusText);
+			   });
+	}
+	$scope.searchLedgerItem =function(){
+		if($scope.ledger.fromdate=="" || $scope.ledger.fromdate== undefined){
+			 toastr.error('Please enter From date');
+			return;
+		}else if($scope.ledger.todate=="" || $scope.ledger.todate==undefined){
+			 toastr.error('Please enter To date');
+			return;
+		}else if($scope.ledger.custvendorname=="" || $scope.ledger.custvendorname== undefined){
+			 toastr.error('Please enter CustomerName');
+			return;
+		}else{
+			var url=location.origin +"/api/v1/ledgerreportform";
+			 $http({
+				    method : 'GET',
+				    url : url,
+				    params: $scope.ledger,
+				   }).then(function successCallback(response) {
+				   $scope.ledgerList = response.data;
+				   }, function errorCallback(response) {
+				    console.log(response.statusText);
+				   });
+		}
+		
+	};
 	$scope.navLedgerRedirect =function(event){
 		 $(".nav").find(".active").removeClass("active");
 		   $(event).addClass("active");
 		   var currEvent=$(event.target).attr('bind-attr');
 		  if(currEvent =="ledger"){
 			  $('#ledger').show(); 
+			
 		  }
 	}
+	  $scope.initLedger();
+	  scope=$scope;
 });
 $(document).ready(function(){
 	$(".menu-toggle").click(function(e) {
