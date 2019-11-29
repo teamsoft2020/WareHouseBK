@@ -28,6 +28,10 @@ public class CustomerDetails {
 		@Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 		private long customerDetailId;
+		@Column(name = "customercode", nullable = false)
+		private String customercode;
+		@Column(name = "branchname", nullable = false)
+		private String branchname;
 		@Column(name = "Customer_Addr", nullable = false)
 		private String customerAddr;
 		@Column(name = "State", nullable = false)
@@ -52,6 +56,12 @@ public class CustomerDetails {
 		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}*/
+		public String getBranchname() {
+			return branchname;
+		}
+		public void setBranchname(String branchname) {
+			this.branchname = branchname;
+		}
 		
 		public long getCustomerDetailId() {
 			return customerDetailId;
@@ -72,6 +82,15 @@ public class CustomerDetails {
 		public void setCustomerAddr(String customerAddr) {
 			this.customerAddr = customerAddr;
 		}
+		
+		public String getCustomercode() {
+			return customercode;
+		}
+
+		public void setCustomercode(String customercode) {
+			this.customercode = customercode;
+		}
+		
 		public String getState() {
 			return state;
 		}

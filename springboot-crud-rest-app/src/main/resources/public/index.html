@@ -853,12 +853,12 @@ $(".custId").css("display","");
 $(".addCust").css("display","block");
 $(".updateCust").css("display","none");
 
-$scope.item = {customercode:"",customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
-$scope.item.customerDetails = [{customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""}];
+$scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
+$scope.item.customerDetails = [{customercode:"",branchname:"",customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""}];
 }
 
 $scope.addCustomerDetails = function(data){
-	$scope.item.customerDetails.push({customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""});
+	$scope.item.customerDetails.push({customercode:"",branchname:"",customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""});
 
 }
 
@@ -867,16 +867,13 @@ $scope.deleteCustomerDetails = function(index){
 
 }
 $scope.addItem = function(item) {
-	if(item.customercode==""){
-		 toastr.error('Please enter CustomerCode');
-		return;
-	}else if(item.customername==""){
+	 if(item.customername==""){
 		 toastr.error('Please enter CustomerName');
 		return;
-	}else if(item.pan==""){
+	}/*else if(item.pan==""){
 		 toastr.error('Please enter PAN');
 		return;
-	}else if(item.bankName==""){
+	} else if(item.bankName==""){
 		 toastr.error('Please enter Bank Name');
 		return;
 	}else if(item.branch==""){
@@ -894,6 +891,14 @@ $scope.addItem = function(item) {
 	}else if(item.contactNo==""){
 		 toastr.error('Please enter Contact Number');
 			return;
+	} */
+	 else if(item.customerDetails[0].branchname==""){
+		 toastr.error('Please enter BranchName');
+		return;
+	}
+	else if(item.customerDetails[0].customercode==""){
+		 toastr.error('Please enter CustomerCode');
+		return;
 	}else if(item.customerDetails[0].customerAddr==""){
 		 toastr.error('Please enter Address');
 			return;
@@ -925,8 +930,8 @@ $scope.addItem = function(item) {
 	        	toastr.success('Data not added');
 	          console.log(response.status);
 	        });
-	    $scope.item = {customercode:"",customername:"",tan:"",kyc:"",pan:"",iec:"",bankName:"",branch:"",accountNo:"",ifsc:"",contactPerson:"",contactNo:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
-	    $scope.item.customerDetails=[{customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""}];
+	    $scope.item = {customername:"",tan:"",kyc:"",pan:"",iec:"",perkmtrs:"",perkmlc2:"",perkmlc4:"",perkmcan6:"",perkmhcv9:"",perkmtrailer:"",fixedamttrs:"",fixedamtlc2:"",fixedamtlc4:"",fixedamtcan6:"",fixedamthcv9:"",fixedamttrailer:""};
+	    $scope.item.customerDetails=[{customercode:"",branchname:"",customerAddr: "",state:"",mobileNo: "",phoneNo: "",gstin: ""}];
 	}
 	   
 }
